@@ -6,6 +6,7 @@ export const environment = {
   //domainLocal : "https://localhost:44359",
   /* Login API URL */
   loginurl : "/api/Login/validateuserlogin/",
+  UploadFileUrl:"/api/Common/UploadFile",
   /* */
 
   /* Employee API URL */

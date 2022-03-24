@@ -103,7 +103,9 @@ export class EmployeeInfoComponent implements OnInit {
     }
     return phoneNumberString;
   }
-  
-
+  public response: {dbPath: ''};
+  public uploadFinished = (event:any) => {
+    this.response = event;
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders  } from '@angular/common/http'; 
+import { HttpClient,HttpEventType,HttpHeaders  } from '@angular/common/http'; 
 import { environment } from 'src/environments/environment.prod';
 import { Employee } from 'src/app/Model/Employee';
 import { Observable } from 'rxjs';
@@ -49,9 +49,7 @@ export class EmployeeapiService {
 
   saveIncident(_req : Incident){ 
 
-    debugger;
-
-    console.log(_req);
+   
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -68,14 +66,25 @@ export class EmployeeapiService {
     return this._http.get<APIResponse<Incident>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
   } 
 
+  UploadFile(formData:FormData)
+  {
+    debugger
+    var headers_object = new HttpHeaders();  
+    headers_object.append('Content-Type', 'text/plain;charset=UTF-8');  
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    }; 
+return this._http.post(environment.domain + environment.UploadFileUrl, formData,{reportProgress: true, observe: 'events'},);  
+  
+     
+  }
+
 
 
 
   saveAttendance(_req : Attendance){ 
-
-    debugger;
-
-    console.log(_req);
+   
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");

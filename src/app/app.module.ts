@@ -51,6 +51,8 @@ import { EmpAddressComponent } from './employee/emp-address/emp-address.componen
 import { EmpComplianceComponent } from './employee/emp-compliance/emp-compliance.component';
 import { EmpRateComponent } from './employee/emp-rate/emp-rate.component';
 import { EmpDeclinedCasesComponent } from './employee/emp-declined-cases/emp-declined-cases.component';
+import { UploadComponent } from './Document/upload/upload.component';
+
 
 FullCalendarModule.registerPlugins([ 
   interactionPlugin,
@@ -88,7 +90,7 @@ FullCalendarModule.registerPlugins([
     ScheduleComponent,
          EmpAvailabilityComponent,
          EmpAddressComponent,    
-         EmpComplianceComponent, EmpRateComponent, EmpDeclinedCasesComponent,
+         EmpComplianceComponent, EmpRateComponent, EmpDeclinedCasesComponent, UploadComponent,
   
   ],
   imports: [
