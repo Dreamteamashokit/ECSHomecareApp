@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-lg-6 col-xs-6">
+        <h4 class="mtm mbm text-uppercase  text-orange"> <strong></strong> </h4>
+    </div>
+    <div class="col-lg-6 col-xs-6 text-right">
+        <button type="button" class="btn btn-md btn-dark mbm mts " (click)="saveChangesModel()">
+            <i class='fa fa-save'></i> Save changes
+        </button>
+    </div>
+</div>
+<form #empf="ngForm">
+    <div class="panel mbn">
+        <div class="panel-heading text-orange">Location</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">locationName</label>
+                        <input required type="text" placeholder="locationName" class="form-control" id="txtlocationName" name="locationName" #FirstName="ngModel" [(ngModel)]="model.locationName">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">billingName</label>
+                        <input required type="text" placeholder="billingName" class="form-control" id="txtbillingName" name="billingName" #billingName="ngModel" [(ngModel)]="model.billingName">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">contact</label>
+                        <input required type="text" placeholder="contact" class="form-control" id="txtcontact" name="contact" #contact="ngModel" [(ngModel)]="model.contact">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <label class="control-label">email<span class="small-txt text-orange"> (Separate multiple by commas)</span></label>
+                    <div class="form-group">
+                        <input required type="text" placeholder="email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">address</label>
+                        <input required type="text" placeholder="address" class="form-control" id="txtaddress" name="address" #address="ngModel" [(ngModel)]="model.address">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">phone</label>
+                        <input required type="text" placeholder="phone" class="form-control" id="txtphone" name="phone" #phone="ngModel" [(ngModel)]="model.phone">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            fax
+                        </label>
+                        <input required type="text" placeholder="fax" class="form-control" id="txtfax" name="fax" #talCode="ngModel" [(ngModel)]="model.fax">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            city
+                        </label>
+                        <input required type="text" placeholder="city" class="form-control" id="txtcity" name="city" #shelter="ngModel" [(ngModel)]="model.city">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">state</label>
+                        <input required type="text" placeholder="state" class="form-control" id="txtstate" name="state" #facility="ngModel" [(ngModel)]="model.state">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">zipCode</label>
+                        <input required type="text" placeholder="zipCode" class="form-control" id="txtzipCode" name="zipCode" #room="ngModel" [(ngModel)]="model.zipCode">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">description</label>
+                        <input required type="text" placeholder="description" class="form-control" id="txtdescription" name="serviceRequestDate" #description="ngModel" [(ngModel)]="model.description">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label ellipsis-text">taxId</label>
+                        <input required type="text" placeholder="taxId" class="form-control" id="txttaxId" name="taxId" #taxId="ngModel" [(ngModel)]="model.taxId">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">legacyId</label>
+                        <input required type="text" placeholder="legacyId" class="form-control" id="txtlegacyId" name="legacyId" #legacyId="ngModel" [(ngModel)]="model.legacyId">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-body light-bg-grey">
+
+
+            <div class="row">
+
+                <div class="col-sm-2 col-xs-6">
+                    <div class="form-group">
+                        <label class="mrs">nPI</label>
+                        <input required type="text" name="nPI" #isMedications="ngModel" [(ngModel)]="model.nPI">
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-6">
+                    <div class="form-group">
+                        <label class="mrs">iSA06</label>
+                        <input required type="text" name="iSA06" #isDialysis="ngModel" [(ngModel)]="model.iSA06">
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-6">
+                    <div class="form-group">
+                        <label class="mrs">isBilling</label>
+                        <input required type="checkbox" name="isBilling" #isBilling="ngModel" [(ngModel)]="model.isBilling">
+                    </div>
+                </div>
+
+            
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">Notes</label>
+                        <!-- <textarea type="text" class="form-control" id="txtnotes" name="notes" #notes="ngModel" [(ngModel)]="model.notes"></textarea> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+

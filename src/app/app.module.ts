@@ -67,7 +67,8 @@ import { DiagnosisComponent } from './client/diagnosis/diagnosis.component';
 import { DiagnosisMasterComponent } from './master/diagnosis-master/diagnosis-master.component'
 import { ClientContactlogListComponent } from './client/client-contactlog-list/client-contactlog-list.component';
 import { ClientNoteComponent } from './client/client-note/client-note.component';
-import { ClientCommunityComponent } from './client/client-community/client-community.component'
+import { ClientCommunityComponent } from './client/client-community/client-community.component';
+import { AddLocationComponent } from './admin/add-location/add-location.component'
 
 @NgModule({
   declarations: [
@@ -123,7 +124,7 @@ import { ClientCommunityComponent } from './client/client-community/client-commu
     DeclinedEmpComponent,  
     ClientContactlogListComponent, 
     ClientNoteComponent, 
-    ClientCommunityComponent,
+    ClientCommunityComponent, AddLocationComponent,
   ],
   imports: [
     BrowserModule,
