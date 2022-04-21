@@ -9,7 +9,7 @@ import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { OtherInfoModel } from 'src/app/models/client/other-info-model';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-other-information',
   templateUrl: './other-information.component.html',
@@ -26,7 +26,8 @@ export class OtherInformationComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private accountApi: AccountService,
-    private clientApi: ClientApiService
+    private clientApi: ClientApiService,
+    private datepipe: DatePipe,
   ) {
 
     this.currentUser = this.accountApi.getCurrentUser();
@@ -59,10 +60,12 @@ export class OtherInformationComponent implements OnInit {
 
   saveChangesModel() {
     debugger;
-    this.model.isActive = Number(this.model.isActive);
+    this.model.isActive = 1;
     this.model.createdBy = this.currentUser.userId;
     this.model.userId = Number(this.model.userId);
-    
+    this.model.dischargeDate = this.datepipe.transform(this.model.dischargeDate , 'dd-MM-yyyy')||"";   
+    this.model.careDate = this.datepipe.transform(this.model.careDate , 'dd-MM-yyyy')||"";   
+    this.model.serviceRequestDate = this.datepipe.transform(this.model.serviceRequestDate , 'dd-MM-yyyy')||"";   
     if(this.model.entityId==0)
     {
       this.clientApi.addOtherInfo(this.model).subscribe(Responce => {
@@ -73,7 +76,7 @@ export class OtherInformationComponent implements OnInit {
       this.clientApi.updateOtherInfo(this.model).subscribe(Responce => {
       });
     }
-  
+    this.BindOtherInfo(this.model.userId);
   }
 
 

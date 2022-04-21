@@ -27,7 +27,8 @@ export class ClientScheduleComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
-    private comApi: CommonService,private empApi: EmployeeapiService, private clientapi : ClientApiService,private momApi:MeetingService,    public datepipe: DatePipe,)
+    private comApi: CommonService,private empApi: EmployeeapiService, private clientapi : ClientApiService,private momApi:MeetingService, 
+       public datepipe: DatePipe,)
    {
      this.BindMaster();
    }

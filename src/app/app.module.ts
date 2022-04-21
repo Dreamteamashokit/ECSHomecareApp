@@ -69,6 +69,9 @@ import { ClientContactlogListComponent } from './client/client-contactlog-list/c
 import { ClientNoteComponent } from './client/client-note/client-note.component';
 import { ClientCommunityComponent } from './client/client-community/client-community.component';
 import { AddLocationComponent } from './admin/add-location/add-location.component'
+import { ClientProvisionsComponent } from './client/client-provisions/client-provisions.component';
+
+
 
 @NgModule({
   declarations: [
@@ -124,7 +127,9 @@ import { AddLocationComponent } from './admin/add-location/add-location.componen
     DeclinedEmpComponent,  
     ClientContactlogListComponent, 
     ClientNoteComponent, 
-    ClientCommunityComponent, AddLocationComponent,
+    ClientCommunityComponent, 
+    ClientProvisionsComponent,
+    AddLocationComponent,
   ],
   imports: [
     BrowserModule,

@@ -354,23 +354,22 @@ export class ClientApiService {
   }
   
   
-  
+  getProvisionInfoList(UserId:number)
+  {
+    return this._http.get<APIResponse<ClientEmrgencyInfo>>(environment.domain + "/api/Client/ProvisionInfo"+"/"+UserId);
+  } 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  SaveProvisionInfoList(_obj : any){ 
+    
+    var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        }; 
+    return this._http.post(environment.domain + "/api/Client/SaveProvisionInfo", _obj,httpOptions);   
+              
+  }
 
 
 }
