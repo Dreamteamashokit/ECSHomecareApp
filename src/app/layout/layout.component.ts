@@ -2,6 +2,7 @@ import { Component, OnInit,TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { LoginModel,UserModel } from 'src/app/models/account/login-model';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -11,14 +12,19 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
     './layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
+  currentUser:UserModel;
 
   navbarCollapsed = true;
   public modalRef: BsModalRef;
   userId:number;
   constructor(private modalService: BsModalService,
     private router:Router, 
-    private accountApi : AccountService) {}
+    private accountApi : AccountService) {
+
+      this.currentUser=this.accountApi.getCurrentUser();
+console.log(this.currentUser);
+
+    }
 
   ngOnInit(): void {
   }
@@ -32,7 +38,6 @@ toggleNavbarCollapsing() {
 logOut()
 {
   debugger;
-
  let obj= this.accountApi.getCurrentUser();
   this.accountApi.signOut(obj.userId).subscribe((response) => {
 

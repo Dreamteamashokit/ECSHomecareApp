@@ -19,10 +19,7 @@ const httpOptionsObj = {
 export class AccountService {
   private userSubject: BehaviorSubject<UserModel>;
   public user: Observable<UserModel>;
-  model:UserModel; 
-  
-
-
+  model:UserModel;
 
   constructor(private _http : HttpClient) {
     let localObj = localStorage.getItem('userData');
@@ -67,14 +64,23 @@ export class AccountService {
 
   signOut(_userId: number): Observable<any> {
 
-    let body = new HttpParams();
-    body = body.set('UserId', _userId);
+debugger;
+    
+    const params = new HttpParams()
+      .append('UserId', _userId);     
 
-    return this._http.post(
-      environment.domain + "/api/Account/logOut",
-      body,
-      httpOptionsObj
+    const headers = new HttpHeaders()
+    .append(
+      'Content-Type',
+      'application/json'
     );
+    return this._http.post(environment.domain + "/api/Account/logOut",null,{
+      headers: headers,
+      params: params,
+    });
+
+
+
   }
 
 
