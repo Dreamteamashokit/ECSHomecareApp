@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
-                    <label class="control-label">email<span class="small-txt text-orange"> (Separate multiple by commas)</span></label>
+                    <label class="control-label">email</label>
                     <div class="form-group">
                         <input required type="text" placeholder="email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
 
@@ -85,12 +85,7 @@
                         <input required type="text" placeholder="zipCode" class="form-control" id="txtzipCode" name="zipCode" #room="ngModel" [(ngModel)]="model.zipCode">
                     </div>
                 </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="form-group">
-                        <label class="control-label">description</label>
-                        <input required type="text" placeholder="description" class="form-control" id="txtdescription" name="serviceRequestDate" #description="ngModel" [(ngModel)]="model.description">
-                    </div>
-                </div>
+              
                 <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="control-label ellipsis-text">taxId</label>
@@ -107,57 +102,78 @@
                         <input required type="text" placeholder="legacyId" class="form-control" id="txtlegacyId" name="legacyId" #legacyId="ngModel" [(ngModel)]="model.legacyId">
                     </div>
                 </div>
-
-
-            </div>
-
-
-
-        </div>
-
-    </div>
-
-
-
-    <div class="panel panel-default">
-        <div class="panel-body light-bg-grey">
-
-
-            <div class="row">
-
-                <div class="col-sm-2 col-xs-6">
+          
+                <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
-                        <label class="mrs">nPI</label>
-                        <input required type="text" name="nPI" #isMedications="ngModel" [(ngModel)]="model.nPI">
+                        <label class="control-label">nPI</label>
+                        <input required type="text" class="form-control" name="nPI" #isMedications="ngModel" [(ngModel)]="model.nPI">
                     </div>
                 </div>
-                <div class="col-sm-2 col-xs-6">
+                <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
-                        <label class="mrs">iSA06</label>
-                        <input required type="text" name="iSA06" #isDialysis="ngModel" [(ngModel)]="model.iSA06">
+                        <label class="control-label">iSA06</label>
+                        <input required type="text" class="form-control" name="iSA06" #isDialysis="ngModel" [(ngModel)]="model.iSA06">
                     </div>
                 </div>
-                <div class="col-sm-2 col-xs-6">
+                <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="mrs">isBilling</label>
                         <input required type="checkbox" name="isBilling" #isBilling="ngModel" [(ngModel)]="model.isBilling">
                     </div>
                 </div>
-
-            
             </div>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <div class="form-group">
-                        <label class="control-label">Notes</label>
-                        <!-- <textarea type="text" class="form-control" id="txtnotes" name="notes" #notes="ngModel" [(ngModel)]="model.notes"></textarea> -->
+                        <label class="control-label">Description</label>
+                    <textarea type="text" class="form-control" id="txtdescription" name="description" #description="ngModel" [(ngModel)]="model.description"></textarea> 
                     </div>
+                </div>
+            </div>
+
+
+         
+
+
+
+        </div>
+    </div>
+
+
+
+
+</form>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row mbm" *ngIf="modelList.length>0" >
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>ZipCode</th>                      
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of modelList">
+                                <td>{{ item.locationName }}</td>
+                                <td>{{ item.address }}</td>
+                                <td>{{ item.city }}</td>
+                                <td>{{ item.state }}</td>
+                                <td>{{ item.zipCode }}</td>                              
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</form>
-
+</div>
 
 
 
