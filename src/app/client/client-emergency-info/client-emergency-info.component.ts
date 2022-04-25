@@ -54,8 +54,9 @@ model=new ClientEmrgencyInfo();
    this.model.typeName=item.typeName;
   this.model.firstName=item.firstName;
   this.model.lastName=item.lastName;
-  this.model.nPINumber=item.nPINumber==undefined?"":item.nPINumber;
+  this.model.nPINumber=item.npiNumber;
   this.model.license=item.license;
+  this.model.city=item.city;
   this.model.licenseExpires=item.licenseExpires;
   this.model.phone=item.phone;
   this.model.fax=item.fax;
@@ -63,7 +64,7 @@ model=new ClientEmrgencyInfo();
   this.model.address=item.address;
   this.model.zip=item.zip;
   this.model.isActive=item.isActive
-  this.model.userId=Number(item.userId);
+  this.model.userId=Number(this.ClientId);
    this.modalRef = this.modalService.show(template);
  }
  
@@ -88,9 +89,10 @@ model=new ClientEmrgencyInfo();
   this.model.zip=this.model.zip;
   this.model.TypeId=Number(this.model.TypeId);
   this.model.id=Number(this.model.id);
-  this.model.userId=Number(this.model.userId);
+  this.model.userId=Number(this.ClientId);
 
 this.clientapi.SaveEmergencyInfo(this.model).subscribe(Response=>{
+  debugger
   this.decline();
   this.getEmergencyInfoList()   
 })
