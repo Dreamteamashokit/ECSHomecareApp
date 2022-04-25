@@ -7,13 +7,9 @@ import{provisioninfo} from 'src/app/models/client/provisioninfo';
 @Component({
   selector: 'app-client-provisions',
   templateUrl: './client-provisions.component.html',
-<<<<<<< HEAD
   styleUrls: [
     '../../../assets/css/orange-blue.css',
   './client-provisions.component.scss']
-=======
-  styleUrls: ['../../../assets/css/orange-blue.css','./client-provisions.component.scss']
->>>>>>> 060df1d20007ed6544fa6d181643e6dea7d226d0
 })
 export class ClientProvisionsComponent implements OnInit {
   ProvisionItemlst:any;
