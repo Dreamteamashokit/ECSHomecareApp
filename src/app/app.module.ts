@@ -66,7 +66,8 @@ import { ClientMedicationcsComponent } from './client/client-medicationcs/client
 import { DeclinedEmpComponent } from './client/declined-emp/declined-emp.component';
 import { ClientContactlogListComponent } from './client/client-contactlog-list/client-contactlog-list.component';
 import { ClientNoteComponent } from './client/client-note/client-note.component';
-import { ClientCommunityComponent } from './client/client-community/client-community.component'
+import { ClientCommunityComponent } from './client/client-community/client-community.component';
+import { ClientComplianceComponent } from './client/client-compliance/client-compliance.component'
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import { ClientCommunityComponent } from './client/client-community/client-commu
     ClientStatusComponent,
     ClientMedicationcsComponent,
     TaskMasterComponent,
-    ServiceTaskComponent, DeclinedEmpComponent,  ClientContactlogListComponent, ClientNoteComponent, ClientCommunityComponent,
+    ServiceTaskComponent, DeclinedEmpComponent,  ClientContactlogListComponent, ClientNoteComponent, ClientCommunityComponent, ClientComplianceComponent,
   ],
   imports: [
     BrowserModule,

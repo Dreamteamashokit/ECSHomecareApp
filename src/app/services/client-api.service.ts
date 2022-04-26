@@ -10,6 +10,7 @@ import { EmployeeDecline, EmployeeDeclineView } from 'src/app/models/client/empl
 import { ClientContactLog } from '../models/client/client-contactlog-model';
 import { ClientNote } from '../models/client/client-note-model';
 import { ClientCommunityMaster } from '../models/client/client-community-model';
+import { ClientCompliance } from '../models/client/client-compliance-model';
 
 
 @Injectable({
@@ -258,7 +259,6 @@ export class ClientApiService {
     return this._http.post(environment.domain + "/api/Client/AddClientCommunity", _obj, httpOptions);
   }
   getClientCommunityRecord(_obj: ClientCommunityMaster) {
-    debugger;
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -266,5 +266,55 @@ export class ClientApiService {
       headers: headers_object
     };
     return this._http.post(environment.domain + "/api/Client/GetClientCommunityList", _obj, httpOptions);
+  }
+
+  SaveClientCompliance(_obj: ClientCompliance) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/AddClientCompliance", _obj, httpOptions);
+  }
+
+  getClientComplianceRecords(_obj: ClientCompliance) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/GetClientComplianceList", _obj, httpOptions);
+  }
+
+  getClientComplianceRecordDetails(_obj: ClientCompliance) {    
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/GetClientCompliance", _obj, httpOptions);
+  }
+
+  updateClientCompliance(_obj: ClientCompliance) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/UpdateClientCompliance", _obj, httpOptions);
+  }
+
+  deleteClientCompliance(_obj: ClientCompliance) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/DeleteClientCompliance", _obj, httpOptions);
   }
 }

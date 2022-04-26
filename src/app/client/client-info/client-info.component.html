@@ -47,7 +47,11 @@
                                         Log</a></li>
                                 <li><a href="javascript:void(0)" (click)="selectTab(9)" class="dropdown-toggle">Note
                                     </a></li>
-                                <li><a href="javascript:void(0)" (click)="selectTab(10)" class="dropdown-toggle">Group Info
+                                <li><a href="javascript:void(0)" (click)="selectTab(10)" class="dropdown-toggle">Group
+                                        Info
+                                    </a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(11)" class="dropdown-toggle">Compliance
+                                        
                                     </a></li>
                             </ul>
                         </div>
@@ -89,7 +93,9 @@
                     <tab heading="Group Info">
                         <app-client-community></app-client-community>
                     </tab>
-
+                    <tab heading="Compliance">
+                        <app-client-compliance></app-client-compliance>
+                    </tab>
                 </tabset>
             </div>
         </div>
