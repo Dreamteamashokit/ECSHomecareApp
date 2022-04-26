@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe,HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { AuthGuardService } from './auth-guard.service';
-import { FormsModule } from '@angular/forms';
-import { ToastrModule } from 'ng6-toastr-notifications';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
-import { NgxPaginationModule } from 'ngx-pagination';
-import { DatePipe } from '@angular/common';
+
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
-import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
+import { AuthGuardService } from './auth-guard.service';
 
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
+import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { LayoutComponent } from './layout/layout.component';
 import { LoaderComponent } from './loader/loader.component';
 
