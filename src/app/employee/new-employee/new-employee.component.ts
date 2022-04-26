@@ -8,6 +8,11 @@ import { ItemsList,MasterType ,SelectList} from 'src/app/models/common';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 
+import{Usertype} from 'src/app/commanHelper/usertype'
+
+
+
+
 @Component({
   selector: 'app-new-employee',
   templateUrl: './new-employee.component.html',
@@ -82,14 +87,7 @@ export class NewEmployeeComponent implements OnInit {
 
 
   saveChanges() {
-
-   
-
-
-
-    this.IsLoad = true;
-
-    
+    this.IsLoad = true;    
     this.model.userId=Number(0);
     this.model.createdBy=this.currentUser.userId;
     this.model.isActive=Number(this.model.isActive);
@@ -98,6 +96,7 @@ export class NewEmployeeComponent implements OnInit {
     this.model.gender=Number(this.model.gender);
     this.model.maritalStatus=Number(this.model.maritalStatus);
     this.model.supervisorId=Number(this.model.supervisorId);
+    this.model.userType=Number(Usertype.Employee);
     const empObj: EmployeeModel = this.model;
     this.empApi.addEmployee(empObj).subscribe((response) => {
       this.IsLoad = false;
@@ -110,3 +109,4 @@ export class NewEmployeeComponent implements OnInit {
 
 
 }
+
