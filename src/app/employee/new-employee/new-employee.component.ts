@@ -83,14 +83,14 @@ export class NewEmployeeComponent implements OnInit {
 
   saveChanges() {
 
-    debugger;
+   
 
 
 
     this.IsLoad = true;
 
     
-    this.model.userId=Number(this.model.empId);
+    this.model.userId=Number(0);
     this.model.createdBy=this.currentUser.userId;
     this.model.isActive=Number(this.model.isActive);
     this.model.empType=Number(this.model.empType);
