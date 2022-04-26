@@ -5,6 +5,7 @@ import { ClientModel } from 'src/app/models/client/client-model';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType ,SelectList} from 'src/app/models/common';
+import { Usertype } from 'src/app/commanHelper/usertype';
 
 @Component({
   selector: 'app-new-client',
@@ -86,7 +87,7 @@ export class NewClientComponent implements OnInit {
     this.model.maritalStatus=Number(this.model.maritalStatus);
     this.model.supervisorId=Number(this.model.supervisorId);
     this.model.nurseId=Number(this.model.nurseId);
-
+    this.model.userType=Number(Usertype.Client);
     const empObj: ClientModel = this.model;
     this.cltApi.addClient(empObj).subscribe((response) => {
       this.IsLoad = false;
