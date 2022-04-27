@@ -72,8 +72,7 @@ import { ClientNoteComponent } from './client/client-note/client-note.component'
 import { ClientCommunityComponent } from './client/client-community/client-community.component';
 import { AddLocationComponent } from './admin/add-location/add-location.component'
 import { ClientProvisionsComponent } from './client/client-provisions/client-provisions.component';
-
-
+import { ClientComplianceComponent } from './client/client-compliance/client-compliance.component'
 
 @NgModule({
   declarations: [
@@ -132,6 +131,12 @@ import { ClientProvisionsComponent } from './client/client-provisions/client-pro
     ClientCommunityComponent, 
     ClientProvisionsComponent,
     AddLocationComponent,
+    ServiceTaskComponent, 
+    DeclinedEmpComponent,  
+    ClientContactlogListComponent, 
+    ClientNoteComponent, 
+    ClientCommunityComponent, 
+    ClientComplianceComponent,
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ export class DocumentService {
   }
   
   GetFolderList(empId:number){
-   
+   debugger;
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + empId);
   }
   
