@@ -12,6 +12,7 @@ import{EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
 import{SaveEmpDeclinedCase} from 'src/app/models/employee/save-emp-declined-case';
 import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
+import { EmployeeJson } from 'src/app/models/employee/employee-json';
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +40,9 @@ export class EmployeeapiService {
     return this._http.get<APIResponse<EmployeeList[]>>(environment.domain +"/api/Employee/getEmployeeListObj/"+userId);
   } 
   
-  getEmployeeInfo(empID : string)
+  getEmployeeInfo(empId : string)
   {
-    return this._http.get<APIResponse<EmployeeModel>>(environment.domain + "/api/Employee/getemployeebyId/" + empID);
+    return this._http.get<APIResponse<EmployeeJson>>(environment.domain + "/api/Employee/getEmployeebyId/" + empId);
   } 
 
   deleteEmployee(empId : Number)

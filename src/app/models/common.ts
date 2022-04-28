@@ -8,6 +8,18 @@ export class BaseModel {
 }
 
 
+export class BaseJson {
+  userId: number;
+  isActive: number;
+  createdBy: number;
+  createdByName: string;
+  createdOn: string;
+  modifiedBy: number;
+  modifiedByName: number;
+  modifiedOn: string;
+}
+
+
 export class ItemsList {
     public itemId: number;
     public itemName: string;

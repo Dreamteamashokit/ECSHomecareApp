@@ -70,7 +70,7 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">SSN</label>
-                                <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.sSN">
+                                <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
                                 <!-- <em *ngIf="SSN.invalid && (SSN.dirty || SSN.touched)" for="txtSSN" class="invalid">This field is required</em> -->
 
 
@@ -123,7 +123,7 @@
                                 <label class="control-label">Date of Birth<span class="star">*</span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-calendar"></i>
-                                    <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="model.dOB" bsDatepicker>
+                                    <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="model.dob" bsDatepicker>
                                     <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
                                 </div>
                             </div>

@@ -18,7 +18,6 @@ export class EmployeeModel extends AccountUserModel {
 }
 
 
-
 export class EmployeeList {
     empId: number;
     empName: string;
