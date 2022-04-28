@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild,TemplateRef  } from '@angular/core';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service'; 
 import { EmployeeModel } from 'src/app/models/employee/employee-model';
+import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -23,7 +24,11 @@ export class EmpInfoComponent implements OnInit {
   modalRef?: BsModalRef;
   currentUser:UserModel;  
 
+  empId : string = "-1";
+  empInfo : EmployeeJson;
   UserData:any;
+  currentDate  = new Date();
+  @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
   config = {
     animated: true,
     keyboard: true,
@@ -31,11 +36,7 @@ export class EmpInfoComponent implements OnInit {
     ignoreBackdropClick: false,
     class: "my-modal"
   };
-  empObj :any;
-  empId : string = "-1";
-  empInfo : EmployeeModel;
 
-  currentDate  = new Date();
   constructor(private router:Router, 
     private route:ActivatedRoute,
     public datepipe: DatePipe,
@@ -45,34 +46,30 @@ export class EmpInfoComponent implements OnInit {
     ) 
     {
       this.currentUser=this.accountApi.getCurrentUser();
-   
-   
       setTheme('bs3');
     }
 
-    @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
-
-    selectTab(tabId: number) {
-      if (this.staticTabs?.tabs[tabId]) {
-        this.staticTabs.tabs[tabId].active = true;
-      }
-    }
-
   ngOnInit(): void {
-    this.route.params
-    .subscribe(
-      (params : Params) =>{
+
+    this.route.params.subscribe((params : Params) =>{
         this.empId = params["empId"];
+        this.empInfo = new EmployeeJson();
+        this.GetEmployeeInfo(this.empId);
+
         this.UserData={
           id:this.empId,
-          type:'Emp Type'
+          type:this.empInfo.empType
         };
       }
     );
-    this.empInfo = new EmployeeModel();
-    this.GetEmployeeInfo(this.empId);
+  
   }
 
+  selectTab(tabId: number) {
+    if (this.staticTabs?.tabs[tabId]) {
+      this.staticTabs.tabs[tabId].active = true;
+    }
+  }
 
   GetEmployeeInfo(empId : string)
   {
@@ -82,7 +79,7 @@ export class EmpInfoComponent implements OnInit {
         }); 
   }
 
-  getName(empInfo : EmployeeModel) : string
+  getName(empInfo : EmployeeJson) : string
   {
     if(empInfo.lastName.length > 1)
     {

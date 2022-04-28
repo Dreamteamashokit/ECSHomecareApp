@@ -1,8 +1,6 @@
+import { BaseJson } from 'src/app/models/common';	
 
-import { BaseModel } from 'src/app/models/common';
-
-export class AccountUserModel extends BaseModel {
-   
+export class AccountJson extends BaseJson {
     userKey: string;
     userType: number;
     userName: string;
@@ -18,10 +16,11 @@ export class AccountUserModel extends BaseModel {
     emgPhone: string;
     emgContact: string;
     gender: number;
+    genderName: string;
     maritalStatus: number;
+    maritalStatusName: string;
     ethnicity: number;
+    ethnicityName: string;
     supervisorId: number;
-   
-    
-
+    supervisor: string;
 }
