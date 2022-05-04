@@ -9856,5 +9856,23 @@ width:100%;
 }
 
 
-
+.li-colums-3{
+  width:100%
+  }
+  .li-colums-3 ul{
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  column-gap: 0px;
+  }
+  
+  .li-colums-3 ul li{
+  padding: 2px;
+  border: solid 1px #eee;
+  font-size: 12px;
+  
+  }
 

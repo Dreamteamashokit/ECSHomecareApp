@@ -30,10 +30,6 @@
                       <div class="form-group">
                     <label class="control-label">Due Date</label>
                       <div class="input-icon right"><i class="fa fa-calendar"></i>
-                        
-            
-
-
                         <input type="text"
                         #dueDate="ngModel"
                         id="txtdueDate"
@@ -41,15 +37,6 @@
                         [(ngModel)]="model.dueDate"
                         class="form-control"
                         bsDatepicker  >
-
-
-
-
-
-
-
-
-
                                                                 </div>
                         </div>
                     </div>
@@ -57,7 +44,6 @@
                       <div class="form-group">
                     <label class="control-label">Completed On</label>
                       <div class="input-icon right"><i class="fa fa-calendar"></i>
-                        
                         <input type="text"
                         #completedOn="ngModel"
                         id="txtcompletedOn"
@@ -65,33 +51,19 @@
                         [(ngModel)]="model.completedOn"
                         class="form-control"
                         bsDatepicker  >
-
-
-
-
-
-
                                                                 </div>
-
-
-
-
-
                         </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                     <label class="control-label">Nurse</label>
-                     
-
                         <select
                         class="form-control"
                         #nurse="ngModel"
                         id="ddlNurse"
                         name="nurse"  
                         [(ngModel)]="model.nurse"                                       
-                      >
-                        <option value="-1" disabled>Select</option>
+                      ><option value="-1" disabled>Select</option>
                          <option
                           *ngFor="let obj of EmplList"
                           [value]="obj.itemId"
@@ -99,20 +71,9 @@
                           {{ obj.itemName }}
                         </option> 
                       </select>
-
-
-
-
-
-
-
-
-
                         </div>
                     </div>
-                    
                     </div>
-                    
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
@@ -122,15 +83,7 @@
                     id="txtcategory"
                     name="category"                     
                     [(ngModel)]="model.category"
-                    class="form-control"
-           >
-
-
-
-
-
-                      
-                        </div>
+                    class="form-control" ></div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
@@ -163,8 +116,6 @@
                       <div class="form-group">
                     <label class="control-label">Notes</label>
                       <textarea rows="3" placeholder="Notes"
-                      
-                      
                       #notes="ngModel"
                       id="txtnotes"
                       name="notes"                     
