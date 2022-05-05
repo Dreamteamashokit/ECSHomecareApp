@@ -9,4 +9,16 @@ export class AvailbilityRequest {
     timeIn: string;
     timeOut: string;
     provisionsList: number[];
+
+
+    constructor(caseId: number,empTypeId: number) {
+        this.caseId = caseId;
+        this.empTypeId = empTypeId;
+        
+        
+      }
+
+
+
+
 }

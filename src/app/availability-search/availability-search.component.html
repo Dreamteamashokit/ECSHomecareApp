@@ -24,7 +24,8 @@
                                 id="ddlcaseId"
                                 name="caseId"  
                                 [(ngModel)]="searchModel.caseId"                                       
-                              ><option value="-1" disabled>Select</option>
+                              >
+                              <option value="-1" disabled>Select</option>
                                  <option
                                   *ngFor="let obj of caseList"
                                   [value]="obj.itemId"
@@ -52,6 +53,7 @@
                             <div class="form-group">
                                 <label class="control-label">Employee Type</label>
                                 <select required class="form-control" id="ddlempType" name="empType" #empType="ngModel" [(ngModel)]="searchModel.empTypeId">
+                                    <option value="0" >All</option>                                   
                                     <option *ngFor="let obj of empTypeList"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
@@ -62,6 +64,45 @@
                         </div>
                     </div>
                     <div class="row mtm">
+
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+
+                                <label class="control-label">From Date</label>
+                                <div class="input-icon right"><i class="fa fa-calendar"></i>
+                                <input type="text"
+                                  #MeetingDate="ngModel"
+                                  id="txtMeetingDate"
+                                  name="MeetingDate"
+                                  placeholder="Meeting Date"
+                                  [(ngModel)]="_fromDate"
+                                  class="form-control"
+                                  bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                            </div>
+                        </div>
+                            <!-- {{_meetingDate}} -->
+                        </div>
+                              
+
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+
+                                <label class="control-label">To Date</label>
+                      <div class="input-icon right"><i class="fa fa-calendar"></i>
+                                <input type="text"
+                                  #MeetingDate="ngModel"
+                                  id="txtMeetingDate"
+                                  name="MeetingDate"
+                                  placeholder="Meeting Date"
+                                  [(ngModel)]="_toDate"
+                                  class="form-control"
+                                  bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                            </div>
+                        </div>
+                            <!-- {{_meetingDate}} -->
+                        </div>
+                              
+
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Time In</label>
@@ -80,16 +121,20 @@
                         </div>
                     </div>
                     <div class="row mtm">
-                            <div class="col-sm-3 col-xs-6" *ngFor="let obj of provisionsTypeList">
+                            <div class="col-sm-3 col-xs-6" *ngFor="let item of provisionsTypeList; let i = index">
                                 <div class="form-group">
-                                    <input [id]="obj.itemId" type="checkbox"  class="mrm"/>
-                                    <label class="control-label"> {{ obj.itemName }}</label>
+                                   
+
+                                    <input type="checkbox"   class="mrm"  name="item[{{ i }}].itemId" >
+
+
+                                    <label class="control-label"> {{ item.itemName }}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mtm">
                             <div class="col-sm-12 col-xs-12 text-center">
-                                <button type="button" (click)="search()" class="btn btn-lg btn-dark mbn"><i class="fa fa-search"></i> Search</button>
+                                <button type="button"  [disabled]="empf.invalid" (click)="search()" class="btn btn-lg btn-dark mbn"><i class="fa fa-search"></i> Search</button>
                             </div>
                         </div>
                 </div>

@@ -21,14 +21,14 @@ import { DatePipe } from '@angular/common';
 export class AvailabilitySearchComponent implements OnInit {
   IsLoad: boolean = false;
   currentUser:UserModel;
-  searchModel = new AvailbilityRequest();
+  searchModel = new AvailbilityRequest(-1,0);
   caseList:ItemsList[]= [];
   empTypeList = Array<ItemsList>();
   provisionsTypeList = Array<ItemsList>();
   _startTime : Date=new Date();
   _endTime : Date=new Date();
-
-
+  _fromDate : Date=new Date();
+  _toDate : Date=new Date();
   monthList  : any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   currentYear : number;
   currentMonthIndex : number;
@@ -44,10 +44,6 @@ export class AvailabilitySearchComponent implements OnInit {
     totalItemsCount : number = 0;
     startdate : string;
     availbilityList : AvailbilityReponse[] = [];
-
-
-
-
 
 
   constructor(
@@ -98,6 +94,14 @@ export class AvailabilitySearchComponent implements OnInit {
   search()
   {
     debugger;
+
+    this.searchModel.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
+    this.searchModel.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";  
+    this.searchModel.timeIn=this.datepipe.transform(this._startTime, 'hh:mm:ss')||"";
+    this.searchModel.timeOut=this.datepipe.transform(this._endTime, 'hh:mm:ss')||"";
+   
+
+
     const reqObj: AvailbilityRequest = this.searchModel;
     console.log('Search', reqObj);
     this.locSrv.searchAvailbility(reqObj).subscribe((response) => {
