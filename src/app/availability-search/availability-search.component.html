@@ -45,7 +45,7 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label"> &nbsp;</label>
-                                <input type="text" placeholder="Pay Type" class="form-control" id="txtpayType" name="payType" #payType="ngModel" [(ngModel)]="searchModel.payType">
+                                <input type="text" placeholder="Pay Type" class="form-control" id="txtpayType" name="payType" #payType="ngModel" [(ngModel)]="searchModel.payTypeId">
                             </div>
                         </div>
                         <div class="col-sm-3 col-xs-12">
@@ -132,7 +132,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                      <!-- <tr *ngFor="let client of clientMOMList | paginate: { itemsPerPage: 5, currentPage: p, totalItems: totalItemsCount };let i = index"
+                                                   <tr *ngFor="let client of availbilityList | paginate: { itemsPerPage: 5, currentPage: p, totalItems: totalItemsCount };let i = index"
                                                       >
                                                       <td valign="top" class="bg-white" style="min-width: 254px;">
                                                       <div class="client-list">
@@ -141,17 +141,15 @@
                                                           <div class="row">
                                                           <div class="col-sm-5 col-xs-5"> 
                                                         
-                                                            <a  [routerLink]="'/client/info/' + client.clientId" title="INFO">
-                                                              {{client.firstName}}
+                                                            <a  [routerLink]="'/client/info/' + client.empId" title="INFO">
+                                                              {{client.empName}}
                                                             </a> 
                     
                     
                                                       </div>
-                                                            <div class="col-sm-5 col-xs-5">{{ client.clientId }}</div>
+                                                            <div class="col-sm-5 col-xs-5">{{ client.empId }}</div>
                                                             <div class="col-sm-2 col-xs-2">
-                                                            <a (click)="addMeeting(client.clientId)">
                                                               <i class="fa fa-calendar medium-txt text-orange"></i>
-                                                            </a>
                                                             </div>
                                                           </div>
                                                           </li>											
@@ -159,12 +157,12 @@
                                                         </div>
                                                       </td>
                                                       <td *ngFor="let week of currentweekarray" valign="top" class="client-td">
-                                                        <div class="row mbs"  *ngFor="let mtmObj of client.meetings" (click)="showMeeting()">
+                                                        <div class="row mbs"  *ngFor="let mtmObj of client.meetingList">
                                                           <div class="col-sm-12"  *ngIf="(mtmObj.meetingDate   |  equateDate : week)==true">
                                                             <div class="client-box-green-dot"></div>
                                                             <div class="client-box">
                                                               <p class="mbx"><strong>{{ mtmObj.startTime.toString() + '-' + mtmObj.endTime.toString() }}</strong></p>
-                                                              <p class="mbn">{{ mtmObj.empName }}</p>
+                                                              <p class="mbn">{{ mtmObj.clientName }}</p>
                                                           </div>
                                                           </div>
                     
@@ -173,7 +171,7 @@
                                                       </td>
                                                   
                                                     </tr>
-                                                    -->
+                                                
                                                    
                                                    
                                                 

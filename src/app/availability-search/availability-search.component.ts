@@ -7,6 +7,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { AvailbilityRequest } from 'src/app/models/availbility/availbility-request';
+import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
+import { LocationService } from 'src/app/services/location.service';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { DatePipe } from '@angular/common';
 @Component({
@@ -41,7 +43,7 @@ export class AvailabilitySearchComponent implements OnInit {
     p: number = 1;
     totalItemsCount : number = 0;
     startdate : string;
-
+    availbilityList : AvailbilityReponse[] = [];
 
 
 
@@ -53,7 +55,10 @@ export class AvailabilitySearchComponent implements OnInit {
     public datepipe: DatePipe,
     private comSrv: CommonService,  
     private empSrv: EmployeeapiService,
-    private acontSrv: AccountService) 
+    private acontSrv: AccountService,
+    private locSrv: LocationService,
+    
+    ) 
     {  
 
 
@@ -64,12 +69,6 @@ export class AvailabilitySearchComponent implements OnInit {
       this.currentDay = new Date().getDate();
 
       this.weekList = this.getWeekDays(this.currentDay, this.currentMonthIndex, this.currentYear);
-
-
-
-
-
-
 
 
 
@@ -90,12 +89,6 @@ export class AvailabilitySearchComponent implements OnInit {
         );
       });
     });
-
-
-
-
-
-
   }
 
   ngOnInit(): void {
@@ -104,7 +97,16 @@ export class AvailabilitySearchComponent implements OnInit {
 
   search()
   {
-    
+    debugger;
+    const reqObj: AvailbilityRequest = this.searchModel;
+    console.log('Search', reqObj);
+    this.locSrv.searchAvailbility(reqObj).subscribe((response) => {
+      if(response.result)
+      {
+        debugger;
+        this.availbilityList = response.data;
+      }
+    });
   }
 
 
