@@ -74,7 +74,9 @@ import { AddLocationComponent } from './admin/add-location/add-location.componen
 import { ClientProvisionsComponent } from './client/client-provisions/client-provisions.component';
 import { ClientComplianceComponent } from './client/client-compliance/client-compliance.component';
 import { AvailabilitySearchComponent } from './availability-search/availability-search.component';
-import { SearchAvailablilityComponent } from './client/search-availablility/search-availablility.component'
+import { SearchAvailablilityComponent } from './client/search-availablility/search-availablility.component';
+import { ClientBillingComponent } from './client/client-billing/client-billing.component';
+
 
 @NgModule({
   declarations: [
@@ -138,7 +140,7 @@ import { SearchAvailablilityComponent } from './client/search-availablility/sear
     ClientContactlogListComponent, 
     ClientNoteComponent, 
     ClientCommunityComponent, 
-    ClientComplianceComponent, AvailabilitySearchComponent, SearchAvailablilityComponent,
+    ClientComplianceComponent, ClientBillingComponent, AvailabilitySearchComponent, SearchAvailablilityComponent,
   ],
   imports: [
     BrowserModule,
