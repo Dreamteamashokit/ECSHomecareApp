@@ -71,6 +71,7 @@
                                 </a></li>
                                 <li><a href="javascript:void(0)" (click)="selectTab(14)" class="dropdown-toggle">Provision</a></li>
                                 <li><a href="javascript:void(0)" (click)="selectTab(15)" class="dropdown-toggle">Compliance</a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(16)" class="dropdown-toggle">Billing</a></li>
                             </ul>
                         </div>
                     </li>
@@ -132,10 +133,9 @@
                     <tab heading="Compliance">
                         <app-client-compliance></app-client-compliance>
                     </tab>
-
-
-
-
+                    <tab heading="Billing">
+                        <app-client-billing></app-client-billing>
+                    </tab>
                 </tabset>
             </div>
         </div>
