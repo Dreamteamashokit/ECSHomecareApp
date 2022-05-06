@@ -69,4 +69,18 @@ export enum MasterType {
   }
 
 
+
+  export class CheckBoxList {
+    public itemId: number;
+    public itemName: string;
+    public IsChecked: boolean;
+    constructor(itemId : number, itemName : string,IsChecked: boolean)
+    {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.IsChecked = IsChecked;
+    }
+}
+
+
  

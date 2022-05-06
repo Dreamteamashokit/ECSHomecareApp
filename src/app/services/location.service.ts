@@ -17,6 +17,8 @@ const httpOptionsObj = {
   providedIn: 'root'
 })
 export class LocationService {
+
+  private subscriptionKey = "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE"
   constructor(private http: HttpClient) { }
   addLocation(model: LocationModel) {  
     return this.http.post(environment.domain + "/api/Location/addLocation", model, httpOptionsObj);
@@ -27,4 +29,22 @@ export class LocationService {
   searchAvailbility(model:AvailbilityRequest) {  
     return this.http.post<APIResponse<AvailbilityReponse[]>>(environment.domain + "/api/Location/searchAvailbility", model, httpOptionsObj);
   }
+
+
+
+
+  getDistance(srcLatitude:number,srcLongitude:number,destLatitude:number,destLongitude:number){
+
+    let apiURL = "https://atlas.microsoft.com/route/directions/json?";
+    apiURL =apiURL+ "subscription-key=" + this.subscriptionKey + "&api-version=1.0&query="+ srcLatitude +","+ srcLongitude +":"+ destLatitude+","+ destLongitude +"&report=effectiveSettings";
+    return this.http.get(apiURL);
+}
+
+
+
+
+
+
+
+
 }

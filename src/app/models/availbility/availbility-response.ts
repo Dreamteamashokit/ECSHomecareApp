@@ -8,6 +8,7 @@ export class AvailbilityReponse {
     state: string;
     city: string;
     zipCode: string;
+    distance:number;
     meetingList: EmpAppointment[];
 }
 

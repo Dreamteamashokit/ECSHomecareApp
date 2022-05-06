@@ -9837,7 +9837,11 @@ opacity: inherit !important;
 	font-size:12px !important
 }
 }
-
+@media(min-width:768px){
+	.desktop-ptl{
+padding-top:20px !important
+}
+}
 
 .ellipsis-text{
   width:80px;
@@ -9876,3 +9880,8 @@ width:100%;
   
   }
 
+.checkbox-box{
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 5px;
+}

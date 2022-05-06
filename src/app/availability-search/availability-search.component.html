@@ -14,18 +14,23 @@
         <form #empf="ngForm">
             <div class="panel">
                 <div class="panel-body">
+                    <div class="panel">
+                        <div class="panel-body light-bg-grey">
                     <div class="row mtm">
                         <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Case</label>
-                                <select
+                                <select required                  
                                 class="form-control"
                                 #caseId="ngModel"
                                 id="ddlcaseId"
                                 name="caseId"  
+                         
+
+
                                 [(ngModel)]="searchModel.caseId"                                       
                               >
-                              <option value="-1" disabled>Select</option>
+                              <option value="" [ngValue]="undefined" selected >Select</option>
                                  <option
                                   *ngFor="let obj of caseList"
                                   [value]="obj.itemId"
@@ -65,16 +70,16 @@
                     </div>
                     <div class="row mtm">
 
-                        <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
 
                                 <label class="control-label">From Date</label>
-                                <div class="input-icon right"><i class="fa fa-calendar"></i>
+                                <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
                                 <input type="text"
                                   #MeetingDate="ngModel"
                                   id="txtMeetingDate"
                                   name="MeetingDate"
-                                  placeholder="Meeting Date"
+                                  placeholder="From Date"
                                   [(ngModel)]="_fromDate"
                                   class="form-control"
                                   bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
@@ -84,16 +89,16 @@
                         </div>
                               
 
-                        <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
 
                                 <label class="control-label">To Date</label>
-                      <div class="input-icon right"><i class="fa fa-calendar"></i>
+                      <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
                                 <input type="text"
                                   #MeetingDate="ngModel"
                                   id="txtMeetingDate"
                                   name="MeetingDate"
-                                  placeholder="Meeting Date"
+                                  placeholder="To Date"
                                   [(ngModel)]="_toDate"
                                   class="form-control"
                                   bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
@@ -103,7 +108,7 @@
                         </div>
                               
 
-                        <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Time In</label>
                                 <timepicker #StartTime="ngModel" id="txtStartTime" name="StartTime" [(ngModel)]="_startTime" ></timepicker>
@@ -111,7 +116,7 @@
                                <!-- <em *ngIf="timeIn.invalid && (timeIn.dirty || timeIn.touched)" for="txttimeIn" class="invalid">This field is required</em> -->
                             </div>
                         </div>
-                        <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Time Out</label>
                                 <timepicker #EndTime="ngModel" id="txtEndTime" name="EndTime" [(ngModel)]="_endTime" ></timepicker>
@@ -120,28 +125,28 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
                     <div class="row mtm">
                             <div class="col-sm-3 col-xs-6" *ngFor="let item of provisionsTypeList; let i = index">
-                                <div class="form-group">
-                                   
-
-                                    <input type="checkbox"   class="mrm"  name="item[{{ i }}].itemId" >
-
-
+                                <div class="form-group checkbox-box">
+                                    <input type="checkbox"   class="mrm"  name="item[{{ i }}].itemId" [(ngModel)]="item.IsChecked" >
                                     <label class="control-label"> {{ item.itemName }}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mtm">
                             <div class="col-sm-12 col-xs-12 text-center">
-                                <button type="button"  [disabled]="empf.invalid" (click)="search()" class="btn btn-lg btn-dark mbn"><i class="fa fa-search"></i> Search</button>
+                                <button type="button"  [disabled]="empf.invalid"  (click)="search()" class="btn btn-lg btn-dark mbn"><i class="fa fa-search"></i> Search</button>
                             </div>
                         </div>
                 </div>
+            </div>
+            <div class="panel">
                 <div class="panel-body">
                     <div class="row mtm">
                         <div class="col-sm-12">
-                      <div class="table-responsive-max client-table" *ngIf="Isapiresponsereceived">
+                      <div class="table-responsive-max client-table" *ngIf="availbilityList">
                                                 <table class="table table-striped table-bordered table-hover mbn">
                                                     <thead>
                                                     <tr>
@@ -167,17 +172,11 @@
                                                         <th width="11%" valign="top"><p class="mbn">Wed </p> <span class="text-black small-txt">{{monthList[weekList[3].getMonth()] }} {{ weekList[3].getDate() }}</span></th>
                                                         <th width="11%" valign="top"><p class="mbn">Thu </p> <span class="text-black small-txt">{{monthList[weekList[4].getMonth()] }}{{ weekList[4].getDate() }}</span></th>
                                                         <th width="11%" valign="top"><p class="mbn">Fri </p> <span class="text-black small-txt">{{monthList[weekList[5].getMonth()] }} {{ weekList[5].getDate() }}</span></th>
-                                                        <th width="11%" valign="top">
-                                                     
-                                                            
-                                                            <p class="mbn">Sat </p> <span class="text-black small-txt">{{monthList[weekList[6].getMonth()] }} {{ weekList[6].getDate() }}</span>
-                                                           
-                                                        
-                                                          </th>
+                                                        <th width="11%" valign="top"><p class="mbn">Sat </p> <span class="text-black small-txt">{{monthList[weekList[6].getMonth()] }} {{ weekList[6].getDate() }}</span></th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                   <tr *ngFor="let client of availbilityList | paginate: { itemsPerPage: 5, currentPage: p, totalItems: totalItemsCount };let i = index"
+                                                   <tr *ngFor="let item of availbilityList | paginate: { itemsPerPage: 5, currentPage: p, totalItems: totalItemsCount };let i = index"
                                                       >
                                                       <td valign="top" class="bg-white" style="min-width: 254px;">
                                                       <div class="client-list">
@@ -185,14 +184,14 @@
                                                         <li>
                                                           <div class="row">
                                                           <div class="col-sm-5 col-xs-5"> 
-                                                        
-                                                            <a  [routerLink]="'/client/info/' + client.empId" title="INFO">
-                                                              {{client.empName}}
-                                                            </a> 
+                                                            {{item.empName}}
+                                                            <!-- <a  [routerLink]="'/client/info/' + item.empId" title="INFO">
+                                                          
+                                                            </a>  -->
                     
                     
                                                       </div>
-                                                            <div class="col-sm-5 col-xs-5">{{ client.empId }}</div>
+                                                            <div class="col-sm-5 col-xs-5">{{ item.empId }}</div>
                                                             <div class="col-sm-2 col-xs-2">
                                                               <i class="fa fa-calendar medium-txt text-orange"></i>
                                                             </div>
@@ -201,8 +200,12 @@
                                                         </ul>
                                                         </div>
                                                       </td>
+                                                      <td>
+                                                        {{this.getDistance(item)}}
+
+                                                      </td>
                                                       <td *ngFor="let week of currentweekarray" valign="top" class="client-td">
-                                                        <div class="row mbs"  *ngFor="let mtmObj of client.meetingList">
+                                                        <div class="row mbs"  *ngFor="let mtmObj of item.meetingList">
                                                           <div class="col-sm-12"  *ngIf="(mtmObj.meetingDate   |  equateDate : week)==true">
                                                             <div class="client-box-green-dot"></div>
                                                             <div class="client-box">
@@ -233,17 +236,8 @@
                          
                           </div>
                       </div>
-
                     </div>
-
-
-
-
-
-
-
-
-            </div>
+                </div>
         </form>
     </div>
     <!--END CONTENT-->

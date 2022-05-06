@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { ClientModel } from 'src/app/models/client/client-model';
-import { ItemsList } from 'src/app/models/common';
+import { ItemsList ,CheckBoxList} from 'src/app/models/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
@@ -21,10 +21,10 @@ import { DatePipe } from '@angular/common';
 export class AvailabilitySearchComponent implements OnInit {
   IsLoad: boolean = false;
   currentUser:UserModel;
-  searchModel = new AvailbilityRequest(-1,0);
+  searchModel = new AvailbilityRequest(0);
   caseList:ItemsList[]= [];
   empTypeList = Array<ItemsList>();
-  provisionsTypeList = Array<ItemsList>();
+  provisionsTypeList = Array<CheckBoxList>();
   _startTime : Date=new Date();
   _endTime : Date=new Date();
   _fromDate : Date=new Date();
@@ -39,11 +39,14 @@ export class AvailabilitySearchComponent implements OnInit {
   weekenddate : Date;
   currentweekarray : string[] = [];
   weekList : Date[] = [];
-  Isapiresponsereceived : boolean = true;
+
     p: number = 1;
     totalItemsCount : number = 0;
     startdate : string;
     availbilityList : AvailbilityReponse[] = [];
+
+    latitude:number;
+    longitude:number;
 
 
   constructor(
@@ -53,24 +56,18 @@ export class AvailabilitySearchComponent implements OnInit {
     private empSrv: EmployeeapiService,
     private acontSrv: AccountService,
     private locSrv: LocationService,
-    
     ) 
     {  
-
-
+      this.IsLoad=true;
+      setTheme('bs3');
+      this.latitude = 33.740253;
+      this.longitude =-82.745857;
       this.currentDate = new Date();
       this.ptrcurrentDate = new Date();
       this.currentYear = new Date().getFullYear();
       this.currentMonthIndex = new Date().getMonth();
       this.currentDay = new Date().getDate();
-
       this.weekList = this.getWeekDays(this.currentDay, this.currentMonthIndex, this.currentYear);
-
-
-
-
-
-      setTheme('bs3');
     this.currentUser=this.acontSrv.getCurrentUser();
     this.comSrv.getClientList().subscribe((response) => {
       this.caseList = response.data;
@@ -81,10 +78,13 @@ export class AvailabilitySearchComponent implements OnInit {
     this.empSrv.getAvailabilityList().subscribe(response => {
       response.data.forEach((_obj: any) => {
         this.provisionsTypeList.push(
-          new ItemsList(_obj.availabilityId.toString(), _obj.availabilityName)
+          new CheckBoxList(_obj.availabilityId.toString(), _obj.availabilityName,false)
         );
       });
+
+      this.IsLoad=false;
     });
+
   }
 
   ngOnInit(): void {
@@ -94,25 +94,26 @@ export class AvailabilitySearchComponent implements OnInit {
   search()
   {
     debugger;
-
+    this.IsLoad=true;
+    this.searchModel.provisionsList=this.provisionsTypeList.filter(x=>x.IsChecked==true).map(y=>Number(y.itemId));
     this.searchModel.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
     this.searchModel.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";  
-    this.searchModel.timeIn=this.datepipe.transform(this._startTime, 'hh:mm:ss')||"";
-    this.searchModel.timeOut=this.datepipe.transform(this._endTime, 'hh:mm:ss')||"";
-   
-
-
+    this.searchModel.timeIn=this.datepipe.transform(this._startTime, 'h:mm a')||"";
+    this.searchModel.timeOut=this.datepipe.transform(this._endTime, 'h:mm a')||"";
+    this.searchModel.caseId=Number(this.searchModel.caseId);
+    this.searchModel.empTypeId=Number(this.searchModel.empTypeId);
     const reqObj: AvailbilityRequest = this.searchModel;
     console.log('Search', reqObj);
     this.locSrv.searchAvailbility(reqObj).subscribe((response) => {
       if(response.result)
       {
         debugger;
+        console.log( response.data);
         this.availbilityList = response.data;
+        this.IsLoad=false;
       }
     });
   }
-
 
 
   public getWeekDays(day : number, monthIndex : number, year : number): Date[] {
@@ -159,13 +160,32 @@ export class AvailabilitySearchComponent implements OnInit {
 
 
 
+  getDistance(item:AvailbilityReponse):number
+  {
+    this.locSrv.getDistance(this.latitude,this.longitude,item.latitude,item.longitude,)
+    .subscribe({    
+      error: () => {
+        item.distance= 0.0;
+        },   
+      next: (result:any) => { 
+        var route:any=  result['routes'][0];
+        var lengthInMeters:any=  route['summary']['lengthInMeters'];
+        item.distance= this.getMiles(lengthInMeters); 
+     
+      },     
+  });
+  return item.distance;
+  }
 
 
 
-
-
-
-
+  getMiles(meters:number) 
+  {
+    return  meters*0.000621371192;
+   
+   }
+   
+ 
 
 
 }
