@@ -20,7 +20,6 @@ export class EmpAvailabilityComponent implements OnInit {
   }
 
   dataList = Array<ItemsList>();
-
     BindAvailability() {
     // this.IsLoad = true;
 

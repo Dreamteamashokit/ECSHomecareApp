@@ -1,6 +1,4 @@
 <app-loader [show]="IsLoad"></app-loader>
-
-
 <!--BEGIN PAGE WRAPPER-->
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
@@ -8,19 +6,15 @@
         <div class="page-header pull-left">
             <div class="page-title">New Employee</div>
         </div>
-
         <div class="clearfix"></div>
     </div>
     <!--END TITLE & BREADCRUMB PAGE-->
     <!--BEGIN CONTENT-->
     <div class="page-content">
-
         <form #empf="ngForm">
         <div class="panel">
             <div class="panel-body">
-
                 <div class="row mtm">
-
                     <div class="col-sm-3 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Status</label>
@@ -35,22 +29,14 @@
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">First Name</label>
-
-
                             <input required type="text" placeholder="First Name" class="form-control" id="txtFirstName" name="FirstName" #FirstName="ngModel" [(ngModel)]="model.firstName">
                             <em *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" for="txtFirstName" class="invalid">This field is required</em>
-
-
-
-
-
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">Middle Name</label>
                             <input type="text" placeholder="Middle Name" class="form-control" id="txtMiddleName" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="model.middleName">
-
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
@@ -58,15 +44,10 @@
                             <label class="control-label">Last Name</label>
                             <input required type="text" placeholder="Last Name" class="form-control" id="txtLastName" name="LastName" #LastName="ngModel" [(ngModel)]="model.lastName">
                             <em *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" for="txtLastName" class="invalid">This field is required</em>
-
-
-
                         </div>
                     </div>
-
                 </div>
                 <div class="row mtm">
-
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">SSN</label>
@@ -91,7 +72,6 @@
                             <label class="control-label">Cell Phone</label>
                             <input required type="text" placeholder="Cell Phone" class="form-control" id="txtcellPhone" name="cellPhone" #cellPhone="ngModel" [(ngModel)]="model.cellPhone">
                             <em *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)" for="txtcellPhone" class="invalid">This field is required</em>
-
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
@@ -99,7 +79,6 @@
                             <label class="control-label">Home Phone</label>
                             <input required type="text" placeholder="Home Phone" class="form-control" id="txthomePhone" name="homePhone" #homePhone="ngModel" [(ngModel)]="model.homePhone">
                             <em *ngIf="homePhone.invalid && (homePhone.dirty || homePhone.touched)" for="txthomePhone" class="invalid">This field is required</em>
-
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
@@ -110,36 +89,28 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="panel">
             <div class="panel-body">
                 <div class="row mtm">
-
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">Date of Hire</label>
                             <div class="input-icon right">
                                 <i class="fa fa-calendar"></i>
                                 <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdateOfHire" name="dateOfHire" #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" bsDatepicker>
-
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-3 col-xs-6">
-
                         <div class="form-group">
                             <label class="control-label">Date of First Case</label>
                             <div class="input-icon right">
                                 <i class="fa fa-calendar"></i>
                                 <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase" bsDatepicker>
-
                             </div>
-
                         </div>
-
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
@@ -151,9 +122,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="col-sm-3 col-xs-6">
 
                         <div class="form-group">
