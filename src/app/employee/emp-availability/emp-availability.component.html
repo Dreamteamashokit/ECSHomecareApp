@@ -1,41 +1,35 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Availability</strong> </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel">
+            <div class="panel-body ptn pbn">
+                <div class="row">
+                    <div class="col-sm-12"> </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mbn">
+                            <tbody>
+                                <tr *ngFor="let obj of dataList">
+                                    <td width="30%">
+                                        {{ obj.itemName }}
+                                    </td>
+                                    <td width="20%">
+                                        <input [id]="obj.itemId" type="checkbox" (change)="onAvailabilityMappingChange($event,obj.itemId)"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=" modal-footer">
+                                        <button type="button" (click)="updateAvailablity()"
+                                            class="btn btn-md btn-dark">Update</button>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Availability</strong> </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                
-                            <div class="col-lg-12">
-                                <div class="panel">
-                                    <div class="panel-body ptn pbn">
-                                        <div class="row">
-                                            <div class="col-sm-12"> </div>
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped mbn">
-                                                    <tbody>
-
-                                                        <tr *ngFor="let obj of dataList" >
-                              
-
-                              <td width="30%">
-                                {{ obj.itemName }}
-                            </td>
-                            <td width="20%">
-                                <input [id]="obj.itemId" type="checkbox" />
-                            </td>
-                            </tr>
-                
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                
-                                    </div>
-                
-                                </div>
-                
-                            </div>
-                        </div>
-                
-                    
+        </div>
+    </div>
