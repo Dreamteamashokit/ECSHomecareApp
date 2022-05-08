@@ -11,5 +11,7 @@ export class AvailbilityRequest {
     provisionsList: number[];
     constructor(empTypeId: number) {
         this.empTypeId = empTypeId;
+        this.payTypeId = 1;
+        this.term = "0";
       }
 }

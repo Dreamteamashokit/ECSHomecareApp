@@ -20,9 +20,11 @@ import { DatePipe } from '@angular/common';
 })
 export class AvailabilitySearchComponent implements OnInit {
   IsLoad: boolean = false;
+  IsDate: boolean = false;
   currentUser:UserModel;
   searchModel = new AvailbilityRequest(0);
   caseList:ItemsList[]= [];
+   termList:ItemsList[]= [];
   empTypeList = Array<ItemsList>();
   provisionsTypeList = Array<CheckBoxList>();
   _startTime : Date=new Date();
@@ -39,16 +41,12 @@ export class AvailabilitySearchComponent implements OnInit {
   weekenddate : Date;
   currentweekarray : string[] = [];
   weekList : Date[] = [];
-
     p: number = 1;
     totalItemsCount : number = 0;
     startdate : string;
     availbilityList : AvailbilityReponse[] = [];
-
     latitude:number;
     longitude:number;
-
-
   constructor(
     private route:ActivatedRoute,
     public datepipe: DatePipe,
@@ -60,6 +58,7 @@ export class AvailabilitySearchComponent implements OnInit {
     {  
       this.IsLoad=true;
       setTheme('bs3');
+      this.BindTerm();
       this.latitude = 33.740253;
       this.longitude =-82.745857;
       this.currentDate = new Date();
@@ -88,8 +87,30 @@ export class AvailabilitySearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+   
   }
 
+  termChange(e: any): void {
+
+if(e.target.value=="0")
+{
+
+this.IsDate=false;
+}
+else
+{
+  alert('gffg');
+  this.IsDate=true;
+  var nDate=new Date();
+  nDate.setDate(Number(e.target.value));
+  this._toDate=nDate;
+}
+
+    
+  }
+ 
 
   search()
   {
@@ -185,7 +206,109 @@ export class AvailabilitySearchComponent implements OnInit {
    
    }
    
+    sundaysInMonth() {
+
+      // , y:number
+      
+      var current=new Date();
+      console.log(current);
+     var y =current.getFullYear();
+     console.log(y);
+     var m=current.getMonth();
+     console.log(m);
+    var days = new Date(current.getFullYear(),current.getMonth(),0 ).getDate();//no of days in month
+    console.log(days);
+
+    var dd = new Date(y, m, 0).getDate();
+    console.log(dd);
+
+    var date = new Date( m +'/01/'+ y ); // First date of current month
+    console.log(date);
+    var addend = date.getDay();
+    if (addend !=5) { // First date of month is NOT Sunday
+        addend = 7 - addend;
+    }
+    date.setDate(date.getDate() + addend);
+   // var sundays = [ (8 - (new Date( m +'/01/'+ y ).getDay())) % 7 ];
+    var sundays = [date.getDay() ];
+
+    console.log(sundays);
+    for ( var i = sundays[0] + 7; i < days; i += 7 ) {
+
+var date = new Date(y, m, i);
+      sundays.push( i );
+    }
+    console.log(sundays);
+    return sundays;
+
+    
+
+  }
+
+
+
+  BindTerm()
+  {
+this.termList.push(new ItemsList(0,"Recurring Weekly"));
+var current = new Date(); // Current date (default)   
+var addend = current.getDay();
+var i=0;
+if(addend===5)
+{
+  i++;
+  this.termList.push(new ItemsList(current.getDate(),this.datepipe.transform(new Date(current),"dd MMM YYYY") || ""));
+}
+if (addend >5) { 
+ addend = 5 - addend;
+}
+else
+{
+addend = 5 + addend;
+}
+current.setDate(current.getDate() + addend);
+while (i<4) { //  Loop only for current month    
+i++;
+  this.termList.push(new ItemsList(current.getDate(),this.datepipe.transform(new Date(current),"dd MMM YYYY") || ""));
  
+ current.setDate(current.getDate() + 7); // Increment weekly (7 days)
+ 
+}
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

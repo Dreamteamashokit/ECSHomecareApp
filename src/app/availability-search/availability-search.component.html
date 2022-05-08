@@ -33,8 +33,7 @@
                               <option value="" [ngValue]="undefined" selected >Select</option>
                                  <option
                                   *ngFor="let obj of caseList"
-                                  [value]="obj.itemId"
-                                >
+                                  [value]="obj.itemId">
                                   {{ obj.itemName }}
                                 </option> 
                               </select>
@@ -44,14 +43,33 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Term</label>
-                                <input required type="text" placeholder="Term" class="form-control" id="txtterm" name="term" #term="ngModel" [(ngModel)]="searchModel.term">
-                                
+                                <select required                  
+                                class="form-control"
+                                #term="ngModel"
+                                id="ddlterm"
+                                name="term" 
+                                (change)="termChange($event)"
+                                [(ngModel)]="searchModel.term"                                       
+                              >
+                                 <option
+                                  *ngFor="let obj of termList"
+                                  [value]="obj.itemId"
+                                >
+                                  {{ obj.itemName }}
+                                </option> 
+                              </select>
                             </div>
                         </div>
                         <div class="col-sm-3 col-xs-6">
+
                             <div class="form-group">
                                 <label class="control-label"> &nbsp;</label>
-                                <input type="text" placeholder="Pay Type" class="form-control" id="txtpayType" name="payType" #payType="ngModel" [(ngModel)]="searchModel.payTypeId">
+                                <select required class="form-control" id="ddlpayType" name="payType" #payType="ngModel" [(ngModel)]="searchModel.payTypeId">
+                                    <option value="1" >Hourly</option>
+                                    <option value="2">Daily/Live-In</option>
+                                    <option value="3">Visit</option>
+                                
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-3 col-xs-12">
@@ -70,15 +88,15 @@
                     </div>
                     <div class="row mtm">
 
-                        <div class="col-sm-3 col-xs-12">
+                        <div class="col-sm-3 col-xs-12" *ngIf="IsDate">
                             <div class="form-group">
 
                                 <label class="control-label">From Date</label>
                                 <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
                                 <input type="text"
-                                  #MeetingDate="ngModel"
-                                  id="txtMeetingDate"
-                                  name="MeetingDate"
+                                  #fromDate="ngModel"
+                                  id="txtfromDate"
+                                  name="fromDate"
                                   placeholder="From Date"
                                   [(ngModel)]="_fromDate"
                                   class="form-control"
@@ -89,15 +107,15 @@
                         </div>
                               
 
-                        <div class="col-sm-3 col-xs-12">
+                        <div class="col-sm-3 col-xs-12" *ngIf="IsDate">
                             <div class="form-group">
 
                                 <label class="control-label">To Date</label>
                       <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
                                 <input type="text"
-                                  #MeetingDate="ngModel"
-                                  id="txtMeetingDate"
-                                  name="MeetingDate"
+                                  #toDate="ngModel"
+                                  id="txttoDate"
+                                  name="toDate"
                                   placeholder="To Date"
                                   [(ngModel)]="_toDate"
                                   class="form-control"
