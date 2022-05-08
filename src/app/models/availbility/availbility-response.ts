@@ -9,6 +9,7 @@ export class AvailbilityReponse {
     city: string;
     zipCode: string;
     distance:number;
+    
     meetingList: EmpAppointment[];
 }
 

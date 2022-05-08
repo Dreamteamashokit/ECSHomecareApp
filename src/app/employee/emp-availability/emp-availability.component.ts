@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ItemsList } from 'src/app/models/common';
 import { ActivatedRoute, Params } from '@angular/router';
-import { EmpAvailablityMappingModel } from 'src/app/models/Employee/EmpAvailablityMappingModel';
+import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
 @Component({
   selector: 'app-emp-availability',
   templateUrl: './emp-availability.component.html',

@@ -11,9 +11,10 @@
     <!--END TITLE & BREADCRUMB PAGE-->
     <!--BEGIN CONTENT-->
     <div class="page-content">
-        <form #empf="ngForm">
+        
             <div class="panel">
                 <div class="panel-body">
+                    <form #empf="ngForm">
                     <div class="panel">
                         <div class="panel-body light-bg-grey">
                     <div class="row mtm">
@@ -144,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
                     <div class="row mtm">
                             <div class="col-sm-3 col-xs-6" *ngFor="let item of provisionsTypeList; let i = index">
                                 <div class="form-group checkbox-box">
@@ -157,27 +158,29 @@
                             <div class="col-sm-12 col-xs-12 text-center">
                                 <button type="button"  [disabled]="empf.invalid"  (click)="search()" class="btn btn-lg btn-dark mbn"><i class="fa fa-search"></i> Search</button>
                             </div>
-                        </div>
+                        </div>                    
+                </div>
+            </form>
                 </div>
             </div>
            
-        </form>
+        
 
 
 
 
 
-
-        <div class="panel" *ngIf="availbilityList.length>0">
+        <div class="panel">
 
             <div class="panel-body">
                 <div #graphDiv id="myMap" style="position:relative;width:100%;min-width:290px;height:600px;"></div>
                
             </div>
+    
+         
 
 
-
-            <div class="panel-body" >
+            <div class="panel-body mtm" *ngIf="availbilityList.length>0" >
                 <div class="row mtm">
                     <div class="col-sm-12">
                   <div class="table-responsive-max client-table" >
@@ -235,7 +238,7 @@
                                                     </div>
                                                   </td>
                                                   <td>
-                                                    {{this.getDistance(item)?.toFixed(2) }}
+                                                    {{item.distance?.toFixed(2) }}
 
                                                   </td>
                                                   <td *ngFor="let week of currentweekarray" valign="top" class="client-td">

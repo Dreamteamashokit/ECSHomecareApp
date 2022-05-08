@@ -54,8 +54,7 @@ export class AvailabilitySearchComponent implements OnInit {
     totalItemsCount : number = 0;
     startdate : string;
     availbilityList : AvailbilityReponse[] = [];
-    latitude:number;
-    longitude:number;
+  
   constructor(
     private route:ActivatedRoute,
     public datepipe: DatePipe,
@@ -144,7 +143,7 @@ else
         this.availbilityList = response.data;
         this.IsLoad=false;
 
-
+        this.findRadius(this.client);
 
         this.loadMap(this.client,this.availbilityList);
 
@@ -202,7 +201,7 @@ else
 
   getDistance(item:AvailbilityReponse):number
   {
-    this.locSrv.getDistance(this.latitude,this.longitude,item.latitude,item.longitude,)
+    this.locSrv.getDistance(this.client.latitude,this.client.longitude,item.latitude,item.longitude)
     .subscribe({    
       error: () => {
         item.distance= 0.0;
@@ -216,6 +215,54 @@ else
   });
   return item.distance;
   }
+
+
+
+  findRadius(item:ClientSearch){
+    this.availbilityList.forEach((loc: AvailbilityReponse) => 
+    {
+      this.locSrv.getDistance(item.latitude,item.longitude,loc.latitude,loc.longitude)
+      .subscribe({    
+        error: () => {
+          loc.distance= 0.0;
+          },   
+        next: (result:any) => { 
+          var route:any=  result['routes'][0];
+          var lengthInMeters:any=  route['summary']['lengthInMeters'];
+          loc.distance= this.getMiles(lengthInMeters); 
+
+        },
+        complete: () => {
+          var sortedArray: AvailbilityReponse[] = this.availbilityList.sort((a: AvailbilityReponse, b: AvailbilityReponse) => {
+              debugger;
+              if (a.distance < b.distance) {
+                  return -1;
+              } else if (a.distance > b.distance) {
+                  return 1;
+              } else {
+                  return 0;
+              }});
+          },
+    });
+    },
+    (e:ErrorEvent) => {  
+     alert(e.error);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,6 +303,7 @@ i++;
 
 loadMap(client:ClientSearch,itemList:AvailbilityReponse[]) {
   this.graphDiv.nativeElement.innerHTML = "";
+  console.log(itemList);
   var azureMap = new atlas.Map('myMap', {
       center: [client.longitude , client.latitude],
       zoom: 12,
