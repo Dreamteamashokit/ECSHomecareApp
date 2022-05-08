@@ -5,24 +5,26 @@
 </div>
 <div class="row mbm">
     <div class="col-sm-12 text-14">
-        
-        <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange"></i> Add Address</a>
+
+        <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i
+                class="fa fa-plus-square text-orange"></i> Add Address</a>
         <ng-template #template>
             <form name="frmAddress" #f="ngForm">
-            <div class="modal-header">
-              <h4 class="modal-title pull-left text-orange">Add Address </h4>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left text-orange">Add Address </h4>
 
-           
 
-              <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-                <span aria-hidden="true" class="visually-hidden">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            
-                
-              <div class="row mtm">
-                  <!-- <div class="col-lg-12">
+
+                    <button type="button" class="btn-close close pull-right" aria-label="Close"
+                        (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="visually-hidden">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="row mtm">
+                        <!-- <div class="col-lg-12">
                       <div class="form-group" ><label class="control-label">Address Type</label>
                    
                           <input type="text"
@@ -36,117 +38,92 @@
                   
                       </div>
                   </div> -->
-                  <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">C/O Name</label>
-                 
-                        <input type="text"
-                        #owner="ngModel"
-                        id="txtowner"
-                        name="owner"
-            
-                        [(ngModel)]="model.owner"
-                        class="form-control"
-                          >
-                
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">C/O Name</label>
+
+                                <input type="text" #owner="ngModel" id="txtowner" name="owner" [(ngModel)]="model.owner"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Apt / Unit</label>
+
+                                <input type="text" #flatNo="ngModel" id="txtflatNo" name="flatNo"
+                                    [(ngModel)]="model.flatNo" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Address</label>
+
+                                <input type="text" #address="ngModel" id="txtaddress" name="address"
+                                    [(ngModel)]="model.address" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Country</label>
+
+                                <input type="text" #country="ngModel" id="txtcountry" name="country"
+                                    [(ngModel)]="model.country" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">State</label>
+
+                                <input type="text" #state="ngModel" id="txtstate" name="state" [(ngModel)]="model.state"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">City</label>
+
+                                <input type="text" #city="ngModel" id="txtcity" name="city" [(ngModel)]="model.city"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Zip Code</label>
+
+                                <input type="text" #zipCode="ngModel" id="txtzipCode" name="zipCode"
+                                    [(ngModel)]="model.zipCode" class="form-control" (ngModelChange)="OnChangeAddress(model)">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Longitude</label>
+
+                                <input type="text" #longitude="ngModel" id="txtlongitude" name="longitude"
+                                    [(ngModel)]="model.longitude" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"><label class="control-label">Latitude</label>
+
+                                <input type="text" #latitude="ngModel" id="txtlatitude" name="latitude"
+                                    [(ngModel)]="model.latitude" class="form-control">
+
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">Apt / Unit</label>
-                 
-                        <input type="text"
-                        #flatNo="ngModel"
-                        id="txtflatNo"
-                        name="flatNo"
-                    
-                        [(ngModel)]="model.flatNo"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">Address</label>
-                 
-                        <input type="text"
-                        #address="ngModel"
-                        id="txtaddress"
-                        name="address"
-                     
-                        [(ngModel)]="model.address"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">Country</label>
-                 
-                        <input type="text"
-                        #country="ngModel"
-                        id="txtcountry"
-                        name="country"
-                     
-                        [(ngModel)]="model.country"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">State</label>
-                 
-                        <input type="text"
-                        #state="ngModel"
-                        id="txtstate"
-                        name="state"
-                   
-                        [(ngModel)]="model.state"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">City</label>
-                 
-                        <input type="text"
-                        #city="ngModel"
-                        id="txtcity"
-                        name="city"
-                     
-                        [(ngModel)]="model.city"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group" ><label class="control-label">Zip Code</label>
-                 
-                        <input type="text"
-                        #zipCode="ngModel"
-                        id="txtzipCode"
-                        name="zipCode"
-                     
-                        [(ngModel)]="model.zipCode"
-                        class="form-control"
-                          >
-                
-                    </div>
-                </div>
-          
-                
-                   </div>
-     
-       
-            </div>
 
 
-            <div class="modal-footer">                  
-                <button type="button"  [disabled]="f.invalid" (click)="saveAddress()" class="btn btn-md btn-dark">Save changes</button>
-                <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
-              </div>       </form>
-          </ng-template>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="f.invalid" (click)="saveAddress()"
+                        class="btn btn-md btn-dark">Save changes</button>
+                    <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+                </div>
+            </form>
+        </ng-template>
 
     </div>
 </div>
@@ -172,7 +149,7 @@
                                         Apt/Floor
                                     </td>
                                     <td>
-                                  {{model.flatNo}}
+                                        {{model.flatNo}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -223,11 +200,14 @@
     </div>
     <div class="col-lg-6">
         <div class="panel panel-orange">
-            <div class="panel-heading"><i class="fa fa-map-marker"></i>       {{model.address}},   {{model.flatNo}},     {{model.city}}	</div>
+            <div class="panel-heading"><i class="fa fa-map-marker"></i> {{model.address}}, {{model.flatNo}},
+                {{model.city}} </div>
             <div class="panel-body ptn pbn">
                 <div class="row">
                     <div class="col-sm-12">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55565170.29301636!2d-132.08532758867793!3d31.786060306224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sin!4v1644488535402!5m2!1sen!2sin" width="100%" height="220px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55565170.29301636!2d-132.08532758867793!3d31.786060306224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sin!4v1644488535402!5m2!1sen!2sin"
+                            width="100%" height="220px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
 
                 </div>
