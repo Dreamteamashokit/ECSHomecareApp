@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef, } from '@angular/core';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { ClientModel } from 'src/app/models/client/client-model';
 import { ItemsList ,CheckBoxList} from 'src/app/models/common';
@@ -10,7 +10,9 @@ import { AvailbilityRequest } from 'src/app/models/availbility/availbility-reque
 import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
 import { LocationService } from 'src/app/services/location.service';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
+import { ClientSearch } from 'src/app/models/client/client-search';
 import { DatePipe } from '@angular/common';
+import * as atlas from 'azure-maps-control';
 @Component({
   selector: 'app-availability-search',
   templateUrl: './availability-search.component.html',
@@ -21,6 +23,7 @@ import { DatePipe } from '@angular/common';
 export class AvailabilitySearchComponent implements OnInit {
   IsLoad: boolean = false;
   IsDate: boolean = false;
+  client=new ClientSearch();
   currentUser:UserModel;
   searchModel = new AvailbilityRequest(0);
   caseList:ItemsList[]= [];
@@ -41,6 +44,12 @@ export class AvailabilitySearchComponent implements OnInit {
   weekenddate : Date;
   currentweekarray : string[] = [];
   weekList : Date[] = [];
+  @ViewChild("graphDiv") graphDiv: ElementRef;
+
+ 
+
+
+
     p: number = 1;
     totalItemsCount : number = 0;
     startdate : string;
@@ -59,8 +68,8 @@ export class AvailabilitySearchComponent implements OnInit {
       this.IsLoad=true;
       setTheme('bs3');
       this.BindTerm();
-      this.latitude = 33.740253;
-      this.longitude =-82.745857;
+      this.client.latitude = 33.740253;
+      this.client.longitude =-82.745857;
       this.currentDate = new Date();
       this.ptrcurrentDate = new Date();
       this.currentYear = new Date().getFullYear();
@@ -101,7 +110,7 @@ this.IsDate=false;
 }
 else
 {
-  alert('gffg');
+  
   this.IsDate=true;
   var nDate=new Date();
   nDate.setDate(Number(e.target.value));
@@ -115,7 +124,9 @@ else
   search()
   {
     debugger;
-    this.IsLoad=true;
+    this.IsLoad=true;    
+    this.client.clientId=Number(this.searchModel.caseId);
+    
     this.searchModel.provisionsList=this.provisionsTypeList.filter(x=>x.IsChecked==true).map(y=>Number(y.itemId));
     this.searchModel.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
     this.searchModel.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";  
@@ -132,6 +143,14 @@ else
         console.log( response.data);
         this.availbilityList = response.data;
         this.IsLoad=false;
+
+
+
+        this.loadMap(this.client,this.availbilityList);
+
+
+
+        
       }
     });
   }
@@ -206,47 +225,6 @@ else
    
    }
    
-    sundaysInMonth() {
-
-      // , y:number
-      
-      var current=new Date();
-      console.log(current);
-     var y =current.getFullYear();
-     console.log(y);
-     var m=current.getMonth();
-     console.log(m);
-    var days = new Date(current.getFullYear(),current.getMonth(),0 ).getDate();//no of days in month
-    console.log(days);
-
-    var dd = new Date(y, m, 0).getDate();
-    console.log(dd);
-
-    var date = new Date( m +'/01/'+ y ); // First date of current month
-    console.log(date);
-    var addend = date.getDay();
-    if (addend !=5) { // First date of month is NOT Sunday
-        addend = 7 - addend;
-    }
-    date.setDate(date.getDate() + addend);
-   // var sundays = [ (8 - (new Date( m +'/01/'+ y ).getDay())) % 7 ];
-    var sundays = [date.getDay() ];
-
-    console.log(sundays);
-    for ( var i = sundays[0] + 7; i < days; i += 7 ) {
-
-var date = new Date(y, m, i);
-      sundays.push( i );
-    }
-    console.log(sundays);
-    return sundays;
-
-    
-
-  }
-
-
-
   BindTerm()
   {
 this.termList.push(new ItemsList(0,"Recurring Weekly"));
@@ -272,25 +250,40 @@ i++;
  
  current.setDate(current.getDate() + 7); // Increment weekly (7 days)
  
+}}
+
+
+
+loadMap(client:ClientSearch,itemList:AvailbilityReponse[]) {
+  this.graphDiv.nativeElement.innerHTML = "";
+  var azureMap = new atlas.Map('myMap', {
+      center: [client.longitude , client.latitude],
+      zoom: 12,
+      language: 'en-US',
+      authOptions: {
+          authType: atlas.AuthenticationType.subscriptionKey,
+          subscriptionKey: 'MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE'
+      },
+      enableAccessibility: false,
+  });
+  azureMap.events.add('ready', function () {
+      /*Create a data source and add it to the map*/
+      var dataSource = new atlas.source.DataSource();
+      azureMap.sources.add(dataSource);
+      var points: any[]=[];
+      var cpoint = new atlas.Shape(new atlas.data.Point([client.longitude, client.latitude])); 
+      points.push(cpoint);
+      itemList.forEach((Item: AvailbilityReponse) => {
+        debugger;
+        var point = new atlas.Shape(new atlas.data.Point([Number(Item.longitude), Number(Item.latitude)])); 
+        points.push(point);
+      });
+      //Add the symbol to the data source.
+      dataSource.add(points);
+      //Create a symbol layer using the data source and add it to the map
+      azureMap.layers.add(new atlas.layer.SymbolLayer(dataSource, ""));
+  });
 }
-
-
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
