@@ -8,3 +8,12 @@ export class AddressView {
     city: string;
     zipCode: string;
 }
+
+
+
+export class LocationView {
+    Location: string;
+    latitude: number;
+    longitude: number;
+
+}

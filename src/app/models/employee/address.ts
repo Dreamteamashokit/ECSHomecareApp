@@ -11,8 +11,8 @@ export class AddressObj extends BaseModel {
     public state: string;
     public city: string;
     public zipCode: string;
-    public latitude:string;
-    public longitude:string;
+    public latitude:number;
+    public longitude:number;
 
     // constructor(_addressId : number, _empId : number, _addressType : number, _owner : string, _flatNo : string, _address : string, _country : string, _state : string, _city : string,_zipCode: string,_latitude:string,_longitude:string)
     // {

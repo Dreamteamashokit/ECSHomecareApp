@@ -22,10 +22,10 @@ import { UserModel } from 'src/app/models/account/login-model';
 })
 export class EmpInfoComponent implements OnInit {
   modalRef?: BsModalRef;
-  currentUser:UserModel;  
+  currentUser:UserModel; 
 
-  empId : string = "-1";
-  empInfo : EmployeeJson;
+  empId : number = -1;
+  empInfo = new EmployeeJson();
   UserData:any;
   currentDate  = new Date();
   @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
@@ -52,17 +52,14 @@ export class EmpInfoComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe((params : Params) =>{
-        this.empId = params["empId"];
-        this.empInfo = new EmployeeJson();
+        this.empId = params["empId"];    
         this.GetEmployeeInfo(this.empId);
-
         this.UserData={
           id:this.empId,
           type:this.empInfo.empType
         };
       }
-    );
-  
+    );  
   }
 
   selectTab(tabId: number) {
@@ -71,7 +68,7 @@ export class EmpInfoComponent implements OnInit {
     }
   }
 
-  GetEmployeeInfo(empId : string)
+  GetEmployeeInfo(empId : number)
   {
     this.empapi.getEmployeeInfo(empId).subscribe(response => {
           this.empInfo = response.data;
@@ -81,14 +78,7 @@ export class EmpInfoComponent implements OnInit {
 
   getName(empInfo : EmployeeJson) : string
   {
-    if(empInfo.lastName.length > 1)
-    {
-      return this.empInfo.lastName + ',' + this.empInfo.firstName;
-    }
-    else
-    {
-      return this.empInfo.firstName;
-    }
+    return this.empInfo.lastName + ',' + this.empInfo.firstName;
   }
   formatPhoneNumber(phoneNumberString:string) {
     var cleaned = ('' + phoneNumberString).replace(/\D/g, '');

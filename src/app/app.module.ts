@@ -76,6 +76,8 @@ import { ClientComplianceComponent } from './client/client-compliance/client-com
 import { AvailabilitySearchComponent } from './availability-search/availability-search.component';
 import { SearchAvailablilityComponent } from './client/search-availablility/search-availablility.component';
 import { ClientBillingComponent } from './client/client-billing/client-billing.component';
+import { LocationMapComponent } from './shared/common/location-map/location-map.component';
+
 
 
 @NgModule({
@@ -140,7 +142,11 @@ import { ClientBillingComponent } from './client/client-billing/client-billing.c
     ClientContactlogListComponent, 
     ClientNoteComponent, 
     ClientCommunityComponent, 
-    ClientComplianceComponent, ClientBillingComponent, AvailabilitySearchComponent, SearchAvailablilityComponent,
+    ClientComplianceComponent,
+     ClientBillingComponent, 
+     AvailabilitySearchComponent, 
+     SearchAvailablilityComponent, LocationMapComponent,
+  
   ],
   imports: [
     BrowserModule,

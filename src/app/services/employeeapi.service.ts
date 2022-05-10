@@ -40,7 +40,7 @@ export class EmployeeapiService {
     return this._http.get<APIResponse<EmployeeList[]>>(environment.domain +"/api/Employee/getEmployeeListObj/"+userId);
   } 
   
-  getEmployeeInfo(empId : string)
+  getEmployeeInfo(empId : number)
   {
     return this._http.get<APIResponse<EmployeeJson>>(environment.domain + "/api/Employee/getEmployeebyId/" + empId);
   } 
@@ -210,21 +210,6 @@ export class EmployeeapiService {
   
      
   }
-
-
-  getGeoPoint(addrsobj: AddressObj) {
-    var address = addrsobj.address;  //"516 Alexander Rd, Princeton, NJ 08540, USA";   
-    var subscriptionKey = "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE";
-    var language = "en-US";
-    var postalCode = addrsobj.zipCode; //"POI";
-    var country = addrsobj.country; //"USA";
-    let apiURL = "https://atlas.microsoft.com/search/address/json?";
-    apiURL = apiURL + "subscription-key=" + subscriptionKey + "&api-version=1.0&typeahead=true&language=" + language + "&extendedPostalCodesFor=" + postalCode + "&countrySet=" + country + "&query=" + address + "";
-    return this._http.get<any>(apiURL);
-  }
-
-
-
 
 
   saveAvailabilityMapping(_req: EmpAvailablityMappingModel) {

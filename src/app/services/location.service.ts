@@ -41,6 +41,22 @@ export class LocationService {
 }
 
 
+getGeoPoint(address:string)
+  {
+   debugger
+    var query = "516 Alexander Rd, Princeton, NJ 08540, USA";
+    //var subscriptionKey = "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE";
+    var language = "en-US";
+    var postalCode = "POI";
+    var country = "USA";
+    let apiURL = "https://atlas.microsoft.com/search/address/json?";
+    apiURL =apiURL+ "subscription-key=" + this.subscriptionKey + "&api-version=1.0&typeahead=true&language=" + language + "&extendedPostalCodesFor=" + postalCode + "&countrySet=" + country + "&query=" + address + "";
+
+    return this.http.get(apiURL);
+
+  }
+
+
 
 
 
