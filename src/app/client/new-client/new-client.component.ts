@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType ,SelectList} from 'src/app/models/common';
 import { Usertype } from 'src/app/commanHelper/usertype';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-new-client',
   templateUrl: './new-client.component.html',
@@ -27,8 +27,10 @@ export class NewClientComponent implements OnInit {
   empList = Array<ItemsList>();
   countryData: SelectList[] = [];
   stateData: SelectList[] = [];
-
-  constructor(private router:Router, private cltApi : ClientApiService,
+  _dobDate : Date=new Date();
+  constructor(private router:Router, 
+    public datepipe: DatePipe,
+    private cltApi : ClientApiService,
     private comApi: CommonService) {
     
       this.BindMaster();
@@ -81,6 +83,7 @@ export class NewClientComponent implements OnInit {
 
     debugger;
     this.IsLoad = true;
+    this.model.dob = this.datepipe.transform(this._dobDate, 'dd-MM-yyyy')||"";   
     this.model.isActive=Number(this.model.isActive);
     this.model.ethnicity=Number(this.model.ethnicity);
     this.model.gender=Number(this.model.gender);

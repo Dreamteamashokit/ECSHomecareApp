@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 
 import{Usertype} from 'src/app/commanHelper/usertype'
-
+import { DatePipe } from '@angular/common';
 
 
 
@@ -35,6 +35,7 @@ export class NewEmployeeComponent implements OnInit {
 
   constructor(private router:Router,  
     private accountApi: AccountService,
+    public datepipe: DatePipe,
     private empApi : EmployeeapiService,
     private comApi: CommonService) {
       this.currentUser=this.accountApi.getCurrentUser();
@@ -83,12 +84,17 @@ export class NewEmployeeComponent implements OnInit {
     });
 
   }
-
+  _dobDate : Date=new Date();
+  _dateOfHire : Date=new Date();
+  _dateOfFirstCase : Date=new Date();
 
 
   saveChanges() {
     this.IsLoad = true;    
     this.model.userId=Number(0);
+    this.model.dateOfHire = this.datepipe.transform(this._dateOfHire, 'dd-MM-yyyy')||"";   
+    this.model.dateOfFirstCase = this.datepipe.transform(this._dateOfFirstCase, 'dd-MM-yyyy')||"";   
+    this.model.dob = this.datepipe.transform(this._dobDate, 'dd-MM-yyyy')||"";   
     this.model.createdBy=this.currentUser.userId;
     this.model.isActive=Number(this.model.isActive);
     this.model.empType=Number(this.model.empType);

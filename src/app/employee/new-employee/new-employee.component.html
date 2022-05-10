@@ -17,7 +17,7 @@
                 <div class="row mtm">
                     <div class="col-sm-3 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Status</label>
+                            <label class="control-label">Status<span class="star">*</span></label>
                             <select class="form-control" id="txtempStatus" name="empStatus" #empStatus="ngModel" [(ngModel)]="model.isActive">
                                 <option *ngFor="let obj of statusData"
                                         [value]="obj.itemId">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">First Name</label>
+                            <label class="control-label">First Name<span class="star">*</span></label>
                             <input required type="text" placeholder="First Name" class="form-control" id="txtFirstName" name="FirstName" #FirstName="ngModel" [(ngModel)]="model.firstName">
                             <em *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" for="txtFirstName" class="invalid">This field is required</em>
                         </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Last Name</label>
+                            <label class="control-label">Last Name <span class="star">*</span></label>
                             <input required type="text" placeholder="Last Name" class="form-control" id="txtLastName" name="LastName" #LastName="ngModel" [(ngModel)]="model.lastName">
                             <em *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" for="txtLastName" class="invalid">This field is required</em>
                         </div>
@@ -50,7 +50,7 @@
                 <div class="row mtm">
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">SSN</label>
+                            <label class="control-label">SSN <span class="star">*</span></label>
                             <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
                             <em *ngIf="SSN.invalid && (SSN.dirty || SSN.touched)" for="txtSSN" class="invalid">This field is required</em>
 
@@ -69,21 +69,21 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Cell Phone</label>
+                            <label class="control-label">Cell Phone <span class="star">*</span></label>
                             <input required type="text" placeholder="Cell Phone" class="form-control" id="txtcellPhone" name="cellPhone" #cellPhone="ngModel" [(ngModel)]="model.cellPhone">
                             <em *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)" for="txtcellPhone" class="invalid">This field is required</em>
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Home Phone</label>
+                            <label class="control-label">Home Phone <span class="star">*</span></label>
                             <input required type="text" placeholder="Home Phone" class="form-control" id="txthomePhone" name="homePhone" #homePhone="ngModel" [(ngModel)]="model.homePhone">
                             <em *ngIf="homePhone.invalid && (homePhone.dirty || homePhone.touched)" for="txthomePhone" class="invalid">This field is required</em>
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Email</label>
+                            <label class="control-label">Email <span class="star">*</span></label>
                             <input required type="text" placeholder="Email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
                             <em *ngIf="email.invalid && (email.dirty || email.touched)" for="txtemail" class="invalid">This field is required</em>
                         </div>
@@ -96,28 +96,28 @@
                 <div class="row mtm">
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Date of Hire</label>
+                            <label class="control-label">Date of Hire <span class="star">*</span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-calendar"></i>
-                                <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdateOfHire" name="dateOfHire" #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" bsDatepicker>
+                                <input required type="text" placeholder="Date of Hire" class="form-control" id="txtdateOfHire" name="dateOfHire" #dateOfHire="ngModel" [(ngModel)]="_dateOfHire" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Date of First Case</label>
+                            <label class="control-label">Date of First Case <span class="star">*</span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-calendar"></i>
-                                <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase" bsDatepicker>
+                                <input required type="text" placeholder="Date of First Case" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="_dateOfFirstCase" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Date of Birth</label>
+                            <label class="control-label">Date of Birth <span class="star">*</span></label>
                             <div class="input-icon right">
                                 <i class="fa fa-calendar"></i>
-                                <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="model.dob" bsDatepicker>
+                                <input required type="text" placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                                 <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
 
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Gender</label>
+                            <label class="control-label">Gender <span class="star">*</span></label>
                             <select class="form-control" id="ddlgender" name="gender" #gender="ngModel" [(ngModel)]="model.gender">
                                 <option *ngFor="let obj of genderData"
                                         [value]="obj.itemId">
@@ -199,7 +199,7 @@
                 <div class="row mtm">
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Employee ID</label>
+                            <label class="control-label">Employee ID <span class="star">*</span></label>
                             <input required type="text" placeholder="Employee ID" class="form-control" id="txtempKey" name="empKey" #empKey="ngModel" [(ngModel)]="model.empKey">
                             <em *ngIf="empKey.invalid && (empKey.dirty || empKey.touched)" for="txtempKey" class="invalid">This field is required</em>
                         </div>
@@ -207,7 +207,7 @@
 
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label"> Type</label>
+                            <label class="control-label"> Type <span class="star">*</span></label>
                             <select required class="form-control" id="ddlempType" name="empType" #empType="ngModel" [(ngModel)]="model.empType">
                                 <option *ngFor="let obj of empTypeList"
                                         [value]="obj.itemId">
@@ -223,7 +223,7 @@
 
 
                         <div class="form-group">
-                            <label class="control-label">Emergency Phone</label>
+                            <label class="control-label">Emergency Phone <span class="star">*</span></label>
                             <input required type="text" placeholder="Emergency Phone" class="form-control" id="txtemgPhone" name="emgPhone" #emgPhone="ngModel" [(ngModel)]="model.emgPhone">
                             <em *ngIf="emgPhone.invalid && (emgPhone.dirty || emgPhone.touched)" for="txtemgPhone" class="invalid">This field is required</em>
 
@@ -235,7 +235,7 @@
                     <div class="col-sm-3 col-xs-6">
 
                         <div class="form-group">
-                            <label class="control-label">Emergency Contact</label>
+                            <label class="control-label">Emergency Contact <span class="star">*</span></label>
                             <input required type="text" placeholder="Emergency Contact" class="form-control" id="txtemgContact" name="emgContact" #emgContact="ngModel" [(ngModel)]="model.emgContact">
                             <em *ngIf="emgContact.invalid && (emgContact.dirty || emgContact.touched)" for="txtemgContact" class="invalid">This field is required</em>
 
@@ -258,7 +258,7 @@
 
 
                         <div class="form-group">
-                            <label class="control-label">Country</label>
+                            <label class="control-label">Country <span class="star">*</span></label>
                             <select required
                             
                             (change)="OnChangeCountry($event)"
@@ -280,7 +280,7 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Tax State</label>
+                            <label class="control-label">Tax State <span class="star">*</span></label>
                             <select required class="form-control" id="ddltaxState" name="taxState" #taxState="ngModel" [(ngModel)]="model.taxState">
                                 <option value="" disabled>Select State</option>
                                 <option *ngFor="let obj of stateData"
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">City</label>
+                            <label class="control-label">City <span class="star">*</span></label>
                             <input required type="text" placeholder="City" class="form-control" id="txtcity" name="city" #city="ngModel" [(ngModel)]="model.city">
                             <em *ngIf="city.invalid && (city.dirty || city.touched)" for="txtcity" class="invalid">This field is required</em>
                         </div>
@@ -302,7 +302,7 @@
 
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
-                            <label class="control-label">Zip Code</label>
+                            <label class="control-label">Zip Code <span class="star">*</span></label>
                             <input required type="text" placeholder="Zip Code" class="form-control" id="txtzipCode" name="zipCode" #zipCode="ngModel" [(ngModel)]="model.zipCode">
                             <em *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched)" for="txtzipCode" class="invalid">This field is required</em>
 

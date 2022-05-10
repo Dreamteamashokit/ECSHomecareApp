@@ -118,7 +118,7 @@
                                 <label class="control-label">Date of Birth<span class="star">*</span></label>
                                 <div class="input-icon right">
                                     <i class="fa fa-calendar"></i>
-                                    <input required type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="model.dob" bsDatepicker>
+                                    <input required type="text" placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                                     <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
                                 </div>
                             </div>
