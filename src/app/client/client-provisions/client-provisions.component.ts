@@ -22,8 +22,26 @@ ModelLst: Array<provisioninfo> = [];
     this.route.params.subscribe(
       (params : Params) =>{   
         
-        this.UserId = Number(params["clientId"]);     
+       
+   
+
+
+        if (params["empId"] != null) {
+          this.UserId = Number(params["empId"]);
+        }
+        else {
+          this.UserId = Number(params["clientId"]);   
+        }
         this.getProvisionLst();
+
+
+
+
+
+
+
+
+
       });
   }
 
