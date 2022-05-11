@@ -73,12 +73,10 @@ import { ClientCommunityComponent } from './client/client-community/client-commu
 import { AddLocationComponent } from './admin/add-location/add-location.component'
 import { ClientProvisionsComponent } from './client/client-provisions/client-provisions.component';
 import { ClientComplianceComponent } from './client/client-compliance/client-compliance.component';
-import { AvailabilitySearchComponent } from './availability-search/availability-search.component';
-import { SearchAvailablilityComponent } from './client/search-availablility/search-availablility.component';
+import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
 import { ClientBillingComponent } from './client/client-billing/client-billing.component';
 import { LocationMapComponent } from './shared/common/location-map/location-map.component';
-
-
+import { SearchAvailbilityComponent } from './shared/common/search-availbility/search-availbility.component';
 
 @NgModule({
   declarations: [
@@ -143,10 +141,10 @@ import { LocationMapComponent } from './shared/common/location-map/location-map.
     ClientNoteComponent, 
     ClientCommunityComponent, 
     ClientComplianceComponent,
-     ClientBillingComponent, 
-     AvailabilitySearchComponent, 
-     SearchAvailablilityComponent, LocationMapComponent,
-  
+    ClientBillingComponent, 
+    AvailabilitySearchComponent, 
+    LocationMapComponent, 
+    SearchAvailbilityComponent,  
   ],
   imports: [
     BrowserModule,

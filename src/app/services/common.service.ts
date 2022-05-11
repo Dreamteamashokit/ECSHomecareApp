@@ -106,4 +106,13 @@ export class CommonService {
   getSubCategoryList() {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getSubCategory");
   }
+
+  getProvisionList(type:number)
+  {
+    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getProvisionList" + '/' + type);
+  }
+
+
+
+
 }

@@ -3,24 +3,26 @@ import { setTheme } from 'ngx-bootstrap/utils';
 import { ClientModel } from 'src/app/models/client/client-model';
 import { ItemsList ,CheckBoxList} from 'src/app/models/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
-import { CommonService } from 'src/app/services/common.service';
-import { AccountService } from 'src/app/services/account.service';
+
 import { UserModel } from 'src/app/models/account/login-model';
 import { AvailbilityRequest } from 'src/app/models/availbility/availbility-request';
 import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
+import { CommonService } from 'src/app/services/common.service';
+import { AccountService } from 'src/app/services/account.service';
 import { LocationService } from 'src/app/services/location.service';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientSearch } from 'src/app/models/client/client-search';
 import { DatePipe } from '@angular/common';
 import * as atlas from 'azure-maps-control';
+
 @Component({
-  selector: 'app-availability-search',
-  templateUrl: './availability-search.component.html',
+  selector: 'app-search-availbility',
+  templateUrl: './search-availbility.component.html',
   styleUrls: [
-    '../../assets/css/orange-blue.css',
-    './availability-search.component.scss']
+    '../../../../assets/css/orange-blue.css',
+    './search-availbility.component.scss']
 })
-export class AvailabilitySearchComponent implements OnInit {
+export class SearchAvailbilityComponent implements OnInit {
   IsLoad: boolean = false;
   IsDate: boolean = false;
   client=new ClientSearch();
@@ -77,10 +79,11 @@ export class AvailabilitySearchComponent implements OnInit {
     this.comSrv.getEmpTypeList().subscribe((response) => {
       this.empTypeList = response.data;
     });
-    this.empSrv.getAvailabilityList().subscribe(response => {
+
+    this.comSrv.getProvisionList(1).subscribe(response => {
       response.data.forEach((_obj: any) => {
         this.provisionsTypeList.push(
-          new CheckBoxList(_obj.availabilityId.toString(), _obj.availabilityName,false)
+          new CheckBoxList(_obj.itemId.toString(), _obj.itemName,false)
         );
       });
 
@@ -119,8 +122,7 @@ else
   {
     debugger;
     this.IsLoad=true;    
-    this.client.clientId=Number(this.searchModel.caseId);
-    
+    this.client.clientId=Number(this.searchModel.caseId);    
     this.searchModel.provisionsList=this.provisionsTypeList.filter(x=>x.IsChecked==true).map(y=>Number(y.itemId));
     this.searchModel.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
     this.searchModel.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";  
@@ -137,14 +139,8 @@ else
         console.log( response.data);
         this.availbilityList = response.data;
         this.IsLoad=false;
-
         this.findRadius(this.client);
-
-        this.loadMap(this.client,this.availbilityList);
-
-
-
-        
+        this.loadMap(this.client,this.availbilityList);        
       }
     });
   }

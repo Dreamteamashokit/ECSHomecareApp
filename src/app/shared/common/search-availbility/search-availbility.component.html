@@ -1,17 +1,4 @@
 <app-loader [show]="IsLoad"></app-loader>
-<!--BEGIN PAGE WRAPPER-->
-<div id="page-wrapper">
-    <!--BEGIN TITLE & BREADCRUMB PAGE-->
-    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
-        <div class="page-header pull-left">
-            <div class="page-title">Availability</div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--END TITLE & BREADCRUMB PAGE-->
-    <!--BEGIN CONTENT-->
-    <div class="page-content">
-        
             <div class="panel">
                 <div class="panel-body">
                     <form #empf="ngForm">
@@ -147,7 +134,7 @@
                 </div>
             
                     <div class="row mtm">
-                            <div class="col-sm-3 col-xs-6" *ngFor="let item of provisionsTypeList; let i = index">
+                            <div class="col-sm-2 col-xs-6" *ngFor="let item of provisionsTypeList; let i = index">
                                 <div class="form-group checkbox-box">
                                     <input type="checkbox"   class="mrm"  name="item[{{ i }}].itemId" [(ngModel)]="item.IsChecked" >
                                     <label class="control-label"> {{ item.itemName }}</label>
@@ -164,11 +151,6 @@
                 </div>
             </div>
            
-        
-
-
-
-
 
         <div class="panel">
 
@@ -257,9 +239,6 @@
                                               
                                                 </tr>
                                             
-                                               
-                                               
-                                            
                                                 </tbody>
                                             </table>
                                   </div>
@@ -275,7 +254,3 @@
                   </div>
                 </div>
             </div>
-    </div>
-    <!--END CONTENT-->
-</div>
-<!--END PAGE WRAPPER-->

@@ -17,7 +17,7 @@ import { GenerateinvoiceComponent } from './dashboard/generateinvoice/generatein
 import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.component';
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
 import { TaskMasterComponent } from 'src/app/company/task-master/task-master.component';
-import { AvailabilitySearchComponent } from 'src/app/availability-search/availability-search.component';
+import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
 
 
 const routes: Routes = [
