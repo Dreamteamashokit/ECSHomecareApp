@@ -1,4 +1,4 @@
-
+<app-loader [show]="IsLoad"></app-loader>
   <div class="row">
     <div class="col-lg-12">
         <div class="row mbm">
@@ -9,10 +9,19 @@
         <div class="row mtm">
           <div class="col-sm-3 col-xs-6" *ngFor="let item of  ModelLst; let i = index">
               <div class="form-group checkbox-box">
+                <div class="row">
+                  <div class="col-sm-7">
+  
+                    <label class="control-label"> {{ item.Description }} </label>
+                  </div> 
+  <div class="col-sm-5">
+    <input *ngIf="item.ProvisionType==1" type="checkbox" class="mrm"  name="item[{{ i }}].IsChecked" [(ngModel)]="item.IsChecked">
+    <input *ngIf="item.ProvisionType==2" type="text" class="form-control"  name="item[{{ i }}].Value"[(ngModel)]="item.Value" >
+                  </div> 
+                </div>
+
                 
-      <input *ngIf="item.ProvisionType==1" type="checkbox" class="mrm"  name="item[{{ i }}].IsChecked" [(ngModel)]="item.IsChecked">
-      <input *ngIf="item.ProvisionType==2" type="text" class="form-control"  name="item[{{ i }}].Value"[(ngModel)]="item.Value" >
-      <label class="control-label"> {{ item.Description }} </label>
+
               </div>
           </div>
       </div>

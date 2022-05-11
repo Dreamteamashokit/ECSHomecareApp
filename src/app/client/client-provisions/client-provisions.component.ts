@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ClientApiService } from 'src/app/services/client-api.service';
-import{provisioninfo} from 'src/app/models/client/provisioninfo';
+import{ provisioninfo } from 'src/app/models/client/provisioninfo';
 
 @Component({
   selector: 'app-client-provisions',
@@ -12,6 +12,7 @@ import{provisioninfo} from 'src/app/models/client/provisioninfo';
   './client-provisions.component.scss']
 })
 export class ClientProvisionsComponent implements OnInit {
+  IsLoad:boolean;
   ProvisionItemlst:any;
   constructor(private route:ActivatedRoute,
     private modalService: BsModalService, private clientapi : ClientApiService) { }
@@ -21,11 +22,6 @@ ModelLst: Array<provisioninfo> = [];
   ngOnInit(): void {
     this.route.params.subscribe(
       (params : Params) =>{   
-        
-       
-   
-
-
         if (params["empId"] != null) {
           this.UserId = Number(params["empId"]);
         }
@@ -33,14 +29,6 @@ ModelLst: Array<provisioninfo> = [];
           this.UserId = Number(params["clientId"]);   
         }
         this.getProvisionLst();
-
-
-
-
-
-
-
-
 
       });
   }
@@ -66,9 +54,10 @@ getProvisionLst()
 
 SaveProvisionData(){
   debugger;
+  this.IsLoad=true;
   let data=this.ModelLst;
-  this.clientapi.SaveProvisionInfoList(data).subscribe(Responce=>{
-
+  this.clientapi.SaveProvisionInfoList(data).subscribe(responce=>{
+    this.IsLoad=false;
   });
 }
 

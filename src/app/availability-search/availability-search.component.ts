@@ -45,11 +45,6 @@ export class AvailabilitySearchComponent implements OnInit {
   currentweekarray : string[] = [];
   weekList : Date[] = [];
   @ViewChild("graphDiv") graphDiv: ElementRef;
-
- 
-
-
-
     p: number = 1;
     totalItemsCount : number = 0;
     startdate : string;
