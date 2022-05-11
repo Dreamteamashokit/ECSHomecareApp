@@ -5,7 +5,6 @@ import{DocumentService} from 'src/app/services/document.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { saveAs } from 'file-saver';
 import{DeleteItem} from 'src/app/models/employee/deleteFolder';
-
 import { FolderData } from 'src/app/models/employee/document';
 import{UploadFileFolder} from 'src/app/models/employee/upload-file-folder';
 import { AccountService } from 'src/app/services/account.service';
@@ -24,17 +23,24 @@ export class EmpDocumentComponent implements OnInit {
   
   public progress: number;
   public message: string;
+  foldername:string
   empId:number;
   FolderList :any;
   currentUser:UserModel;
   Deletemodel =new DeleteItem(0,0,0,0,"","");
   model=new UploadFileFolder("","",0,"","","");
   UserId:number;
-@Input() data:any;
+  @Input() data:any;
 
+  constructor(private route:ActivatedRoute,
+    private http: HttpClient,
+    private accountApi: AccountService,
+    private empApi: EmployeeapiService,
+    private DocApi: DocumentService) {
 
-  constructor(private route:ActivatedRoute,private http: HttpClient,private empApi: EmployeeapiService,
-    private DocApi: DocumentService) { }
+      this.currentUser=this.accountApi.getCurrentUser();
+
+     }
 
  
   ngOnInit(): void {
@@ -99,9 +105,9 @@ export class EmpDocumentComponent implements OnInit {
   }
 
   CreateFolder(foldername:string){
-     var data=new FolderData(this.UserId,foldername);
+     var data=new FolderData(this.currentUser.userId,foldername);
       this.DocApi.folderCreate(data).subscribe(Response=>{ 
-           this.GetFolderList(this.UserId);         
+           this.GetFolderList(this.currentUser.userId);         
       });
   }
 

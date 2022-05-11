@@ -1,213 +1,186 @@
- 
 
-  
-   <div class="row">
-    <div class="col-lg-6">
-   <h4  class="mtm mbm text-uppercase  text-orange">
-      <strong *ngIf="this.data.type==='Emp Type'">Documents & Files</strong> 
-      <strong *ngIf="this.data.type==='Client type'">EMR Documents & Files</strong> 
-    </h4>
-      </div>
-      </div>
-    
-    
-    
-    
-                          
-                          <div class="row mbm">
-<div class="col-sm-12 text-14">
-  <input type="text" #foldername placeholder="Enter Folder Name">
-  <a class="btn btn-md btn-default" (click)="CreateFolder(foldername.value)" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top" title="click on add folder to add folder to document library Got it." data-target="#add-folder" data-toggle="modal">
 
-  
-    <i class="fa fa-plus-square text-orange" ></i> Add Folder
-  </a>
-   
+
+<div class="row">
+  <div class="col-lg-6">
+      <h4 class="mtm mbm text-uppercase  text-orange">
+          <strong *ngIf="this.data.type==='Emp Type'">Documents & Files</strong>
+          <strong *ngIf="this.data.type==='Client type'">EMR Documents & Files</strong>
+      </h4>
   </div>
-  </div>
-                          
-                          <div class="row">									
-    
-    
-                          <div class="col-lg-12">
-                          <div id="accordion1" class="panel-group">
-          <div class="panel panel-default"  *ngFor="let obj of FolderList">
-           <div class="panel-heading">
-          <div class="row" >
-          <div class="col-lg-7 col-xs-7" >
-          <a data-toggle="collapse" data-parent="#accordion1" [attr.href]="'#accor' + obj.folderId" class="collapsed text-14 text-12-mobile">
-            <i class="indicator glyphicon mts text-muted glyphicon-plus-sign"></i> &nbsp;&nbsp;<strong>{{ obj.folderName}}</strong> ({{obj.documentList.length}} files)</a>                                
-          </div>
-          <div class="col-lg-3 col-xs-3 small-txt pts" >RENAME FOLDER</div>
-          <div class="col-lg-2 col-xs-2 small-txt pts" (click)="DeleteFolder(obj)">DELETE FOLDER</div>
-         
-          </div>
-          </div>
-             
-              <div [attr.id]="'accor'+ obj.folderId" class="panel-collapse collapse" style="height: 0px;">
-                  <div class="panel-body">
-                  <div class="row">
-<div class="col-sm-12"> 
-  
-  <div class="table-responsive">
-  <table class="table table-striped mbn">
-                 
-                  <tbody>
-                  <tr *ngFor="let fileobj of obj.documentList">
-                      <td width="40%" class="pts pbs">
-                        <a  class="pts">
-                        <i class="fa fa-file-pdf-o text-red text-14 ptm">
-
-                        </i>&nbsp;&nbsp;{{fileobj.fileName}}</a></td>
-                      <td width="30%" class="pts pbs"><span class="small-txt">Posted by {{fileobj.createdByName}}<br>
-                        {{fileobj.createdOn}}
-                      </span>
-</td>
-                      <td width="15%" class="pts pbs"><i class="fa fa-download text-black medium-txt pts" (click)="DownloadFile(obj.documentId,obj.folderId)"></i></td>
-                     <td width="15%" class="pts pbs"><i class="fa fa-trash-o text-red medium-txt pts" (click)="DeleteFile(fileobj,obj.folderName,obj.folderId)"></i></td>
-                    
-                  </tr>
-               
-                  </tbody>
-              </table>
 </div>
-  </div>
-  </div>
-                  
+<div class="panel">
+  <div class="panel-body">
+      <div class="row mbm">
+          <div class="col-sm-6">         
+              <div class="form-group">
+                  <label class="control-label">Folder Name <span class="star">*</span></label>
+                  <input #foldername type="text" id="txtfoldername" name="foldername" placeholder="Enter Folder Name" class="form-control" >
+
+                  <!-- <em *ngIf="foldername.invalid && (foldername.dirty || foldername.touched)" for="txtempKey" class="invalid">This field is required</em> -->
+              </div>
+          </div>
+          <div class="col-sm-6 mtm">
+              <a class="btn btn-md btn-default" (click)="CreateFolder(foldername.value)" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top" title="click on add folder to add folder to document library Got it." data-target="#add-folder" data-toggle="modal">
+
+                  <i class="fa fa-plus-square text-orange"></i> Add Folder
+              </a>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12">
+              <div id="accordion1" class="panel-group">
+                  <div class="panel panel-default" *ngFor="let obj of FolderList">
+                      <div class="panel-heading">
+                          <div class="row">
+                              <div class="col-lg-7 col-xs-7">
+                                  <a data-toggle="collapse" data-parent="#accordion1" [attr.href]="'#accor' + obj.folderId" class="collapsed text-14 text-12-mobile">
+                                      <i class="indicator glyphicon mts text-muted glyphicon-plus-sign"></i> &nbsp;&nbsp;<strong>{{ obj.folderName}}</strong> ({{obj.documentList.length}} files)
+                                  </a>
+                              </div>
+                              <div class="col-lg-3 col-xs-3 small-txt pts">RENAME FOLDER</div>
+                              <div class="col-lg-2 col-xs-2 small-txt pts" (click)="DeleteFolder(obj)">DELETE FOLDER</div>
+
+                          </div>
+                      </div>
+                      <div [attr.id]="'accor'+ obj.folderId" class="panel-collapse collapse" style="height: 0px;">
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="col-sm-12">
+
+                                      <div class="table-responsive">
+                                          <table class="table table-striped mbn">
+
+                                              <tbody>
+                                                  <tr *ngFor="let fileobj of obj.documentList">
+                                                      <td width="40%" class="pts pbs">
+                                                          <a class="pts">
+                                                              <i class="fa fa-file-pdf-o text-red text-14 ptm">
+
+                                                              </i>&nbsp;&nbsp;{{fileobj.fileName}}
+                                                          </a>
+                                                      </td>
+                                                      <td width="30%" class="pts pbs">
+                                                          <span class="small-txt">
+                                                              Posted by {{fileobj.createdByName}}<br>
+                                                              {{fileobj.createdOn}}
+                                                          </span>
+                                                      </td>
+                                                      <td width="15%" class="pts pbs"><i class="fa fa-download text-black medium-txt pts" (click)="DownloadFile(obj.documentId,obj.folderId)"></i></td>
+                                                      <td width="15%" class="pts pbs"><i class="fa fa-trash-o text-red medium-txt pts" (click)="DeleteFile(fileobj,obj.folderName,obj.folderId)"></i></td>
+
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
                   </div>
               </div>
-          </div>      
-          
-         
-          
+          </div>
       </div>
-                          
-                          </div>
-                          </div>
-    
-    <div class="panel panel-orange">
-                          <div class="panel-heading">Add Document</div>
-    <div class="panel-body">
-     
-     <div class="row">
-                          <div class="col-lg-4">
-    <div class="form-group">
-    <label>Title</label>
-                          
-                          <input type="text"
-                       #Title="ngModel"
-                        id="txtTitle"
-                        name="Title"
-                        placeholder="Title"
-                        [(ngModel)]="model.title"  
-                        class="form-control"
-                       >
-    </div>
-    </div>
-    <div class="col-lg-4">
-    <div class="form-group">
-    <label>Search tags	</label>
-                     
-                          <input type="text" [(ngModel)]="model.search"  class="form-control"  name="Search" #Search="ngModel">     
-    </div>
-    </div>
-    <div class="col-lg-4">
-    <div class="form-group">
-    <label>Folder</label>
-    
-    <select
-                    class="form-control"
-                    #folderid="ngModel"                                   
-                    id="ddlTypeStatusId"
-                    name="folderid"                                   
-                    [(ngModel)]="model.folderId"                                       
-                  > 
-                  <option value="0" disabled>Select</option>
-                                <option
-                                  *ngFor="let obj of FolderList"
-                                  [value]="obj.folderId"
-                                >
-                                  {{ obj.folderName }}
-                                </option>
-                                                  
-                        </select>
-    </div>
-    </div>
-    </div>
-    
-                           <div class="row">
-                          <div class="col-lg-12">
-    <div class="form-group">
-    <label>Description</label>
-                      
-                        <textarea placeholder="Description" [(ngModel)]="model.description"  #Description="ngModel" 
-                        class="form-control" 
-                        id="txtDescription"
-                        rows="3"  spellcheck="false"
-                        name="Description"         
-                        ></textarea>
-    </div>
-    </div>
-                          </div>
-
-
-<div class="row" *ngIf="this.data.type==='Client type'">
-  <div class="col-lg-12">
-    <div class="form-group">
-      <label>Create New Document	</label><br/>
-      <h5>1. Open document from drop-down menu below.</h5>
-      <h5>2. Download to your PC, fill out and save.	</h5>
-      <h5>3. Upload document into Atkins's library folder using Upload form on the left.</h5>
-     
-      <select
-      class="form-control"
-      #folderid="ngModel"                                   
-      id="ddlTypeStatusId"
-      name="folderid"                                   
-      [(ngModel)]="model.folderId"                                       
-    > 
-    <option value="0" disabled>Select</option>
-                  <option value="1">Aide Orientation to Case </option>
-                  <option value="2">Client Assessment</option>
-                  <option value="3">Clinical Notes</option>
-                  <option value="4">Clinical Supervision (Personnel Record)</option>
-                  <option value="5">Discharge Summary</option>
-                  <option value="6">Initial Assessment</option>
-                  <option value="7">Plan of Care</option>
-          </select>
-          <h5>Documents in the drop-down menu populated from the 'Nursing Forms' folder of Document Management under Settings.</h5>
-    </div>
-
-
-                        </div>
+  </div>
 </div>
 
-                          
-                          
-                          <div class="row">
-                          <div class="col-lg-12">
-    <div class="form-group">
-    <label>Upload document	</label>
-                        <input id="inputIncludeFile"  type="file" #file placeholder="Inlcude some file">
-    </div>
-    </div>
+<div class="panel panel-orange">
+  <div class="panel-heading">Add Document</div>
+  <div class="panel-body">
 
-    
-                          
-                          
-                          <div class="row">
-                          <div class="col-lg-12">
-    <div class="form-group">
-      <button type="button" (click)="uploadFile(file.files)" class="btn btn-sm btn-dark">Upload File</button>
-    </div>
-    </div>
-                          </div>
-                          
-                          
-                        
-                          
-                          
-    </div>
-    </div>
-    
-                  
+      <div class="row">
+          <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Title</label>
+
+                  <input type="text"
+                         #Title="ngModel"
+                         id="txtTitle"
+                         name="Title"
+                         placeholder="Title"
+                         [(ngModel)]="model.title"
+                         class="form-control">
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Search tags	</label>
+
+                  <input type="text" [(ngModel)]="model.search" class="form-control" name="Search" #Search="ngModel">
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Folder</label>
+
+                  <select class="form-control"
+                          #folderid="ngModel"
+                          id="ddlTypeStatusId"
+                          name="folderid"
+                          [(ngModel)]="model.folderId">
+                      <option value="0" disabled>Select</option>
+                      <option *ngFor="let obj of FolderList"
+                              [value]="obj.folderId">
+                          {{ obj.folderName }}
+                      </option>
+
+                  </select>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="form-group">
+                  <label>Description</label>
+                  <textarea placeholder="Description" [(ngModel)]="model.description" #Description="ngModel"
+                            class="form-control"
+                            id="txtDescription"
+                            rows="3" spellcheck="false"
+                            name="Description"></textarea>
+              </div>
+          </div>
+      </div>
+      <div class="row" *ngIf="this.data.type==='Client type'">
+          <div class="col-lg-12">
+              <div class="form-group">
+                  <label>Create New Document	</label><br />
+                  <h5>1. Open document from drop-down menu below.</h5>
+                  <h5>2. Download to your PC, fill out and save.	</h5>
+                  <h5>3. Upload document into Atkins's library folder using Upload form on the left.</h5>
+
+                  <select class="form-control"
+                          #folderid="ngModel"
+                          id="ddlTypeStatusId"
+                          name="folderid"
+                          [(ngModel)]="model.folderId">
+                      <option value="0" disabled>Select</option>
+                      <option value="1">Aide Orientation to Case </option>
+                      <option value="2">Client Assessment</option>
+                      <option value="3">Clinical Notes</option>
+                      <option value="4">Clinical Supervision (Personnel Record)</option>
+                      <option value="5">Discharge Summary</option>
+                      <option value="6">Initial Assessment</option>
+                      <option value="7">Plan of Care</option>
+                  </select>
+                  <h5>Documents in the drop-down menu populated from the 'Nursing Forms' folder of Document Management under Settings.</h5>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="form-group">
+                  <label>Upload document	</label>
+                  <input id="inputIncludeFile" type="file" #file placeholder="Inlcude some file">
+              </div>
+          </div>    </div>
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="form-group">
+                      <button type="button" (click)="uploadFile(file.files)" class="btn btn-sm btn-dark">Upload File</button>
+                  </div>
+              </div>
+          </div>
+  
+  </div>
+

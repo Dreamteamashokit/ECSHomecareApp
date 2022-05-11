@@ -34,4 +34,5 @@ export class EmployeeList {
     coordinator: string;
     medical: boolean;
     inService: boolean;
+    isActive: number;
 }

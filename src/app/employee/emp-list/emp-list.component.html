@@ -156,11 +156,48 @@
                       <td>{{trObj.empType}}</td>
                       <td><i class="fa fa-calendar medium-txt"></i></td>
                       <td>{{trObj.cellPhone}}</td>
-                      <td><i class="fa fa-envelope medium-txt"></i></td>
-                      <td><i class="fa fa-times medium-txt"></i></td>
-                      <td><i class="fa fa-times medium-txt"></i></td>
-                      <td><i class="fa fa-check medium-txt"></i></td>
-                      <td><i class="fa fa-check medium-txt"></i></td>
+                      <td>
+                        
+                        
+                  
+                        <i  [class.fa-times]="!trObj.hasEmail"  [class.fa-envelope]="trObj.hasEmail" class="fa medium-txt"></i>
+                      
+                      </td>
+                  
+                      <td>
+                        
+                        
+                        <i  [class.fa-times]="!trObj.medical"  [class.fa-check]="trObj.medical" class="fa medium-txt"></i>
+                      
+                      
+                      
+                      </td>
+                      <td>
+                        <i  [class.fa-times]="!trObj.inService"  [class.fa-check]="trObj.inService" class="fa medium-txt"></i>
+                      
+                      
+                      
+                      </td>
+                      <td>
+                        
+                        <i  [class.fa-times]="!trObj.hasDOB"  [class.fa-check]="trObj.hasDOB" class="fa medium-txt"></i>
+                      
+                      
+                      </td>
+
+
+
+                      <td>
+                        <i  [class.fa-times]="trObj.isActive==0"  [class.fa-check]="trObj.isActive>0" class="fa medium-txt"></i>
+
+              
+                      
+                      
+                      
+                      </td>
+
+
+
                       <td>{{trObj.coordinator}}</td>
                       <td>
                       
