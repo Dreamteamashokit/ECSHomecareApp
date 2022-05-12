@@ -79,6 +79,7 @@ import { LocationMapComponent } from './shared/common/location-map/location-map.
 import { SearchAvailbilityComponent } from './shared/common/search-availbility/search-availbility.component';
 import { EmergencyContactComponent } from './shared/common/emergency-contact/emergency-contact.component';
 import { EmergencyProviderComponent } from './shared/common/emergency-provider/emergency-provider.component';
+import { AddRateComponent } from './billing/add-rate/add-rate.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,7 @@ import { EmergencyProviderComponent } from './shared/common/emergency-provider/e
     ClientBillingComponent, 
     AvailabilitySearchComponent, 
     LocationMapComponent, 
-    SearchAvailbilityComponent, EmergencyContactComponent, EmergencyProviderComponent,  
+    SearchAvailbilityComponent, EmergencyContactComponent, EmergencyProviderComponent, AddRateComponent,  
   ],
   imports: [
     BrowserModule,
