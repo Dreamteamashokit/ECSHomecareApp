@@ -1,0 +1,37 @@
+<div class="panel panel panel-orange">
+    <div class="panel-heading">Primary Contact</div>
+    <div class="panel-body ">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" #name="ngModel" id="txtname" name="name" class="form-control"  [(ngModel)]="model.name"   >
+            </div>
+        </div>
+        
+      
+    
+        <div class="col-lg-6">
+  <div class="form-group">
+  <label class="control-label">Relationship</label>
+  <input type="text"   #relationship="ngModel" id="txtrelationship"  name="relationship" class="form-control"  [(ngModel)]="model.relationship">
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="form-group">
+  <label class="control-label">Phone</label><br>
+  <input type="text" #phone="ngModel" id="txtphone"name="phone" [(ngModel)]="model.phone" class="form-control"  >
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="form-group">
+  <label class="control-label">Email</label><br>
+  <input type="text" #email="ngModel" id="txtemail" name="email" [(ngModel)]="model.email"  class="form-control" >
+  </div>
+  </div>
+  </div>
+  
+  
+  
+  </div>
+  </div> 
