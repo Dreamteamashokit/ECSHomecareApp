@@ -9,6 +9,10 @@ import { LocationService } from 'src/app/services/location.service';
 import {  UserModel } from 'src/app/models/account/login-model';
 import { AddressObj } from 'src/app/models/employee/address';
 import { LocationView } from 'src/app/models/common/address-view';
+
+import { CommonService } from 'src/app/services/common.service';
+import { SelectList} from 'src/app/models/common';
+
 import * as atlas from 'azure-maps-control';
 @Component({
   selector: 'app-emp-address',
@@ -24,16 +28,23 @@ export class EmpAddressComponent implements OnInit {
 
   model = new AddressObj();
   currentUser: UserModel;
+  stateList: SelectList[];
   private http: HttpClient
   constructor(
     private route: ActivatedRoute,
     private modalService: BsModalService, 
     private accountApi: AccountService,
     private locSrv: LocationService,    
-    private empApi: EmployeeapiService) {
+    private empApi: EmployeeapiService,
+    private comApi: CommonService) {
     setTheme('bs3');
     this.model.isActive = 1;
     this.currentUser = this.accountApi.getCurrentUser();
+
+    this.model.country='USA';
+    this.comApi.getStateList('USA').subscribe((response) => {
+      this.stateList = response.data;
+    });
 
   }
 

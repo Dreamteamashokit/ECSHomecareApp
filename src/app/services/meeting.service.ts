@@ -5,11 +5,17 @@ import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
 import { Empmeeting } from 'src/app/models/meeting/empmeeting';
-import { ClientMeeting } from 'src/app/models/meeting/client-meeting';
+import { ClientMeeting,ClientFilter } from 'src/app/models/meeting/client-meeting';
 import { MeetingView } from 'src/app/models/meeting/meeting-view';
 
 import { MeetingStatus ,NotesModel} from 'src/app/models/meeting/meeting-status';
-
+const httpOptionsObj = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    "Authorization": "Bearer " + "qatest"
+  }),
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +41,12 @@ export class MeetingService {
   {
     return this._http.get<APIResponse<ClientMeeting[]>>(environment.domain + "/api/Meeting/getClientMeetingList");
   } 
+
+  getClientMeetingListByFilter(model:ClientFilter) 
+  {  
+    return this._http.post<APIResponse<ClientMeeting[]>>(environment.domain + "/api/Meeting/getClientMeetingList", model, httpOptionsObj);
+  }
+
 
   getMeetingDetail(meetingId : number)
   {
