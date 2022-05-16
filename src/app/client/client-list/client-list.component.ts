@@ -56,8 +56,10 @@ IsLoad: boolean = false;
   stateList: SelectList[];
   payerList: ItemsList[];
   objModel=new ClientFilter(0,"",0,0);
-  p: number = 1;
+  resultText:string='';
   totalItemsCount : number = 0;
+  p: number = 1;
+
   searchValue = "";
   startdate : string;
 
@@ -121,39 +123,29 @@ IsLoad: boolean = false;
 
 
 
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   getFilterData(model: ClientFilter) {
 debugger;
     //alert(model.status);
     this.objModel.status=Number(model.status);
     this.objModel.coordinator=Number(model.coordinator);
     this.objModel.payer=Number(model.payer);
+    let resultText= 'Status :'+this.statusData.filter(x=>x.itemId=this.objModel.status)[0].itemName + ", ";
+    if(this.objModel.coordinator!=0)
+    {
+      resultText+='Coordinator :'+this.managerList.filter(x=>x.itemId=this.objModel.coordinator)[0].itemName +", ";
+    }
+    if(this.objModel.payer!=0)
+    {
+      resultText+='Payer :'+this.payerList.filter(x=>x.itemId=this.objModel.payer)[0].itemName +", ";
+    }
+
+    if(this.objModel.state!="")
+    {
+      resultText+='State :'+this.stateList.filter(x=>x.itemCode=this.objModel.state)[0].itemName 
+    }
+    
+    this.resultText=resultText;
+
     
     this.IsLoad = true;
     this.momApi.getClientMeetingListByFilter(this.objModel).subscribe((response) => {
@@ -161,12 +153,14 @@ debugger;
       {
         debugger;
         this.clientMOMList= response.data;
+        this.totalItemsCount=response.data.length;
         console.log( this.clientMOMList);
         this.IsLoad = false;
       }
       else
       {
         this.clientMOMList=[];
+        this.totalItemsCount=0;
       this.IsLoad = false;
       }
       
@@ -188,6 +182,7 @@ debugger;
        {
          debugger;
          this.clientMOMList=this.currentList= response.data;
+         this.totalItemsCount=response.data.length;
          console.log( this.clientMOMList);
          console.log( this.currentweekarray);
          this.IsLoad = false;
@@ -216,6 +211,7 @@ debugger;
     this.currentAlpha=alpha;
     if (alpha == 'All') {
       this.clientMOMList = this.currentList;
+      this.totalItemsCount=  this.clientMOMList.length;
     }
     else {
       var result = this.currentList.
@@ -223,6 +219,7 @@ debugger;
       .substring(0,1).toLowerCase()===alpha.toLowerCase());
 
       this.clientMOMList = result;
+      this.totalItemsCount=  this.clientMOMList.length;
     }
 
   }
