@@ -18,7 +18,7 @@ import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.compon
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
 import { TaskMasterComponent } from 'src/app/company/task-master/task-master.component';
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
-
+import { CreateUserComponent } from './user/create-user/create-user.component';
 
 const routes: Routes = [
 
@@ -87,8 +87,10 @@ const routes: Routes = [
   },
 
 
-
-
+  {
+    path: 'user/create', component: LayoutComponent,
+    children: [{ path: '', component: CreateUserComponent }]
+  },
 
 
 
@@ -96,89 +98,6 @@ const routes: Routes = [
   { path: '**', component: SignInComponent },
 
 
-
-  // {path : 'client/info/:eId',component : LayoutComponent,
-  // children : [{path:'',component:EmpInfoComponent}]},
-  // { path: 'employee/create', component: NewEmployeeComponent },
-
-
-  //   { 
-  //     path: '', 
-  //     component: LayoutComponent,
-  //     children: [
-
-  //       { path: 'masterinfo', component: MasterinfoComponent }
-  //     ]
-  // },
-
-
-
-
-  // { 
-  //   path: '', 
-  //   component: LayoutComponent,
-  //   children: [
-
-  //     { path: 'newEmp', component: NewEmployeeComponent }
-  //   ]
-  // },
-
-
-
-
-
-  // {
-  //   path : 'CalList',component : ClientCalenderComponent 
-  // },
-
-  // // {
-  // //   path : 'Layout',component : LayoutComponent 
-
-  // // },
-
-
-  // {
-  //   path : 'employee',component : LayoutComponent ,
-  //    children : [{path:'',component:SaveemployeeComponent}]
-  // },
-  // {
-  //   path : 'employeeList',component : LayoutComponent ,
-  //    children : [{path:'',component:EmployeelistComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'employeeinfo/:eId',component:EmployeeInfoComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent,
-  //    children : [{path:'generateinvoice',component:GenerateinvoiceComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent,
-  //    children : [{path:'getinvoicelist',component:GetinvoicesComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'getinvoicebyId/:InvId',component:InvoicedetailsComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientevent/:clientId',component:ClienteventComponent}]
-  // },
-
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientlist',component:ClientlistComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientinfo/:cId',component:ClientInfoComponent}]
-  // },
-
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'saveclient',component:SaveclientComponent}]
-  // }, 
 
 
 ];
