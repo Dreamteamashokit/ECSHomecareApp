@@ -80,50 +80,35 @@
 
                                          
          <div class="col-sm-4 col-xs-12">
-                                        <div class="form-group mtm"><label class="control-label">All Client Data
+                                        <div class="form-group mtm ngxAutocomplte"><label class="control-label">All Client Data
                                           
                                           
 <!--                                           
                                           <span class="small-txt text-black">(Names, address, phone, SSN, any ID)</span>
                                          -->
                                         </label>
-
+                                        <input [(ngModel)]="search"
+                                        typeaheadOptionField="login"
+                                        [typeahead]="suggestions$"
+                                        [typeaheadItemTemplate]="customItemTemplate"
+                                        [typeaheadAsync]="true"
+                                        class="form-control"
+                                        placeholder="Names, address, phone, SSN, all IDs">
 
 
                   <ng-template #customItemTemplate let-model="item" let-index="index">
-        <!-- <h5>This is: {{model.firstName | json}} Index: {{ index }}  
-          
-          <a   title="INFO">
-          
-        </a> </h5>
- -->
-
-        <h5>
-          {{model.lastName}} {{model.firstName}} | {{model.clientId}}
-        </h5>
-      <h6>
-          {{model.address}}, {{model.city}} {{model.state}}{{model.zipCode}}
-          <a [routerLink]="'/client/info/' + model.clientId" class="list-group-item active">{{model.firstName}}
-            <span class="badge badge-info pull-right">{{model.clientId}}</span></a>
-        </h6>
-          
-          
-        
-        
-        
-       
+<div class="row mbm">
+  <div class="col-lg-9 col-xs-9">
+    <h5 class="mbn">      {{model.lastName}} {{model.firstName}} | {{model.clientId}}</h5>
+    <h6 class="mbn">       {{model.address}}, {{model.city}} {{model.state}}{{model.zipCode}}</h6>
+  </div>
+  <div class="col-lg-3 col-xs-3 ptl">       
+    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
+    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
+    <a ><i  class="fa fa-calendar text-black"></i></a>
+  </div>
+</div>
       </ng-template>
-      
-      
-
-             <input [(ngModel)]="search"
-       typeaheadOptionField="login"
-       [typeahead]="suggestions$"
-       [typeaheadItemTemplate]="customItemTemplate"
-       [typeaheadAsync]="true"
-       class="form-control"
-       placeholder="Names, address, phone, SSN, all IDs">
- 
     
                                         </div>
                                     </div>
