@@ -24,10 +24,8 @@ export class AccountService {
   constructor(private _http : HttpClient) {
     let localObj = localStorage.getItem('userData');
     if (localObj) { 
-
       this.userSubject = new BehaviorSubject<UserModel>(JSON.parse(localObj));
       this.user = this.userSubject.asObservable();
-
     }
    }
 
