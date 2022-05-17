@@ -66,7 +66,7 @@ export class CommonService {
     return this._http.get<APIResponse<SelectList[]>>(environment.domain + "/api/Common/getStateList" + '/' + country);
   }
 
-  getEmployees(type: string) {
+  getEmployees(type: number) {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getEmployees" + '/' + type);
   }
 

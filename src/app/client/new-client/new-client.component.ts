@@ -25,6 +25,7 @@ export class NewClientComponent implements OnInit {
   ethnicityData: ItemsList[] = [];
   empTypeList = Array<ItemsList>();
   empList = Array<ItemsList>();
+  nurseList = Array<ItemsList>();
   countryData: SelectList[] = [];
   stateData: SelectList[] = [];
   _dobDate : Date=new Date();
@@ -73,6 +74,12 @@ export class NewClientComponent implements OnInit {
     this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
       this.empList = response.data;
     });
+
+    this.comApi.getEmployees(5).subscribe((response) => {
+      this.nurseList = response.data;
+    });
+    
+
 
   }
 

@@ -202,7 +202,7 @@
                             <div class="form-group">
                                 <label class="control-label">Nurse</label>
                                 <select class="form-control" id="ddlnurse" name="nurse" #nurse="ngModel" [(ngModel)]="model.nurseId">
-                                    <option *ngFor="let obj of empList"
+                                    <option *ngFor="let obj of nurseList"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
                                     </option>
