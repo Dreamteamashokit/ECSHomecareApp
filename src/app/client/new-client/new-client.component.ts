@@ -35,7 +35,7 @@ export class NewClientComponent implements OnInit {
     private comApi: CommonService) {
     
       this.BindMaster();
-
+      
       this. model.isActive=1;
       this. model.ethnicity=1;
       this. model.gender=1;

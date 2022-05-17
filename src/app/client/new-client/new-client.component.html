@@ -187,7 +187,8 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Coordinator<span class="star">*</span></label>
-                                <select required class="form-control" id="ddlcoordinator" name="coordinator" #coordinator="ngModel" [(ngModel)]="model.supervisorId">
+                                <select required  class="form-control" id="ddlcoordinator" name="coordinator" #coordinator="ngModel" [(ngModel)]="model.supervisorId">
+                                  
                                     <option *ngFor="let obj of empList"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
