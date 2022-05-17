@@ -69,7 +69,8 @@ export class NewClientComponent implements OnInit {
     this.comApi.getEmpTypeList().subscribe((response) => {
       this.empTypeList = response.data;
     });
-    this.comApi.getEmpList().subscribe((response) => {
+ 
+    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
       this.empList = response.data;
     });
 

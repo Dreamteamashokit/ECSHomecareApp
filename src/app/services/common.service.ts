@@ -116,6 +116,10 @@ export class CommonService {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getPayers");
   }
 
-  
+  getUsers(type: number) 
+  {
+    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getUsers" + '/' + type);
+  }
+
 
 }
