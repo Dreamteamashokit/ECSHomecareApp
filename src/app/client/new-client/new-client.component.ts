@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ClientApiService } from 'src/app/services/client-api.service';
 import { ClientModel } from 'src/app/models/client/client-model';
@@ -29,6 +29,8 @@ export class NewClientComponent implements OnInit {
   countryData: SelectList[] = [];
   stateData: SelectList[] = [];
   _dobDate : Date=new Date();
+
+  @ViewChild('empf') public empFrm: NgForm;
   constructor(private router:Router, 
     public datepipe: DatePipe,
     private cltApi : ClientApiService,
@@ -40,6 +42,7 @@ export class NewClientComponent implements OnInit {
       this. model.ethnicity=1;
       this. model.gender=1;
       this. model.maritalStatus=1;
+      this.model.nurseId=0;
 
      }
 
@@ -100,14 +103,21 @@ export class NewClientComponent implements OnInit {
     this.model.nurseId=Number(this.model.nurseId);
     this.model.userType=Number(Usertype.Client);
     const empObj: ClientModel = this.model;
+
+    
     this.cltApi.addClient(empObj).subscribe((response) => {
       this.IsLoad = false;
       console.log('Stock change Response: ', response);
+      this.clear();
     });
   }
 
 
 
+  clear() {
+
+    this.empFrm.resetForm(); 
+  }
 
 
 

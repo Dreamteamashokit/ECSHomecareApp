@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { EmployeeModel } from 'src/app/models/employee/employee-model';
@@ -30,8 +30,10 @@ export class NewEmployeeComponent implements OnInit {
   ethnicityData: ItemsList[] = [];
   empTypeList = Array<ItemsList>();
   empList = Array<ItemsList>();
-  countryData: SelectList[] = [];
   stateData: SelectList[] = [];
+
+
+  @ViewChild('empf') public empFrm: NgForm;
 
   constructor(private router:Router,  
     private accountApi: AccountService,
@@ -42,10 +44,10 @@ export class NewEmployeeComponent implements OnInit {
       this.BindMaster();
 
       this. model.isActive=1;
-      this. model.enthnicity=1;
       this. model.gender=1;
-      this. model.maritalStatus=1;
-
+      this. model.enthnicity=0;
+      this. model.maritalStatus=0;
+      this.model.supervisorId=0;
       this. model.country='';
       this. model.taxState='';
      }
@@ -73,9 +75,7 @@ export class NewEmployeeComponent implements OnInit {
     this.comApi.getMaster(MasterType.Ethnicity).subscribe((response) => {
       this.ethnicityData = response.data;
     });
-    this.comApi.getCountryList().subscribe((response) => {
-      this.countryData = response.data;
-    });
+  
     this.comApi.getEmpTypeList().subscribe((response) => {
       this.empTypeList = response.data;
     });
@@ -84,23 +84,22 @@ export class NewEmployeeComponent implements OnInit {
       this.empList = response.data;
     });
 
-
-
-
-
-
-
+    this.comApi.getStateList('USA').subscribe((response) => {
+      this.stateData = response.data;
+    });
+    
   }
   _dobDate : Date=new Date();
-  _dateOfHire : Date=new Date();
-  _dateOfFirstCase : Date=new Date();
+  // _dateOfHire : Date=new Date();
+  // _dateOfFirstCase : Date=new Date();
 
 
   saveChanges() {
+    debugger;
     this.IsLoad = true;    
     this.model.userId=Number(0);
-    this.model.dateOfHire = this.datepipe.transform(this._dateOfHire, 'dd-MM-yyyy')||"";   
-    this.model.dateOfFirstCase = this.datepipe.transform(this._dateOfFirstCase, 'dd-MM-yyyy')||"";   
+    this.model.dateOfHire = this.datepipe.transform(this.model.dateOfHire, 'dd-MM-yyyy')||"";   
+    this.model.dateOfFirstCase = this.datepipe.transform(this.model.dateOfFirstCase, 'dd-MM-yyyy')||"";   
     this.model.dob = this.datepipe.transform(this._dobDate, 'dd-MM-yyyy')||"";   
     this.model.createdBy=this.currentUser.userId;
     this.model.isActive=Number(this.model.isActive);
@@ -109,16 +108,23 @@ export class NewEmployeeComponent implements OnInit {
     this.model.gender=Number(this.model.gender);
     this.model.maritalStatus=Number(this.model.maritalStatus);
     this.model.supervisorId=Number(this.model.supervisorId);
-    this.model.userType=Number(Usertype.Employee);
+    this.model.userType=Number(Usertype.Employee);   
     const empObj: EmployeeModel = this.model;
     this.empApi.addEmployee(empObj).subscribe((response) => {
       this.IsLoad = false;
       console.log('Stock change Response: ', response);
+      this.clear();
+
+      
+
     });
   }
 
 
+  clear() {
 
+    this.empFrm.resetForm(); 
+  }
 
 
 }
