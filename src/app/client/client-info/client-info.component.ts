@@ -16,36 +16,26 @@ import { setTheme } from 'ngx-bootstrap/utils';
 export class ClientInfoComponent implements OnInit {
   clientId : number= 0;
   modalRef?: BsModalRef;
+  UserData:any;
+  @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
   constructor(private router:Router, 
     private route:ActivatedRoute,  
     private modalService: BsModalService   
     ) 
     {
       setTheme('bs3');
-
-   
     }
 
-    @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
 
-    selectTab(tabId: number) {
-      if (this.staticTabs?.tabs[tabId]) {
-        this.staticTabs.tabs[tabId].active = true;
-      }
-    }
-  UserData:any;
+
+
+
   ngOnInit(): void {
     this.route.params
     .subscribe(
       (params : Params) =>{
         debugger;
         this.clientId = params["clientId"];
-     
-
-        let tab=Number(params["tabId"]);
-        
-       
-
         this.UserData={
           id:this.clientId,
           type:'Client type'
@@ -56,19 +46,21 @@ export class ClientInfoComponent implements OnInit {
   }
 
 
-  ngAfterViewChecked() {
+
+  ngAfterViewInit(): void {
     this.route.params.subscribe((params : Params) =>{ 
-       this.selectTab(Number(params["tabId"]));       
-      });
-  }
-
-  ngAfterViewInit() {
-  
+      this.selectTab(Number(params["tabId"]));       
+     });
   }
 
 
 
-
+  selectTab(tabId: number) {
+    
+    if (this.staticTabs?.tabs[tabId]) {
+      this.staticTabs.tabs[tabId].active = true;
+    }
+  }
 
 
 
