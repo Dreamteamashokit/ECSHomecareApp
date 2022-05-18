@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\billing",
+    "\\src\\app\\billing\\component",
+    "\\src\\app\\billing\\component\\manage_payer_and_rate",
+    "\\src\\app\\billing\\component\\manage_payer_and_rate\\model",
+    "\\src\\app\\employee",
+    "\\src\\app\\employee\\new-employee",
+    "\\src\\app\\models",
+    "\\src\\app\\models\\employee"
+  ],
+  "PreviewInSolutionExplorer": false
+}
