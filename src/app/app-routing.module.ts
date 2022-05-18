@@ -67,10 +67,10 @@ const routes: Routes = [
     path: 'invoice/create', component: LayoutComponent,
     children: [{ path: '', component: GenerateinvoiceComponent }]
   },
-  {
-    path: 'invoice/list', component: LayoutComponent,
-    children: [{ path: '', component: GetinvoicesComponent }]
-  },
+  //{
+  //  path: 'invoice/list', component: LayoutComponent,
+  //  children: [{ path: '', component: GetinvoicesComponent }]
+  //},
   {
     path: 'invoice/info/:InvId', component: LayoutComponent,
     children: [{ path: '', component: InvoicedetailsComponent }]
@@ -86,7 +86,9 @@ const routes: Routes = [
     children: [{ path: '', component: AvailabilitySearchComponent }]
   },
 
-
+    {
+        path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
+    },
 
 
 
