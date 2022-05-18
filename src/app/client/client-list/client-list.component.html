@@ -211,7 +211,7 @@
                                       <div class="row">
                                       <div class="col-lg-10"> 
                                     
-                                        <a  [routerLink]="'/client/info/' + client.clientId" >
+                                        <a  [routerLink]="'/client/info/' + client.clientId+'/0'" >
                                           <h4> {{client.lastName}},   {{client.firstName}} </h4>
                                           <span class="text-orange">{{ client.clientId }}</span>
                                         </a> 
@@ -220,7 +220,7 @@
                                   </div>
                                  
                                         <div class="col-sm-2 col-xs-2">
-                                        <a (click)="addMeeting(client.clientId)">
+                                        <a [routerLink]="'/client/info/' + client.clientId+'/1'">
                                           <i class="fa fa-calendar medium-txt text-orange"></i>
                                         </a>
                                         </div>

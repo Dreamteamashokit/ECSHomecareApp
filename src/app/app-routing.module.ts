@@ -60,7 +60,7 @@ const routes: Routes = [
     children: [{ path: '', component: ClientScheduleComponent }]
   },
   {
-    path: 'client/info/:clientId', component: LayoutComponent,
+    path: 'client/info/:clientId/:tabId', component: LayoutComponent,
     children: [{ path: '', component: ClientInfoComponent }]
   },
   {

@@ -22,6 +22,8 @@ export class ClientInfoComponent implements OnInit {
     ) 
     {
       setTheme('bs3');
+
+   
     }
 
     @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
@@ -36,7 +38,14 @@ export class ClientInfoComponent implements OnInit {
     this.route.params
     .subscribe(
       (params : Params) =>{
+        debugger;
         this.clientId = params["clientId"];
+     
+
+        let tab=Number(params["tabId"]);
+        
+       
+
         this.UserData={
           id:this.clientId,
           type:'Client type'
@@ -45,5 +54,22 @@ export class ClientInfoComponent implements OnInit {
     );
    
   }
+
+
+  ngAfterViewChecked() {
+    this.route.params.subscribe((params : Params) =>{ 
+       this.selectTab(Number(params["tabId"]));       
+      });
+  }
+
+  ngAfterViewInit() {
+  
+  }
+
+
+
+
+
+
 
 }
