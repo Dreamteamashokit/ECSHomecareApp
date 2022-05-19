@@ -39,14 +39,10 @@ export class ScheduleViewComponent implements OnInit {
         this.empId = params["empId"];
       }
     );
-    console.log("Rakesjjjj");
+
     this.momApi.getEmployeeMeeting(this.empId).subscribe((response) => {
       this.meetingList = response.data;
-
-      console.log(response.data);
-      console.log("Rakesjjjj11");
-      console.log(this.meetingList);
-      console.log("Rakesjfggggjjj11");
+      console.log(response.data);  
       this.generateCalendarDays(this.monthIndex,this.empId);
     });
     

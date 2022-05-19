@@ -87,6 +87,12 @@ export class MeetingService {
 
 
 
+  upcommingMeeting(clientId : number)
+  {
+    return this._http.get<APIResponse<MeetingView[]>>(environment.domain + "/api/Meeting/upCommingApp" + '/' + clientId);
+  } 
+
+
 
 
 
