@@ -20,6 +20,15 @@ import { TaskMasterComponent } from 'src/app/company/task-master/task-master.com
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 
+import { MeetingDetailComponent } from 'src/app/meeting/meeting-detail/meeting-detail.component';
+
+
+
+
+
+
+
+
 const routes: Routes = [
 
   { path: 'login', component: SignInComponent },
@@ -56,13 +65,30 @@ const routes: Routes = [
     children: [{ path: '', component: ClientListComponent }]
   },
   {
-    path: 'client/schedule/:clientId', component: LayoutComponent,
+    path: 'client/schedule/:clientId/:fromDate', component: LayoutComponent,
     children: [{ path: '', component: ClientScheduleComponent }]
   },
   {
     path: 'client/info/:clientId/:tabId', component: LayoutComponent,
     children: [{ path: '', component: ClientInfoComponent }]
   },
+
+
+  {
+    path: 'appointMent/info/:meetingId', component: LayoutComponent,
+    children: [{ path: '', component: MeetingDetailComponent }]
+  },
+
+
+
+  
+
+
+
+
+
+
+
   {
     path: 'invoice/create', component: LayoutComponent,
     children: [{ path: '', component: GenerateinvoiceComponent }]

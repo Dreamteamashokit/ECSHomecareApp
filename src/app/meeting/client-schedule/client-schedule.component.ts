@@ -39,6 +39,8 @@ export class ClientScheduleComponent implements OnInit {
     .subscribe(
       (params : Params) =>{
         this.model.clientId = params["clientId"];
+        this.model.meetingDate = params["fromDate"];
+
       }
     );
   }

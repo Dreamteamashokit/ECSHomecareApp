@@ -135,12 +135,13 @@ export class UserScheduleComponent implements OnInit {
 
   public addMeeting()
   {
-    this.router.navigate(['/employee/schedule/'+this.empId]);
+    this.router.navigate(['/client/schedule/'+this.empId]);
   }
 
   public addMeetingx(_fromDate:Date)
   {    
-     this.router.navigate(['/employee/schedule/'+this.empId+'/'+_fromDate.toDateString()]);
+    
+     this.router.navigate(['/client/schedule/'+this.empId+'/'+_fromDate.toDateString()]);
   }
   
 }
