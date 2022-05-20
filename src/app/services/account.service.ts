@@ -3,7 +3,7 @@ import { HttpClient,HttpHeaders ,HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { LoginModel,UserModel } from 'src/app/models/account/login-model';
+import { LoginModel,UserModel,Externalsign,ExternalUserModel } from 'src/app/models/account/login-model';
 
 const httpOptionsObj = {
   headers: new HttpHeaders({
@@ -64,8 +64,6 @@ export class AccountService {
 
   signOut(_userId: number): Observable<any> {
 
-debugger;
-    
     const params = new HttpParams()
       .append('UserId', _userId);     
 
@@ -78,33 +76,34 @@ debugger;
       headers: headers,
       params: params,
     });
-
-
-
   }
 
-
-
-
-
-
-
-
-
-
-
+  ExternalsignIn(_Obj: Externalsign){ 
+    var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        }; 
+    return this._http.post<APIResponse<ExternalUserModel>>(environment.domain + "/api/Employee/ExternalLogin", _Obj,httpOptions);            
+  }
 
   setCurrentUser(_model: UserModel) {
     localStorage.setItem('userData', JSON.stringify(_model));
   }
   
+  setHHAUser(_model:ExternalUserModel){
+    localStorage.setItem('HHAuserData', JSON.stringify(_model));
+  }
+
+
   getCurrentUser():UserModel {
       let localObj = localStorage.getItem('userData');
       if (localObj) {
         this.model = JSON.parse(localObj) as UserModel;
       }     
       return this.model;
-    }
+  }
   
 
 

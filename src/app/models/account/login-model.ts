@@ -17,4 +17,17 @@ export class UserModel {
     email: string;
 }
 
+export class Externalsign{
+    SSN:string;
+    MobileNo:string;
+}
 
+export class ExternalUserModel {
+    userId: number;
+    userTypeId:number;
+    userName: string;  
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    email: string;
+}

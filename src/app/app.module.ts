@@ -77,6 +77,9 @@ import { AvailabilitySearchComponent } from 'src/app/common/availability-search/
 import { ClientBillingComponent } from './client/client-billing/client-billing.component';
 import { LocationMapComponent } from './shared/common/location-map/location-map.component';
 import { SearchAvailbilityComponent } from './shared/common/search-availbility/search-availbility.component';
+import { ClockinoutComponent } from './clockinout/clockinout.component';
+import { HHALoginComponent } from './hhalogin/hhalogin.component';
+import { HhaportalComponent } from './hhaportal/hhaportal.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +147,8 @@ import { SearchAvailbilityComponent } from './shared/common/search-availbility/s
     ClientBillingComponent, 
     AvailabilitySearchComponent, 
     LocationMapComponent, 
-    SearchAvailbilityComponent,  
+    SearchAvailbilityComponent, 
+    ClockinoutComponent, HHALoginComponent, HhaportalComponent,  
   ],
   imports: [
     BrowserModule,

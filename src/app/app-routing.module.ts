@@ -18,7 +18,9 @@ import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.compon
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
 import { TaskMasterComponent } from 'src/app/company/task-master/task-master.component';
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
-
+import { ClockinoutComponent } from './clockinout/clockinout.component';
+import { HHALoginComponent } from './hhalogin/hhalogin.component';
+import { HhaportalComponent } from './hhaportal/hhaportal.component';
 
 const routes: Routes = [
 
@@ -85,13 +87,18 @@ const routes: Routes = [
     path: 'availability', component: LayoutComponent,
     children: [{ path: '', component: AvailabilitySearchComponent }]
   },
-
-
-
-
-
-
-
+  {
+    path:'clockinout',component:LayoutComponent,
+    children:[{path:'',component:ClockinoutComponent}]
+  },
+  {
+    path:'hhalogin',component:LayoutComponent,
+    children:[{path:'',component:HHALoginComponent}]
+  },
+  {
+    path:'hhaportal',component:LayoutComponent,
+    children:[{path:'',component:HhaportalComponent}]
+  },
   { path: '', component: SignInComponent },
   { path: '**', component: SignInComponent },
 
