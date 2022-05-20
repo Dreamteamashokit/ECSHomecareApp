@@ -47,7 +47,19 @@
             </div>					   
             <div class="panel-body mbxxl">             
 
-                  <app-location-map [geoPoint]="geoObj"></app-location-map>
+               
+
+                  <div class="row mbm">
+                    <div class="col-sm-12 text-14 text-orange"><strong><i class="fa fa-map-marker"></i> {{geoObj.Location}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-12">
+                    <div #locMapId id="locMapId" style="width:100%;min-width:290px;max-width:100%;height:220px;"></div>
+                </div>
+                
+                </div>
+                
               
             
            
