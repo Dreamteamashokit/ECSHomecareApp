@@ -68,7 +68,7 @@ this.getAddress(this.model.clientId);
             }
             else{
               this.currentLoc();
-              this.BindMap(this.geoObj);
+             
             }
            }
       });
@@ -77,6 +77,7 @@ this.getAddress(this.model.clientId);
       }
     
       currentLoc() {
+        debugger;
      if (navigator.geolocation) 
      {
        navigator.geolocation.getCurrentPosition((position:any) => {
@@ -84,6 +85,7 @@ this.getAddress(this.model.clientId);
         this.geoObj.latitude=Number(position.coords.latitude);
         this.geoObj.longitude=   Number(position.coords.longitude);   
         this.geoObj.Location='E&S Home Care Solutions Of Lawrenceville';
+        this.BindMap(this.geoObj);
        }
      },
      (error: any) =>
@@ -92,6 +94,7 @@ this.getAddress(this.model.clientId);
         this.geoObj.longitude= -74.169640;    
         this.geoObj.Location='E&S Home Care Solutions Of Lawrenceville';
          console.log(error);
+         this.BindMap(this.geoObj);
         }
        );
       }
