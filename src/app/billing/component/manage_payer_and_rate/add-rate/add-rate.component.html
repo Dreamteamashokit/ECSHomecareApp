@@ -1,138 +1,203 @@
-	<!--BEGIN PAGE WRAPPER-->
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
         <div class="page-header pull-left">
-            <div class="page-title">Add Rate</div>
+            <div class="page-title">
+                Billing and Payroll
+            </div>
         </div>
+
+
+
         <div class="clearfix"></div>
     </div>
     <!--END TITLE & BREADCRUMB PAGE-->
     <!--BEGIN CONTENT-->
     <div class="page-content">
-        <form name="frmRate" #f="ngForm">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Payer</label>
-                                <select class="form-control" id="txtPayer" name="txtPayer" #payer="ngModel" [(ngModel)]="model.payer.payerId" placeholder="Select Payer">
-                                    <option value="-1" disabled>Select Payer</option>
-                                    <!--<option *ngFor="let obj of statusData"
-                                [value]="obj.itemId">
-                            {{ obj.itemName }}
-                        </option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Service Code</label>
-                                <input type="text" id="txtServiceCode" name="txtServiceCode" placeholder="Service Code" class="form-control">
 
-                            </div>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group ptx">
+                            <label>Payer</label>
+                            <select class="form-control mtm mt-0-mobile">
+                                <option>1</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Type</label>
-                                <select class="form-control" id="txtType" name="txtPayer" #payer="ngModel" [(ngModel)]="model.type.typeId" placeholder="Select Type">
-                                    <option value="-1" disabled>Select Type</option>
-                                    <!--<option *ngFor="let obj of statusData"
-                                [value]="obj.itemId">
-                            {{ obj.itemName }}
-                        </option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Bill Code</label>
-                                <input type="text" id="txtBillCode" name="txtBillCode" placeholder="Bill Code" class="form-control">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>
+                                Service Code
+                                <p class="small-txt mbn mtn text-black">For your refernce</p>
+                            </label>
+                            <input type="text" placeholder="" class="form-control">
 
-                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control mtm mt-0-mobile">
+                                <option>1</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Units</label>
-                                <select class="form-control" id="txtUnit" name="txtUnit" #payer="ngModel" [(ngModel)]="model.unit" placeholder="Select Unit">
-                                    <option value="-1" disabled>Select Unit</option>
-                                    <!--<option *ngFor="let obj of statusData"
-                                [value]="obj.itemId">
-                            {{ obj.itemName }}
-                        </option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Modifiers</label>
-                                <input type="text" id="txtModifier" name="txtModifier" placeholder="Modifier" class="form-control">
-                            </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>
+                                Bill Code
+                                <p class="small-txt mbn mtn text-black">Appears on invoices</p>
+                            </label>
+                            <input type="text" placeholder="" class="form-control">
+
                         </div>
                     </div>
 
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Rate</label>
-                                <input type="text" id="txtRate" name="txtRate" placeholder="Rate" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Effective Dates</label>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Revenue Code</label>
-                                <input type="text" id="txtRevenueCode" name="txtRevenueCode" placeholder="Revenue Code" class="form-control">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Unit</label>
+                            <div class="row mtm pts mt-0-mobile">
+                                <div class="col-lg-4 col-xs-4">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-xs-3 text-center ptm"><strong>Per</strong></div>
+                                <div class="col-lg-5 col-xs-5">
+                                    <select class="form-control">
+                                        <option>Hour</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mtm">
-                        <div class="col-sm-3 col-xs-12">
-
-                        </div>
-                        <div class="col-sm-3 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Tax Rate</label>
-                                <input type="text" id="txtTaxRatez" name="txtTaxRate" placeholder="Tax Rate" class="form-control">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>
+                                Modifiers
+                                <p class="small-txt mbn mtn text-black">Appears on invoices</p>
+                            </label>
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-3">
+                                    <input type="text" placeholder="" class="form-control">
+                                </div>
+                                <div class="col-lg-3 col-xs-3">
+                                    <input type="text" placeholder="" class="form-control">
+                                </div>
+                                <div class="col-lg-3 col-xs-3">
+                                    <input type="text" placeholder="" class="form-control">
+                                </div>
+                                <div class="col-lg-3 col-xs-3">
+                                    <input type="text" placeholder="" class="form-control">
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
 
-                    <div class="row mtm">
-                        <div class="col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <label class="control-label">Notes</label>
-                                <input type="textarea" #Note="ngModel" [(ngModel)]="model.note" id="txtNote" name="Note"
-                                       class="form-control">
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Rate</label>
+                            <input type="text" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Effective Dates</label>
+                            <div class="row">
+
+                                <div class="col-lg-6 mbm">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-calendar"></i><input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mbm">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-calendar"></i><input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label><strong>Revenue Code</strong></label>
+                            <input type="text" placeholder="" class="form-control">
+
                         </div>
                     </div>
                 </div>
-                <div class="row mtm">
-                    <div class="col-sm-12 col-xs-12 text-center">
-                        <button type="button" class="btn btn-lg btn-primary">Save</button>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>
+                                Tax Rate
+                                <p class="small-txt mbn mtn text-black">Percentage Points </p>
+                            </label>
+                            <input type="text" placeholder="" class="form-control">
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group ptx">
+                            <label>Place of Service</label>
+                            <input type="text" placeholder="" class="form-control mtm mt-0-mobile">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Mutual/Group</label>
+                            <br>
+                            <input type="checkbox" class="mtm mt-0-mobile" placeholder="">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea rows="3" placeholder="Notes" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="button" class="btn btn-md btn-dark">Save New Rates</button>
                     </div>
                 </div>
+
+
+
             </div>
-        </form>
+
+        </div>
+
+
     </div>
-    <!--END CONTENT-->
+
+
+
 </div>
-<!--END PAGE WRAPPER-->
+
