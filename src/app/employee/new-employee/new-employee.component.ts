@@ -110,14 +110,43 @@ export class NewEmployeeComponent implements OnInit {
     this.model.supervisorId=Number(this.model.supervisorId);
     this.model.userType=Number(Usertype.Employee);   
     const empObj: EmployeeModel = this.model;
-    this.empApi.addEmployee(empObj).subscribe((response) => {
-      this.IsLoad = false;
-      console.log('Stock change Response: ', response);
+
+
+    this.empApi.addEmployee(empObj).subscribe({
+      complete: () => {   this.IsLoad = false;     }, // completeHandler
+      error: (err) => { 
+        console.log(err);
+      alert("Some technical issue exist, Please contact to admin !");
+      this.IsLoad = false; },    // errorHandler 
+      next: (response) => {  
+        console.log("Employee Saved :"+response);
       this.clear();
+      this.IsLoad = false;
+       }
+  });
+  
 
-      
 
-    });
+
+
+
+
+
+
+
+
+    // this.empApi.addEmployee(empObj).subscribe((response) => {
+    //   this.IsLoad = false;
+    //   console.log('Stock change Response: ', response);
+    //   this.clear();
+    // },
+    // error => (this.errorMsg = error)
+    
+    // );
+
+
+
+
   }
 
 
