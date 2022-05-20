@@ -7,6 +7,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { DatePipe } from '@angular/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
+import { LoginModel, UserModel } from 'src/app/models/account/login-model';
+import { AccountService } from 'src/app/services/account.service';
 @Component({
   selector: 'app-emp-schedule',
   templateUrl: './emp-schedule.component.html',
@@ -23,11 +25,17 @@ export class EmpScheduleComponent implements OnInit {
   _meetingDate : Date=new Date();
   _startTime : Date=new Date();
   _endTime : Date=new Date();
-
+  currentUser: UserModel;
   constructor(
     private route:ActivatedRoute,
-    private comApi: CommonService,private empApi: EmployeeapiService, private clientapi : ClientApiService,private momApi:MeetingService,    public datepipe: DatePipe,)
+    private comApi: CommonService,
+    private empApi: EmployeeapiService,
+     private clientapi : ClientApiService,
+     private momApi:MeetingService,   
+     private accountApi: AccountService,
+      public datepipe: DatePipe,)
    {
+    this.currentUser = this.accountApi.getCurrentUser();
      this.BindMaster();
    }
 
@@ -74,13 +82,13 @@ OnScheduling()
   {
     debugger;    
     this.model.clientId=Number(this.model.clientId);
+    this.model.empId=Number(this.model.empId);
     this.model.empList.push(Number(this.model.empId));
-    // this.model.meetingDate=this._meetingDate.toISOString().substring(0, 10);
     this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";   
     this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
     this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
-    //this.model.meetingDate=.toString();  
-    //this.model.startTime=this._startTime.toLocaleTimeString();
+    this.model.userId = this.currentUser.userId;
+
     const reqObj: MeetingInfo = this.model;
     console.log('Search', reqObj);    
     this.momApi.createMeeting(reqObj).subscribe((response) => {    

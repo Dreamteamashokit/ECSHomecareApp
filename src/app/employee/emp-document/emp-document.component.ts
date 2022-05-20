@@ -44,8 +44,27 @@ export class EmpDocumentComponent implements OnInit {
 
  
   ngOnInit(): void {
-    this.UserId = Number(this.data.id);       
-    this.GetFolderList(this.UserId);
+
+
+    this.route.params.subscribe(
+      (params: Params) => {
+        debugger;
+        if (params["empId"] != null) {
+          this.UserId = Number(params["empId"]);
+        }
+        else {
+          this.UserId = Number(params["clientId"]);
+        }
+
+        this.GetFolderList(this.UserId);
+      }
+    );
+
+
+
+
+    // this.UserId = Number(this.data.id);       
+    
    
     // this.route.params.subscribe(
     //   (params : Params) =>{
@@ -76,9 +95,9 @@ export class EmpDocumentComponent implements OnInit {
     this.model.title=this.model.title;
     this.model.search=this.model.search;
     this.model.description=this.model.description;
-    this.model.userId=Number(this.empId);
+    this.model.userId=Number(this.UserId);
 
-    this.model.createdBy=this.currentUser.userId;
+    this.model.createdBy=this.UserId;
     formData.append('file', fileToUpload, fileToUpload.name);  
     formData.append('folderid',this.model.folderId.toString());
     formData.append('filename',fileToUpload.name);
@@ -106,11 +125,11 @@ export class EmpDocumentComponent implements OnInit {
 
   CreateFolder(foldername:string){
 
-     var data=new FolderData(this.currentUser.userId,foldername);
+     var data=new FolderData(this.UserId,foldername);
 
      data.createdBy=this.currentUser.userId;
       this.DocApi.folderCreate(data).subscribe(Response=>{ 
-           this.GetFolderList(this.currentUser.userId);         
+           this.GetFolderList(this.UserId);         
       });
   }
 

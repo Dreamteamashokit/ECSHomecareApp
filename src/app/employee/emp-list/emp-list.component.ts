@@ -27,7 +27,8 @@ export class EmpListComponent implements OnInit {
   currentList: EmployeeList[];
   public currentAlpha:string="All";
 
-  constructor(private router: Router, private empapi: EmployeeapiService,
+  constructor(private router: Router,
+     private empapi: EmployeeapiService,
     private accountApi: AccountService,
     private comApi: CommonService) {
 

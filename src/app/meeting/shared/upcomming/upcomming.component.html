@@ -1,0 +1,30 @@
+<div class="panel panel-orange">
+    <div class="panel-header panel-primary">
+       <h4 class="mtm mbn plm text-uppercase  text-orange"> <i style="font-size: 17px; margin-top: 2px;"
+                                               class="fa fa-list-alt text-grey"></i><strong> Schedule</strong>
+        </h4>
+    </div>	
+
+
+    <div class="panel-body">
+        <ul class="todo-list sortable">
+
+            <li *ngFor="let item of appList; let i = index" class="clearfix">
+            <span class="drag-drop"><i></i></span>
+                
+                <div class="todo-title pull-left">
+                  <!-- <a  [routerLink]="'/appointMent/info/' + item.meetingId">     </a>  -->
+                  <strong>{{item.meetingDate}}</strong><br>
+                    {{item.startTime}} to {{item.endTime}}
+             
+              </div>
+              <div class="todo-title pull-right clearfix">
+                <a  [routerLink]="'/employee/info/' + item.employee.id">
+                  <strong>{{item.employee.lastName }} {{item.employee.firstName}}, {{item.employee.userType}}</strong><br>
+                  <i class="fa fa-phone"></i> {{item.employee.cellPhone }}
+                </a>
+              </div>
+            </li>
+        </ul>
+    </div>
+</div>

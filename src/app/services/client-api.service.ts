@@ -15,7 +15,7 @@ import { OtherInfoModel } from 'src/app/models/client/other-info-model';
 import { ClientNote } from '../models/client/client-note-model';
 import { ClientCommunityMaster } from '../models/client/client-community-model';
 import { ClientCompliance } from '../models/client/client-compliance-model';
-
+import { ClientResult } from '../models/meeting/client-meeting';
 
 @Injectable({
   providedIn: 'root'
@@ -417,4 +417,27 @@ export class ClientApiService {
     };
     return this._http.post(environment.domain + "/api/Client/DeleteClientCompliance", _obj, httpOptions);
   }
+
+
+
+
+
+  searchClient(item: string) {  
+    return this._http.get<APIResponse<ClientResult[]>>(environment.domain + "/api/Client/searchClient/"+item);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

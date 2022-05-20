@@ -10,14 +10,13 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AuthGuardService } from './auth-guard.service';
 
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
 import { NgxPaginationModule } from 'ngx-pagination';
-
 
 import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { LayoutComponent } from './layout/layout.component';
@@ -80,6 +79,11 @@ import { SearchAvailbilityComponent } from './shared/common/search-availbility/s
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
 import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { EmergencyContactComponent } from './shared/common/emergency-contact/emergency-contact.component';
+import { EmergencyProviderComponent } from './shared/common/emergency-provider/emergency-provider.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
+import { UserDetailComponent } from './shared/user-detail/user-detail.component';
+import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +153,7 @@ import { HhaportalComponent } from './hhaportal/hhaportal.component';
     LocationMapComponent, 
     SearchAvailbilityComponent, 
     ClockinoutComponent, HHALoginComponent, HhaportalComponent,  
+    SearchAvailbilityComponent, EmergencyContactComponent, EmergencyProviderComponent, CreateUserComponent, UserDetailComponent, UpcommingComponent,  
   ],
   imports: [
     BrowserModule,
@@ -162,7 +167,8 @@ import { HhaportalComponent } from './hhaportal/hhaportal.component';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
   ],
  
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},AuthGuardService, DatePipe,BsDatepickerConfig],
