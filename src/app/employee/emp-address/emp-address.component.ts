@@ -117,8 +117,9 @@ debugger;
       },    // errorHandler 
       next: (res: any) => {  
         this.decline();
-        this.getAddress(reqObj.empId);
         this.IsLoad=false;
+        this.getAddress(reqObj.empId);
+     
        }
   });
   }
