@@ -142,6 +142,10 @@ else
         this.findRadius(this.client);
         this.loadMap(this.client,this.availbilityList);        
       }
+      else{
+        this.availbilityList=[];
+        this.IsLoad=false;
+      }
     });
   }
 

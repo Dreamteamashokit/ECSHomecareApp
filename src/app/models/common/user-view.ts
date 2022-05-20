@@ -6,7 +6,8 @@ export class UserView {
     id: number;
     firstName: string;
     middleName: string;
-    lastname: string;
+    lastName: string;
+    userType: string;
     email: string;
     cellPhone: string;
     homePhone: string;

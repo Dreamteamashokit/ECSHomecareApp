@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { LoginModel,UserModel } from 'src/app/models/account/login-model';
-
+import { AccountUserModel } from 'src/app/models/account/account-model';
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -24,10 +24,8 @@ export class AccountService {
   constructor(private _http : HttpClient) {
     let localObj = localStorage.getItem('userData');
     if (localObj) { 
-
       this.userSubject = new BehaviorSubject<UserModel>(JSON.parse(localObj));
       this.user = this.userSubject.asObservable();
-
     }
    }
 
@@ -55,9 +53,7 @@ export class AccountService {
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
         const httpOptions = {
           headers: headers_object
-        }; 
-
-  
+        };
 
     return this._http.post<APIResponse<UserModel>>(environment.domain + "/api/Account/logOut",httpOptions);            
   }
@@ -83,17 +79,6 @@ debugger;
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
   setCurrentUser(_model: UserModel) {
     localStorage.setItem('userData', JSON.stringify(_model));
   }
@@ -105,9 +90,25 @@ debugger;
       }     
       return this.model;
     }
+
+
+
+    addUser(_Obj: AccountUserModel){ 
+      debugger;
+      var headers_object = new HttpHeaders();
+          headers_object.append('Content-Type', 'application/json');
+          var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+          const httpOptions = {
+            headers: headers_object
+          }; 
+      return this._http.post<APIResponse<UserModel>>(environment.domain + "/api/Account/addUser", _Obj,httpOptions);            
+    }
   
-
-
+  
+    getUserList(userType: number) {
+      debugger;
+      return this._http.get<APIResponse<AccountUserModel[]>>(environment.domain + "/api/Account/getUser" + '/' + userType);
+    }
 
 
 

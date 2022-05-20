@@ -8,20 +8,24 @@ import * as atlas from 'azure-maps-control';
 })
 export class LocationMapComponent implements OnInit {
 
-  @Input() model = new LocationView();
+  @Input() geoPoint = new LocationView();
   @ViewChild("graphDiv") graphDiv: ElementRef;
   constructor() {
-    //
+
+    if(this.geoPoint.latitude>0)
+    {
+      this.BindMap(this.geoPoint);
+    }
   
   }
 
   ngOnInit(): void {
 
-    if(this.model.latitude>0)
-    {
-      this.BindMap(this.model);
-    }
 
+    if(this.geoPoint.latitude>0)
+    {
+      this.BindMap(this.geoPoint);
+    }
 
   }
 
