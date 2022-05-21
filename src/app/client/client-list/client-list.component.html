@@ -94,14 +94,19 @@
 
                   <ng-template #customItemTemplate let-model="item" let-index="index">
 <div class="row mbm">
+  <a  [routerLink]="'/client/info/' + model.clientId+'/0'" >
   <div class="col-lg-9 col-xs-9">
+
     <h5 class="mbn">      {{model.lastName}} {{model.firstName}} | {{model.clientId}}</h5>
     <h6 class="mbn">       {{model.address}}, {{model.city}} {{model.state}}{{model.zipCode}}</h6>
-  </div>
+
+  </div>  </a>
   <div class="col-lg-3 col-xs-3 ptl">       
-    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
-    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
-    <a ><i  class="fa fa-calendar text-black"></i></a>
+    <a [routerLink]="'/client/info/' + model.clientId+'/1'"><i  class="fa fa-calendar mrs text-black"></i></a>
+
+    <!-- <a ><i  class="fa fa-calendar mrs text-black"></i></a>
+    <a ><i  class="fa fa-calendar text-black"></i></a> -->
+
   </div>
 </div>
       </ng-template>
