@@ -30,4 +30,6 @@ export class ExternalUserModel {
     lastName: string;
     middleName: string;
     email: string;
+    latitude: number;
+    longitude: number;    
 }

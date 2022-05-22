@@ -17,7 +17,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { LayoutComponent } from './layout/layout.component';
@@ -80,6 +80,7 @@ import { SearchAvailbilityComponent } from './shared/common/search-availbility/s
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
 import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +149,7 @@ import { HhaportalComponent } from './hhaportal/hhaportal.component';
     AvailabilitySearchComponent, 
     LocationMapComponent, 
     SearchAvailbilityComponent, 
-    ClockinoutComponent, HHALoginComponent, HhaportalComponent,  
+    ClockinoutComponent, HHALoginComponent, HhaportalComponent, PatientComponent,  
   ],
   imports: [
     BrowserModule,
@@ -162,7 +163,8 @@ import { HhaportalComponent } from './hhaportal/hhaportal.component';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    GoogleMapsModule
   ],
  
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},AuthGuardService, DatePipe,BsDatepickerConfig],

@@ -21,6 +21,7 @@ import { AvailabilitySearchComponent } from 'src/app/common/availability-search/
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
 import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
 
 const routes: Routes = [
 
@@ -98,6 +99,10 @@ const routes: Routes = [
   {
     path:'hhaportal',component:LayoutComponent,
     children:[{path:'',component:HhaportalComponent}]
+  },
+  {
+    path:'hhapatinet',component:LayoutComponent,
+    children:[{path:'',component:PatientComponent}]
   },
   { path: '', component: SignInComponent },
   { path: '**', component: SignInComponent },
