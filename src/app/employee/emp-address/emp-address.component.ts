@@ -42,7 +42,6 @@ export class EmpAddressComponent implements OnInit {
     setTheme('bs3');
     this.model.isActive = 1;
     this.currentUser = this.accountApi.getCurrentUser();
-
     this.model.country='USA';
     this.comApi.getStateList('USA').subscribe((response) => {
       this.stateList = response.data;
@@ -78,24 +77,63 @@ debugger;
     this.modalRef?.hide();
   }
 
+
+
+
+
+
+
+  getAddressPoint(item:string) {
+    var loc = new LocationView();
+    loc.Location=item;
+    this.locSrv.getGeoPoint(item).subscribe({   
+      next: (res: any) => {  
+        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        loc.latitude = Number(response[0].position.lat);
+        loc.longitude = Number(response[0].position.lon);
+       },
+       error: (err) => { 
+       loc.latitude=this.currentUser.latitude;
+       loc.longitude=this.currentUser.longitude;
+       console.log(err);
+      },   
+      complete: () => { 
+        return loc;
+      }
+  });
+
+  }
+
+
+
   saveAddress() {
     debugger;
-    this.IsLoad=true;
-      this.locSrv.getGeoPoint(this.model.address).subscribe({
-        error: (err) => { 
-          console.log(err);
-          alert("Some technical issue exist, Please contact to admin !");
-          this.IsLoad=false;
-        },    // errorHandler 
-        next: (res: any) => {  
-          var response=  res['results'].filter((x:any) => x.type === "Point Address");
-          this.model.latitude = Number(response[0].position.lat);
-          this.model.longitude = Number(response[0].position.lon);
-          this.model.createdBy=this.currentUser.userId;
-          this.addAddress(this.model);
-         }
-    });
 
+    this.IsLoad=true;
+    this.model.createdBy=this.currentUser.userId;
+    this.locSrv.getGeoPoint( this.model.address).subscribe({   
+      next: (res: any) => {  
+        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        this.model.latitude = Number(response[0].position.lat);
+        this.model.longitude = Number(response[0].position.lon);
+       },
+       error: (err) => { 
+        this.model.latitude=this.currentUser.latitude;
+        this.model.longitude=this.currentUser.longitude;
+       console.log(err);
+      },   
+      complete: () => { 
+      
+      this.addAddress(this.model);
+      }
+  });
+
+
+
+  
+
+
+  
   }
 
 
@@ -109,18 +147,22 @@ debugger;
     reqObj.longitude= item.longitude
     reqObj.userId= item.userId;
     reqObj.createdBy=   item.createdBy;
-    this.empApi.saveAddress(reqObj).subscribe({
-      error: (err) => { 
-        console.log(err);
-        this.IsLoad=false;
-        alert("Some technical issue exist, Please contact to admin !");
-      },    // errorHandler 
+    this.empApi.saveAddress(reqObj).subscribe({       
       next: (res: any) => {  
-        this.decline();
-        this.IsLoad=false;
-        this.getAddress(reqObj.empId);
-     
-       }
+        this.decline();     
+       },
+       error: (err) => { 
+        console.log(err);  
+        alert("Some technical issue exist, Please contact to admin !");
+      },
+      complete: () => {
+        var loc = new LocationView();  
+        loc.Location=this.model.address;
+        loc.latitude=this.model.latitude;
+        loc.longitude=this.model.longitude;   
+        this.IsLoad = false;
+        this.BindMap(loc);
+      }
   });
   }
 
@@ -128,84 +170,41 @@ debugger;
 
 
   getAddress(empId: number) {
-debugger;
 
-    //this.IsLoad=true;
-    this.empApi.geAddress(empId).subscribe({
-      error: (err) => { 
-        console.log(err);
-         this.currentLoc();
-      },    // errorHandler 
+debugger;
+console.log(this.currentUser);
+    var loc = new LocationView();  
+    this.IsLoad=true;
+    this.empApi.geAddress(empId).subscribe({ 
       next: (response:any) => {  
         if (response.result) {
           this.model = response.data;
           this.model.empId=empId;
           this.model.userId=empId;
-          this.locModel.Location=this.model.address;
-          this.locModel.latitude=this.model.latitude;
-          this.locModel.longitude=this.model.longitude;
-          this.BindMap(this.locModel);
+          loc.Location=this.model.address;
+          loc.latitude=this.model.latitude;
+          loc.longitude=this.model.longitude;      
         }
-        else{
-          this.currentLoc();
-        }
-       }
+        else
+        {
+          loc.latitude=this.currentUser.latitude;
+          loc.longitude=this.currentUser.longitude;  
+        }       
+       },
+       error: (err) => { 
+        console.log(err);     
+        loc.latitude=this.currentUser.latitude;
+        loc.longitude=this.currentUser.longitude;   
+      },
+      complete: () => { 
+        this.IsLoad = false;
+        this.BindMap(loc);
+      }    
+
   });
 
   
   }
-
-  currentLoc() {
-
- if (navigator.geolocation) 
- {
-   navigator.geolocation.getCurrentPosition((position:any) => {
-   if (position) {   
-    this.locModel.latitude=Number(position.coords.latitude);
-    this.locModel.longitude=   Number(position.coords.longitude);
-    this.locModel.Location='E&S Home Care Solutions Of Lawrenceville';
-    this.BindMap(this.locModel);
-   }
- },
- (error: any) =>
-   {
-
-    this.locModel.latitude=40.735280;
-    this.locModel.longitude= -74.169640;    
-    this.locModel.Location='E&S Home Care Solutions Of Lawrenceville';
-     console.log(error);
-     this.BindMap(this.locModel);
-    }
-   );
-  }
-  }
-
-
-
-
-
-
-
-
-
-
-
-  OnChangeAddress(model: AddressObj) { 
-    
-    debugger;
-    this.IsLoad=true;
- this.locSrv.getGeoPoint(model.address).subscribe(
-  (res: any) => { 
-    var response=  res['results'].filter((x:any) => x.type === "Point Address");
-        this.model.latitude = response[0].position.lat;
-    this.model.longitude = response[0].position.lon;
-    this.IsLoad=false;
-  });
-
-
-  
-  }
-
 
 
 
@@ -224,18 +223,12 @@ debugger;
           enableAccessibility: false,
       });
       azureMap.events.add('ready', function () {
-
-
-
-
-
       //Load the custom image icon into the map resources.
       azureMap.imageSprite.add('my-custom-icon', 'https://img.icons8.com/material-two-tone/2x/home--v2.png').then(function () {
 
     //Create a data source and add it to the map.
     var datasource = new atlas.source.DataSource();
     azureMap.sources.add(datasource);
-
     //Create a point feature and add it to the data source.
     datasource.add(new atlas.data.Feature(new atlas.data.Point([Number(current.longitude), Number(current.latitude)])));
 
@@ -247,14 +240,6 @@ debugger;
       }
     }));
   });
-
-
-
-
-
-
-
-
           /*Create a data source and add it to the map*/
           var dataSource = new atlas.source.DataSource();
           azureMap.sources.add(dataSource);

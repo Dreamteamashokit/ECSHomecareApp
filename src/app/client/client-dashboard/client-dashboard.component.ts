@@ -5,6 +5,8 @@ import { ClientApiService } from 'src/app/services/client-api.service';
 import { ClientModel } from 'src/app/models/client/client-model';
 import { LocationView } from 'src/app/models/common/address-view';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
+import {  UserModel } from 'src/app/models/account/login-model';
+import { AccountService } from 'src/app/services/account.service';
 import * as atlas from 'azure-maps-control';
 @Component({
   selector: 'app-client-dashboard',
@@ -17,6 +19,7 @@ import * as atlas from 'azure-maps-control';
 export class ClientDashboardComponent implements OnInit {
 
   model=new ClientModel();
+  currentUser: UserModel;
   geoObj = new LocationView();
   @ViewChild("locMapId") locMapId: ElementRef;
   constructor(
@@ -24,9 +27,10 @@ export class ClientDashboardComponent implements OnInit {
     public datepipe: DatePipe,
     public clientSrv : ClientApiService,
     public empSrv : EmployeeapiService,
+    private accountSrv: AccountService
     ) {
 
-
+      this.currentUser = this.accountSrv.getCurrentUser();
      }
 
   ngOnInit(): void {
@@ -54,51 +58,36 @@ this.getAddress(this.model.clientId);
 
   getAddress(userId: number) {
   
-        this.empSrv.geAddress(userId).subscribe({
-          error: (err) => { 
-            console.log(err);
-             this.currentLoc();
-          },  
+        this.empSrv.geAddress(userId).subscribe({     
           next: (response:any) => {  
             if (response.result) {
               this.geoObj.latitude=response.data.latitude;
               this.geoObj.longitude=response.data.longitude;
               this.geoObj.Location=response.data.address;
-              this.BindMap(this.geoObj);
-            }
-            else{
-              this.currentLoc();
              
             }
-           }
+            else{
+       
+              this.geoObj.latitude=this.currentUser.latitude;
+              this.geoObj.longitude=this.currentUser.longitude;  
+            }
+           },
+           error: (err) => { 
+            console.log(err);
+            this.geoObj.latitude=this.currentUser.latitude;
+            this.geoObj.longitude=this.currentUser.longitude;  
+      
+          },  
+           complete: () => { 
+
+            this.BindMap(this.geoObj);
+          }
       });
     
       
       }
     
-      currentLoc() {
-        debugger;
-     if (navigator.geolocation) 
-     {
-       navigator.geolocation.getCurrentPosition((position:any) => {
-       if (position) {   
-        this.geoObj.latitude=Number(position.coords.latitude);
-        this.geoObj.longitude=   Number(position.coords.longitude);   
-        this.geoObj.Location='E&S Home Care Solutions Of Lawrenceville';
-        this.BindMap(this.geoObj);
-       }
-     },
-     (error: any) =>
-       {
-        this.geoObj.latitude=40.735280;
-        this.geoObj.longitude= -74.169640;    
-        this.geoObj.Location='E&S Home Care Solutions Of Lawrenceville';
-         console.log(error);
-         this.BindMap(this.geoObj);
-        }
-       );
-      }
-      }
+    
 
 
 
