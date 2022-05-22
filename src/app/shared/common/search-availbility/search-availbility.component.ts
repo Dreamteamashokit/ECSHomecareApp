@@ -132,21 +132,34 @@ else
     this.searchModel.empTypeId=Number(this.searchModel.empTypeId);
     const reqObj: AvailbilityRequest = this.searchModel;
     console.log('Search', reqObj);
-    this.locSrv.searchAvailbility(reqObj).subscribe((response) => {
-      if(response.result)
-      {
-        debugger;
-        console.log( response.data);
-        this.availbilityList = response.data;
-        this.IsLoad=false;
-        this.findRadius(this.client);
-        this.loadMap(this.client,this.availbilityList);        
-      }
-      else{
-        this.availbilityList=[];
-        this.IsLoad=false;
-      }
+    this.locSrv.searchAvailbility(reqObj).
+    subscribe({  
+        next: (response) => {  
+          if(response.result)
+          {
+            debugger;
+            console.log( response.data);
+            this.availbilityList = response.data;
+            this.findRadius(this.client);
+            this.loadMap(this.client,this.availbilityList);        
+          }
+          else{
+            alert("no record found for current criteria");
+          }         
+         },
+         error: (err) => { 
+          console.log(err);    
+          alert("Some technical issue exist, Please contact to admin !");
+          this.IsLoad=false;
+
+        },   
+        complete: () => {        
+          this.IsLoad=false;
+        }
     });
+
+
+    
   }
 
 
