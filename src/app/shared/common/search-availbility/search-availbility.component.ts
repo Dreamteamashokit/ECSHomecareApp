@@ -109,10 +109,10 @@ export class SearchAvailbilityComponent implements OnInit {
             {
               this.client.latitude =  response.data.latitude;
               this.client.longitude =  response.data.longitude;  
-              let provisions=response.data.provisions;
+              
               
               this.provisionsTypeList = this.provisionsTypeList.map(
-                (elem) =>{ elem.IsChecked = provisions.indexOf(elem.itemId) != -1 ? true : false;
+                (elem) =>{ elem.IsChecked = response.data.provisions.indexOf(elem.itemId) != -1 ? true : false;
               return elem});
 
 
