@@ -1,5 +1,11 @@
 export enum Usertype{
-    Admin=1,
+  SuperAdmin=1,    
+    Administrators,
+    Coordinators,
+    HumanResources,
+    NursingSupervisors,
+    OfficeStaff,
+    Billing,
     Employee,
-    Client  
+    Client
   }

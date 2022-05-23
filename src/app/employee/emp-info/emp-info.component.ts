@@ -72,7 +72,11 @@ export class EmpInfoComponent implements OnInit {
   {
     this.empapi.getEmployeeInfo(empId).subscribe(response => {
           this.empInfo = response.data;
-        
+
+
+          this.empInfo.dob = this.datepipe.transform(this.empInfo.dob, 'dd-MM-yyyy')||"";   
+          this.empInfo.dateOfHire = this.datepipe.transform(this.empInfo.dateOfHire, 'dd-MM-yyyy')||"";   
+          this.empInfo.dateOfFirstCase = this.datepipe.transform(this.empInfo.dateOfFirstCase, 'dd-MM-yyyy')||"";   
         }); 
   }
 
