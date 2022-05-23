@@ -79,6 +79,7 @@ import { SearchAvailbilityComponent } from './shared/common/search-availbility/s
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
 import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
 import { EmergencyContactComponent } from './shared/common/emergency-contact/emergency-contact.component';
 import { EmergencyProviderComponent } from './shared/common/emergency-provider/emergency-provider.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
@@ -152,8 +153,12 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     AvailabilitySearchComponent, 
     LocationMapComponent, 
     SearchAvailbilityComponent, 
-    ClockinoutComponent, HHALoginComponent, HhaportalComponent,  
-    SearchAvailbilityComponent, EmergencyContactComponent, EmergencyProviderComponent, CreateUserComponent, UserDetailComponent, UpcommingComponent,  
+    ClockinoutComponent, HHALoginComponent, HhaportalComponent, PatientComponent,  
+    SearchAvailbilityComponent, EmergencyContactComponent, 
+    EmergencyProviderComponent, 
+    CreateUserComponent, 
+    UserDetailComponent, 
+    UpcommingComponent,  
   ],
   imports: [
     BrowserModule,

@@ -21,16 +21,9 @@ import { AvailabilitySearchComponent } from 'src/app/common/availability-search/
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
 import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
+import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
-
-import { MeetingDetailComponent } from 'src/app/meeting/meeting-detail/meeting-detail.component';
-
-
-
-
-
-
-
 
 const routes: Routes = [
 
@@ -116,15 +109,19 @@ const routes: Routes = [
     path:'hhaportal',component:LayoutComponent,
     children:[{path:'',component:HhaportalComponent}]
   },
+  {
+    path:'hhapatinet',component:LayoutComponent,
+    children:[{path:'',component:PatientComponent}]
+  },
 
 
   {
     path: 'user/create', component: LayoutComponent,
     children: [{ path: '', component: CreateUserComponent }]
   },
-    {
-        path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
-    },
+    // {
+    //     path: 'billing', loadChildren: () => import('src/app/y/billing.module').then(m => m.BillingModule) 
+    // },
 
 
 

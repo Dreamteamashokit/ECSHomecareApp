@@ -20,6 +20,7 @@ export class AccountService {
   private userSubject: BehaviorSubject<UserModel>;
   public user: Observable<UserModel>;
   model:UserModel;
+  HHAmodel:ExternalUserModel;
 
   constructor(private _http : HttpClient) {
     let localObj = localStorage.getItem('userData');
@@ -34,7 +35,6 @@ export class AccountService {
 }
 
   signIn(_Obj: LoginModel){ 
-    debugger;
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -47,7 +47,6 @@ export class AccountService {
 
 
   signOut1(_userid: number){ 
-    debugger;
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -92,6 +91,13 @@ export class AccountService {
     localStorage.setItem('HHAuserData', JSON.stringify(_model));
   }
 
+  GetCurrentHHAUser():ExternalUserModel{
+    let externalUser = localStorage.getItem('HHAuserData');
+    if(externalUser){
+      this.HHAmodel = JSON.parse(externalUser) as ExternalUserModel;
+    }
+    return this.HHAmodel;
+  }
 
   getCurrentUser():UserModel {
       let localObj = localStorage.getItem('userData');

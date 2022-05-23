@@ -1,13 +1,71 @@
-<div class="top-content login-body">
-        <div class="inner-bg">
-            <div class="container">
-                <div class="login-pagewidth">
+<app-loader [show]="IsLoad"></app-loader>
+<div id="page-wrapper">
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">HHA Portal</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+        <div class="container">
+            <div class="page-content">
                     <div class="row">
-                        <div class="col-lg-12 form-box">
+                        <div class="col-lg-12 text-center">
+                            Questions? Contact E & S Home 
+                            Care Solutions,LLC (732)668-6636
+                            email michelle@eshch.com
+                        </div>
+                    </div>
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <h1>Hi, {{HHAUserName}} </h1>
+                    </div>
+                </div>
+            <div class="card">
+                <div class="row card-body">
+                    <div class="col-lg-12 text-center">
+                        <b class="text-danger">OVERDUE COMPLIANCE WARNING</b>
+                    </div>
+                    <div class="col-lg-12">
+                        <i class="bi-exclamation-triangle"></i>
+                        <p>You have overdue compliance items</p>
+                        <ul>
+                            <li>19 Expired</li>
+                            <li>Employee took less then 12 Hours of Inservice Classes</li>
+                            <li>Physical Expired</li>
+                            <li>Drug Screen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="gMap h-200 mt-60">
+                <div #graphDiv id="myMap" class="h-200" style="position:relative;width:93%;min-width:290px;"></div>
+            </div>
+            <div class="h-200 mt-60">
+                <div class="card">
+                    <div class="card-body">
+                        <div *ngIf="ClientList != null && ClientList != undefined">
+                            <div *ngFor="let client of ClientList">
+                                <h3>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</h3>
+                                <b>{{client.meetingDate}}</b>
+                                <h3>{{client.meetingStartTime}} - {{client.meetingEndTime}}</h3>
                             
+                                <p *ngIf="client.clientAddress != null && client.clientAddress != undefined">
+                                    {{client.clientAddress.flatNo}}  {{client.clientAddress.address}} 
+                                    {{client.clientAddress.city}} {{client.clientAddress.country}}  
+                                    {{client.clientAddress.state}} {{client.clientAddress.zipCode}}
+                                </p>
+                            </div> 
+                        </div>
+                        <div *ngIf="ClientList == null && ClientList == undefined">
+                            No records Found...
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="">
+                <a routerLink="/hhapatinet" class="btn btn-primary btn-lg form-control">Next</a>
+                
+            </div>
         </div>
+    </div>
 </div>

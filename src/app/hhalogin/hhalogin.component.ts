@@ -12,19 +12,24 @@ export class HHALoginComponent implements OnInit {
   IsLoad: boolean = false;
   model = new Externalsign();
 
-  constructor(private router:Router,private accountApi : AccountService) { }
+  constructor(private router:Router,private accountApi : AccountService) { 
+
+  }
 
   ngOnInit(): void {
+
   }
 
 
   ExternalsignIn(SSN:string){
 
     this.IsLoad=true;
-    this.model.SSN=SSN;   
+    this.model.SSN=SSN;  
+
     this.accountApi.ExternalsignIn(this.model).subscribe((response) => {
       if(response.result)
       {
+        debugger;
         this.accountApi.setHHAUser(response.data);
         this.router.navigate(['/hhaportal']);
       }
