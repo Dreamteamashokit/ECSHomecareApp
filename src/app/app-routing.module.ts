@@ -119,9 +119,9 @@ const routes: Routes = [
     path: 'user/create', component: LayoutComponent,
     children: [{ path: '', component: CreateUserComponent }]
   },
-    // {
-    //     path: 'billing', loadChildren: () => import('src/app/y/billing.module').then(m => m.BillingModule) 
-    // },
+    {
+        path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
+    },
 
 
 
