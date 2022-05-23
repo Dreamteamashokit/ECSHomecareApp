@@ -6,7 +6,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 
 import { UserModel } from 'src/app/models/account/login-model';
 import { AvailbilityRequest } from 'src/app/models/availbility/availbility-request';
-import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
+import { AvailbilityReponse,ClientGeoProvisions } from 'src/app/models/availbility/availbility-response';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -101,6 +101,39 @@ export class SearchAvailbilityComponent implements OnInit {
     if(e.target.value!='0: undefined')
     {
 
+
+      this.comSrv.getUsersGeoProvision(Number(e.target.value)).
+      subscribe({  
+          next: (response) => {  
+            if(response.result)
+            {
+              this.client.latitude =  response.data.latitude;
+              this.client.longitude =  response.data.longitude;  
+              let provisions=response.data.provisions;
+              
+              this.provisionsTypeList = this.provisionsTypeList.map(
+                (elem) =>{ elem.IsChecked = provisions.indexOf(elem.itemId) != -1 ? true : false;
+              return elem});
+
+
+            }
+            else{
+              this.client.latitude =  this.currentUser.latitude;
+              this.client.longitude = this.currentUser.longitude;
+            }         
+           },
+           error: (err) => { 
+            console.log(err);    
+            alert("Some technical issue exist, Please contact to admin !");
+            this.client.latitude =  this.currentUser.latitude;
+            this.client.longitude = this.currentUser.longitude;
+            this.IsLoad=false;
+  
+          },   
+          complete: () => {        
+            this.IsLoad=false;
+          }
+      });
  
     }
     else

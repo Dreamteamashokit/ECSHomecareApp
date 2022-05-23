@@ -20,3 +20,11 @@ export class EmpAppointment {
     startTime: string;
     endTime: string;
 }
+
+
+export class ClientGeoProvisions {
+    clientId: number;
+    latitude: number;
+    longitude: number;
+    provisions: number[];
+}
