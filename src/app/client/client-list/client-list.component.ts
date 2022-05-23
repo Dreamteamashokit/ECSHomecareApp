@@ -17,6 +17,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { APIResponse } from 'src/app/models/api-response';
 import { Usertype } from 'src/app/commanHelper/usertype';
+
 @Component({
   selector: 'app-client-list',
   templateUrl: './client-list.component.html',
@@ -25,14 +26,11 @@ import { Usertype } from 'src/app/commanHelper/usertype';
     './client-list.component.scss']
 })
 
-
 export class ClientListComponent implements OnInit {
-
 
 monthList  : any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 clientMOMList : ClientMeeting[] = [];
 currentList: ClientMeeting[];
-
 currentYear : number;
 currentMonthIndex : number;
 currentDay : number;
@@ -42,8 +40,6 @@ weekstartdate : Date;
 weekenddate : Date;
 currentweekarray : string[] = [];
 weekList : Date[] = [];
-
-
 currentAlpha:string="All";
 IsLoad: boolean = false;
   currentUser:UserModel;
@@ -57,7 +53,6 @@ IsLoad: boolean = false;
   p: number = 1;
   searchValue = "";
   startdate : string;
-
   bsModalRef?: BsModalRef;
   constructor(
     private modalService: BsModalService,
@@ -86,7 +81,6 @@ IsLoad: boolean = false;
   search?: string;
   suggestions$?: Observable<ClientResult[]>;
   errorMessage?: string;
-
     ngOnInit(): void {
       this.suggestions$ = new Observable((observer: Observer<string | undefined>) => {
         observer.next(this.search);
@@ -107,8 +101,6 @@ IsLoad: boolean = false;
         })
       );
     }
-
-
 
   getFilterData(model: ClientFilter) {
     debugger;
@@ -159,24 +151,7 @@ IsLoad: boolean = false;
       }, 
       complete: () => { this.IsLoad = false;
       }
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    });    
 
   }
 

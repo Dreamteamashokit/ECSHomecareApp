@@ -121,6 +121,7 @@ debugger;
         this.model.latitude=this.currentUser.latitude;
         this.model.longitude=this.currentUser.longitude;
        console.log(err);
+       this.IsLoad=false;
       },   
       complete: () => { 
       
@@ -154,6 +155,7 @@ debugger;
        error: (err) => { 
         console.log(err);  
         alert("Some technical issue exist, Please contact to admin !");
+        this.IsLoad=false;
       },
       complete: () => {
         var loc = new LocationView();  
@@ -162,6 +164,7 @@ debugger;
         loc.longitude=this.model.longitude;   
         this.IsLoad = false;
         this.BindMap(loc);
+        this.IsLoad=false;
       }
   });
   }
