@@ -9,13 +9,13 @@ export class AvailbilityReponse {
     city: string;
     zipCode: string;
     distance:number;
-    
     meetingList: EmpAppointment[];
 }
 
 export class EmpAppointment {
     clientId: number;
     clientName: string;
+    meetingId: number;
     meetingDate: string;
     startTime: string;
     endTime: string;

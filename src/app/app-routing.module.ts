@@ -49,6 +49,11 @@ const routes: Routes = [
     children: [{ path: '', component: EmpInfoComponent }]
   },
   {
+    path: 'employee/info/:empId/:tabId', component: LayoutComponent,
+    children: [{ path: '', component: EmpInfoComponent }]
+  },
+
+  {
     path: 'employee/schedule/:empId/:fromDate', component: LayoutComponent,
     children: [{ path: '', component: EmpScheduleComponent }]
   },

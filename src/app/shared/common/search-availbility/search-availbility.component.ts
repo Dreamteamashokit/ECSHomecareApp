@@ -64,20 +64,20 @@ export class SearchAvailbilityComponent implements OnInit {
       this.IsLoad=true;
       setTheme('bs3');
       this.BindTerm();
-      this.client.latitude = 33.740253;
-      this.client.longitude =-82.745857;
+      this.currentUser=this.acontSrv.getCurrentUser();
+  
       this.currentDate = new Date();
       this.ptrcurrentDate = new Date();
       this.currentYear = new Date().getFullYear();
       this.currentMonthIndex = new Date().getMonth();
       this.currentDay = new Date().getDate();
       this.weekList = this.getWeekDays(this.currentDay, this.currentMonthIndex, this.currentYear);
-    this.currentUser=this.acontSrv.getCurrentUser();
+ 
     this.comSrv.getClientList().subscribe((response) => {
       this.caseList = response.data;
     });
     this.comSrv.getEmpTypeList().subscribe((response) => {
-      this.empTypeList = response.data;
+      this.empTypeList = response.data.filter(x=>((x.itemId==2)||(x.itemId==5)));
     });
 
     this.comSrv.getProvisionList(1).subscribe(response => {
@@ -93,28 +93,39 @@ export class SearchAvailbilityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
    
   }
 
+  caseChange(e: any): void {
+
+    if(e.target.value!='0: undefined')
+    {
+
+ 
+    }
+    else
+    {
+      this.client.latitude =  this.currentUser.latitude;
+      this.client.longitude = this.currentUser.longitude;
+    }
+  }
+
+
+
+
   termChange(e: any): void {
-
-if(e.target.value=="0")
-{
-
-this.IsDate=false;
-}
-else
-{
-  
-  this.IsDate=true;
-  var nDate=new Date();
-  nDate.setDate(Number(e.target.value));
-  this._toDate=nDate;
-}
-
     
+    if(e.target.value=="0")
+    {
+      this.IsDate=false;
+    }
+    else
+    {
+      this.IsDate=true;
+      var nDate=new Date();
+      nDate.setDate(Number(e.target.value));
+      this._toDate=nDate;
+    }
   }
  
 

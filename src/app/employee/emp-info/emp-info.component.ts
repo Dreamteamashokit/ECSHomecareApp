@@ -94,5 +94,17 @@ export class EmpInfoComponent implements OnInit {
   }
 
 
+  ngAfterViewInit(): void {
+    this.route.params.subscribe((params : Params) =>{ 
+      this.selectTab(Number(params["tabId"]));       
+     });
+  }
+
+
+
+
+
+
+
 
 }
