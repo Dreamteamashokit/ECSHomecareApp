@@ -28,7 +28,7 @@ export class HhaportalComponent implements OnInit {
   ngOnInit(): void {
     this.IsLoad=true;
     var objUser = this._accountService.GetCurrentHHAUser();
-    debugger;
+    
     if(objUser != null && objUser != undefined){
       // this.HHAModel.latitude = objUser.latitude;
       // this.HHAModel.longitude =-objUser.longitude;
@@ -48,7 +48,6 @@ export class HhaportalComponent implements OnInit {
     this._employeeservice.GetClientListByempId(empId).subscribe((response) =>{
       if(response.result)
       {
-        debugger;
         this.ClientList = response.data;
           if(this.ClientList != null && this.ClientList != undefined){
             this.loadMap(this.ClientList);

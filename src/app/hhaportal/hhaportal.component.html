@@ -38,28 +38,26 @@
                 </div>
             </div>
             <div class="gMap h-200 mt-60">
-                <div #graphDiv id="myMap" class="h-200" style="position:relative;width:93%;min-width:290px;"></div>
+                <div #graphDiv id="myMap" class="h-200" style="position:relative;width:100%;min-width:290px;"></div>
             </div>
-            <div class="h-200 mt-60">
-                <div class="card">
+            <div class="h-200 mt-60" *ngIf="ClientList != null && ClientList != undefined">
+                <div class="card" *ngFor="let client of ClientList">
                     <div class="card-body">
-                        <div *ngIf="ClientList != null && ClientList != undefined">
-                            <div *ngFor="let client of ClientList">
+                            <div>
                                 <h3>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</h3>
                                 <b>{{client.meetingDate}}</b>
                                 <h3>{{client.meetingStartTime}} - {{client.meetingEndTime}}</h3>
                             
-                                <p *ngIf="client.clientAddress != null && client.clientAddress != undefined">
-                                    {{client.clientAddress.flatNo}}  {{client.clientAddress.address}} 
-                                    {{client.clientAddress.city}} {{client.clientAddress.country}}  
-                                    {{client.clientAddress.state}} {{client.clientAddress.zipCode}}
+                                <p>
+                                    {{client.flatNo}}  {{client.address}} 
+                                    {{client.city}} {{client.country}}  
+                                    {{client.state}} {{client.zipCode}}
                                 </p>
                             </div> 
-                        </div>
-                        <div *ngIf="ClientList == null && ClientList == undefined">
-                            No records Found...
-                        </div>
                     </div>
+                </div>
+                <div *ngIf="ClientList == null && ClientList == undefined">
+                    No records Found...
                 </div>
             </div>
             <div class="">
