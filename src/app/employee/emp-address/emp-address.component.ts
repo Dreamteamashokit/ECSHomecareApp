@@ -26,7 +26,6 @@ export class EmpAddressComponent implements OnInit {
   IsLoad:boolean;
   locModel = new LocationView();
   @ViewChild("addressMapId") addressMapId: ElementRef;
-
   model = new AddressObj();
   // geoObj = new LocationView();
   currentUser: UserModel;
@@ -67,7 +66,6 @@ debugger;
 
   }
 
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -76,11 +74,6 @@ debugger;
 
     this.modalRef?.hide();
   }
-
-
-
-
-
 
 
   getAddressPoint(item:string) {
@@ -101,14 +94,12 @@ debugger;
         return loc;
       }
   });
-
   }
 
 
 
   saveAddress() {
     debugger;
-
     this.IsLoad=true;
     this.model.createdBy=this.currentUser.userId;
     this.locSrv.getGeoPoint( this.model.address).subscribe({   
@@ -127,18 +118,11 @@ debugger;
       
       this.addAddress(this.model);
       }
-  });
-
-
-
-  
+  }); 
 
 
   
   }
-
-
-
 
   addAddress(item:AddressObj) {
 
@@ -169,9 +153,6 @@ debugger;
   });
   }
 
-
-
-
   getAddress(empId: number) {
 
 debugger;
@@ -198,6 +179,7 @@ console.log(this.currentUser);
         console.log(err);     
         loc.latitude=this.currentUser.latitude;
         loc.longitude=this.currentUser.longitude;   
+        this.IsLoad = false;
       },
       complete: () => { 
         this.IsLoad = false;
@@ -208,9 +190,6 @@ console.log(this.currentUser);
 
   
   }
-
-
-
 
   BindMap(current:LocationView) {
 
