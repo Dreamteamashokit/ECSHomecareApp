@@ -152,10 +152,18 @@ console.log(_meeting);
     this.router.navigate(['/employee/schedule/'+this.empId]);
   }
 
+  public formateTime(hour:number,min:number)
+  {
+    var time=new Date().setHours(hour, min, 0, 0);
+    return this.datepipe.transform(time,"h:mm a");
+  }
+
   public addMeetingx(_fromDate:Date)
   {debugger;
     
-     this.router.navigate(['/employee/schedule/'+this.empId+'/'+_fromDate.toDateString()]);
+
+     let fromdate=this.datepipe.transform(_fromDate,"yyyy-MM-dd");
+     this.router.navigate(['/employee/schedule/'+this.empId+'/'+fromdate]);
   }
 
 }

@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
+
 @Component({
   selector: 'app-emp-schedule',
   templateUrl: './emp-schedule.component.html',
@@ -16,6 +17,8 @@ import { AccountService } from 'src/app/services/account.service';
     '../../../assets/css/orange-blue.css',
     './emp-schedule.component.scss']
 })
+
+
 export class EmpScheduleComponent implements OnInit {
 
   model = new MeetingInfo(0,[],-1,-1,'','','','');
@@ -26,6 +29,7 @@ export class EmpScheduleComponent implements OnInit {
   _startTime : Date=new Date();
   _endTime : Date=new Date();
   currentUser: UserModel;
+  isClient:boolean=false;
   constructor(
     private route:ActivatedRoute,
     private comApi: CommonService,
@@ -47,8 +51,6 @@ export class EmpScheduleComponent implements OnInit {
       (params : Params) =>{
         this.model.empId = params["empId"];
         this.model.meetingDate = params["fromDate"];
-
-        
       }
     );
   }
@@ -88,12 +90,22 @@ OnScheduling()
     this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
     this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
     this.model.userId = this.currentUser.userId;
-
     const reqObj: MeetingInfo = this.model;
     console.log('Search', reqObj);    
-    this.momApi.createMeeting(reqObj).subscribe((response) => {    
-     alert("meeting schedule sucessfully");
-    });
+
+
+
+    if(this.model.clientId>0)
+    {
+      this.momApi.createMeeting(reqObj).subscribe((response) => {    
+        alert("meeting schedule sucessfully");
+       });
+    }
+    else
+    {
+      alert("please select client");
+    }
+    
   }
    
   changed(): void {

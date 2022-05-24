@@ -25,7 +25,8 @@ export class UserScheduleComponent implements OnInit {
   bsModalRef?: BsModalRef;
   public displayMonth: string;
   private monthIndex: number = 0;
-  private empId:number=1;
+  public IsClient:boolean=false;
+  private userId:number;
   meetingList: Empmeeting[];
 
   constructor
@@ -38,22 +39,36 @@ export class UserScheduleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.params
-    .subscribe(
-      (params : Params) =>{
-        this.empId = params["clientId"];
+    this.route.params.subscribe(
+      (params: Params) => {
+        debugger;
+        if (params["empId"] != null) {
+          this.userId = Number(params["empId"]);
+
+          this.momApi.getEmployeeMeeting(this.userId).subscribe((response) => {
+            this.meetingList = response.data;
+            console.log(response.data);  
+            this.generateCalendarDays(this.monthIndex,this.userId);
+          });
+          
+        }
+        else {
+          this.userId = Number(params["clientId"]);
+          this.IsClient=true;
+    this.momApi.getUserMeeting(this.userId,2).subscribe((response) => {
+      this.meetingList = response.data;
+      this.generateCalendarDays(this.monthIndex,this.userId);
+    });
+        }
+
+        
       }
     );
-    console.log("User1");
+
+   
+  
 
 
-    this.momApi.getUserMeeting(this.empId,2).subscribe((response) => {
-      this.meetingList = response.data;
-      console.log("User2");
-      console.log(this.meetingList);
-      console.log("User3");
-      this.generateCalendarDays(this.monthIndex,this.empId);
-    });
     
   }
 
@@ -102,17 +117,17 @@ export class UserScheduleComponent implements OnInit {
    public increaseMonth() 
    {
     this.monthIndex++;
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
 
   public decreaseMonth() {
     this.monthIndex--
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
 
   public setCurrentMonth() {
     this.monthIndex = 0;
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
   
   showMeeting(_meetingId :number) {
@@ -135,13 +150,32 @@ export class UserScheduleComponent implements OnInit {
 
   public addMeeting()
   {
-    this.router.navigate(['/client/schedule/'+this.empId]);
+    this.router.navigate(['/client/schedule/'+this.userId]);
+  }
+
+  public formateTime(hour:number,min:number)
+  {
+    var time=new Date().setHours(hour, min, 0, 0);
+    return this.datepipe.transform(time,"h:mm a");
   }
 
   public addMeetingx(_fromDate:Date)
-  {    
-    
-     this.router.navigate(['/client/schedule/'+this.empId+'/'+_fromDate.toDateString()]);
+  {
+     let fromdate=this.datepipe.transform(_fromDate,"yyyy-MM-dd");
+     if(this.IsClient)
+     {
+      this.router.navigate(['/client/schedule/'+this.userId+'/'+fromdate]);
+     }
+     else
+     {
+      this.router.navigate(['/employee/schedule/'+this.userId+'/'+fromdate]);
+     }
   }
+
+
+
+
+
+
   
 }

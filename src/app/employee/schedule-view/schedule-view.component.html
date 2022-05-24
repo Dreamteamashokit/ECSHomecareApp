@@ -23,7 +23,7 @@
                                     <td valign="top" class="client-td" [ngClass]="{'past-date': c.isPastDate, 'today': c.isToday}" *ngFor="let c of row; let j = index">
                                      
                                         <!-- <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}"><strong></strong> <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()]}}</strong></div> -->
-                                                                      
+                                                                     
                                       <div class="row mbs">
                                         <div class="col-sm-12"><strong>{{c.date.getDate()}}</strong> </div>	
                                         
@@ -38,8 +38,13 @@
                                             <div class="client-box-green-dot"></div>
                                              <div class="client-box-yellow-dot"></div>
                                             <div class="client-box box-active">
-                                            <p class="mbx"><strong>     {{mtm.startTime.hours +':' + mtm.startTime.minutes}}-
-                                                {{mtm.endTime.hours +':' + mtm.endTime.minutes}}
+                                            <p class="mbx"><strong>  
+                                                
+                                                
+                                                {{formateTime(mtm.startTime.hours,mtm.startTime.minutes)}}-
+                                                
+
+                                                {{formateTime(mtm.endTime.hours,mtm.endTime.minutes)}}
                                                 
 </strong></p> 
                                               <p class="mbn">{{mtm.clientName}}  </p>                                              
@@ -52,6 +57,7 @@
                                       
                                         <div class="row mbs">
                                             <div class="col-sm-12">
+                                                
                                                 <a href="javascript:void(0)"(click)="addMeetingx(c.date)">
                                                     <i class="fa fa-plus-square text-orange"></i></a>
                                             
