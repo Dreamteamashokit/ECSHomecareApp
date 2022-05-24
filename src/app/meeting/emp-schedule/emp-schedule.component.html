@@ -12,76 +12,83 @@
       <form name="frmMom" #f="ngForm">
         <div class="panel">
         <div class="panel-body">
-            
-            <div class="row mtm">
-                <div class="col-sm-3 col-xs-12">
-                    <div class="form-group"><label class="control-label mbxl">Date of Service</label>
-                        <!-- <input type="text"
-                          #MeetingDate="ngModel"
-                          id="txtMeetingDate"
-                          name="MeetingDate"
-                          placeholder="Meeting Date"
-                          [(ngModel)]="_meetingDate"
-                          class="form-control"
-                          bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" > -->
 
 
-                          {{model.meetingDate}}
-                    </div>
+          <div class="row mtm">
+            <div class="col-lg-7">
+              <h2 class="mbn">Awie, Mentee, HHA</h2>
+              <h3 class="text-orange">Tuesday, May 24, 2022 09:00AM - 05:00PM</h3>
+              <h4><strong>Date of Service :   {{model.meetingDate}}</strong></h4>  
 
-                    <!-- {{_meetingDate}} -->
-                </div>
+
+
+              <div class="row mtm">
+    
                            
-                    <div class="col-sm-3 col-xs-4">
-                        <div class="form-group"><label class="control-label">Time In</label>
-                            <timepicker
-                            #StartTime="ngModel"
-                          id="txtStartTime"
-                          name="StartTime"
-                            
-                            [(ngModel)]="_startTime" ></timepicker>
-  
-                        </div>
-                        <!-- {{_startTime}} -->
-                    </div>
-            
-                        <div class="col-sm-3 col-xs-4">
-                            <div class="form-group"><label class="control-label">Time Out</label>
-                                <timepicker 
-                                #EndTime="ngModel"
-                          id="txtEndTime"
-                          name="EndTime"
-                          [min]="_startTime"                                
-                                
-                                [(ngModel)]="_endTime"  (ngModelChange)="changed()" 
-                                
-                                
-                                ></timepicker>
-
-                            </div>
-                        </div>            
+                <div class="col-sm-5 col-xs-12">
+                    <div class="form-group"><label class="control-label">Time In</label>
+                        <timepicker
+                        #StartTime="ngModel"
+                      id="txtStartTime"
+                      name="StartTime"
                         
-                            <div class="col-sm-3 col-xs-4">
-                                <div class="form-group">
-                                    
-                                    <h3 class="text-orange">{{timespan}}</h3>
-                                </div>
+                        [(ngModel)]="_startTime" ></timepicker>
+
+                    </div>
+                    <!-- {{_startTime}} -->
+                </div>
+        
+                    <div class="col-sm-5 col-xs-12">
+                        <div class="form-group"><label class="control-label">Time Out</label>
+                            <timepicker 
+                            #EndTime="ngModel"
+                      id="txtEndTime"
+                      name="EndTime"
+                      [min]="_startTime"                                
+                            
+                            [(ngModel)]="_endTime"  (ngModelChange)="changed()" 
+                            
+                            
+                            ></timepicker>
+
+                        </div>
+                    </div>            
+                    
+                        <div class="col-sm-2 col-xs-12 mtxl ">
+                            <div class="form-group">                                   
+                                <h3 class="text-orange "> <strong>{{timespan}}</strong></h3>
                             </div>
-
                         </div>
 
-                        <div class="row mtm">
-                            <div class="col-sm-12 col-xs-12">  
-                                <div class="form-group"><label class="control-label">Meeting Note </label>                               
-                                    <textarea placeholder="Notes" 
-                                    class="form-control" 
-                                    id="txtMeetingNote"
-                                    name="MeetingNote"                             
-                                    [(ngModel)]="model.meetingNote"                                  
-                                    ></textarea>
-                              </div>
-                      </div>
-                        </div>
+                    </div>
+
+                    <div class="row mtm">
+                        <div class="col-sm-12 col-xs-12">  
+                            <div class="form-group"><label class="control-label">Meeting Note </label>                               
+                                <textarea placeholder="Notes" 
+                                class="form-control" 
+                                id="txtMeetingNote"
+                                name="MeetingNote"                             
+                                [(ngModel)]="model.meetingNote"                                  
+                                ></textarea>
+                          </div>
+                  </div>
+                    </div>
+
+
+
+
+
+
+
+            </div>
+
+            <div class="col-lg-5">
+              <button class="btn btn-lg btn-primary"  (click) = "OnScheduling()">SCHEDULE</button>
+            </div>
+          </div>
+            
+       
                                 <div class="row mtm">
                 <div class="col-sm-12 col-xs-12">
                     <button class="btn btn-lg btn-primary"  (click) = "OnScheduling()">SCHEDULE</button>
