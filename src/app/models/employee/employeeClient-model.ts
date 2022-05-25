@@ -19,15 +19,11 @@ export class employeeclientList
     Latitude:string;
 }
 
-// export class clientAddress
-// {
-//     AddressId:number;
-//     FlatNo:string;
-//     Address:string;
-//     City:string;
-//     Country:string;
-//     State:string;
-//     ZipCode:string;
-//     Longitude:string;
-//     Latitude:string;
-// }
+export class ClockinViewModel
+{
+    ClockId:number;
+    UserId:number;
+    ClockInTime:Date;
+    ClockOutTime:Date;
+    Notes:string;
+}

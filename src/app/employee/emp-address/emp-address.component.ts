@@ -79,7 +79,7 @@ debugger;
   }
 
   saveAddress() {
-    debugger;
+    
     this.IsLoad=true;
       this.locSrv.getGeoPoint(this.model.address).subscribe({
         error: (err) => { 
@@ -89,8 +89,10 @@ debugger;
         },    // errorHandler 
         next: (res: any) => {  
           var response=  res['results'].filter((x:any) => x.type === "Point Address");
-          this.model.latitude = Number(response[0].position.lat);
-          this.model.longitude = Number(response[0].position.lon);
+          if(response != null && response != undefined){
+            this.model.latitude = Number(response[0].position.lat);
+            this.model.longitude = Number(response[0].position.lon);
+          }
           this.model.createdBy=this.currentUser.userId;
           this.addAddress(this.model);
          }

@@ -33,3 +33,9 @@ export class ExternalUserModel {
     latitude: number;
     longitude: number;    
 }
+
+export class HHAClockInMode{
+    userId: number;
+    Notes:string;
+    Type:number;
+}

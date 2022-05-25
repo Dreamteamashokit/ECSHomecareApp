@@ -41,7 +41,7 @@
                 <div #graphDiv id="myMap" class="h-200" style="position:relative;width:100%;min-width:290px;"></div>
             </div>
             <div class="h-200 mt-60" *ngIf="ClientList != null && ClientList != undefined">
-                <div class="card" *ngFor="let client of ClientList">
+                <div class="card" *ngFor="let client of ClientList" routerLink="/clockinout">
                     <div class="card-body">
                             <div>
                                 <h3>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</h3>
@@ -59,10 +59,6 @@
                 <div *ngIf="ClientList == null && ClientList == undefined">
                     No records Found...
                 </div>
-            </div>
-            <div class="">
-                <a routerLink="/hhapatinet" class="btn btn-primary btn-lg form-control">Next</a>
-                
             </div>
         </div>
     </div>

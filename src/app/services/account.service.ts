@@ -3,7 +3,7 @@ import { HttpClient,HttpHeaders ,HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { LoginModel,UserModel,Externalsign,ExternalUserModel } from 'src/app/models/account/login-model';
+import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode } from 'src/app/models/account/login-model';
 import { AccountUserModel } from 'src/app/models/account/account-model';
 const httpOptionsObj = {
   headers: new HttpHeaders({
@@ -110,7 +110,7 @@ export class AccountService {
 
 
     addUser(_Obj: AccountUserModel){ 
-      debugger;
+      
       var headers_object = new HttpHeaders();
           headers_object.append('Content-Type', 'application/json');
           var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -122,12 +122,20 @@ export class AccountService {
   
   
     getUserList(userType: number) {
-      debugger;
+      
       return this._http.get<APIResponse<AccountUserModel[]>>(environment.domain + "/api/Account/getUser" + '/' + userType);
     }
 
 
-
+    HHAClockIn(_obj:HHAClockInMode){
+      var headers_object = new HttpHeaders();
+          headers_object.append('Content-Type', 'application/json');
+          var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+          const httpOptions = {
+            headers: headers_object
+          }; 
+      return this._http.post<APIResponse<string>>(environment.domain + "/api/Employee/HHAClockin", _obj,httpOptions);
+    }
 
 
 }

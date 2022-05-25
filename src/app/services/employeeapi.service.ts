@@ -14,7 +14,9 @@ import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
-import {employeeclientList} from '../models/employee/employeeClient-model';
+import {employeeclientList,ClockinViewModel} from '../models/employee/employeeClient-model';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -206,5 +208,9 @@ export class EmployeeapiService {
   
   GetClientListByempId(empId:number){
     return this._http.get<APIResponse<employeeclientList>>(environment.domain + "/api/Employee/GetClientListByempId"+"/"+empId);
+  }
+
+  GetClockinDetailsByUserId(userId:number){
+    return this._http.get<APIResponse<ClockinViewModel>>(environment.domain + "/api/Employee/GetClockinDetails"+"/"+userId);
   }
 }
