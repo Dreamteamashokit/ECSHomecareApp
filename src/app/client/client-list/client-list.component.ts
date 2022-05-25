@@ -47,7 +47,7 @@ IsLoad: boolean = false;
   managerList: ItemsList[];
   stateList: SelectList[];
   payerList: ItemsList[];
-  objModel=new ClientFilter(0,"",0,0);
+  objModel=new ClientFilter(0,"",0,0,0);
   resultText:string='';
   totalItemsCount : number = 0;
   p: number = 1;
@@ -109,6 +109,7 @@ IsLoad: boolean = false;
     model.status=Number(model.status);
     model.coordinator=Number(model.coordinator);
     model.payer=Number(model.payer); 
+    model.empType=Number(model.empType);
     let resultText= '';
     if(model.status!=0)
     {    

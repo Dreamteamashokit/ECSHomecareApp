@@ -22,11 +22,13 @@ export class ClientFilter {
     state: string;
     coordinator: number;
     payer: number;   
-    constructor(status: number,state: string,coordinator: number,payer: number) {
+    empType: number;
+    constructor(status: number,state: string,coordinator: number,payer: number,empType: number) {
         this.status = status;
         this.state = state;
         this.coordinator = coordinator;
         this.payer = payer;
+        this.empType = empType;
       }  
 }
 
