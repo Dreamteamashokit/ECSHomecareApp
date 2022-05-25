@@ -33,6 +33,7 @@ export class EmpScheduleComponent implements OnInit {
   currentUser: UserModel;
   isClient:boolean=false;
   isRecurrence: boolean = false;
+  IsLoad:boolean=false;
   constructor(
     private route:ActivatedRoute,
     private comApi: CommonService,
@@ -48,8 +49,7 @@ export class EmpScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;  
-    this.route.params
-    .subscribe(
+    this.route.params.subscribe(
       (params : Params) =>{
         this.isClient= UserType.Client===Number(params["typeId"])?true:false;
         if(this.isClient)
@@ -61,8 +61,7 @@ export class EmpScheduleComponent implements OnInit {
           this.model.empId = params["userId"];
         }
         this.model.meetingDate = params["fromDate"];
-      }
-    );
+      });
   }
 
   BindMaster() {
@@ -81,30 +80,106 @@ export class EmpScheduleComponent implements OnInit {
       }
     });    
   }
+
+
+
+onChange(e:any):void {
+
+  if (e.target.checked) {
+    this._fromDate = new Date(this.model.meetingDate);
+    this._toDate = new Date(this.model.meetingDate);
+    this.isRecurrence=true;
+  }
+  
+  
+}
+
+
+
   
 OnScheduling()
 {
   debugger;
+  this.IsLoad=true;
   this.model.clientId=Number(this.model.clientId);
   this.model.empId=Number(this.model.empId);
   this.model.empList.push(Number(this.model.empId));
-  this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";   
+  this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";
   this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
   this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
   this.model.userId = this.currentUser.userId;
-  const reqObj: MeetingInfo = this.model;
-  console.log('Search', reqObj);
-
-  if(this.model.clientId>0&&this.model.empId)
+  if(this.isRecurrence)
   {
-    this.momApi.createMeeting(reqObj).subscribe((response) => {    
-      alert("meeting schedule sucessfully");
-    });
+    this.model.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
+    this.model.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";
+  }
+  const reqObj: MeetingInfo = this.model;
+
+  if(this.isRecurrence)
+  {
+    if(this.model.clientId>0&&this.model.empId)
+    {
+      this.momApi.addRecurringMeeting(reqObj).subscribe({   
+        next: (response: any) => {  
+          if (response.result) {
+            alert("meeting schedule sucessfully");
+          }
+          else
+          {
+            alert("Some technical issue exist, Please contact to admin !");
+          } 
+         },
+         error: (err) => { 
+          this.IsLoad=false;
+          alert("Some technical issue exist, Please contact to admin !");
+         console.log(err);
+      
+        },   
+        complete: () => { 
+          this.IsLoad=false;
+        }
+    }); 
+    }
+    else
+    {
+      this.IsLoad=false;
+      alert("please add both meeting attendees");
+    }
   }
   else
   {
-    alert("please  meeting attendees");
+    if(this.model.clientId>0&&this.model.empId)
+    {
+      this.momApi.createMeeting(reqObj).subscribe({   
+        next: (response: any) => {  
+          if (response.result) {
+            alert("meeting schedule sucessfully");
+          }
+          else
+          {
+            alert("Some technical issue exist, Please contact to admin !");
+          } 
+         },
+         error: (err) => { 
+          this.IsLoad=false;
+          alert("Some technical issue exist, Please contact to admin !");
+         console.log(err);
+      
+        },   
+        complete: () => { 
+          this.IsLoad=false;
+        }
+    }); 
+    }
+    else
+    {
+      this.IsLoad=false;
+      alert("please add both meeting attendees");
+    }
+    
   }
+
+
     
   }
    
