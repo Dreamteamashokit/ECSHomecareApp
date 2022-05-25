@@ -11,15 +11,65 @@
       <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
       <form name="frmMom" #f="ngForm">
 
-        <div class="panel">
+        <div class="panel">       
         <div class="panel-body">
           <div class="row mtm">
-            <div class="col-lg-7">
+            <div class="col-lg-12">
               <!-- <h2 class="mbn">Awie, Mentee, HHA</h2> -->
+       
               <h3 class="text-orange">{{ model.meetingDate | date :"EEEE, MMMM d, y"}} {{_startTime | date:'h:mm a'}} - {{_endTime | date:'h:mm a'}}</h3>
-              <h4><strong>Date of Service :   {{model.meetingDate | date :"dd MMM YYYY"}}</strong></h4>
+              <h4><strong>Date of Service :   {{model.meetingDate | date :"dd MMM YYYY"}}</strong>
+              
+   
+
+              </h4>    
+              <div class="col-lg-12 mtm">
+                <div class="form-group">
+                    <input type="checkbox"   class="mrm"  name="recurring"    [(ngModel)]="isRecurrence"  >
+                    <label class="control-label">Recurring</label>
+                </div>
+            </div>
               <div class="row mtm">
-                <div class="col-sm-5 col-xs-12">
+        
+                <div class="col-sm-3 col-xs-12" *ngIf="isRecurrence">
+                    <div class="form-group">
+
+                        <label class="control-label">From Date</label>
+                        <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
+                        <input type="text"
+                          #fromDate="ngModel"
+                          id="txtfromDate"
+                          name="fromDate"
+                          placeholder="From Date"
+                          [(ngModel)]="_fromDate"
+                          class="form-control"
+                          bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                    </div>
+                </div>
+                    <!-- {{_meetingDate}} -->
+                </div>
+                      
+
+                <div class="col-sm-3 col-xs-12" *ngIf="isRecurrence">
+                    <div class="form-group">
+
+                        <label class="control-label">To Date</label>
+              <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
+                        <input type="text"
+                          #toDate="ngModel"
+                          id="txttoDate"
+                          name="toDate"
+                          placeholder="To Date"
+                          [(ngModel)]="_toDate"
+                          class="form-control"
+                          bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                    </div>
+                </div>
+                    <!-- {{_meetingDate}} -->
+                </div>
+                      
+           
+                <div class="col-sm-2 col-xs-12">
                     <div class="form-group"><label class="control-label">Time In</label>
                         <timepicker
                         #StartTime="ngModel"
@@ -30,7 +80,7 @@
                     </div>
                     <!-- {{_startTime}} -->
                 </div>        
-                    <div class="col-sm-5 col-xs-12">
+                    <div class="col-sm-2 col-xs-12">
                         <div class="form-group"><label class="control-label">Time Out</label>
                             <timepicker 
                             #EndTime="ngModel"
@@ -42,9 +92,9 @@
                             ></timepicker>
                         </div>
                     </div>
-                        <div class="col-sm-2 col-xs-12 mtxl ">
+                        <div class="col-sm-2 col-xs-12 mtxl text-center mt-0-mobile">
                             <div class="form-group">                                   
-                                <h3 class="text-orange "> <strong>{{timespan}}</strong></h3>
+                                <h3 class="text-orange"> <strong>{{timespan}}</strong></h3>
                             </div>
                         </div>
                     </div>
@@ -61,88 +111,29 @@
                   </div>
                     </div>
             </div>
-            <div class="col-lg-5">
+          
+          </div>
+
+          <div class="row mtm">
+
+            <div class="col-lg-12">
               <button class="btn btn-lg btn-primary"  (click) = "OnScheduling()">SCHEDULE</button>
+  
+  
+         
             </div>
           </div>
+
             </div>
         </div>
-        <div class="row mtm">
-                 <div class="col-sm-6 col-xs-12">
-                       <div class="panel">
-                         <div class="panel-body">		
-                            <div class="col-sm-6 col-xs-12">  
-                                <div class="form-group"><label class="control-label">Client</label>                                     
-                                            <select
-                                            class="form-control"
-                                            #ClientId="ngModel"
-                                            id="ddlClientId"
-                                            name="ClientId"  
-                                            [disabled]="isClient" 
-                                            [(ngModel)]="model.clientId"    
-                                                                               
-                                          >
-                                            <option value="-1" disabled>Select</option>
-                                            <option
-                                              *ngFor="let obj of ClientList"
-                                              [value]="obj.itemId"
-                                            >
-                                              {{ obj.itemName }}
-                                            </option> 
-                                          </select>
 
-                                          <em
-                                          *ngIf="
-                                          ClientId.invalid &&(model.clientId===-1)&&
-                                            (ClientId.dirty || ClientId.touched)
-                                          "
-                                          for="ddlClientId"
-                                          class="invalid"
-                                          >This field is required</em
-                                        >                                          
-                              </div>
-                      </div>
-                                    </div>            
-                 </div>
-                 </div>
-                 <div class="col-sm-6 col-xs-12">
-                    <div class="panel">
-                      <div class="panel-body">		
-                         <div class="col-sm-6 col-xs-12">  
-                             <div class="form-group">
-                               <label class="control-label">Employee</label>
-                              <!-- {{model.empId}} -->
-                                         <select
-                                         class="form-control"
-                                         #EmpId="ngModel"
-                                         id="ddlEmpId"
-                                         name="EmpId" 
-                                         [disabled]="!isClient"  
-                                         [(ngModel)]="model.empId"                                       
-                                       >
-                                         <option value="-1" >Select</option>
-                                          <option
-                                           *ngFor="let obj of EmplList"
-                                           [value]="obj.itemId"
-                                         >
-                                           {{ obj.itemName }}
-                                         </option> 
-                                       </select>
-                                       <em
-                                       *ngIf="
-                                       EmpId.invalid &&
-                                         (EmpId.dirty || EmpId.touched)
-                                       "
-                                       for="ddlEmpId"
-                                       class="invalid"
-                                       >This field is required</em
-                                     >
-                           </div>
-                   </div>
-                                 </div>
-              </div>
-              </div>
-            </div>
+
+   
+
+
+
+
+     
       </form>
             <div class="row mtm">
                  <div class="col-sm-12 col-xs-12">

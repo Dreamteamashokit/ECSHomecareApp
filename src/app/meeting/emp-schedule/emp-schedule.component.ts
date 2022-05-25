@@ -25,11 +25,14 @@ export class EmpScheduleComponent implements OnInit {
   ClientList = Array<ItemsList>();
   EmplList = Array<ItemsList>();  
   timespan:string;
+  _fromDate : Date=new Date();
+  _toDate : Date=new Date();
   _meetingDate : Date=new Date();
   _startTime : Date=new Date();
   _endTime : Date=new Date();
   currentUser: UserModel;
   isClient:boolean=false;
+  isRecurrence: boolean = false;
   constructor(
     private route:ActivatedRoute,
     private comApi: CommonService,
@@ -80,30 +83,28 @@ export class EmpScheduleComponent implements OnInit {
   }
   
 OnScheduling()
+{
+  debugger;
+  this.model.clientId=Number(this.model.clientId);
+  this.model.empId=Number(this.model.empId);
+  this.model.empList.push(Number(this.model.empId));
+  this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";   
+  this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
+  this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
+  this.model.userId = this.currentUser.userId;
+  const reqObj: MeetingInfo = this.model;
+  console.log('Search', reqObj);
+
+  if(this.model.clientId>0&&this.model.empId)
   {
-    debugger;    
-    this.model.clientId=Number(this.model.clientId);
-    this.model.empId=Number(this.model.empId);
-    this.model.empList.push(Number(this.model.empId));
-    this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";   
-    this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
-    this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
-    this.model.userId = this.currentUser.userId;
-    const reqObj: MeetingInfo = this.model;
-    console.log('Search', reqObj);    
-
-
-
-    if(this.model.clientId>0)
-    {
-      this.momApi.createMeeting(reqObj).subscribe((response) => {    
-        alert("meeting schedule sucessfully");
-       });
-    }
-    else
-    {
-      alert("please select client");
-    }
+    this.momApi.createMeeting(reqObj).subscribe((response) => {    
+      alert("meeting schedule sucessfully");
+    });
+  }
+  else
+  {
+    alert("please  meeting attendees");
+  }
     
   }
    
