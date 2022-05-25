@@ -10,9 +10,7 @@ import { EmpInfoComponent } from 'src/app/employee/emp-info/emp-info.component';
 import { EmpScheduleComponent } from 'src/app/meeting/emp-schedule/emp-schedule.component';
 import { NewClientComponent } from 'src/app/client/new-client/new-client.component';
 import { ClientListComponent } from 'src/app/client/client-list/client-list.component';
-import { ClientScheduleComponent } from 'src/app/meeting/client-schedule/client-schedule.component';
 import { ClientInfoComponent } from 'src/app/client/client-info/client-info.component';
-
 import { GenerateinvoiceComponent } from './dashboard/generateinvoice/generateinvoice.component';
 import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.component';
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
@@ -26,7 +24,6 @@ import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.
 import { CreateUserComponent } from './user/create-user/create-user.component';
 
 const routes: Routes = [
-
   { path: 'login', component: SignInComponent },
   {
     path: 'admin/master/create', component: LayoutComponent,
@@ -52,9 +49,8 @@ const routes: Routes = [
     path: 'employee/info/:empId/:tabId', component: LayoutComponent,
     children: [{ path: '', component: EmpInfoComponent }]
   },
-
   {
-    path: 'employee/schedule/:empId/:fromDate', component: LayoutComponent,
+    path: 'user/schedule/:typeId/:userId/:fromDate', component: LayoutComponent,
     children: [{ path: '', component: EmpScheduleComponent }]
   },
   {
@@ -65,21 +61,18 @@ const routes: Routes = [
     path: 'client/list', component: LayoutComponent,
     children: [{ path: '', component: ClientListComponent }]
   },
-  {
-    path: 'client/schedule/:clientId/:fromDate', component: LayoutComponent,
-    children: [{ path: '', component: ClientScheduleComponent }]
-  },
+  // {
+  //   path: 'client/schedule/:clientId/:fromDate', component: LayoutComponent,
+  //   children: [{ path: '', component: ClientScheduleComponent }]
+  // },
   {
     path: 'client/info/:clientId/:tabId', component: LayoutComponent,
     children: [{ path: '', component: ClientInfoComponent }]
   },
-
-
   {
     path: 'appointMent/info/:meetingId', component: LayoutComponent,
     children: [{ path: '', component: MeetingDetailComponent }]
   },
-
   {
     path: 'invoice/create', component: LayoutComponent,
     children: [{ path: '', component: GenerateinvoiceComponent }]
@@ -92,12 +85,10 @@ const routes: Routes = [
     path: 'invoice/info/:InvId', component: LayoutComponent,
     children: [{ path: '', component: InvoicedetailsComponent }]
   },
-
   {
     path: 'company/task', component: LayoutComponent,
     children: [{ path: '', component: TaskMasterComponent }]
   },
-
   {
     path: 'availability', component: LayoutComponent,
     children: [{ path: '', component: AvailabilitySearchComponent }]
@@ -118,24 +109,15 @@ const routes: Routes = [
     path:'hhapatinet',component:LayoutComponent,
     children:[{path:'',component:PatientComponent}]
   },
-
-
   {
     path: 'user/create', component: LayoutComponent,
     children: [{ path: '', component: CreateUserComponent }]
   },
-    {
-        path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
-    },
-
-
-
+  {
+    path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
+  },
   { path: '', component: SignInComponent },
   { path: '**', component: SignInComponent },
-
-
-
-
 ];
 
 @NgModule({

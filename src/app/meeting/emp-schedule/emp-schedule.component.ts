@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
-
+import { UserType } from 'src/app/models/common';
 @Component({
   selector: 'app-emp-schedule',
   templateUrl: './emp-schedule.component.html',
@@ -44,19 +44,25 @@ export class EmpScheduleComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    debugger;
-  
+    debugger;  
     this.route.params
     .subscribe(
       (params : Params) =>{
-        this.model.empId = params["empId"];
+        this.isClient= UserType.Client===Number(params["typeId"])?true:false;
+        if(this.isClient)
+        {
+          this.model.clientId = params["userId"];
+        }
+        else
+        {
+          this.model.empId = params["userId"];
+        }
         this.model.meetingDate = params["fromDate"];
       }
     );
   }
 
   BindMaster() {
-
     this.comApi.getEmpList().subscribe((response) => {
       if(response.result)
       {
@@ -70,15 +76,8 @@ export class EmpScheduleComponent implements OnInit {
         debugger;
         this.ClientList = response.data;
       }
-    });
-
-
-    
+    });    
   }
-
-
-
-
   
 OnScheduling()
   {

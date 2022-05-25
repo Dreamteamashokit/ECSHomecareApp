@@ -10,11 +10,12 @@
     <div class="page-content">
       <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
       <form name="frmMom" #f="ngForm">
+
         <div class="panel">
         <div class="panel-body">
           <div class="row mtm">
             <div class="col-lg-7">
-              <h2 class="mbn">Awie, Mentee, HHA</h2>
+              <!-- <h2 class="mbn">Awie, Mentee, HHA</h2> -->
               <h3 class="text-orange">{{ model.meetingDate | date :"EEEE, MMMM d, y"}} {{_startTime | date:'h:mm a'}} - {{_endTime | date:'h:mm a'}}</h3>
               <h4><strong>Date of Service :   {{model.meetingDate | date :"dd MMM YYYY"}}</strong></h4>
               <div class="row mtm">
@@ -46,9 +47,7 @@
                                 <h3 class="text-orange "> <strong>{{timespan}}</strong></h3>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="row mtm">
                         <div class="col-sm-12 col-xs-12">  
                             <div class="form-group"><label class="control-label">Meeting Note </label>                               
@@ -61,20 +60,11 @@
                           </div>
                   </div>
                     </div>
-
-
-
-
-
-
-
             </div>
-
             <div class="col-lg-5">
               <button class="btn btn-lg btn-primary"  (click) = "OnScheduling()">SCHEDULE</button>
             </div>
           </div>
-            
             </div>
         </div>
         <div class="row mtm">
@@ -119,15 +109,15 @@
                     <div class="panel">
                       <div class="panel-body">		
                          <div class="col-sm-6 col-xs-12">  
-                             <div class="form-group"><label class="control-label">Employee</label>       
-                              
+                             <div class="form-group">
+                               <label class="control-label">Employee</label>
                               <!-- {{model.empId}} -->
                                          <select
                                          class="form-control"
                                          #EmpId="ngModel"
                                          id="ddlEmpId"
                                          name="EmpId" 
-                                         [disabled]="isClient"  
+                                         [disabled]="!isClient"  
                                          [(ngModel)]="model.empId"                                       
                                        >
                                          <option value="-1" >Select</option>
@@ -138,7 +128,6 @@
                                            {{ obj.itemName }}
                                          </option> 
                                        </select>
-
                                        <em
                                        *ngIf="
                                        EmpId.invalid &&
@@ -148,20 +137,13 @@
                                        class="invalid"
                                        >This field is required</em
                                      >
-
-
-                                       
                            </div>
                    </div>
                                  </div>
-         
               </div>
               </div>
-            </div> 
-
-
+            </div>
       </form>
-
             <div class="row mtm">
                  <div class="col-sm-12 col-xs-12">
                      <p><a  ><i class="fa fa-plus-square"></i> BILLING/PAYROLL</a></p>

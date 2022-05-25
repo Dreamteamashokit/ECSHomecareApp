@@ -6,7 +6,7 @@ import { Empmeeting } from 'src/app/models/meeting/empmeeting';
 import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { MeetingDetailComponent } from 'src/app/meeting/meeting-detail/meeting-detail.component';
-
+import { UserType } from 'src/app/models/common';
 @Component({
   selector: 'app-user-schedule',
   templateUrl: './user-schedule.component.html',
@@ -99,7 +99,8 @@ export class UserScheduleComponent implements OnInit {
   }
 
 
-  private getStartDateForCalendar(selectedDate: Date){
+  private getStartDateForCalendar(selectedDate: Date)
+  {
     // for the day we selected let's get the previous month last day
     let lastDayOfPreviousMonth = new Date(selectedDate.setDate(0));
     // start by setting the starting date of the calendar same as the last day of previous month
@@ -113,7 +114,7 @@ export class UserScheduleComponent implements OnInit {
     }
     return startingDateOfCalendar;
   }
-
+  
    public increaseMonth() 
    {
     this.monthIndex++;
@@ -129,7 +130,6 @@ export class UserScheduleComponent implements OnInit {
     this.monthIndex = 0;
     this.generateCalendarDays(this.monthIndex,this.userId);
   }
-  
   showMeeting(_meetingId :number) {
     const initialState: ModalOptions = {
       initialState: {
@@ -147,35 +147,17 @@ export class UserScheduleComponent implements OnInit {
     this.bsModalRef = this.modalService.show(MeetingDetailComponent, initialState);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
-
-  public addMeeting()
-  {
-    this.router.navigate(['/client/schedule/'+this.userId]);
-  }
-
   public formateTime(hour:number,min:number)
   {
     var time=new Date().setHours(hour, min, 0, 0);
     return this.datepipe.transform(time,"h:mm a");
   }
-
-  public addMeetingx(_fromDate:Date)
+  public addMeeting(_fromDate:Date)
   {
-     let fromdate=this.datepipe.transform(_fromDate,"yyyy-MM-dd");
-     if(this.IsClient)
-     {
-      this.router.navigate(['/client/schedule/'+this.userId+'/'+fromdate]);
-     }
-     else
-     {
-      this.router.navigate(['/employee/schedule/'+this.userId+'/'+fromdate]);
-     }
+    let userType= this.IsClient === true ?  UserType.Client : UserType.Employee;
+    let fromdate=this.datepipe.transform(_fromDate,"yyyy-MM-dd");
+    this.router.navigate(['/user/schedule/'+userType+'/'+this.userId+'/'+fromdate]);
   }
 
 
-
-
-
-
-  
 }
