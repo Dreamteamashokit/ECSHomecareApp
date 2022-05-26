@@ -31,7 +31,7 @@ export class PatientComponent implements OnInit {
 
   GetClockinDetailsByUserId(userId:number){
     this._employeeService.GetClockinDetailsByUserId(userId).subscribe((response) =>{
-      
+    
       if(response.result)
       {
         this.clockinDetails = response.data;
@@ -48,6 +48,7 @@ export class PatientComponent implements OnInit {
 
   GetClientListByempId(empId:number){
     this._employeeService.GetClientListByempId(empId).subscribe((response) =>{
+      
       if(response.result)
       {
         this.ClientList = response.data;
