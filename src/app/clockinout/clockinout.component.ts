@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { HHAClockInMode } from '../models/account/login-model';
+import { EmployeeapiService } from  '../services/employeeapi.service';
 
 @Component({
   selector: 'app-clockinout',
@@ -12,9 +13,10 @@ export class ClockinoutComponent implements OnInit {
 
   UserId:number;
   model = new HHAClockInMode();
-
+  clockinDetails:any;
+  
   constructor(private _accountService:AccountService,
-    private router:Router) { }
+    private router:Router,private _employeeService:EmployeeapiService) { }
 
   ngOnInit(): void {
     var objUser = this._accountService.GetCurrentHHAUser();
@@ -44,5 +46,19 @@ export class ClockinoutComponent implements OnInit {
     });     
   }
 
+
+  GetClockinDetailsByUserId(userId:number){
+    this._employeeService.GetClockinDetailsByUserId(userId).subscribe((response) =>{
+      
+      if(response.result)
+      {
+        this.clockinDetails = response.data;
+      }
+      else
+      {
+        alert('HHA/Employee does not have any clients.');
+      }
+    })
+  }
 
 }
