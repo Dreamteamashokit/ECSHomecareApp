@@ -77,11 +77,12 @@ debugger;
 
 
   getAddressPoint(item:string) {
+    debugger;
     var loc = new LocationView();
     loc.Location=item;
     this.locSrv.getGeoPoint(item).subscribe({   
       next: (res: any) => {  
-        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        var response=  res['results'].filter((x:any) => x.type === "Point Address" || x.type==="Street" || x.type==="Cross Street");
         loc.latitude = Number(response[0].position.lat);
         loc.longitude = Number(response[0].position.lon);
        },
@@ -104,7 +105,7 @@ debugger;
     this.model.createdBy=this.currentUser.userId;
     this.locSrv.getGeoPoint( this.model.address).subscribe({   
       next: (res: any) => {  
-        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        var response=  res['results'].filter((x:any) => x.type === "Point Address" || x.type==="Street" || x.type==="Cross Street");
         this.model.latitude = Number(response[0].position.lat);
         this.model.longitude = Number(response[0].position.lon);
        },
