@@ -24,6 +24,7 @@ import * as atlas from 'azure-maps-control';
 export class EmpAddressComponent implements OnInit {
   modalRef?: BsModalRef;
   IsLoad:boolean;
+  isClient:boolean=false;
   locModel = new LocationView();
   @ViewChild("addressMapId") addressMapId: ElementRef;
   model = new AddressObj();
@@ -55,9 +56,11 @@ debugger;
         debugger;
         if (params["empId"] != null) {
           this.model.userId = Number(params["empId"]);
+          this.isClient=false;
         }
         else {
           this.model.userId = Number(params["clientId"]);
+          this.isClient=true;
         }
 
         this.getAddress(this.model.userId);
