@@ -35,6 +35,7 @@ export class EmpScheduleComponent implements OnInit {
   isRecurrence: boolean = false;
   IsLoad:boolean=false;
   constructor(
+    private router:Router, 
     private route:ActivatedRoute,
     private comApi: CommonService,
     private empApi: EmployeeapiService,
@@ -114,7 +115,6 @@ OnScheduling()
     this.model.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";
   }
   const reqObj: MeetingInfo = this.model;
-
   if(this.isRecurrence)
   {
     if(this.model.clientId>0&&this.model.empId)
@@ -122,7 +122,14 @@ OnScheduling()
       this.momApi.addRecurringMeeting(reqObj).subscribe({   
         next: (response: any) => {  
           if (response.result) {
-            alert("meeting schedule sucessfully");
+            if(this.isClient)
+            {
+              this.router.navigate(['/client/info/'+this.model.clientId+'/1']);
+            }
+            else
+            {
+              this.router.navigate(['/employee/info/'+this.model.empId+'/1']);
+            }
           }
           else
           {
@@ -153,7 +160,17 @@ OnScheduling()
       this.momApi.createMeeting(reqObj).subscribe({   
         next: (response: any) => {  
           if (response.result) {
-            alert("meeting schedule sucessfully");
+
+            if(this.isClient)
+            {
+              this.router.navigate(['/client/info/'+this.model.clientId+'/1']);
+            }
+            else
+            {
+              this.router.navigate(['/employee/info/'+this.model.empId+'/1']);
+            
+            }
+
           }
           else
           {
