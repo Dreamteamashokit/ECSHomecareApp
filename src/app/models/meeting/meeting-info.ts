@@ -8,6 +8,8 @@ export class MeetingInfo {
     public empList : number[];    
     public empId : number;    
     public meetingDate : string;
+    public fromDate : string;
+    public toDate : string;
     public startTime : string;
     public endTime : string;
     public meetingNote : string;

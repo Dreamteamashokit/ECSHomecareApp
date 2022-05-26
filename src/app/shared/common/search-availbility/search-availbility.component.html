@@ -12,13 +12,11 @@
                                 class="form-control"
                                 #caseId="ngModel"
                                 id="ddlcaseId"
-                                name="caseId"  
-                         
-
-
+                                name="caseId" 
+                                (change)="caseChange($event)"
                                 [(ngModel)]="searchModel.caseId"                                       
                               >
-                              <option value="" [ngValue]="undefined" selected >Select</option>
+                              <option [ngValue]="undefined" selected >Select</option>
                                  <option
                                   *ngFor="let obj of caseList"
                                   [value]="obj.itemId">
@@ -203,16 +201,17 @@
                                                     <li>
                                                       <div class="row">
                                                       <div class="col-sm-5 col-xs-5"> 
-                                                        {{item.empName}}
-                                                        <!-- <a  [routerLink]="'/client/info/' + item.empId" title="INFO">
-                                                      
-                                                        </a>  -->
-                
-                
+                                                        <a  [routerLink]="'/employee/info/' + item.empId +'/0'">
+                                                            {{item.empName}}
+                                                          </a> 
                                                   </div>
+
+                                               
                                                         <div class="col-sm-5 col-xs-5">{{ item.empId }}</div>
                                                         <div class="col-sm-2 col-xs-2">
-                                                          <i class="fa fa-calendar medium-txt text-orange"></i>
+                                                            <a  [routerLink]="'/employee/info/' + item.empId+'/1'" >
+                                                                <i class="fa fa-calendar medium-txt text-orange"></i>
+                                                              </a> 
                                                         </div>
                                                       </div>
                                                       </li>											
@@ -224,12 +223,16 @@
 
                                                   </td>
                                                   <td *ngFor="let week of currentweekarray" valign="top" class="client-td">
-                                                    <div class="row mbs"  *ngFor="let mtmObj of item.meetingList">
-                                                      <div class="col-sm-12"  *ngIf="(mtmObj.meetingDate   |  equateDate : week)==true">
-                                                        <div class="client-box-green-dot"></div>
+                                                 
+                                                    <div class="row mbs" *ngFor="let mtmObj of item.meetingList">
+                                                      <div class="col-sm-12 mbm" *ngIf="(mtmObj.meetingDate   |  equateDate : week)==true" >  
+                                                        
+                                                     <div class="meeting-disable" >
                                                         <div class="client-box">
                                                           <p class="mbx"><strong>{{ mtmObj.startTime.toString() + '-' + mtmObj.endTime.toString() }}</strong></p>
                                                           <p class="mbn">{{ mtmObj.clientName }}</p>
+                                                      </div>
+
                                                       </div>
                                                       </div>
                 

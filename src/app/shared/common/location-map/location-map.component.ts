@@ -18,17 +18,9 @@ export class LocationMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.BindMap(this.geoPoint);
 
   }
-
-
-
-
-
-
 
   BindMap(current:LocationView) {
   debugger;
@@ -44,11 +36,6 @@ export class LocationMapComponent implements OnInit {
         enableAccessibility: false,
     });
     azureMap.events.add('ready', function () {
-
-
-
-
-
       //Load the custom image icon into the map resources.
       azureMap.imageSprite.add('my-custom-icon', 'https://img.icons8.com/material-two-tone/2x/home--v2.png').then(function () {
 
@@ -67,11 +54,7 @@ export class LocationMapComponent implements OnInit {
       }
     }));
   });
-
-
-
-
-      
+  
         /*Create a data source and add it to the map*/
         var dataSource = new atlas.source.DataSource();
         azureMap.sources.add(dataSource);

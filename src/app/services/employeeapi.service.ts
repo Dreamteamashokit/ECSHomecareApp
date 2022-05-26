@@ -15,11 +15,20 @@ import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-mod
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
 import {employeeclientList,ClockinViewModel} from '../models/employee/employeeClient-model';
+import { ClientFilter } from 'src/app/models/meeting/client-meeting';
 
-
+const httpOptionsObj = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    "Authorization": "Bearer " + "qatest"
+  }),
+};
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class EmployeeapiService {
 
   constructor(private _http : HttpClient) { }
@@ -41,6 +50,13 @@ export class EmployeeapiService {
   {
     return this._http.get<APIResponse<EmployeeList[]>>(environment.domain +"/api/Employee/getEmployeeListObj/"+userId);
   } 
+
+
+  getEmpListObj(model:ClientFilter) 
+  {  
+    return this._http.post<APIResponse<EmployeeList[]>>(environment.domain + "/api/Employee/getEmployeeListObj", model, httpOptionsObj);
+  }
+
   
   getEmployeeInfo(empId : number)
   {

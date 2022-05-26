@@ -4,7 +4,7 @@ import { ClientModel } from 'src/app/models/client/client-model';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType ,SelectList} from 'src/app/models/common';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-general-client',
@@ -21,6 +21,7 @@ export class GeneralClientComponent implements OnInit {
   constructor(
     private router:Router, 
     private route:ActivatedRoute,  
+    public datepipe: DatePipe, 
     private clientApi : ClientApiService
     ) {   
 
@@ -49,6 +50,7 @@ if(response.result)
 {
   this.model = response.data;
   console.log(response.data);
+  this.model.dob = this.datepipe.transform(this.model.dob, 'dd-MMM-yyyy')||"";  
 
   console.log("Rakesh07");
 }

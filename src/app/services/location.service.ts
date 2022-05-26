@@ -6,6 +6,7 @@ import { APIResponse } from '../models/api-response';
 import { LocationModel } from 'src/app/admin/model/location-model';
 import { AvailbilityRequest } from 'src/app/models/availbility/availbility-request';
 import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
+import{ AppSettings } from 'src/app/common/appSettings';
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -18,8 +19,14 @@ const httpOptionsObj = {
 })
 export class LocationService {
 
-  private subscriptionKey = "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE"
-  constructor(private http: HttpClient) { }
+  private subscriptionKey:string; 
+
+  // = "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE"
+  constructor(private http: HttpClient) {
+
+this.subscriptionKey=AppSettings.subscriptionKey;
+
+   }
   addLocation(model: LocationModel) {  
     return this.http.post(environment.domain + "/api/Location/addLocation", model, httpOptionsObj);
   }
