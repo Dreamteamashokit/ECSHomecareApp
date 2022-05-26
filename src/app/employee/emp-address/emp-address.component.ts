@@ -180,6 +180,7 @@ console.log(this.currentUser);
         loc.latitude=this.currentUser.latitude;
         loc.longitude=this.currentUser.longitude;   
         this.IsLoad = false;
+        this.BindMap(loc);
       },
       complete: () => { 
         this.IsLoad = false;
@@ -194,6 +195,8 @@ console.log(this.currentUser);
   BindMap(current:LocationView) {
 
        this.addressMapId.nativeElement.innerHTML = "";
+
+       
       var azureMap = new atlas.Map('addressMapId', {
           center: [current.longitude , current.latitude],
           zoom: 12,
