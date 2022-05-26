@@ -32,6 +32,18 @@ export class MeetingService {
     return this._http.post(environment.domain + "/api/Meeting/addMeeting", momObj,httpOptions);            
   }
 
+
+  addRecurringMeeting(momObj : MeetingInfo){ 
+    var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        };
+    return this._http.post(environment.domain + "/api/Meeting/addRecurringMeeting", momObj,httpOptions);            
+  }
+
+
   getEmployeeMeeting(empId : number)
   {
     return this._http.get<APIResponse<Empmeeting[]>>(environment.domain + "/api/Meeting/getEmpMeeting" + '/' + empId);

@@ -45,11 +45,11 @@ import { EmpRateComponent } from './employee/emp-rate/emp-rate.component';
 import { EmpDeclinedCasesComponent } from './employee/emp-declined-cases/emp-declined-cases.component';
 import { EmpInfoComponent } from './employee/emp-info/emp-info.component';
 import { EmpDasboardComponent } from './employee/emp-dasboard/emp-dasboard.component';
-import { ScheduleViewComponent } from './employee/schedule-view/schedule-view.component';
+
 import { EmpDocumentComponent } from './employee/emp-document/emp-document.component';
 import { ScheduleComponent } from './meeting/schedule/schedule.component';
 import { EmpScheduleComponent } from './meeting/emp-schedule/emp-schedule.component';
-import { ClientScheduleComponent } from './meeting/client-schedule/client-schedule.component';
+
 import { UserScheduleComponent } from './meeting/user-schedule/user-schedule.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { NewClientComponent } from 'src/app/client/new-client/new-client.component';
@@ -119,8 +119,6 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     EmpInfoComponent,
     EmpDasboardComponent,
     EmpScheduleComponent,
-    ClientScheduleComponent,
-    ScheduleViewComponent,
     EmpDocumentComponent,
     ClientDashboardComponent,
     UserScheduleComponent,

@@ -1,3 +1,5 @@
+
+<app-loader [show]="IsLoad"></app-loader>
 <div id="page-wrapper"><!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
         <div class="page-header pull-left">
@@ -47,8 +49,7 @@
                               </div>
 </div>
 <div class="panel">
-<div class="panel-body">
-  
+<div class="panel-body"> 
 
   <div class="row mtm">
     <div class="col-sm-10">
@@ -56,7 +57,7 @@
       
          <div class="col-sm-2 col-xs-6">
                                         <div class="form-group mtm"><label class="control-label">Status</label>
-                                          <select class="form-control" id="ddlStatus" name="status" [(ngModel)]="objModel.status"  (change)="getFilterData(objModel)"  >
+                                          <select class="form-control" id="ddlStatus" #status name="status" [(ngModel)]="objModel.status"  (change)="getFilterData(objModel)"  >
                                             <option value="0">All</option>
                                             <option *ngFor="let obj of statusData"
                                                     [value]="obj.itemId">
@@ -91,16 +92,27 @@
 
 
                   <ng-template #customItemTemplate let-model="item" let-index="index">
-<div class="row mbm">
+<div class="row">
+  <a  [routerLink]="'/client/info/' + model.clientId+'/0'" >
   <div class="col-lg-9 col-xs-9">
-    <h5 class="mbn">      {{model.lastName}} {{model.firstName}} | {{model.clientId}}</h5>
-    <h6 class="mbn">       {{model.address}}, {{model.city}} {{model.state}}{{model.zipCode}}</h6>
+    <h5 class="mbn mtn">      {{model.lastName}} {{model.firstName}} | {{model.clientId}}</h5>
+    <h6 class="mbn mts">   
+      
+      {{model.address}}, {{model.city}} {{model.state}}{{model.zipCode}} 
+    </h6>
+
+  </div> 
+</a>
+<a [routerLink]="'/client/info/' + model.clientId+'/1'">
+  <div class="col-lg-3 col-xs-3">  
+
+  <i  class="fa fa-calendar mrs" style="position: relative; top: -10px;"></i>
+
+    <!-- <a ><i  class="fa fa-calendar mrs text-black"></i></a>
+    <a ><i  class="fa fa-calendar text-black"></i></a> -->
+ 
   </div>
-  <div class="col-lg-3 col-xs-3 ptl">       
-    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
-    <a ><i  class="fa fa-calendar mrs text-black"></i></a>
-    <a ><i  class="fa fa-calendar text-black"></i></a>
-  </div>
+</a>
 </div>
       </ng-template>
     
