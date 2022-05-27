@@ -32,10 +32,6 @@ export class MeetingDetailComponent implements OnInit {
     private modalService: BsModalService,    
     private momApi:MeetingService) { 
 
-
- 
-      
-
   }
 
   ngOnInit(): void {

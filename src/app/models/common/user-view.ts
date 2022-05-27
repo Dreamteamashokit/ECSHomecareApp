@@ -1,7 +1,4 @@
-
-
 import { AddressView } from 'src/app/models/common/address-view';
-
 export class UserView {
     id: number;
     firstName: string;
@@ -11,5 +8,7 @@ export class UserView {
     email: string;
     cellPhone: string;
     homePhone: string;
+    emergPhone: string;
+    emergContact: string;
     address: AddressView;
 }
