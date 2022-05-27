@@ -1,65 +1,68 @@
 <app-loader [show]="IsLoad"></app-loader>
-<div id="page-wrapper">
-    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
-        <div class="page-header pull-left">
-            <div class="page-title">HHA Portal</div>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+            <div class="page-header pull-left">
+                <div class="page-title">Find an Office
+                </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-    </div>
-        <div class="container">
-            <div class="page-content">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            Questions? Contact E & S Home 
-                            Care Solutions,LLC (732)668-6636
-                            email michelle@eshch.com
+        <div class="page-content">
+            <div class="row mtm">
+                <div class="col-lg-6">
+                         <div class="panel panel-default">
+                         <div class="panel-body">
+                             <div class="row">
+                             <div class="col-lg-12">
+                                 <h5><strong>Questions?</strong></h5>
+                             <h5>
+                             <strong>Contact E & S Home Care Solutions, LLC</strong> (732)668-6636
+                             </h5>
+                                 <h5> <strong>Email:</strong> michelle@eshcs.com</h5>
+                             <h2>Hi,Michelle Henriques</h2>
+                                  </div>
+                             </div>
+                             <div class="row">
+                             <div class="col-lg-12">
+                                 <h5 class="text-red"><strong>Overdue Compliance Warning</strong></h5>
+                                 <p>You have overdue compliance items</p>
+                                 <ul class="pll">
+                                 <li>9 Expired</li>
+                                      <li>9 Expired</li>
+                                      <li>9 Expired</li>
+                                      <li>9 Expired</li>
+                                      <li>9 Expired</li>
+                                 </ul>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                        </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div #graphDiv id="myMap" style="position:relative;width:100%;border:0;" width="100%" height="300px" loading="lazy"></div>
                         </div>
                     </div>
-                <div class="row text-center">
-                    <div class="col-lg-12">
-                        <h1>Hi, {{HHAUserName}} </h1>
-                    </div>
-                </div>
-            <div class="card">
-                <div class="row card-body">
-                    <div class="col-lg-12 text-center">
-                        <b class="text-danger">OVERDUE COMPLIANCE WARNING</b>
-                    </div>
-                    <div class="col-lg-12">
-                        <i class="bi-exclamation-triangle"></i>
-                        <p>You have overdue compliance items</p>
-                        <ul>
-                            <li>19 Expired</li>
-                            <li>Employee took less then 12 Hours of Inservice Classes</li>
-                            <li>Physical Expired</li>
-                            <li>Drug Screen</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
-            <div class="gMap h-200 mt-60">
-                <div #graphDiv id="myMap" class="h-200" style="position:relative;width:100%;min-width:290px;"></div>
-            </div>
-            <div class="h-200 mt-60" *ngIf="ClientList != null && ClientList != undefined">
-                <div class="card" *ngFor="let client of ClientList" routerLink="/clockinout">
-                    <div class="card-body">
-                            <div>
-                                <h3>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</h3>
-                                <b>{{client.meetingDate}}</b>
-                                <h3>{{client.meetingStartTime}} - {{client.meetingEndTime}}</h3>
-                            
-                                <p>
-                                    {{client.flatNo}}  {{client.address}} 
-                                    {{client.city}} {{client.country}}  
-                                    {{client.state}} {{client.zipCode}}
-                                </p>
-                            </div> 
-                    </div>
-                </div>
-                <div *ngIf="ClientList == null && ClientList == undefined">
-                    No records Found...
-                </div>
+            
+            <div class="panel panel-primary" *ngIf="ClientList != null && ClientList != undefined">
+                <div class="panel-body" *ngFor="let client of ClientList" (click)="redirectToClockIn(client)">
+                    <h4><strong>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</strong></h4>
+                    <!-- <p>Friday, May6</p>
+                    <h4><strong>11:45AM - 1:00PM</strong></h4> -->
+                    <p>{{client.meetingDate }}</p>
+                    <h4><strong>{{client.meetingStartTime}} - {{client.meetingEndTime}}</strong></h4>
+                    <p> {{client.flatNo}}  {{client.address}} 
+                        {{client.city}} {{client.country}}  
+                        {{client.state}} {{client.zipCode}}</p>
+               </div>
             </div>
         </div>
     </div>
+</div>
+<div id="footer">
+    <div class="copyright">2022 © &mu;ES Home care solutions</div>
 </div>

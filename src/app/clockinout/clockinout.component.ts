@@ -14,7 +14,9 @@ export class ClockinoutComponent implements OnInit {
   UserId:number;
   model = new HHAClockInMode();
   clockinDetails:any;
-  
+  IsDisable:boolean = true;
+  IsShow:boolean = false;
+  HHAMessage: string = "";
   constructor(private _accountService:AccountService,
     private router:Router,private _employeeService:EmployeeapiService) { }
 
@@ -23,25 +25,48 @@ export class ClockinoutComponent implements OnInit {
     if(objUser != null && objUser != undefined){
       this.UserId = objUser.userId;
     }
+    var disableClockout = localStorage.getItem("ShowClockOutButton");
+    if(disableClockout != null && disableClockout != undefined){
+      var btnclockout = localStorage.getItem("ShowClockOutButton");
+      if(btnclockout != null && btnclockout != undefined){
+        this.IsDisable = JSON.parse(btnclockout);
+      }
+    }
   }
 
   HHAClockIn(Notes:string,Type:number){
+  
     this.model.userId = this.UserId;
-    this.model.Notes = Notes;  
+    if(Notes != null && Notes != undefined){
+      this.model.Notes = Notes; 
+    }
+    else{
+      this.model.Notes = "";
+    }
+     
     this.model.Type = Type;
     this._accountService.HHAClockIn(this.model).subscribe((response) => {
+      
       if(response.result)
       {
         if(Type == 2){
+          this.IsShow = false;
+          localStorage.removeItem('ShowClockOutButton');
           this.router.navigate(['/hhapatinet']);
-          alert('HHA User clock out successfull.');
         }
         else{
-          alert('HHA User clock in successfull.');
+          this.IsDisable = false;
+          var that = this;
+          this.IsShow = true;
+          this.HHAMessage  = "HHA User clock in successfull."
+          localStorage.setItem('ShowClockOutButton',JSON.stringify(this.IsDisable));
+          setTimeout(function(){
+            that.IsShow = false;
+          },5000);
         }
       }
       else{
-        alert('HHA User does not exists.');
+        this.HHAMessage = "HHA User does not exists.";
       }
     });     
   }
@@ -56,7 +81,7 @@ export class ClockinoutComponent implements OnInit {
       }
       else
       {
-        alert('HHA/Employee does not have any clients.');
+        this.HHAMessage  = "HHA/Employee does not have any clients.";
       }
     })
   }

@@ -25,7 +25,11 @@ export class PatientComponent implements OnInit {
     if(objUser != null && objUser != undefined){
       this.userName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
      this.GetClockinDetailsByUserId(objUser.userId);
-     this.GetClientListByempId(objUser.userId);
+     
+     var clientName = localStorage.getItem("SelectedClientName");
+      if(clientName != null && clientName != undefined){
+        this.ClientName = clientName;
+      }
     }
   }
 
@@ -35,26 +39,6 @@ export class PatientComponent implements OnInit {
       if(response.result)
       {
         this.clockinDetails = response.data;
-          this.IsLoad=false;
-      }
-      else
-      {
-        this.IsLoad=false;
-        alert('HHA/Employee does not have any clients.');
-      }
-    })
-  }
-
-
-  GetClientListByempId(empId:number){
-    this._employeeService.GetClientListByempId(empId).subscribe((response) =>{
-      
-      if(response.result)
-      {
-        this.ClientList = response.data;
-        if(this.ClientList = response.data){
-          this.ClientName = this.ClientList[0].firstName + " " + this.ClientList[0].middleName + " " + this.ClientList[0].lastName;
-        }
           this.IsLoad=false;
       }
       else

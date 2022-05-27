@@ -20,7 +20,8 @@ export class HhaportalComponent implements OnInit {
   @ViewChild("graphDiv") graphDiv: ElementRef;
 
   constructor(private router:Router,private _employeeservice : EmployeeapiService,
-    private _accountService:AccountService,private _locationsrv:LocationService) { 
+    private _accountService:AccountService,private _locationsrv:LocationService) 
+    { 
       this.HHAModel.latitude = 33.740253;
       this.HHAModel.longitude =-82.745857;
     }
@@ -30,8 +31,6 @@ export class HhaportalComponent implements OnInit {
     var objUser = this._accountService.GetCurrentHHAUser();
     
     if(objUser != null && objUser != undefined){
-      // this.HHAModel.latitude = objUser.latitude;
-      // this.HHAModel.longitude =-objUser.longitude;
       this.HHAModel.email = objUser.email;
       this.HHAModel.firstName = objUser.firstName;
       this.HHAModel.lastName = objUser.lastName;
@@ -95,4 +94,11 @@ export class HhaportalComponent implements OnInit {
         azureMap.layers.add(new atlas.layer.SymbolLayer(dataSource, ""));
     });
   }
+
+  redirectToClockIn(objClient:any){
+    var clientName = objClient.firstName + " " + objClient.middleName + " " + objClient.lastName;
+    localStorage.setItem("SelectedClientName",clientName);
+    this.router.navigate(['/clockinout']);
+  }
+  
 }
