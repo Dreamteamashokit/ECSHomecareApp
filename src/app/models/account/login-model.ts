@@ -38,6 +38,20 @@ export class ExternalUserModel {
 
 export class HHAClockInMode{
     userId: number;
-    Notes:string;
     Type:number;
+    ClockInTime:Date;
+}
+
+export class HHAClockout{
+    userId: number;
+    Type:number;
+    Notes:string;
+    BedBath:boolean;
+    SpongeBath:boolean;
+    Footcare:boolean;
+    Skincare:boolean;
+    ClientSignature:string;
+    HHAUserSignature:string;
+    ClockOutTime:Date;
+    ClockInTime:Date;
 }

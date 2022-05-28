@@ -15,8 +15,10 @@
                         <label class="validate">{{HHAMessage}}</label>
                     </div>
                     <div class="row mtm">
-                        <div class="col-lg-6 col-lg-offset-3 col-xs-12">
-                            <div class="panel panel-orange">
+                        <div class="text-center" *ngIf="SelectedClient != null && SelectedClient != undefined">
+                            {{SelectedClient.meetingDate}}
+                            <!-- Friday, May 6 -->
+                            <!-- <div class="panel panel-orange">
                                 <div class="panel-heading">
                                     <i class="fa fa-clock-o"></i> Time Entry
                                 </div>
@@ -50,8 +52,29 @@
                                         </div>
                                     </div>		
                                 </div>
-                            </div> 
-                       </div>
+                            </div>  -->
+                       </div><br>
+                       <div class="row text-center">{{SelectedClient.meetingStartTime }} - {{SelectedClient.meetingEndTime}}</div><br>
+                       <div class="row text-center">{{SelectedClient.firstName}}  {{SelectedClient.middleName}}  {{SelectedClient.lastName}}</div><br>
+                       <div class="row text-center">
+                           {{SelectedClient.flatNo}}  {{SelectedClient.address}} 
+                           {{SelectedClient.city}} {{SelectedClient.country}}  
+                           {{SelectedClient.state}} {{SelectedClient.zipCode}}
+                        </div><br>
+                       <div class="row text-center">Time now at client's location:</div><br>
+                       <h2 class="row text-center">{{CurrentDate | date: 'hh:mm:ss'}}</h2><br>
+                       <div class="row text-center" style="margin-left: 32%;">
+                        <div class="col-lg-3 offset-lg-3  text-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary" [disabled]="!IsDisable" (click)="HHAClockIn(1)">Clock In</button>												
+                            </div>  
+                        </div>
+                        <div class="col-lg-3 offset-lg-3 text-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary" [disabled]="IsDisable" (click)="HHAClockIn(2)">Clock out</button>												
+                            </div>
+                        </div>
+                    </div>
                      </div>	
                 </form>	
             </div>

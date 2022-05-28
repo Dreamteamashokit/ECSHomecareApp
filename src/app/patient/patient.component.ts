@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeapiService } from  '../services/employeeapi.service';
 import { AccountService } from '../services/account.service';
 import { DatePipe } from '@angular/common'
+import { HHAClockout } from '../models/account/login-model';
 
 @Component({
   selector: 'app-patient',
@@ -16,13 +17,19 @@ export class PatientComponent implements OnInit {
   clockinDetails:any;
   ClientList: any;
   ClientName:string;
+  CurrentDate:Date;
+  model = new HHAClockout();
+  Message:string;
+  IsShowMessage:boolean = false;
 
   constructor(private _employeeService:EmployeeapiService,private _accountService:AccountService,
     public datepipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.CurrentDate = new Date();
     var objUser = this._accountService.GetCurrentHHAUser();
     if(objUser != null && objUser != undefined){
+      this.UserId = objUser.userId;
       this.userName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
      this.GetClockinDetailsByUserId(objUser.userId);
      
@@ -49,4 +56,21 @@ export class PatientComponent implements OnInit {
     })
   }
 
+  HHAClockout(model:any){
+
+    this.model = model.value;
+    this.model.userId = this.UserId;
+    this.model.Type = 2;
+    this.model.ClockOutTime = new Date();
+    this.model.ClockInTime = new Date();
+    this._accountService.HHAClockout(this.model).subscribe((response) => {
+      this.IsShowMessage = true;
+      this.Message  = "HHA User clock out successfull."
+      var that = this;
+      setTimeout(function(){
+        that.IsShowMessage = false;
+      },5000);
+
+    });
+  }
 }

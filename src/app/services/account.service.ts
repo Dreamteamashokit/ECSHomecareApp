@@ -3,7 +3,7 @@ import { HttpClient,HttpHeaders ,HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode } from 'src/app/models/account/login-model';
+import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode, HHAClockout } from 'src/app/models/account/login-model';
 import { AccountUserModel } from 'src/app/models/account/account-model';
 const httpOptionsObj = {
   headers: new HttpHeaders({
@@ -137,5 +137,13 @@ export class AccountService {
       return this._http.post<APIResponse<string>>(environment.domain + "/api/Employee/HHAClockin", _obj,httpOptions);
     }
 
-
+    HHAClockout(_obj:HHAClockout){
+      var headers_object = new HttpHeaders();
+          headers_object.append('Content-Type', 'application/json');
+          var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+          const httpOptions = {
+            headers: headers_object
+          }; 
+      return this._http.post<APIResponse<string>>(environment.domain + "/api/Employee/HHAClockin", _obj,httpOptions);
+    }
 }

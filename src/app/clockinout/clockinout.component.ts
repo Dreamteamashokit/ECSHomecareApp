@@ -3,6 +3,7 @@ import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { HHAClockInMode } from '../models/account/login-model';
 import { EmployeeapiService } from  '../services/employeeapi.service';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-clockinout',
@@ -17,62 +18,64 @@ export class ClockinoutComponent implements OnInit {
   IsDisable:boolean = true;
   IsShow:boolean = false;
   HHAMessage: string = "";
-  constructor(private _accountService:AccountService,
+  SelectedClient:any;
+  CurrentDate:Date;
+
+
+  constructor(private _accountService:AccountService,public datepipe: DatePipe,
     private router:Router,private _employeeService:EmployeeapiService) { }
 
   ngOnInit(): void {
+    this.CurrentDate = new Date();
     var objUser = this._accountService.GetCurrentHHAUser();
     if(objUser != null && objUser != undefined){
       this.UserId = objUser.userId;
     }
     var disableClockout = localStorage.getItem("ShowClockOutButton");
     if(disableClockout != null && disableClockout != undefined){
-      var btnclockout = localStorage.getItem("ShowClockOutButton");
-      if(btnclockout != null && btnclockout != undefined){
-        this.IsDisable = JSON.parse(btnclockout);
+        this.IsDisable = JSON.parse(disableClockout);
       }
+    var clientObj = localStorage.getItem("SelectedClient");
+    if(clientObj != null && clientObj != undefined){
+        this.SelectedClient = JSON.parse(clientObj);
     }
   }
 
-  HHAClockIn(Notes:string,Type:number){
+  HHAClockIn(Type:number){
   
     this.model.userId = this.UserId;
-    if(Notes != null && Notes != undefined){
-      this.model.Notes = Notes; 
-    }
-    else{
-      this.model.Notes = "";
-    }
-     
+    
     this.model.Type = Type;
-    this._accountService.HHAClockIn(this.model).subscribe((response) => {
-      
-      if(response.result)
-      {
-        if(Type == 2){
-          this.IsShow = false;
-          localStorage.removeItem('ShowClockOutButton');
-          this.router.navigate(['/hhapatinet']);
+    this.model.ClockInTime = new Date();
+    if(Type ==1){
+      this._accountService.HHAClockIn(this.model).subscribe((response) => {
+        
+        if(response != null && response != undefined && response.result)
+        {
+            this.IsDisable = false;
+            var that = this;
+            this.IsShow = true;
+            this.HHAMessage  = "HHA User clock in successfull."
+            localStorage.setItem('ShowClockOutButton',JSON.stringify(this.IsDisable));
+            setTimeout(function(){
+              that.IsShow = false;
+            },5000);
         }
         else{
-          this.IsDisable = false;
-          var that = this;
-          this.IsShow = true;
-          this.HHAMessage  = "HHA User clock in successfull."
-          localStorage.setItem('ShowClockOutButton',JSON.stringify(this.IsDisable));
-          setTimeout(function(){
-            that.IsShow = false;
-          },5000);
+          this.HHAMessage = "HHA User does not exists.";
         }
-      }
-      else{
-        this.HHAMessage = "HHA User does not exists.";
-      }
-    });     
+      });
+    }    
+    else{
+        this.IsShow = false;
+        localStorage.removeItem('ShowClockOutButton');
+        this.router.navigate(['/hhapatinet']);
+    } 
   }
 
 
-  GetClockinDetailsByUserId(userId:number){
+  GetClockinDetailsByUserId(userId:number)
+  {
     this._employeeService.GetClockinDetailsByUserId(userId).subscribe((response) =>{
       
       if(response.result)

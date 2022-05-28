@@ -98,6 +98,7 @@ export class HhaportalComponent implements OnInit {
   redirectToClockIn(objClient:any){
     var clientName = objClient.firstName + " " + objClient.middleName + " " + objClient.lastName;
     localStorage.setItem("SelectedClientName",clientName);
+    localStorage.setItem("SelectedClient",JSON.stringify(objClient))
     this.router.navigate(['/clockinout']);
   }
   

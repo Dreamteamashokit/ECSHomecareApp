@@ -47,19 +47,21 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="panel panel-primary" *ngIf="ClientList != null && ClientList != undefined">
-                <div class="panel-body" *ngFor="let client of ClientList" (click)="redirectToClockIn(client)">
-                    <h4><strong>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</strong></h4>
-                    <!-- <p>Friday, May6</p>
-                    <h4><strong>11:45AM - 1:00PM</strong></h4> -->
-                    <p>{{client.meetingDate }}</p>
-                    <h4><strong>{{client.meetingStartTime}} - {{client.meetingEndTime}}</strong></h4>
-                    <p> {{client.flatNo}}  {{client.address}} 
-                        {{client.city}} {{client.country}}  
-                        {{client.state}} {{client.zipCode}}</p>
-               </div>
+            <div class="row" *ngIf="ClientList != null && ClientList != undefined">
+                <div *ngFor="let client of ClientList" (click)="redirectToClockIn(client)">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <h4><strong>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</strong></h4>
+                            <p>{{client.meetingDate }}</p>
+                            <h4><strong>{{client.meetingStartTime}} - {{client.meetingEndTime}}</strong></h4>
+                            <p> {{client.flatNo}}  {{client.address}} 
+                                {{client.city}} {{client.country}}  
+                                {{client.state}} {{client.zipCode}}</p>
+                       </div>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 </div>
