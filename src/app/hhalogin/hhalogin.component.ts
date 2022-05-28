@@ -27,9 +27,8 @@ export class HHALoginComponent implements OnInit {
     this.model.SSN=SSN;  
 
     this.accountApi.ExternalsignIn(this.model).subscribe((response) => {
-      if(response.result)
+      if(response != null && response != undefined && response.result)
       {
-        debugger;
         this.accountApi.setHHAUser(response.data);
         this.router.navigate(['/hhaportal']);
       }

@@ -5,6 +5,7 @@ import { EmployeeapiService } from '../services/employeeapi.service';
 import { LocationService } from '../services/location.service';
 import { ExternalUserModel } from 'src/app/models/account/login-model';
 import * as atlas from 'azure-maps-control';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-hhaportal',                
@@ -20,7 +21,8 @@ export class HhaportalComponent implements OnInit {
   @ViewChild("graphDiv") graphDiv: ElementRef;
 
   constructor(private router:Router,private _employeeservice : EmployeeapiService,
-    private _accountService:AccountService,private _locationsrv:LocationService) 
+    private _accountService:AccountService,private _locationsrv:LocationService,
+    public datepipe: DatePipe) 
     { 
       this.HHAModel.latitude = 33.740253;
       this.HHAModel.longitude =-82.745857;
