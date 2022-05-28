@@ -17,6 +17,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { LayoutComponent } from './layout/layout.component';
@@ -172,6 +173,7 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
+    SignaturePadModule,
   ],
  
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},AuthGuardService, DatePipe,BsDatepickerConfig],
