@@ -24,6 +24,7 @@ import * as atlas from 'azure-maps-control';
 export class EmpAddressComponent implements OnInit {
   modalRef?: BsModalRef;
   IsLoad:boolean;
+  isClient:boolean=false;
   locModel = new LocationView();
   @ViewChild("addressMapId") addressMapId: ElementRef;
   model = new AddressObj();
@@ -55,9 +56,11 @@ debugger;
         debugger;
         if (params["empId"] != null) {
           this.model.userId = Number(params["empId"]);
+          this.isClient=false;
         }
         else {
           this.model.userId = Number(params["clientId"]);
+          this.isClient=true;
         }
 
         this.getAddress(this.model.userId);
@@ -77,11 +80,12 @@ debugger;
 
 
   getAddressPoint(item:string) {
+    debugger;
     var loc = new LocationView();
     loc.Location=item;
     this.locSrv.getGeoPoint(item).subscribe({   
       next: (res: any) => {  
-        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        var response=  res['results'].filter((x:any) => x.type === "Point Address" || x.type==="Street" || x.type==="Cross Street");
         loc.latitude = Number(response[0].position.lat);
         loc.longitude = Number(response[0].position.lon);
        },
@@ -104,7 +108,7 @@ debugger;
     this.model.createdBy=this.currentUser.userId;
     this.locSrv.getGeoPoint( this.model.address).subscribe({   
       next: (res: any) => {  
-        var response=  res['results'].filter((x:any) => x.type === "Point Address");
+        var response=  res['results'].filter((x:any) => x.type === "Point Address" || x.type==="Street" || x.type==="Cross Street");
         this.model.latitude = Number(response[0].position.lat);
         this.model.longitude = Number(response[0].position.lon);
        },
@@ -180,6 +184,7 @@ console.log(this.currentUser);
         loc.latitude=this.currentUser.latitude;
         loc.longitude=this.currentUser.longitude;   
         this.IsLoad = false;
+        this.BindMap(loc);
       },
       complete: () => { 
         this.IsLoad = false;
@@ -194,6 +199,8 @@ console.log(this.currentUser);
   BindMap(current:LocationView) {
 
        this.addressMapId.nativeElement.innerHTML = "";
+
+       
       var azureMap = new atlas.Map('addressMapId', {
           center: [current.longitude , current.latitude],
           zoom: 12,
