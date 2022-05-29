@@ -152,7 +152,10 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     AvailabilitySearchComponent, 
     LocationMapComponent, 
     SearchAvailbilityComponent, 
-    ClockinoutComponent, HHALoginComponent, HhaportalComponent, PatientComponent,  
+    ClockinoutComponent,
+     HHALoginComponent
+    , HhaportalComponent,
+     PatientComponent,  
     SearchAvailbilityComponent, EmergencyContactComponent, 
     EmergencyProviderComponent, 
     CreateUserComponent, 
