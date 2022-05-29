@@ -6,4 +6,5 @@ export class MeetingStatus {
 export class NotesModel {
         meetingId: number;
         meetingPoint: string;
+        createdBy: number;
 }

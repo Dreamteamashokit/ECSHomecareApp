@@ -1,4 +1,4 @@
-import { UserView } from 'src/app/models/common/user-view';
+import { UserView ,NameClass} from 'src/app/models/common/user-view';
 
 export class MeetingView {
     meetingId: number;
@@ -10,6 +10,16 @@ export class MeetingView {
     client: UserView;
     notes: string[];
     isStatus:number;
+}
+
+
+
+
+export interface MeetingLog {
+    meetingId: number;
+    logNote: string;
+    createdOn: string;
+    createdBy: NameClass;
 }
 
 

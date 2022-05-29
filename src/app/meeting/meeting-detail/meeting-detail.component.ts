@@ -1,7 +1,8 @@
 import { Component, TemplateRef ,OnInit} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MeetingService } from 'src/app/services/meeting.service';
-import { MeetingView } from 'src/app/models/meeting/meeting-view';
+import { MeetingView,MeetingLog } from 'src/app/models/meeting/meeting-view';
 import { UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { MeetingStatus,NotesModel } from 'src/app/models/meeting/meeting-status';
@@ -23,19 +24,25 @@ export class MeetingDetailComponent implements OnInit {
   model = new MeetingStatus(); 
   IsCancel: boolean=false;  
   notes:string;
-
-
+  mNoteList:string[]=[];
+  mlogList:MeetingLog[]=[];
   message?: string;
+  currentUser: UserModel;
   constructor(
-    private accountService: AccountService,
+    private accountSrv: AccountService,
     public bsModalRef: BsModalRef,
     private modalService: BsModalService,    
+    public datepipe: DatePipe,
     private momApi:MeetingService) { 
+
+      this.currentUser = this.accountSrv.getCurrentUser();
 
   }
 
   ngOnInit(): void {
     this.BindMeeting();
+
+    this.getMeetingLog(this.meetingId);
   }
 
   BindMeeting() {
@@ -47,6 +54,7 @@ debugger;
 
 
         this.momObj = response.data;
+        this.mNoteList=response.data.notes;
 console.log(this.momObj);
 debugger;
         if(this.momObj.isStatus==StatusEnum.Cancelled||this.momObj.isStatus==StatusEnum.CancelledByClient)
@@ -131,6 +139,7 @@ this.momApi.changeStatus(reqObj).subscribe((response) => {
    var obj=new NotesModel();
    obj.meetingPoint=this.message!=null?this.message:"";
    obj.meetingId= this.momObj?.meetingId!=null?this.momObj.meetingId:0;
+   obj.createdBy = this.currentUser.userId;
    
     this.momApi.addNote(obj).subscribe((response) => {
       this.momObj?.notes.push(obj.meetingPoint);
@@ -160,27 +169,38 @@ this.momApi.changeStatus(reqObj).subscribe((response) => {
 
     this.IsCancel=true;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    
      });
-
-
   }
+
+
+
+
+  getMeetingLog(_meetingId?:number) {
+   
+let mId= _meetingId==null?0:_meetingId;
+ this.momApi.getMeetingLog(mId).subscribe((response) => {
+      this.mlogList=response.data;
+   
+     });
+  }
+
+
+  public formateDateTime(logTime:string)
+  {
+    var time=new Date(logTime);   
+   
+   return this.datepipe.transform(time,"dd MMM YYYY h:mm a");
+  }
+
+
+
+
+
+
+
+
+
 
 
 

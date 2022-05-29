@@ -24,7 +24,15 @@
                   <p><i class="fa fa-calendar medium-txt mrm"></i><i class="fa fa-user medium-txt mrm"></i><i class="fa fa-edit medium-txt"></i> </p>
                   <hr class="mtn mbn">
                   <h3><strong>{{momObj?.client?.lastName}}, {{momObj?.client?.firstName}}</strong></h3>
-                  <p><i class="fa fa-map-marker text-orange"></i> 117 Slack Avenue Apt 204 Lawrence Township NJ 08648</p>
+                  <p>
+                    <i class="fa fa-map-marker text-orange"></i> {{momObj?.client?.address?.flatNo}}, {{momObj?.client?.address?.locationDetail}},  {{momObj?.client?.address?.country}}, {{momObj?.client?.address?.state}},
+
+
+                    {{momObj?.client?.address?.city}},{{momObj?.client?.address?.zipCode}},
+                </p>
+                 
+                 
+                 
                   <p><i class="fa fa-phone text-orange "></i> Phone: (609) 498-0438</p>
                   <p>Payer: <strong>HORIZON NJ HEALTH</strong></p>
                   <p>Code: <strong>T1019</strong></p>
@@ -98,7 +106,7 @@
 
   </div>
   <div class="row mbm mtl">
-      <div class="col-sm-12 col-xs-12 ">
+      <div class="col-sm-12 col-xs-12 "  *ngIf="mNoteList.length>0"  >
           <a class="" data-toggle="collapse" href="#list-1" role="button" aria-expanded="false"><i class="fa fa-plus-square text-orange"></i> Notes</a>
           <div class="collapse" id="list-1">
               <div class="panel panel-primary mtx">
@@ -116,8 +124,8 @@
       </div>
   </div>
   <hr class="mtn mbn">
-  <div class="row mbm mtl">
-      <div class="col-sm-12 col-xs-12 text-center">
+  <div class="row mbm mtl" >
+      <div class="col-sm-12 col-xs-12 text-center" >
           <!-- <button type="button"  class="btn btn-sm btn-primary mrm">MAKE CHANGES</button>-->
           <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm" (click)="openModal(template,2)">CANCELLED</button>&nbsp;&nbsp;
           <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm" (click)="openModal(template,3)">CANCELLED BY CLIENT</button>&nbsp;&nbsp;
@@ -127,7 +135,7 @@
   </div>
   <hr class="mtn mbn">
   <div class="row mbm mtl">
-      <div class="col-sm-12 col-xs-12 ">
+      <div class="col-sm-12 col-xs-12 " *ngIf="mlogList.length>0" >
           <a class="" data-toggle="collapse" href="#list-2" role="button" aria-expanded="false"><i class="fa fa-plus-square text-orange"></i> History</a>
           <div class="collapse" id="list-2">
               <div class="panel panel-primary mtx">
@@ -135,8 +143,8 @@
                       <div class="row">
                           <div class="col-lg-12">
                               <ul>
-                                  <li class="smalltxt">2/17/2022 2:46:00 PM - appointment added by Diana Ruano</li>
-                                  <!-- <li class="smalltxt"  *ngFor="let obj of momObj?.notes">  {{ obj }}</li>      -->
+                                  <li class="smalltxt" *ngFor="let obj of mlogList">{{ formateDateTime(obj.createdOn)}} - {{obj.logNote}} by {{obj.createdBy.lastName + ' ' + obj.createdBy.firstName}}</li>
+                               
                               </ul>
                           </div>
                       </div>
