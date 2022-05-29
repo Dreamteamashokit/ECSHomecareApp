@@ -261,7 +261,12 @@ IsLoad: boolean = false;
 
 
 
-  showMeeting() {
+ 
+
+
+
+
+  showMeeting(_meetingId :number) {
     const initialState: ModalOptions = {
       initialState: {
         list: [
@@ -270,12 +275,18 @@ IsLoad: boolean = false;
           'Do something else',
           '...'
         ],
-        title: 'Modal with component'
+        title: 'Modal with component',
+        meetingId:_meetingId
       }
     };
+  
     this.bsModalRef = this.modalService.show(MeetingDetailComponent, initialState);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
+
+
+
+
 
 
 
