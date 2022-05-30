@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="ClientList != null && ClientList != undefined">
-                <div *ngFor="let client of ClientList" (click)="redirectToClockIn(client)">
+            <div class="row mtm" *ngIf="ClientList != null && ClientList != undefined">
+                <div class="col-lg-12" *ngFor="let client of ClientList" (click)="redirectToClockIn(client)">
                     <div class="panel panel-primary">
                         <div class="panel-body">
                             <h4><strong>{{client.firstName}}  {{client.middleName}}  {{client.lastName}}</strong></h4>
