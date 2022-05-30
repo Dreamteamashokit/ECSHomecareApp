@@ -93,7 +93,7 @@
                         <label class="control-label">Service Request Date</label>
                         <div class="input-icon right">
                             <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="dd-MM-YYYY" class="form-control" id="txtserviceRequestDate" name="serviceRequestDate" #serviceRequestDate="ngModel" [(ngModel)]="model.serviceRequestDate" bsDatepicker>
+                            <input required type="text" placeholder="Service Request Date" class="form-control" id="txtserviceRequestDate" name="serviceRequestDate" #serviceRequestDate="ngModel" [(ngModel)]="model.serviceRequestDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         <label class="control-label ellipsis-text">Plan Of Care Date</label>
                         <div class="input-icon right">
                             <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="dd-MM-YYYY" class="form-control" id="txtcareDate" name="careDate" #careDate="ngModel" [(ngModel)]="model.careDate" bsDatepicker>
+                            <input required type="text" placeholder="Plan Of Care Date" class="form-control" id="txtcareDate" name="careDate" #careDate="ngModel" [(ngModel)]="model.careDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                         <label class="control-label">Projected Discharge</label>
                         <div class="input-icon right">
                             <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="dd-MM-YYYY" class="form-control" id="txtdischargeDate" name="dischargeDate" #dischargeDate="ngModel" [(ngModel)]="model.dischargeDate" bsDatepicker>
+                            <input required type="text" placeholder="Projected Discharge" class="form-control" id="txtdischargeDate" name="dischargeDate" #dischargeDate="ngModel" [(ngModel)]="model.dischargeDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
                         </div>
                     </div>
                 </div>

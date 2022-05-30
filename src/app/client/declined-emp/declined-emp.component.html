@@ -23,28 +23,25 @@
               <div class="modal-body">
                 <form name="frmRate" #f="ngForm">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                            <label class="control-label">Date/Time:</label>
                             <div class="input-icon right"><i class="fa fa-calendar"></i>                                
                                 <input type="text" #RepotedDate="ngModel" id="txtEffectiveDate"name="RepotedDate"
-                                placeholder="Date Time" [(ngModel)]="model.reportedDate" class="form-control"  bsDatepicker 
-                                
-                                
-                                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY, h:mm:ss a' }" 
-                                > 
-
-
-
-                          
-                                
-
-
-                            
+                                placeholder="Date" [(ngModel)]="model.reportedDate" class="form-control"  bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }"> 
                             </div>
                         </div>
                         </div>
-                        <div class="col-lg-4">                           
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <timepicker id="txtStartTime" name="StartTime" ></timepicker>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6">                           
                                 <div class="form-group">
                             <label class="control-label">Employee</label>
                             <select
@@ -62,14 +59,11 @@
                            {{ obj.itemName }}
                          </option> 
                        </select>
- 
-           
                         </div>
                         
                         
                         </div>
-                        <div class="col-lg-4">
-                           
+                        <div class="col-lg-6">                           
                             <div class="form-group">
                         <label class="control-label">Case Type</label>
                         <select
@@ -89,15 +83,16 @@
                   
                     
                        </div>
+                     
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="control-label">Decline Reason</label>
-                                <input type="textarea" #DeclineReason="ngModel"name="DeclineReason"  [(ngModel)]="model.reason" class="form-control">
-                             </div>
-                        </div>
-                        <div class="col-lg-4">
+                    <div class="row">                 
+                    <div class="col-lg-6">    
+                        <div class="form-group">
+                            <label class="control-label">Decline Reason</label>
+                            <input type="textarea" #DeclineReason="ngModel"name="DeclineReason"  [(ngModel)]="model.reason" class="form-control">
+                         </div>
+                    </div>
+                    <div class="col-lg-6">    
                         <div class="form-group">
                                 <label class="control-label">Assignment Started</label>
                                  <div class="input-icon right"><i class="fa fa-calendar"></i>
@@ -106,7 +101,6 @@
                                      placeholder="Assignment Date" [(ngModel)]="model.startDate" class="form-control"  bsDatepicker> 
                                  </div>                                 
                         </div>
-                        
                     </div>
                 
                     </div>
@@ -117,19 +111,13 @@
                         <input type="textarea" #Note="ngModel"  [(ngModel)]="model.notes" id="txtNote"name="Note"
                         class="form-control">
                                 </div>
-                        </div>				
-                    
                         </div>
-                  
-                       
-                   
+                        </div>
                         <div class="row">
                         <div class="col-lg-12 text-center">
-                            <button type="button" (click)="saveDeclined()" class="btn btn-md btn-dark">Save Changes</button>
+                            <button type="button" (click)="saveDeclined()" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
                         </div>
                         </div>
-                  
-              
                 </form>
               </div>
             </ng-template>

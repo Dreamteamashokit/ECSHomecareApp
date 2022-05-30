@@ -105,7 +105,8 @@ OnScheduling()
   this.model.clientId=Number(this.model.clientId);
   this.model.empId=Number(this.model.empId);
   this.model.empList.push(Number(this.model.empId));
-  this.model.meetingDate = this.datepipe.transform(this.model.meetingDate, 'dd-MM-yyyy')||"";
+  
+  this.model.meetingDate = this.datepipe.transform(new Date(this.model.meetingDate), 'dd-MM-yyyy')||"";
   this.model.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
   this.model.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
   this.model.userId = this.currentUser.userId;
@@ -133,6 +134,7 @@ OnScheduling()
           }
           else
           {
+            this.IsLoad=false;
             alert("Some technical issue exist, Please contact to admin !");
           } 
          },
@@ -174,6 +176,7 @@ OnScheduling()
           }
           else
           {
+            this.IsLoad=false;
             alert("Some technical issue exist, Please contact to admin !");
           } 
          },
