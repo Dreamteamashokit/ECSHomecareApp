@@ -1,46 +1,39 @@
 <div class="row">
     <div class="col-lg-12">
-        <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Medication</strong> </h4>
-        <!-- <input type="text"
-        placeholder="Datepicker"
-        class="form-control"
-        bsDatepicker #dp="bsDatepicker" > -->
+        <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Medications</strong> </h4>    
     </div>
   </div>
   <div class="row">
     <div class="col-lg-12">
         <div class="row mbm">
             <div class="col-sm-12 text-14">
-                <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange"></i> Add Medication</a>
+                <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange"></i> Add Medications</a>
             </div>
             <ng-template #template>
               <div class="modal-header">
-                <h4 class="modal-title pull-left text-orange">Add Medication</h4>
-  
-             
-  
+                <h4 class="modal-title pull-left text-orange">Add Medications</h4>
                 <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
                   <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <form name="frmIncident" #f="ngForm">
+                <form name="frmRx" #frmRx="ngForm">
                   <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <div class="form-group">
-                    <label class="control-label">start Date</label>
+                    <label class="control-label">Start Date</label>
                       <div class="input-icon right"><i class="fa fa-calendar"></i>    
                         <input type="text"
                         #StartDate="ngModel"
                         id="txtStartDate"
                         name="StartDate"                     
-                        [(ngModel)]="model.StartDate"
+                        [(ngModel)]="model.startDate"
                         class="form-control"
-                        bsDatepicker  >
+                        bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
                       </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">End Date</label>
                       <div class="input-icon right"><i class="fa fa-calendar"></i>
@@ -49,72 +42,68 @@
                         #EndDate="ngModel"
                         id="txtcompletedOn"
                         name="EndDate"                     
-                        [(ngModel)]="model.EndDate"
+                        [(ngModel)]="model.endDate"
                         class="form-control"
-                        bsDatepicker  >
-
-
-
-
-
-
-                                                                </div>
-
-
-
-
-
+                        bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                      </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                  </div>
+                    
+                  <div class="row">
+
+                    <div class="col-lg-6">
                         <div class="form-group">
-                      <label class="control-label">Medication:</label>
+                      <label class="control-label">Medication</label>
                       <input type="text"
                       #MedicationText="ngModel"
                       id="txtcategory"
                       name="MedicationText"                     
-                      [(ngModel)]="model.MedicationText"
+                      [(ngModel)]="model.medicationText"
                       class="form-control">
-                        
                           </div>
                       </div>
                     
-                    </div>
-                    
-                  <div class="row">
+                 
                    
-                    <div class="col-lg-4">
+                      <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">NDC</label>
                     <input type="text"
                     #NDCText="ngModel"
                     id="txtcode"
                     name="NDCText"                     
-                    [(ngModel)]="model.NDCText"
+                    [(ngModel)]="model.nDCText"
                     class="form-control"
            >
                     </div>
                       </div>
-                  <div class="col-lg-4">
+
+
+                    </div>
+                    
+                    <div class="row">
+
+                      <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">Strength</label>
                     <input type="text"
                     #StrengthText="ngModel"
                     id="txtresult"
                     name="StrengthText"                     
-                    [(ngModel)]="model.StrengthText"
+                    [(ngModel)]="model.strengthText"
                     class="form-control"
            >
                     </div>
                       </div>
-                      <div class="col-lg-4">
+                      <div class="col-lg-6">
                         <div class="form-group">
-                                  <label class="control-label">Tabs:</label>
+                                  <label class="control-label">Tabs</label>
                                   <input type="text"
                                   #TabsText="ngModel"
                                   id="txtresult"
                                   name="TabsText"                     
-                                  [(ngModel)]="model.TabsText"
+                                  [(ngModel)]="model.tabsText"
                                   class="form-control"
                          >
                         </div>	
@@ -122,87 +111,88 @@
                     </div>
                     
                     <div class="row">
-                    <div class="col-lg-4">
+                      <div class="col-lg-6">
                     <div class="form-group">
                               <label class="control-label">Dosage</label>
                               <input type="text"
                               #DosageText="ngModel"
                               id="txtresult"
                               name="DosageText"                     
-                              [(ngModel)]="model.DosageText"
+                              [(ngModel)]="model.dosageText"
                               class="form-control"
                      >
                     </div>	
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                                  <label class="control-label">Frequency:</label>
-                                  <input type="text"
+                                  <label class="control-label">Frequency</label>
+                                  <input type="number"
                                   #FrequencyText="ngModel"
                                   id="txtresult"
                                   name="FrequencyText"                     
-                                  [(ngModel)]="model.FrequencyText"
+                                  [(ngModel)]="model.frequencyText"
                                   class="form-control"
                          >
                         </div>	
                         </div>
-
-                        <div class="col-lg-4">
+                      </div>  
+                    
+                      <div class="row">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                      <label class="control-label">Route:</label>
+                                      <label class="control-label">Route</label>
                                       <input type="text"
                                       #RouteText="ngModel"
                                       id="txtresult"
                                       name="RouteText"                     
-                                      [(ngModel)]="model.RouteText"
+                                      [(ngModel)]="model.routeText"
                                       class="form-control"
                              >
                             </div>	
                             </div>
-                    </div>  
-                    
-                    <div class="row">
-                        <div class="col-lg-4">
+                  
+                      <div class="col-lg-6">
                         <div class="form-group">
-                                  <label class="control-label">Prescriber:</label>
+                                  <label class="control-label">Prescriber</label>
                                   <input type="text"
                                   #PrescriberText="ngModel"
                                   id="txtresult"
                                   name="PrescriberText"                     
-                                  [(ngModel)]="model.PrescriberText"
+                                  [(ngModel)]="model.prescriberText"
                                   class="form-control"
                          >
                         </div>	
                         </div>
-                        <div class="col-lg-8">
+                  
+    
+                           
+                        </div>  
+
+                        <div class="row">
+                          <div class="col-lg-6">
                             <div class="form-group">
-                                      <label class="control-label">Classification:</label>
+                                      <label class="control-label">Classification</label>
                                       <textarea rows="2" placeholder="Classification"
                       
                       
                                       #ClassificationText="ngModel"
                                       id="txtnotes"
                                       name="ClassificationText"                     
-                                      [(ngModel)]="model.ClassificationText"
+                                      [(ngModel)]="model.classificationText"
                                       
                                       class="form-control"></textarea>
                             </div>	
                             </div>
-    
-                           
-                        </div>  
-
-                        <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                          <label class="control-label">Instructions/Notes:</label>
+                                          <label class="control-label">Instructions/Notes</label>
                                           <textarea rows="2" placeholder="Instructions/Notes"
                           
                           
                                           #InstructionsText="ngModel"
                                           id="txtnotes"
                                           name="InstructionsText"                     
-                                          [(ngModel)]="model.InstructionsText"
+                                          [(ngModel)]="model.instructionsText"
                                           
                                           class="form-control"></textarea>
                                 </div>	
@@ -210,40 +200,54 @@
                         </div>
                         <div class="row">
                             
-                            <div class="col-lg-4">
+                          <div class="col-lg-6">
                                 <div class="form-group">
-                                          <label class="control-label">Needs Reminders:</label>
-                                          <input type="checkbox" #Reminderscheck="ngModel" id="txtRehire"name="Reminderscheck"
-                                    [(ngModel)]="model.Reminderscheck" >
+                                      
+                                          <input type="checkbox" #Reminderscheck="ngModel" id="txtRehire"  class="mrm"   name="Reminderscheck"
+                                    [(ngModel)]="model.remindersCheck" >
+
+                                    <label class="control-label">Needs Reminders</label>
                                 </div>	
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                              <label class="control-label">Needs Instructions:</label>
-                                              <input type="checkbox" #Instructionscheck="ngModel" id="txtRehire"name="Instructionscheck"
-                                        [(ngModel)]="model.Instructionscheck" >
+             
+                                              <input type="checkbox" #Instructionscheck="ngModel" class="mrm"  id="txtRehire"name="Instructionscheck"
+                                        [(ngModel)]="model.instructionsCheck" >
+                                        <label class="control-label">Needs Instructions</label>
                                     </div>	
                                     </div>
-
-                                    <div class="col-lg-4">
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                                  <label class="control-label">Needs administration:</label>
-                                                  <input type="checkbox" #administrationcheck="ngModel" id="txtRehire"name="administrationcheck"
-                                            [(ngModel)]="model.administrationcheck" >
+                                                 
+                                                  <input type="checkbox" #administrationcheck="ngModel" class="mrm" id="txtRehire"name="administrationcheck"
+                                            [(ngModel)]="model.administrationCheck" >
+                                            <label class="control-label">Needs administration</label>
                                         </div>	
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <div class="form-group">
-                                                      <label class="control-label">Approved to self-administer:</label>
-                                                      <input type="checkbox" #selfadministercheck="ngModel" id="txtRehire"name="selfadministercheck"
-                                                [(ngModel)]="model.selfadministercheck" >
+                                                     
+                                                      <input type="checkbox" #selfadministercheck="ngModel" class="mrm"  id="txtRehire"name="selfadministercheck"
+                                                [(ngModel)]="model.selfAdministerCheck" >
+                                                <label class="control-label">Approved to self-administer</label>
                                             </div>	
                                             </div>
                         </div>
                     
                     <div class="row">
                     <div class="col-lg-12 text-center">
-                      <button type="button" (click)="saveMedicationcs()" class="btn btn-md btn-dark">Add</button>
+
+                  
+                  
+                      <button type="button" (click)="saveMedicationcs()" class="btn btn-md btn-dark">Save changes</button>
+                  
+                  
+                  
+                  
+                  
                     </div>
                       </div>
 
@@ -261,7 +265,7 @@
               </div>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm" *ngIf="medicationList.length>0">
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -277,9 +281,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of MedicationcsObjList;">
-                                <td> {{ item.startDate }}</td>
-                                <td> {{ item.endDate }}</td>
+                            <tr *ngFor="let item of medicationList;">
+                                <td> {{ formateDateTime(item.startDate)}}   </td>
+                                <td> {{ formateDateTime(item.endDate)}}  </td>
                                 <td> {{ item.medicationText }}</td>
                                 <td> {{ item.strengthText }}</td>
                                 <td> {{ item.dosageText }}</td>

@@ -4,7 +4,7 @@ export class TaskModel extends BaseModel {
     taskId: number;
     taskCode: string;
     taskName: string;
-    taskDetail: number;
+    taskDetail: string;
 }
 
 
@@ -29,10 +29,12 @@ export class ServiceTaskModel extends BaseModel {
 export class ServiceTaskView {
     taskSrvId: number;
     userId: number;
+    taskId: number;
     taskCode: string;
     taskName: string;
     frequency: number;
     serviceNote: string;
+    isEdit: boolean;
 }
 
 

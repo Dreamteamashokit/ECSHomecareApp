@@ -59,7 +59,7 @@ import { ClientDashboardComponent } from 'src/app/client/client-dashboard/client
 import { ClientInfoComponent } from 'src/app/client/client-info/client-info.component';
 import { GeneralClientComponent } from 'src/app/client/general-client/general-client.component';
 import { ClientStatusComponent } from 'src/app/client/client-status/client-status.component';
-import { TaskMasterComponent } from './company/task-master/task-master.component';
+import { TaskMasterComponent } from './common/task-master/task-master.component';
 import { ServiceTaskComponent } from './client/service-task/service-task.component';
 import { ClientMedicationcsComponent } from './client/client-medicationcs/client-medicationcs.component';
 import { DeclinedEmpComponent } from './client/declined-emp/declined-emp.component';
@@ -125,8 +125,7 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     UserScheduleComponent,
     GeneralClientComponent,
     ClientStatusComponent,
-    ClientMedicationcsComponent,
-    TaskMasterComponent, 
+    ClientMedicationcsComponent,  
     ServiceTaskComponent, 
     DeclinedEmpComponent, 
     ClientEmergencyInfoComponent,

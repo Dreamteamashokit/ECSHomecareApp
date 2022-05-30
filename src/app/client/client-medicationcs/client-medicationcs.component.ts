@@ -1,12 +1,13 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
-import{Medicationcs} from 'src/app/models/client/medicationcs-model';
+import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { ClientApiService } from 'src/app/services/client-api.service';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
-import { ItemsList,MasterType} from 'src/app/models/common';;
-
+import { AccountService } from 'src/app/services/account.service';
+import{ Medicationcs} from 'src/app/models/client/medicationcs-model';
+import { UserModel } from 'src/app/models/account/login-model';
 @Component({
   selector: 'app-client-medicationcs',
   templateUrl: './client-medicationcs.component.html',
@@ -16,22 +17,33 @@ import { ItemsList,MasterType} from 'src/app/models/common';;
 })
 export class ClientMedicationcsComponent implements OnInit {
   modalRef?: BsModalRef;
-  ClientId:number;
-  MedicationcsObjList:any;
-  constructor(private comApi: CommonService,
+  clientId:number;
+  medicationList:Medicationcs[]=[];
+  currentUser:UserModel;
+  model=new Medicationcs();
+
+  constructor(
+    public datepipe: DatePipe,
+    private accountApi: AccountService,
+    private comApi: CommonService,
     private route:ActivatedRoute,
-    private modalService: BsModalService, private clientapi : ClientApiService) { 
+    private modalService: BsModalService,
+     private clientapi : ClientApiService)
+      { 
       setTheme('bs3');
      
     }
 
-  model=new Medicationcs("","","","","","","","","","","","",false,false,false,false,0);
 
   ngOnInit(): void {
     this.route.params.subscribe(
       (params : Params) =>{   
         
-        this.ClientId = Number(params["clientId"]);     
+        this.clientId = Number(params["clientId"]);   
+        this.currentUser=this.accountApi.getCurrentUser();  
+        this.model.startDate=new Date();
+        this.model.selfAdministerCheck=true;
+        this.model.frequencyText=0;
         this.getMedicationRecord();
       });
   }
@@ -41,27 +53,18 @@ export class ClientMedicationcsComponent implements OnInit {
   }
 
   saveMedicationcs() {
-  
-    this.model.ClientID=Number(this.ClientId);
-    this.model.StartDate=this.model.StartDate;
-    this.model.EndDate=this.model.EndDate;
-    this.model.MedicationText=this.model.MedicationText;
-    this.model.NDCText=this.model.NDCText;
-    this.model.StrengthText=this.model.StrengthText;
-    this.model.DosageText=this.model.DosageText;
-    this.model.FrequencyText=this.model.FrequencyText;
-    this.model.TabsText=this.model.TabsText;
-    this.model.RouteText=this.model.RouteText;
-    this.model.ClassificationText=this.model.ClassificationText;
-    this.model.InstructionsText=this.model.InstructionsText;
-    this.model.PrescriberText=this.model.PrescriberText;
-    this.model.Reminderscheck=Boolean(this.model.Reminderscheck);
-    this.model.Instructionscheck=Boolean(this.model.Instructionscheck);
-    this.model.administrationcheck=Boolean(this.model.administrationcheck);
-    this.model.selfadministercheck=Boolean(this.model.selfadministercheck);
+
+    debugger;
+    this.model.createdBy=this.currentUser.userId;
+    this.model.clientID=Number(this.clientId);
+    this.model.frequencyText=Number(this.model.frequencyText);
+    this.model.remindersCheck=Boolean(this.model.remindersCheck);
+    this.model.instructionsCheck=Boolean(this.model.instructionsCheck);
+    this.model.administrationCheck=Boolean(this.model.administrationCheck);
+    this.model.selfAdministerCheck=Boolean(this.model.selfAdministerCheck);
+
     this.clientapi.SaveMedicationcs(this.model).subscribe(Responce=>{      
       this.decline();
-      
       this.getMedicationRecord();
      })
 
@@ -69,18 +72,21 @@ export class ClientMedicationcsComponent implements OnInit {
 
   getMedicationRecord()
   {
-    this.clientapi.getClientMedicationcsList(this.ClientId).subscribe(Responce=>{
+    this.clientapi.getClientMedicationcsList(this.clientId).subscribe(response=>{
         
-      this.MedicationcsObjList=Responce.data;
+      this.medicationList=response.data;
     });
   }
 
-  deleteMedicationData(MedicationId:number)
+  deleteMedicationData(medicationId:number)
   {
-    
-    this.clientapi.deleteMedicationcsRecord(MedicationId,this.ClientId).subscribe(Responce=>{   
+    let isOk = confirm("Are you sure to delete?");
+    if(isOk)
+    {
+    this.clientapi.deleteMedicationcsRecord(medicationId,this.clientId).subscribe(response=>{   
       this.getMedicationRecord();
      })
+    }
   }
 
 
@@ -88,4 +94,20 @@ export class ClientMedicationcsComponent implements OnInit {
   
     this.modalRef?.hide();
   }
+
+
+
+
+  public formateDateTime(logTime:Date)
+  {
+
+   
+   return this.datepipe.transform(logTime,"dd MMM YYYY");
+  }
+
+
+
+
+
+
 }

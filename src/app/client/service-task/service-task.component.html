@@ -58,7 +58,7 @@
                  </form>                
               </ng-template> 
         </div>
-        <div class="row mbm">
+        <div class="row mbm" *ngIf="srvTaskLst.length>0">
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <div class="table-responsive">
@@ -74,28 +74,50 @@
                             </thead>
                             <tbody>
                                
-                                    <tr *ngFor="let item of srvTaskLst">
-                                      <td>{{ item.taskCode }}</td>
-                                    <td> {{ item.taskName }}</td>
-                                    <td> {{ item.frequency }}</td>
-                                    <td>{{ item.serviceNote }}</td>                                
-                                    <td>
-                                      <!-- <a title="Edit" href="javascript:;" ng-hide="m.EditMode" ng-click="Edit($index)">
-                                        <i class="fa fa-edit text-default mrm mediumtxt"></i>
-                                    </a>
-                                    <a title="Update" href="javascript:;" ng-show="m.EditMode" ng-click="Update($index)">
-                                        <i class="fa fa-floppy-o text-green mrm mediumtxt"></i>
-                                    </a>
-                                    <a title="Cancel" href="javascript:;" ng-show="m.EditMode" ng-click="Cancel($index)">
-                                        <i class="fa fa-times mrm text-red mediumtxt"></i>
-                                    </a> -->
+                                    <tr *ngFor="let item of srvTaskLst ; let i = index">
 
-                                    <!-- <a title="Edit" href="javascript:;" ng-hide="m.EditMode" (click)="editService(item)">
-                                      <i class="fa fa-edit medium-txt"></i>
-                                  </a> -->
-                                      <a title="Delete" href="javascript:;" (click)="delService(item.taskSrvId)">
-                                        <i class="fa fa-trash-o medium-txt"></i>
-                                      </a> 
+
+                                      <td>
+                                        
+                                   
+                                        
+                                        {{ item.taskCode }}
+                                      
+                                      </td>
+                                    <td> {{ item.taskName }}                                      
+                                    </td>
+                                    <td> 
+                                      <label *ngIf="!item.isEdit">{{ item.frequency }}</label>
+
+                                   
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <input id="txt_{{ i }}_frequency" name="item[{{ i }}].frequency" required [(ngModel)]="item.frequency" placeholder="Frequency" type="number" class="form-control" >                   
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                      <label *ngIf="!item.isEdit">{{ item.serviceNote }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <input id="txt_{{ i }}_serviceNote" name="item[{{ i }}].serviceNote" required [(ngModel)]="item.serviceNote" placeholder="Description" type="text" class="form-control" >                    
+                                        </div>
+
+                                    </td>                                
+                                    <td>
+                                     <a *ngIf="!item.isEdit" title="Edit" href="javascript:;" (click)="editService(item)">
+                                        <i class="fa fa-edit medium-txt mrm"></i>
+                                    </a> 
+                                    <a *ngIf="!item.isEdit" title="Delete" href="javascript:;" (click)="delService(item.taskSrvId)">
+                                      <i class="fa fa-trash-o medium-txt"></i>
+                                    </a>            
+                                    
+                                    <a *ngIf="item.isEdit" title="Update" href="javascript:;" (click)="updateService(item)">
+                                      <i class="fa fa-save medium-txt mrm"></i>
+                                  </a>  
+                                
+                                  <a *ngIf="item.isEdit" title="Cancel" href="javascript:;" (click)="cancelService(item)">
+                                    <i class="fa fa-times medium-txt mrm"></i>
+                                </a>  
+                                   
                                     </td>
                                     </tr>
                             </tbody>

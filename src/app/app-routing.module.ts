@@ -14,7 +14,7 @@ import { ClientInfoComponent } from 'src/app/client/client-info/client-info.comp
 import { GenerateinvoiceComponent } from './dashboard/generateinvoice/generateinvoice.component';
 import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.component';
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
-import { TaskMasterComponent } from 'src/app/company/task-master/task-master.component';
+import { TaskMasterComponent } from 'src/app/common/task-master/task-master.component';
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
 import { ClockinoutComponent } from './clockinout/clockinout.component';
 import { HHALoginComponent } from './hhalogin/hhalogin.component';
@@ -86,7 +86,7 @@ const routes: Routes = [
     children: [{ path: '', component: InvoicedetailsComponent }]
   },
   {
-    path: 'company/task', component: LayoutComponent,
+    path: 'common/task', component: LayoutComponent,
     children: [{ path: '', component: TaskMasterComponent }]
   },
   {

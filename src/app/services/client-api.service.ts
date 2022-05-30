@@ -67,7 +67,7 @@ export class ClientApiService {
   }
 
   getClientMedicationcsList(clientId: number) {
-    return this._http.get<APIResponse<Medicationcs>>(environment.domain + "/api/Client/GetClientMedicationcs" + "/" + clientId);
+    return this._http.get<APIResponse<Medicationcs[]>>(environment.domain + "/api/Client/GetClientMedicationcs" + "/" + clientId);
   }
 
   deleteMedicationcsRecord(MedicationId: number, ClientId: number) {
