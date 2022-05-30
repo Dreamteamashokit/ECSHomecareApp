@@ -6,7 +6,7 @@ import { APIResponse } from '../models/api-response';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
 import { Empmeeting } from 'src/app/models/meeting/empmeeting';
 import { ClientMeeting,ClientFilter } from 'src/app/models/meeting/client-meeting';
-import { MeetingView } from 'src/app/models/meeting/meeting-view';
+import { MeetingView,MeetingLog } from 'src/app/models/meeting/meeting-view';
 
 import { MeetingStatus ,NotesModel} from 'src/app/models/meeting/meeting-status';
 const httpOptionsObj = {
@@ -106,7 +106,10 @@ export class MeetingService {
 
 
 
-
+  getMeetingLog(meetingId : number)
+  {
+    return this._http.get<APIResponse<MeetingLog[]>>(environment.domain + "/api/Meeting/getMeetingLog" + '/' + meetingId);
+  } 
 
 
 
