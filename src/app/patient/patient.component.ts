@@ -107,27 +107,39 @@ export class PatientComponent implements OnInit {
   HHAClockout(model:any){
     
     if(model.value.BedBath && model.value.SpongeBath && model.value.Footcare && model.value.Skincare){
+      
       this.model = model.value;
       this.model.userId = this.UserId;
       this.model.Type = 2;
       this.model.ClockOutTime = new Date();
       this.model.ClockInTime = new Date();
       
-      if(this.HHAsignaturePad.toDataURL() != null && this.HHAsignaturePad.toDataURL() != undefined){
-        this.model.HHAUserSignature = this.HHAsignaturePad.toDataURL();
-      }
-      if(this.signaturePad.toDataURL() != null && this.signaturePad.toDataURL() != undefined){
-        this.model.ClientSignature = this.signaturePad.toDataURL();
-      }
+      if(!this.signaturePad.isEmpty() && !this.HHAsignaturePad.isEmpty()){
+        if(this.HHAsignaturePad.toDataURL() != null && this.HHAsignaturePad.toDataURL() != undefined){
+          this.model.HHAUserSignature = this.HHAsignaturePad.toDataURL();
+        }
   
-      this._accountService.HHAClockout(this.model).subscribe((response) => {
+        if(this.signaturePad.toDataURL() != null && this.signaturePad.toDataURL() != undefined){
+          this.model.ClientSignature = this.signaturePad.toDataURL();
+        }
+
+        this._accountService.HHAClockout(this.model).subscribe((response) => {
+          this.IsShowMessage = true;
+          this.Message  = "HHA User clock out successfull."
+          var that = this;
+          setTimeout(function(){
+            that.IsShowMessage = false;
+          },5000);
+        });
+      }
+      else{
         this.IsShowMessage = true;
-        this.Message  = "HHA User clock out successfull."
-        var that = this;
-        setTimeout(function(){
-          that.IsShowMessage = false;
-        },5000);
-      });
+        this.Message  = "HHA User/Client User Signature required."
+          var that = this;
+          setTimeout(function(){
+            that.IsShowMessage = false;
+          },5000);
+      }
     }
     else{
         this.IsShowMessage = true;

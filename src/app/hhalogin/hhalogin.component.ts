@@ -24,10 +24,28 @@ export class HHALoginComponent implements OnInit {
   ExternalsignIn(SSN:string){
 
     this.IsLoad=true;
-    this.model.SSN=SSN;  
+    
+    if(!SSN.includes('-'))
+    {
+      var ssn = "";
+      for (let i = 0; i < SSN.trim().length; i++) {
+        if(i==2){
+          ssn = ssn + SSN[i] + "-";
+        }
+        else if(i==4){
+          ssn = ssn + SSN[i] + "-";
+        }
+        else{
+          ssn = ssn + SSN[i];
+        }
+      }
+      this.model.SSN = "";
+      this.model.SSN = ssn;
+    }
 
     this.accountApi.ExternalsignIn(this.model).subscribe((response) => {
-      if(response != null && response != undefined && response.result)
+      
+      if(response != null && response != undefined && response.result && response.data != null && response.data != undefined)
       {
         this.accountApi.setHHAUser(response.data);
         this.router.navigate(['/hhaportal']);
