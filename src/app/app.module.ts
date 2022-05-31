@@ -86,6 +86,8 @@ import { EmergencyProviderComponent } from './shared/common/emergency-provider/e
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { UserDetailComponent } from './shared/user-detail/user-detail.component';
 import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -176,6 +178,7 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
     SignaturePadModule,
+    NgSelectModule,
   ],
  
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},AuthGuardService, DatePipe,BsDatepickerConfig],

@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
+
 @Component({
   selector: 'app-client-note',
   templateUrl: './client-note.component.html',
@@ -57,6 +58,7 @@ export class ClientNoteComponent implements OnInit {
       }
     );
   }
+
   saveNote() {
     debugger;
     this.model.officeUserId = Number(this.model.officeUserId);
@@ -75,6 +77,7 @@ export class ClientNoteComponent implements OnInit {
     this.model.isActive = 1;
     this.model.createdBy = this.currentUser.userId;
     this.model.userId = Number(this.ClientId);
+   
     this.clientapi.SaveNotes(this.model).subscribe(Responce => {
       this.decline();
       this.getClientNoteRecord();

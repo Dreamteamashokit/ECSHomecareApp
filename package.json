@@ -28,6 +28,7 @@
     "@fullcalendar/angular": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
+    "@ng-select/ng-select": "^8.1.1",
     "@types/jquery": "^3.5.14",
     "ag-grid-angular": "^26.2.0",
     "ag-grid-community": "^26.2.1",
