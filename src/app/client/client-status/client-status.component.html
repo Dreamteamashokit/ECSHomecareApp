@@ -196,19 +196,83 @@
                                     <th>Activity	</th>                                   
                                     <th>Date	</th>
                                     <th>Referral/D/C Code	</th>
-                                    <th>Notes</th>
+                                    <th colspan="2">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                
-                                    <tr *ngFor="let item of ClientStatusObjList">
+                                    <tr *ngFor="let item of ClientStatusObjList; let i = index">
                                     <td> {{ item.activityText }}</td>
                                     <td> 
-                                      {{item.statusDate  | date: 'dd MMM YYYY'}}
+                                      <label *ngIf="!item.isEdit">{{item.statusDate  | date: 'dd MMM YYYY'}}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <div class="input-group">
+                                          <input class="form-control" type="text" id="txt_{{ i }}_statusDate" name="item[{{ i }}].statusDate" [(ngModel)]="item.effectiveDate"
+                                           #statusDate="bsDatepicker" bsDatepicker  placeholder="Effective Date"  [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                 <div class="input-group-addon" (click)="statusDate.toggle()" [attr.aria-expanded]="statusDate.isOpen" ><i class="fa fa-calendar"></i></div> 
+                                      </div>
+                                      </div>
+                                    </td>
+                                    <td>{{ item.referralCodeText }}
+
+                                      <label *ngIf="!item.isEdit">{{ item.referralCodeText }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                      
+                                      
+                                      
+                                        <select
+                    class="form-control"
+                    #ReferralCode="ngModel"                                   
+                    id="ddl_{{ i }}_ReferralCode"
+                    name="ReferralCode"                                   
+                    [(ngModel)]="item.referralCodeText"                                       
+                  >            
+                                <option
+                                  *ngFor="let obj of ReferralCodeLst"
+                                  [value]="obj.itemId"
+                                >
+                                  {{ obj.itemName }}
+                                </option>
+                                                  
+                        </select>
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      </div>
+
 
                                     </td>
-                                    <td>{{ item.referralCodeText }}</td>
-                                    <td>{{ item.note }}</td>
+                                    <td>
+
+                                      <label *ngIf="!item.isEdit">{{ item.note }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <input id="txt_{{ i }}_Note" name="item[{{ i }}].Note"  [(ngModel)]="item.note" placeholder="Note" type="textarea" class="form-control" >                    
+                                        </div>
+
+                                    </td>
+
+                                      <td>
+                                      <a *ngIf="!item.isEdit" title="Edit" href="javascript:;" (click)="editStatus(item,i)">
+                                         <i class="fa fa-edit medium-txt mrm"></i>
+                                     </a> 
+                                     <a *ngIf="!item.isEdit" title="Delete" href="javascript:;" (click)="delStatus(item.statusId)">
+                                       <i class="fa fa-trash-o medium-txt"></i>
+                                     </a>            
+                                     
+                                     <a *ngIf="item.isEdit" title="Update" href="javascript:;" (click)="updateStatus(item)">
+                                       <i class="fa fa-save medium-txt mrm"></i>
+                                   </a>  
+                                 
+                                   <a *ngIf="item.isEdit" title="Cancel" href="javascript:;" (click)="cancelStatus(i)">
+                                     <i class="fa fa-times medium-txt mrm"></i>
+                                 </a>  
+                                    
+                                     </td>
                                     </tr>
                                
 

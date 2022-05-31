@@ -5,7 +5,7 @@ import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
 import { Router,ActivatedRoute, Params } from '@angular/router';
-import {ClientStatusModel} from 'src/app/models/client/status-model';
+import {ClientStatusModel,ClientStatusLst} from 'src/app/models/client/status-model';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType} from 'src/app/models/common';
 import { UserModel } from 'src/app/models/account/login-model';
@@ -26,7 +26,7 @@ export class ClientStatusComponent implements OnInit {
   currentUser:UserModel;
   modalRef?: BsModalRef;
    model = new ClientStatusModel(0,'',0,'',0,0,0,0,false,false,false);
-   ClientStatusObjList:any;
+   ClientStatusObjList:ClientStatusLst[]=[];
    ClientId:number;
    _effectiveDate = new Date();
 
@@ -48,6 +48,7 @@ export class ClientStatusComponent implements OnInit {
       this.comApi.getMaster(MasterType.ClientStatusActivity).subscribe((response) => {
         
         this.ActivityLst = response.data;
+        this.model.activityId= this.ActivityLst[0].itemId;
       });
   
       this.comApi.getMaster(MasterType.ClientStatusReferralCode).subscribe((response) => {
@@ -60,6 +61,8 @@ export class ClientStatusComponent implements OnInit {
       });
       this.model.officeUserId=-1;
       this.model.officeUserReferralID=-1;
+
+
      }
 
   ngOnInit(): void {
@@ -100,19 +103,67 @@ this.GetClientStatusLst();
   }); 
 }
 
-
-
-
-
-
-
-
  GetClientStatusLst(){
 this.clientapi.getClientStatusList(this.ClientId).subscribe((response)=>{
   this.ClientStatusObjList=response.data
 })
 
  }
+
+ editObj:ClientStatusLst;
+ editStatus(item:ClientStatusLst,index:number) {
+  this.editObj=new ClientStatusLst(item.activityText,item.statusDate,item.referralCodeText,item.note);
+  this.editObj.statusId=item.statusId;
+  this.editObj.isEdit=item.isEdit;
+  item.isEdit=true;
+}
+
+cancelStatus(index:number) {
+ 
+  this.ClientStatusObjList[index].statusDate=this.editObj.statusDate;
+  this.ClientStatusObjList[index].note=this.editObj.referralCodeText;
+  this.ClientStatusObjList[index].activityText=this.editObj.activityText;
+  this.ClientStatusObjList[index].note=this.editObj.note;
+  this.ClientStatusObjList[index].isEdit=false;
+}
+
+updateStatus(item:ClientStatusLst) {
+  // let reqObj= new ServiceTaskModel(0,item.frequency,item.serviceNote);
+  // reqObj.taskId=item.taskId;
+  // reqObj.taskSrvId=item.taskSrvId;
+  // this.clientApi.updateService(reqObj).subscribe(response => {
+  //   this.bindServiceLst(this.clientId);
+  //   item.isEdit=false;
+  // });
+
+
+}
+
+
+
+delStatus(taskSrvId: number) {
+  let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
+  // this.clientApi.deleteService(taskSrvId).subscribe(response => {
+  //   this.bindServiceLst(this.clientId);
+  //   this.closeModal();
+  // });
+}
+}
+
+dateParse(_date: string) {
+  return new Date(_date);
+}
+
+
+
+
+
+
+
+
+
 
 
 

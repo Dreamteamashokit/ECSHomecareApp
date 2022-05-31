@@ -32,11 +32,15 @@ export class ClientStatusLst{
     statusDate:string;
     referralCodeText:string;
     note:string;
+    isEdit:boolean;
+    effectiveDate:Date;
     constructor(_ActivityText:string, _Date:string,_ReferralCode:string,_Note:string)
     {
         this.activityText=_ActivityText;
         this.statusDate=_Date;
         this.referralCodeText=_ReferralCode;
         this.note=_Note;  
+        this.isEdit=false;
+        this.effectiveDate=new Date(_Date);
     }
 }
