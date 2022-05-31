@@ -1,14 +1,16 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
-
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import {ClientStatusModel} from 'src/app/models/client/status-model';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType} from 'src/app/models/common';
-
+import { UserModel } from 'src/app/models/account/login-model';
+import { AccountService } from 'src/app/services/account.service';
+import { Usertype } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-client-status',
   templateUrl: './client-status.component.html',
@@ -20,21 +22,29 @@ export class ClientStatusComponent implements OnInit {
   EmplList = Array<ItemsList>(); 
   ActivityLst: ItemsList[] = [];
   ReferralCodeLst: ItemsList[] = [];
-  OfficeUser: ItemsList[] = [];
-  
- 
+  OfficeUserList: ItemsList[] = [];
+  currentUser:UserModel;
   modalRef?: BsModalRef;
    model = new ClientStatusModel(0,'',0,'',0,0,0,0,false,false,false);
    ClientStatusObjList:any;
    ClientId:number;
+   _effectiveDate = new Date();
+
+
+
   constructor(private comApi: CommonService,
+    private accountApi: AccountService,
     private route:ActivatedRoute,
-    private modalService: BsModalService, private empApi: EmployeeapiService, private clientapi : ClientApiService) {
-      setTheme('bs3');
-      // this.maxDate.setDate(this.maxDate.getDate() + 7);
-      // this.bsInlineRangeValue = [this.bsInlineValue, this.maxDate];
-     
-      this.GetEmpLst();
+    private modalService: BsModalService, 
+    private empApi: EmployeeapiService, 
+    private datepipe: DatePipe,
+    private clientapi : ClientApiService) {
+      setTheme('bs3');   
+      
+      this.currentUser=this.accountApi.getCurrentUser();
+      this.comApi.getEmpList().subscribe((response) => {
+        this.EmplList = response.data;      
+      });
       this.comApi.getMaster(MasterType.ClientStatusActivity).subscribe((response) => {
         
         this.ActivityLst = response.data;
@@ -44,8 +54,12 @@ export class ClientStatusComponent implements OnInit {
        
         this.ReferralCodeLst = response.data;
       });
-      //this.GetOfficeUserLst();
-      
+
+      this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+        this.OfficeUserList = response.data;
+      });
+      this.model.officeUserId=-1;
+      this.model.officeUserReferralID=-1;
      }
 
   ngOnInit(): void {
@@ -67,7 +81,7 @@ export class ClientStatusComponent implements OnInit {
 
  onClickSubmit() {     
   this.model.activityId=Number(this.model.activityId);
-  this.model.date=this.model.date;
+  this.model.date=this.datepipe.transform(this._effectiveDate, 'dd-MM-yyyy')||"";;
   this.model.note=this.model.note;
   this.model.officeUserId=Number(this.model.officeUserId);
   this.model.text=Boolean(this.model.text);
@@ -76,8 +90,9 @@ export class ClientStatusComponent implements OnInit {
   this.model.officeUserReferralID=Number(this.model.officeUserReferralID);
   this.model.referralCode=Number(this.model.referralCode);  
   this.model.clientId=Number(this.ClientId);  
+  this.model.createdBy=this.currentUser.userId;
   this.clientapi.SaveClientStatus(this.model).subscribe((response) => {
-    // this.modalRef?.hide();
+
     this.decline();   
 this.GetClientStatusLst();
     
@@ -87,21 +102,9 @@ this.GetClientStatusLst();
 
 
 
-GetOfficeUserLst() {
- 
- this.comApi.getEmployees(1).subscribe((response) => {
-  this.OfficeUser = response.data;
-});
-}
 
 
-GetEmpLst() {
- 
-  this.comApi.getEmpList().subscribe((response) => {
-   
-    this.EmplList = response.data;      
-  });
- }
+
 
 
  GetClientStatusLst(){

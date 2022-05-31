@@ -9,6 +9,7 @@ export class ClientStatusModel{
     text:boolean;
     screen:boolean;
     email:boolean;
+    createdBy:number;
      constructor(_ActivityId:number, _Date:string,_ReferralCode:number,_Note:string,_OfficeUserId:number,_OfficeUserReferralID:number,
          _clientId:Number,_officeUserId:number,_text:boolean,_screen:boolean,_email:boolean,)
      {
@@ -26,15 +27,16 @@ export class ClientStatusModel{
 }
 
 export class ClientStatusLst{
+    statusId:number;
     activityText:string;
-    date:string;
+    statusDate:string;
     referralCodeText:string;
     note:string;
     constructor(_ActivityText:string, _Date:string,_ReferralCode:string,_Note:string)
     {
         this.activityText=_ActivityText;
-        this.date=_Date;
+        this.statusDate=_Date;
         this.referralCodeText=_ReferralCode;
-        this.note=_Note;       
+        this.note=_Note;  
     }
 }
