@@ -23,7 +23,7 @@ export class EmpDocumentComponent implements OnInit {
   
   public progress: number;
   public message: string;
-  foldername:string
+  folderName:string
   empId:number;
   FolderList :any;
   currentUser:UserModel;
@@ -59,20 +59,7 @@ export class EmpDocumentComponent implements OnInit {
         this.GetFolderList(this.UserId);
       }
     );
-
-
-
-
-    // this.UserId = Number(this.data.id);       
-    
-   
-    // this.route.params.subscribe(
-    //   (params : Params) =>{
-       
-        
-
-    //   }
-    // );
+  
   }
   
 
@@ -125,12 +112,21 @@ export class EmpDocumentComponent implements OnInit {
 
   CreateFolder(foldername:string){
 
-     var data=new FolderData(this.UserId,foldername);
+    if(foldername!='')
+    {
+      var data=new FolderData(this.UserId,foldername);
+      data.createdBy=this.currentUser.userId;
+       this.DocApi.folderCreate(data).subscribe(Response=>{ 
+            this.GetFolderList(this.UserId);
+            this.folderName="";
+       });
+    }
+    else
+    {
+      alert("Please Input Folder Name");
+    }
 
-     data.createdBy=this.currentUser.userId;
-      this.DocApi.folderCreate(data).subscribe(Response=>{ 
-           this.GetFolderList(this.UserId);         
-      });
+    
   }
 
 

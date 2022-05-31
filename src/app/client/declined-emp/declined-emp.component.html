@@ -26,15 +26,18 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                            <label class="control-label">Date/Time:</label>
-                            <div class="input-icon right"><i class="fa fa-calendar"></i>                                
-                                <input type="text" #RepotedDate="ngModel" id="txtEffectiveDate"name="RepotedDate"
-                                placeholder="Date" [(ngModel)]="model.reportedDate" class="form-control"  bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }"> 
-                            </div>
+                           <div class="input-group">
+                            <input class="form-control" type="text" id="txtEffectiveDate"name="RepotedDate" placeholder="Date"  [(ngModel)]="_reportedDate"
+                              #RepotedDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                            <div class="input-group-addon" (click)="RepotedDate.toggle()" [attr.aria-expanded]="RepotedDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                        </div>
+
+
                         </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <timepicker id="txtStartTime" name="StartTime" ></timepicker>
+                            <div class="form-group">                            
+                                <timepicker id="txtstartTime" name="startTime"  [(ngModel)]="_time"  ></timepicker>
                             </div>
                         </div>
                     </div>
@@ -51,7 +54,7 @@
                             name="ClientId"                                   
                             [(ngModel)]="model.empId"                                       
                           > 
-                          <option value="-1" disabled>Select</option>
+                          <option value="-1" disabled>Select Employee</option>
                           <option
                            *ngFor="let obj of empList"
                            [value]="obj.itemId"
@@ -71,12 +74,14 @@
                         #Casetypeid="ngModel"                                   
                         id="ddlTypeStatusId"
                         name="Casetypeid"                                   
-                        [(ngModel)]="model.caseType"                                       
-                      > 
-                      <option value="" disabled>Select</option>
-                                    <option value="1">Parmanent</option>
-                                 <option value="2">Full-In</option>
-                                                      
+                        [(ngModel)]="model.caseType"
+                      >
+                      
+                      <option value='-1' disabled>Select Case Type</option>
+                                    <option *ngFor="let obj of caseTyeData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
                         </select>
                                
                         </div>
@@ -95,11 +100,13 @@
                     <div class="col-lg-6">    
                         <div class="form-group">
                                 <label class="control-label">Assignment Started</label>
-                                 <div class="input-icon right"><i class="fa fa-calendar"></i>
-                                     
-                                     <input type="text" #AssignmentStart="ngModel" id="txtEffectiveDate"name="AssignmentStart"
-                                     placeholder="Assignment Date" [(ngModel)]="model.startDate" class="form-control"  bsDatepicker> 
-                                 </div>                                 
+                                 <div class="input-group">
+                                    <input type="text"  id="txtEffectiveDate" name="AssignmentStart"
+                                    placeholder="Assignment Date" [(ngModel)]="_startDate" class="form-control" #AssignmentStart="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                    <div class="input-group-addon" (click)="AssignmentStart.toggle()" [attr.aria-expanded]="AssignmentStart.isOpen" ><i class="fa fa-calendar"></i></div>
+                                </div>
+
+                             
                         </div>
                     </div>
                 
@@ -138,10 +145,21 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of declinedList">
-                                <td>{{ item.reportedDate }}</td>
+                                <td>
+
+                                    {{item.reportedDate  | date: 'dd MMM YYYY, hh:mm a'}}
+
+                                </td>
                                 <td>{{ item.empName }}</td>
                                 <td>{{ item.reason }}</td>
-                                <td>{{ item.startDate }}</td>
+                                <td>
+                                 
+
+                                    
+
+
+{{item.startDate  | date: 'dd MMM YYYY'}}
+                                </td>
                                 <td>{{ item.notes }}</td>
                                 <td> <a title="Delete" href="javascript:;" (click)="delDeclined(item.declinedId)">
                                     <i class="fa fa-trash-o medium-txt"></i>
