@@ -165,7 +165,7 @@
                                 <label class="control-label">Ethnicity</label>
                                 <select class="form-control" id="ddethnicity" name="ethnicity" #ethnicity="ngModel" [(ngModel)]="model.ethnicity">
 
-                                    <option value='-1' disabled>Select State</option>
+                                    <option value='-1' disabled>Select Ethnicity</option>
                                     <option *ngFor="let obj of ethnicityData"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}

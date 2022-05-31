@@ -51,7 +51,7 @@ export class ClientApiService {
   }
 
   getClientStatusList(clientId: number) {
-    return this._http.get<APIResponse<ClientStatusLst>>(environment.domain + "/api/Client/getClientStatusList" + "/" + clientId);
+    return this._http.get<APIResponse<ClientStatusLst[]>>(environment.domain + "/api/Client/getClientStatusList" + "/" + clientId);
   }
 
 

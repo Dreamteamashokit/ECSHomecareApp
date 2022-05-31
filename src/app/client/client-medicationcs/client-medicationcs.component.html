@@ -22,30 +22,28 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">Start Date</label>
-                      <div class="input-icon right"><i class="fa fa-calendar"></i>    
-                        <input type="text"
-                        #StartDate="ngModel"
-                        id="txtStartDate"
-                        name="StartDate"                     
-                        [(ngModel)]="model.startDate"
-                        class="form-control"
-                        bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
-                      </div>
+                      <div class="input-group">
+                        <input class="form-control" type="text"  id="txtStartDate" name="StartDate"   [(ngModel)]="model.startDate"
+                          #StartDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                        <div class="input-group-addon" (click)="StartDate.toggle()" [attr.aria-expanded]="StartDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                    </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">End Date</label>
-                      <div class="input-icon right"><i class="fa fa-calendar"></i>
-                        
-                        <input type="text"
-                        #EndDate="ngModel"
-                        id="txtcompletedOn"
-                        name="EndDate"                     
-                        [(ngModel)]="model.endDate"
-                        class="form-control"
-                        bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
-                      </div>
+                    <div class="input-group">
+                      <input class="form-control" type="text"  id="txtEndDate" name="EndDate"   [(ngModel)]="model.endDate"
+                        #EndDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                      <div class="input-group-addon" (click)="EndDate.toggle()" [attr.aria-expanded]="EndDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                  </div>
+
+
+                      
+
+
+
+
                         </div>
                     </div>
                   </div>

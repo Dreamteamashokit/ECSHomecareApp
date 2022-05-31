@@ -54,36 +54,50 @@
                     <div class="col-lg-4 col-xs-6">
                       <div class="form-group">
                     <label class="control-label">Effective Date</label>
-                    <input type="text" #Date="ngModel" id="txtEffectiveDate"name="Date"
-                           [(ngModel)]="model.date" class="form-control"  bsDatepicker  >
+                      
+                           <div class="input-group">
+                            <input class="form-control" type="text" id="txtdate"name="date" placeholder="Date"  [(ngModel)]="_effectiveDate"
+                              #date="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                            <div class="input-group-addon" (click)="date.toggle()" [attr.aria-expanded]="date.isOpen" ><i class="fa fa-calendar"></i></div>
+                        </div>   
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                          </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-xs-6">
+                      <div class="form-group">
+                    <label class="control-label">Referral/D/C Code</label>
+                    <select
+                    class="form-control"
+                    #ReferralCode="ngModel"                                   
+                    id="ddlTypeStatusId"
+                    name="ReferralCode"                                   
+                    [(ngModel)]="model.referralCode"                                       
+                  > 
+                  <option value="" disabled>Select</option>
+                                <option
+                                  *ngFor="let obj of ReferralCodeLst"
+                                  [value]="obj.itemId"
+                                >
+                                  {{ obj.itemName }}
+                                </option>
+                                                  
+                        </select>
                         </div>
                     </div>
                     </div>
                     
                   <div class="row">
                 
-                    <div class="col-lg-4 col-xs-6">
-                        <div class="form-group">
-                      <label class="control-label">Referral/D/C Code</label>
-                      <select
-                      class="form-control"
-                      #ReferralCode="ngModel"                                   
-                      id="ddlTypeStatusId"
-                      name="ReferralCode"                                   
-                      [(ngModel)]="model.referralCode"                                       
-                    > 
-                    <option value="" disabled>Select</option>
-                                  <option
-                                    *ngFor="let obj of ReferralCodeLst"
-                                    [value]="obj.itemId"
-                                  >
-                                    {{ obj.itemName }}
-                                  </option>
-                                                    
-                          </select>
-                          </div>
-                      </div>
-                  <div class="col-lg-4">
+                
+                  <div class="col-lg-12">
                       <div class="form-group">
                     <label class="control-label">Note</label>
                     <input type="textarea" #Note="ngModel" id="txtNote"name="Note"
@@ -95,7 +109,7 @@
                            <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">
-                    <label class="control-label">Notify about Eugene Atkins's status change</label>
+                    <label class="control-label">Office User</label>
                     <select
                                 class="form-control"
                                 #OfficeUserId="ngModel"                                   
@@ -104,9 +118,9 @@
                                 [(ngModel)]="model.officeUserId"                                       
                               > 
                                 
-                              <option value="" disabled>Select</option>
+                              <option value="-1" disabled>Select Office User</option>
                                 <option
-                                  *ngFor="let obj of EmplList"
+                                  *ngFor="let obj of OfficeUserList"
                                   [value]="obj.itemId"
                                 >
                                   {{ obj.itemName }}
@@ -116,11 +130,9 @@
                     </div>
                     <div class="col-lg-8">
                       <div class="form-group">
-                    <label class="control-label"></label>
+                        <label class="control-label">Employee</label>
                         <div class="row">
                         <div class="col-lg-6 col-xs-6 ">
-                          
-                          
                           <select
                           class="form-control"
                           #OfficeUserReferralID="ngModel"                                   
@@ -128,7 +140,7 @@
                           name="OfficeUserReferralID"                                   
                           [(ngModel)]="model.officeUserReferralID"                                       
                         > 
-                        <option value="-1" disabled>Select</option>
+                        <option value="-1" disabled>Select Employee</option>
                         <option
                          *ngFor="let obj of EmplList"
                          [value]="obj.itemId"
@@ -164,7 +176,8 @@
                           </div>
                     <div class="row">
                     <div class="col-lg-12 text-center">
-                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Add Status Report</button>
+                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Status</button>
+                  
                     </div>
                       </div>
                 </div>  
@@ -173,7 +186,7 @@
               </ng-template> 
 
         </div>
-        <div class="row mbm">
+        <div class="row mbm" *ngIf="ClientStatusObjList.length>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <div class="table-responsive">
@@ -182,19 +195,84 @@
                                 <tr>
                                     <th>Activity	</th>                                   
                                     <th>Date	</th>
-                                    <th>Referral/D/C Code	</th>                                  
-                                  
-                                    <th>Notes</th>
+                                    <th>Referral/D/C Code	</th>
+                                    <th colspan="2">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                
-                                    <tr *ngFor="let item of ClientStatusObjList">
+                                    <tr *ngFor="let item of ClientStatusObjList; let i = index">
                                     <td> {{ item.activityText }}</td>
-                                    <td> {{ item.date }}</td>
-                                    <td>{{ item.referralCodeText }}</td>                                
+                                    <td> 
+                                      <label *ngIf="!item.isEdit">{{item.statusDate  | date: 'dd MMM YYYY'}}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <div class="input-group">
+                                          <input class="form-control" type="text" id="txt_{{ i }}_statusDate" name="item[{{ i }}].statusDate" [(ngModel)]="item.effectiveDate"
+                                           #statusDate="bsDatepicker" bsDatepicker  placeholder="Effective Date"  [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                 <div class="input-group-addon" (click)="statusDate.toggle()" [attr.aria-expanded]="statusDate.isOpen" ><i class="fa fa-calendar"></i></div> 
+                                      </div>
+                                      </div>
+                                    </td>
+                                    <td>{{ item.referralCodeText }}
+
+                                      <label *ngIf="!item.isEdit">{{ item.referralCodeText }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                      
+                                      
+                                      
+                                        <select
+                    class="form-control"
+                    #ReferralCode="ngModel"                                   
+                    id="ddl_{{ i }}_ReferralCode"
+                    name="ReferralCode"                                   
+                    [(ngModel)]="item.referralCodeText"                                       
+                  >            
+                                <option
+                                  *ngFor="let obj of ReferralCodeLst"
+                                  [value]="obj.itemId"
+                                >
+                                  {{ obj.itemName }}
+                                </option>
+                                                  
+                        </select>
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      </div>
+
+
+                                    </td>
+                                    <td>
+
+                                      <label *ngIf="!item.isEdit">{{ item.note }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                        <input id="txt_{{ i }}_Note" name="item[{{ i }}].Note"  [(ngModel)]="item.note" placeholder="Note" type="textarea" class="form-control" >                    
+                                        </div>
+
+                                    </td>
+
+                                      <td>
+                                      <a *ngIf="!item.isEdit" title="Edit" href="javascript:;" (click)="editStatus(item,i)">
+                                         <i class="fa fa-edit medium-txt mrm"></i>
+                                     </a> 
+                                     <a *ngIf="!item.isEdit" title="Delete" href="javascript:;" (click)="delStatus(item.statusId)">
+                                       <i class="fa fa-trash-o medium-txt"></i>
+                                     </a>            
+                                     
+                                     <a *ngIf="item.isEdit" title="Update" href="javascript:;" (click)="updateStatus(item)">
+                                       <i class="fa fa-save medium-txt mrm"></i>
+                                   </a>  
+                                 
+                                   <a *ngIf="item.isEdit" title="Cancel" href="javascript:;" (click)="cancelStatus(i)">
+                                     <i class="fa fa-times medium-txt mrm"></i>
+                                 </a>  
                                     
-                                    <td>{{ item.note }}</td>
+                                     </td>
                                     </tr>
                                
 

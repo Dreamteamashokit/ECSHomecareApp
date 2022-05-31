@@ -1,6 +1,3 @@
-
-
-
 <div class="row">
   <div class="col-lg-6">
       <h4 class="mtm mbm text-uppercase  text-orange">
@@ -15,16 +12,17 @@
           <div class="col-sm-6">         
               <div class="form-group">
                   <label class="control-label">Folder Name <span class="star">*</span></label>
-                  <input #foldername type="text" id="txtfoldername" name="foldername" placeholder="Enter Folder Name" class="form-control" >
+                  <input #folderName type="text" id="txtfolderName" name="folderName"  placeholder="Folder Name" class="form-control" >
 
-                  <!-- <em *ngIf="foldername.invalid && (foldername.dirty || foldername.touched)" for="txtempKey" class="invalid">This field is required</em> -->
+                 
               </div>
           </div>
-          <div class="col-sm-6 mtm">
-              <a class="btn btn-md btn-default" (click)="CreateFolder(foldername.value)" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top" title="click on add folder to add folder to document library Got it." data-target="#add-folder" data-toggle="modal">
+          <div class="col-sm-6 ptl" >
 
-                  <i class="fa fa-plus-square text-orange"></i> Add Folder
-              </a>
+            <button type="button" (click)="CreateFolder(folderName.value)"  class="btn btn-md btn-dark"><i class="fa fa-plus-square mrm"></i> Add Folder</button>
+
+
+            
           </div>
       </div>
       <div class="row">
