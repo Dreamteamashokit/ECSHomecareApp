@@ -21,38 +21,43 @@
                 <div class="modal-body">
                     <form name="frmDiagnosis" #frmDiagnosis="ngForm">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Order</label>
-                                    <input type="number" #orderNo="ngModel" id="txtorderNo" name="orderNo"
+                                    <input min="0" type="number" #orderNo="ngModel" id="txtorderNo" name="orderNo"
                                         [(ngModel)]="model.orderNo" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                         
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="control-label"> ICD-10 Diagnosis Codes and Description</label>
-                                            <select class="form-control" #dxId="ngModel" id="ddldxId" name="dxId"
-                                            [(ngModel)]="model.dxId">
-                                            <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let obj of diagnosisList" [value]="obj.itemId">
-                                                {{ obj.itemName }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Primary</label>
-                                    <input type="checkbox" name="isPrimary" [(ngModel)]="model.isPrimary" >
-
+                                    <label class="control-label">Primary</label><br/>
+                                    <input class="ptl" type="checkbox" name="isPrimary" [(ngModel)]="model.isPrimary" >
                                     <input type="hidden" [(ngModel)]="model.entityId" >
-
                                 </div>
                             </div>
-                        </div>
+                        </div>  
+                        
+                        
+                        <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="control-label"> ICD-10 Diagnosis Codes and Description</label>
+                                        <select required class="form-control" #dxId="ngModel" id="ddldxId" name="dxId"
+                                        [(ngModel)]="model.dxId">
+                                        <option value="-1" disabled>Select</option>
+                                        <option *ngFor="let obj of diagnosisList" [value]="obj.itemId">
+                                            {{ obj.itemName }}
+                                        </option>
+                                    </select>
+                                    <em *ngIf="dxId.invalid && (dxId.dirty || dxId.touched)" for="ddldxId" class="invalid">This field is required</em>
+                                </div>
+                            </div>  </div>
+
+
                         <div class="row">
                             <div class="col-lg-12 text-center">
-                                <button type="button" (click)="saveModel();" class="btn btn-md btn-dark">Save Changes</button>                               
+                                <button type="button" [disabled]="frmDiagnosis.invalid" (click)="saveModel();" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>                               
                             </div>
                         </div>
                     </form>
@@ -65,7 +70,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Prime </th>
+                                <th>Prime</th>
                                 <th>Order</th>
                                 <th>Diagnosis Code</th>
                                 <th>Description</th>
@@ -76,16 +81,28 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of modelList;">   
-                                <td>{{ item.isPrimary }}</td>                            
+                                <td>
+
+                                    <input type="checkbox" [checked]="item.isPrimary" />
+
+
+                                </td>                            
                                 <td>{{ item.orderNo }}</td>
                                 <td>{{ item.dxCodes }}</td>
                                 <td>{{ item.description }}</td>
                                 <td>{{ item.addedBy }}</td>
-                                <td>{{ item.createdOn }}</td>
+                                <td>
+
+                                    {{item.createdOn  | date: 'dd MMM YYYY'}}
+
+                                </td>
                           <td>
-                            <i class="fa fa-edit text-red medium-txt pts" (click)="updateModel(item)"></i>
-                            <i class="fa fa-trash-o text-red medium-txt pts" (click)="delModel(item.diagnosisId)" ></i>
-                            </td>
+                            <a title="Update" href="javascript:;" (click)="updateModel(item)">
+                            <i class="fa fa-edit medium-txt pts mrm" ></i>
+                        </a> <a title="Delete" href="javascript:;" (click)="delModel(item.diagnosisId)">
+                            
+                            <i class="fa fa-trash-o text-red medium-txt pts mrm"  ></i>
+                        </a> </td>
                             </tr>
                         </tbody>
                     </table>
