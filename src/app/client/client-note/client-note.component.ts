@@ -65,9 +65,21 @@ export class ClientNoteComponent implements OnInit {
   }
 
   saveNote() {
+debugger;
 
-    this.model.officeUserId = Number(this.model.officeUserId);
-    this.model.empId = Number(this.model.empId);
+
+    if (this.model.officeUserId) {
+      this.model.officeUserId = Number(this.model.officeUserId);
+    }
+
+
+    if (this.model.empId) {
+      this.model.empId = Number(this.model.empId);
+    }
+
+
+
+
     this.model.notesTypeId = Number(this.model.notesTypeId);
     this.model.notes = this.model.notes;
     if (this.model.notifyTypeId1) {
@@ -88,10 +100,14 @@ export class ClientNoteComponent implements OnInit {
       this.getClientNoteRecord();
     })
   }
-  updateNote() {
+  updateNote() {  
 
-    this.model.officeUserId = Number(this.model.officeUserId);
-    this.model.empId = Number(this.model.empId);
+    if (this.model.officeUserId) {
+      this.model.officeUserId = Number(this.model.officeUserId);
+    }
+    if (this.model.empId) {
+      this.model.empId = Number(this.model.empId);
+    }
     this.model.notesTypeId = Number(this.model.notesTypeId);
     this.model.notes = this.model.notes;
     if (this.model.notifyTypeId1) {
@@ -115,9 +131,12 @@ export class ClientNoteComponent implements OnInit {
 
   }
   updateNoteData(clientnoteId: number) {
+
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
     this.clientapi.getClientNoteDetails(this.model).subscribe((Responce: any) => {
+
+      debugger;
       if (Responce.data.length > 0) {
         this.model.officeUserId = Number(Responce.data[0].officeUserId);
         this.model.empId = Number(Responce.data[0].empId);
