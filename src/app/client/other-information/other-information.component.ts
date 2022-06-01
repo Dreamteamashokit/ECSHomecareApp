@@ -50,6 +50,7 @@ export class OtherInformationComponent implements OnInit {
 
   BindOtherInfo(userId:number)
   {
+    debugger;
     this.clientApi.getOtherInfo(userId).subscribe((response) => {
       if(response.result)
       {

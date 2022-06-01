@@ -2,7 +2,7 @@
 import { BaseModel } from "src/app/models/common";
 
 export class OtherInfoModel extends BaseModel {
-    cASA3: string;
+    casA3: string;
     contactId: string;
     insuranceGrp: string;
     isMedications: boolean;
