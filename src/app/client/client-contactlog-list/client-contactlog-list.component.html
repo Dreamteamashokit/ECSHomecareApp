@@ -33,20 +33,22 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">Call Date/Time</label>
-                                    <div class="input-icon right"><i class="fa fa-calendar"></i>
-                                        <input type="text" #callDateTime="ngModel" id="txtcallDateTime"
-                                            name="callDateTime" [(ngModel)]="model.callDateTime" class="form-control"
-                                            bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, hh:mm a' }">
+                                    
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="txtcallDateTime"name="callDateTime" placeholder="Date"  [(ngModel)]="model.callDateTime"
+                                          #callDateTime="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY, hh:mm a', containerClass: 'theme-red' }">
+                                        <div class="input-group-addon" (click)="callDateTime.toggle()" [attr.aria-expanded]="callDateTime.isOpen" ><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">Schedule Date</label>
-                                    <div class="input-icon right"><i class="fa fa-calendar"></i>
-                                        <input type="text" #scheduleDate="ngModel" id="txtscheduleDate"
-                                            name="scheduleDate" [(ngModel)]="model.scheduleDate" class="form-control"
-                                            bsDatepicker>
+                                    
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="txtscheduleDate"name="scheduleDate" placeholder="Date"  [(ngModel)]="model.scheduleDate"
+                                          #scheduleDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
+                                        <div class="input-group-addon" (click)="scheduleDate.toggle()" [attr.aria-expanded]="scheduleDate.isOpen" ><i class="fa fa-calendar"></i></div>
                                     </div>
 
                                 </div>
@@ -103,11 +105,13 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label">Follow-up Date</label>
-                                    <div class="input-icon right"><i class="fa fa-calendar"></i>
-                                        <input type="text" #followUpDate="ngModel" id="txtfollowUpDate"
-                                            name="followUpDate" [(ngModel)]="model.followUpDate" class="form-control"
-                                            bsDatepicker>
+                                    
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="txtfollowUpDate"name="followUpDate" placeholder="Date"  [(ngModel)]="model.followUpDate"
+                                          #followUpDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
+                                        <div class="input-group-addon" (click)="followUpDate.toggle()" [attr.aria-expanded]="followUpDate.isOpen" ><i class="fa fa-calendar"></i></div>
                                     </div>
+
                                 </div>
 
                             </div>
