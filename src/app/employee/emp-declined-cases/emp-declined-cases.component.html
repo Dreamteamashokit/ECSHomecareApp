@@ -26,10 +26,15 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                            <label class="control-label">Reprted Date/Time:</label>
-                            <div class="input-icon right"><i class="fa fa-calendar"></i>                                
-                                <input type="text" #RepotedDate="ngModel" id="txtEffectiveDate"name="RepotedDate"
-                                placeholder="Date Time" [(ngModel)]="model.repotedDate" class="form-control"  bsDatepicker> 
+                            
+                            
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="txtEffectiveDate"name="RepotedDate" placeholder="Date"  [(ngModel)]="model.repotedDate"
+                                  #RepotedDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY, hh:mm a', containerClass: 'theme-red' }">
+                                <div class="input-group-addon" (click)="RepotedDate.toggle()" [attr.aria-expanded]="RepotedDate.isOpen" ><i class="fa fa-calendar"></i></div>
                             </div>
+                            
+                            
                         </div>
                         </div>
                         <div class="col-lg-4">                           
@@ -88,11 +93,13 @@
                         <div class="col-lg-4">
                         <div class="form-group">
                                 <label class="control-label">Assignment Started</label>
-                                 <div class="input-icon right"><i class="fa fa-calendar"></i>
-                                     
-                                     <input type="text" #AssignmentStart="ngModel" id="txtEffectiveDate"name="AssignmentStart"
-                                     placeholder="Assignment Date" [(ngModel)]="model.assignmentStart" class="form-control"  bsDatepicker> 
-                                 </div>                                 
+                                 
+                            
+                                 <div class="input-group">
+                                    <input class="form-control" type="text" id="txtEffectiveDate"name="AssignmentStart" placeholder="Date"  [(ngModel)]="model.assignmentStart"
+                                      #AssignmentStart="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
+                                    <div class="input-group-addon" (click)="AssignmentStart.toggle()" [attr.aria-expanded]="AssignmentStart.isOpen" ><i class="fa fa-calendar"></i></div>
+                                </div>                              
                         </div>
                         
                     </div>
