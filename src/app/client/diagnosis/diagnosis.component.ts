@@ -57,12 +57,12 @@ export class DiagnosisComponent implements OnInit {
 
   saveModel() {
     debugger;
+    this.model.isActive=1;
     this.model.dxId = Number(this.model.dxId);
     this.model.orderNo = Number(this.model.orderNo); 
     this.model.isActive = Number(this.model.isActive);
     this.model.createdBy = this.currentUser.userId;
-    this.model.userId = Number(this.model.userId);
-    
+    this.model.userId = Number(this.model.userId);    
     if(this.model.entityId==0)
     {
       this.clientapi.addDiagnosis(this.model).subscribe(Responce => {
@@ -100,18 +100,26 @@ export class DiagnosisComponent implements OnInit {
 
   delModel(diagnosisId:number) {    
 
-    debugger;
+    let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
     this.clientapi.deleteDiagnosis(diagnosisId).subscribe((response) => {
       this.getDiagnosisList();
       this.decline();
     });
+  }
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
   decline(): void {
-    this.model = new DiagnosisModel();
+
+
+    this.model.entityId = 0;
+    this.model.dxId = 0;
+    this.model.orderNo = 0; 
+    this.model.isPrimary = false;
     this.modalRef?.hide();
   }
 }

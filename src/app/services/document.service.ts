@@ -6,8 +6,8 @@ import { APIResponse } from '../models/api-response';
 import { ItemsList,SelectList } from 'src/app/models/common';
 import { ItemModel } from 'src/app/admin/model/item-model';
 import { FolderData } from '../models/employee/document';
-import {DeleteItem} from '../models/employee/deleteFolder'
-
+import { DeleteItem } from '../models/employee/deleteFolder'
+import{ FolderView } from 'src/app/models/employee/upload-file-folder';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,10 +26,12 @@ export class DocumentService {
     }; 
   return this._http.post(environment.domain + "/api/Document/SaveFolder", data,httpOptions);      
   }
-  
+
+
+
   GetFolderList(empId:number){
    debugger;
-    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + empId);
+    return this._http.get<APIResponse<FolderView[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + empId);
   }
   
   DownloadFile(documentName:string,foldername:string){ 

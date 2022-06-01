@@ -76,17 +76,11 @@
 
                         <div class="col-sm-3 col-xs-12" *ngIf="IsDate">
                             <div class="form-group">
-
                                 <label class="control-label">From Date</label>
-                                <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
-                                <input type="text"
-                                  #fromDate="ngModel"
-                                  id="txtfromDate"
-                                  name="fromDate"
-                                  placeholder="From Date"
-                                  [(ngModel)]="_fromDate"
-                                  class="form-control"
-                                  bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="txtfromDate" name="fromDate" placeholder="From Date"  [(ngModel)]="_fromDate"
+                                  #fromDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="fromDate.toggle()" [attr.aria-expanded]="fromDate.isOpen" ><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                             <!-- {{_meetingDate}} -->
@@ -95,18 +89,13 @@
 
                         <div class="col-sm-3 col-xs-12" *ngIf="IsDate">
                             <div class="form-group">
-
                                 <label class="control-label">To Date</label>
-                      <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
-                                <input type="text"
-                                  #toDate="ngModel"
-                                  id="txttoDate"
-                                  name="toDate"
-                                  placeholder="To Date"
-                                  [(ngModel)]="_toDate"
-                                  class="form-control"
-                                  bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="txttoDate" name="toDate" placeholder="To Date"  [(ngModel)]="_toDate"
+                                  #toDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="toDate.toggle()" [attr.aria-expanded]="toDate.isOpen" ><i class="fa fa-calendar"></i></div>
                             </div>
+
                         </div>
                             <!-- {{_meetingDate}} -->
                         </div>

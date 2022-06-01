@@ -56,6 +56,27 @@ export class ClientApiService {
 
 
 
+  updateClientStatus(model: ClientStatusModel ) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/updateClientStatus", model, httpOptions);
+
+  }
+
+
+  delClientStatus(StatusId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'StatusId': StatusId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Client/delClientStatus", { params: reqPara });
+  }
+
   SaveMedicationcs(_obj: Medicationcs) {
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');

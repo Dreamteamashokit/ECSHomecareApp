@@ -199,10 +199,23 @@
                                     <th colspan="2">Notes</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                               
+                            <tbody>                              
                                     <tr *ngFor="let item of ClientStatusObjList; let i = index">
-                                    <td> {{ item.activityText }}</td>
+                                    <td> 
+                                      <label *ngIf="!item.isEdit">{{ item.activityText }}</label>
+                                      <div class="form-group" *ngIf="item.isEdit">
+                                      <select class="form-control" #ActivityId="ngModel" 
+                                      id="ddl_{{ i }}_ActivityId" name="ddl_{{ i }}_ActivityId"  
+                                      [(ngModel)]="item.activityId" > 
+                                                  <option
+                                                    *ngFor="let obj of ActivityLst;let j=index"
+                                                    [value]="obj.itemId" 
+                                                  >
+                                                    {{ obj.itemName }}
+                                                  </option>
+                                          </select>
+                                        </div>
+                                    </td>
                                     <td> 
                                       <label *ngIf="!item.isEdit">{{item.statusDate  | date: 'dd MMM YYYY'}}</label>
                                       <div class="form-group" *ngIf="item.isEdit">
@@ -213,36 +226,28 @@
                                       </div>
                                       </div>
                                     </td>
-                                    <td>{{ item.referralCodeText }}
+                                    <td>
 
-                                      <label *ngIf="!item.isEdit">{{ item.referralCodeText }}</label>
+                                      <span *ngIf="!item.isEdit">{{ item.referralCodeText }}</span>
                                       <div class="form-group" *ngIf="item.isEdit">
-                                      
-                                      
-                                      
                                         <select
-                    class="form-control"
-                    #ReferralCode="ngModel"                                   
-                    id="ddl_{{ i }}_ReferralCode"
-                    name="ReferralCode"                                   
-                    [(ngModel)]="item.referralCodeText"                                       
-                  >            
-                                <option
-                                  *ngFor="let obj of ReferralCodeLst"
-                                  [value]="obj.itemId"
-                                >
-                                  {{ obj.itemName }}
-                                </option>
-                                                  
-                        </select>
+                                        class="form-control"
+                                        #ReferralCode="ngModel"                                   
+                                        id="ddl_{{ i }}_ReferralCode"
+                                        name="ddl_{{ i }}_ReferralCode"                                   
+                                        [(ngModel)]="item.referralCode" 
+                                   
+                                      > 
+                                
+                                                    <option
+                                                      *ngFor="let obj of ReferralCodeLst"
+                                                      [value]="obj.itemId"
+                                                    >
+                                                      {{ obj.itemName }}
+                                                    </option>
+                                            </select>                                    
                                       
-                                      
-                                      
-                                      
-                                      
-                                      
-                                      
-                                      
+                     
                                       </div>
 
 

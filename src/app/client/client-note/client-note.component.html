@@ -57,7 +57,7 @@
                                     <select class="form-control" #officeUserId="ngModel" id="ddlofficeUserId"
                                         name="officeUserId" [(ngModel)]="model.officeUserId">
                                         <option value="-1" disabled>Select</option>
-                                        <option *ngFor="let usr of empList" [value]="usr.itemId">
+                                        <option *ngFor="let usr of OfficeUserList" [value]="usr.itemId">
                                             {{ usr.itemName }}
                                         </option>
                                     </select>
@@ -111,20 +111,20 @@
                         <div class="row" *ngIf="isAddVisible">
                             <div class="col-lg-12 text-center">
                                 <button type="button" (click)="saveNote();"
-                                    class="btn btn-md btn-dark">Add</button>
+                                    class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Note</button>
                             </div>
                         </div>
                         <div class="row" *ngIf="isUpdateVisible">
                             <div class="col-lg-12 text-center">
                                 <button type="button" (click)="updateNote();"
-                                    class="btn btn-md btn-dark">Update</button>
+                                    class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i> Update Note</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm" *ngIf="ClientNoteObjList.length>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -136,7 +136,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of ClientNoteObjList;">
-                                <td>{{ item.notesTypeId }}</td>
+                                <td>{{ item.notesType }}</td>
                                 <td>{{ item.notes }}</td>                               
                                 <td><i class="fa fa-edit text-red medium-txt pts"
                                         (click)="updateNoteData(item.notesId)"></i></td>
