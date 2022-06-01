@@ -14,6 +14,7 @@ export class OtherInfoModel extends BaseModel {
     
     flowRate: string;
     reunionLocations: string;
+    linkedClients: string;
     shelterName: string;
     talCode: string;
     shelter: string;
