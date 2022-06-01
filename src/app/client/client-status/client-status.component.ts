@@ -84,7 +84,7 @@ export class ClientStatusComponent implements OnInit {
 
  onClickSubmit() {     
   this.model.activityId=Number(this.model.activityId);
-  this.model.date=this.datepipe.transform(this._effectiveDate, 'dd-MM-yyyy')||"";;
+  this.model.date=this.datepipe.transform(this._effectiveDate, 'dd-MM-yyyy')||"";
   this.model.note=this.model.note;
   this.model.officeUserId=Number(this.model.officeUserId);
   this.model.text=Boolean(this.model.text);
@@ -111,15 +111,24 @@ this.clientapi.getClientStatusList(this.ClientId).subscribe((response)=>{
  }
 
  editObj:ClientStatusLst;
+ preIndex:number=-1;
  editStatus(item:ClientStatusLst,index:number) {
+  if(this.preIndex!==-1)
+  {
+    this.cancelStatus(this.preIndex);
+  }
+  this.preIndex=index;
   this.editObj=new ClientStatusLst(item.activityText,item.statusDate,item.referralCodeText,item.note);
   this.editObj.statusId=item.statusId;
   this.editObj.isEdit=item.isEdit;
   item.isEdit=true;
+  item.effectiveDate=new Date(item.statusDate);
+  item.activityId=this.ActivityLst.filter(x=>x.itemName===item.activityText)[0].itemId;
+  item.referralCode=this.ReferralCodeLst.filter(x=>x.itemName===item.referralCodeText)[0].itemId;
+
 }
 
-cancelStatus(index:number) {
- 
+cancelStatus(index:number) { 
   this.ClientStatusObjList[index].statusDate=this.editObj.statusDate;
   this.ClientStatusObjList[index].note=this.editObj.referralCodeText;
   this.ClientStatusObjList[index].activityText=this.editObj.activityText;
@@ -128,27 +137,27 @@ cancelStatus(index:number) {
 }
 
 updateStatus(item:ClientStatusLst) {
-  // let reqObj= new ServiceTaskModel(0,item.frequency,item.serviceNote);
-  // reqObj.taskId=item.taskId;
-  // reqObj.taskSrvId=item.taskSrvId;
-  // this.clientApi.updateService(reqObj).subscribe(response => {
-  //   this.bindServiceLst(this.clientId);
-  //   item.isEdit=false;
-  // });
-
+  let reqObj= new ClientStatusModel(0,'',0,'',0,0,0,0,false,false,false);
+  reqObj.statusId=Number(item.statusId);
+  reqObj.activityId=Number(item.activityId);
+  reqObj.referralCode=Number(item.referralCode);
+  reqObj.note=item.note;
+  reqObj.statusDate=this.datepipe.transform(item.effectiveDate, 'dd-MM-yyyy')||"";
+  this.clientapi.updateClientStatus(reqObj).subscribe(response => {
+    this.GetClientStatusLst();
+    item.isEdit=false;
+  });
 
 }
 
 
-
-delStatus(taskSrvId: number) {
+delStatus(statusId: number) {
   let isOk = confirm("Are you sure to delete?");
   if(isOk)
   {
-  // this.clientApi.deleteService(taskSrvId).subscribe(response => {
-  //   this.bindServiceLst(this.clientId);
-  //   this.closeModal();
-  // });
+  this.clientapi.delClientStatus(statusId).subscribe(response => {
+    this.GetClientStatusLst();
+  });
 }
 }
 

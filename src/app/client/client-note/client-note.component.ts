@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
+import { Usertype } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-client-note',
   templateUrl: './client-note.component.html',
@@ -18,6 +19,7 @@ export class ClientNoteComponent implements OnInit {
   ClientId: number;
   ClientNoteObjList: any;
   empList = Array<ItemsList>();
+  OfficeUserList: ItemsList[] = [];
   noteTypeList = Array<ItemsList>();
   model = new ClientNote();
   currentUser: UserModel;
@@ -43,6 +45,10 @@ export class ClientNoteComponent implements OnInit {
       if (response.result) {
         this.noteTypeList = response.data;
       }
+    });
+
+    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+      this.OfficeUserList = response.data;
     });
   }
 
@@ -144,7 +150,10 @@ export class ClientNoteComponent implements OnInit {
     this.model = new ClientNote();
     this.model.userId = this.ClientId;
     this.clientapi.getClientNoteRecord(this.model).subscribe((Response: any) => {
+ 
       this.ClientNoteObjList = Response.data;
+      console.log("Rakesh");
+      console.log( this.ClientNoteObjList);
       this.isAddVisible = true;
       this.isUpdateVisible = false;
     })

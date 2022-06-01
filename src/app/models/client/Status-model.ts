@@ -10,6 +10,18 @@ export class ClientStatusModel{
     screen:boolean;
     email:boolean;
     createdBy:number;
+
+    statusId: number;
+    userId: number;
+    statusDate: string;
+    isActive: number;
+
+
+
+
+
+
+
      constructor(_ActivityId:number, _Date:string,_ReferralCode:number,_Note:string,_OfficeUserId:number,_OfficeUserReferralID:number,
          _clientId:Number,_officeUserId:number,_text:boolean,_screen:boolean,_email:boolean,)
      {
@@ -29,8 +41,10 @@ export class ClientStatusModel{
 export class ClientStatusLst{
     statusId:number;
     activityText:string;
+    activityId:number;
     statusDate:string;
     referralCodeText:string;
+    referralCode:number;
     note:string;
     isEdit:boolean;
     effectiveDate:Date;
@@ -44,3 +58,5 @@ export class ClientStatusLst{
         this.effectiveDate=new Date(_Date);
     }
 }
+
+
