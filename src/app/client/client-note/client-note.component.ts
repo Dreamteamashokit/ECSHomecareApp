@@ -64,7 +64,7 @@ export class ClientNoteComponent implements OnInit {
     );
   }
   saveNote() {
-    debugger;
+
     this.model.officeUserId = Number(this.model.officeUserId);
     this.model.empId = Number(this.model.empId);
     this.model.notesTypeId = Number(this.model.notesTypeId);
@@ -87,7 +87,7 @@ export class ClientNoteComponent implements OnInit {
     })
   }
   updateNote() {
-    debugger;
+
     this.model.officeUserId = Number(this.model.officeUserId);
     this.model.empId = Number(this.model.empId);
     this.model.notesTypeId = Number(this.model.notesTypeId);
@@ -106,7 +106,7 @@ export class ClientNoteComponent implements OnInit {
     this.model.userId = Number(this.ClientId);
     this.model.notesId = this.noteId;
     this.clientapi.updateClientNotes(this.model).subscribe(Responce => {
-      debugger;
+ 
       this.decline();
       this.getClientNoteRecord();
     })
@@ -137,7 +137,7 @@ export class ClientNoteComponent implements OnInit {
     });
   }
   deleteNoteData(clientnoteId: number) { 
-    debugger;
+ 
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
     this.clientapi.deleteClientNote(this.model).subscribe((response) => {
@@ -146,7 +146,7 @@ export class ClientNoteComponent implements OnInit {
     });
   }
   getClientNoteRecord() {
-    debugger;
+
     this.model = new ClientNote();
     this.model.userId = this.ClientId;
     this.clientapi.getClientNoteRecord(this.model).subscribe((Response: any) => {
