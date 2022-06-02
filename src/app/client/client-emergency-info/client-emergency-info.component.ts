@@ -13,6 +13,8 @@ import{ClientEmrgencyInfo} from 'src/app/models/client/EmergencyInfo';
   styleUrls: ['../../../assets/css/orange-blue.css','./client-emergency-info.component.scss']
 })
 export class ClientEmergencyInfoComponent implements OnInit {
+
+
   editMode:boolean=false;
   EmergencyInfoLst:any;
   modalRef?: BsModalRef;
