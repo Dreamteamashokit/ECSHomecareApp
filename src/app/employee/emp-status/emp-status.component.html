@@ -234,8 +234,8 @@
                                
                                     <tr *ngFor="let item of EmpStatusObjList">
                                     <td> {{ item.statusType }}</td>
-                                    <td> {{ item.effectiveDate }}</td>
-                                    <td>{{ item.returnDate }}</td>
+                                    <td> {{ item.effectiveDate | date:'dd-MM-yyyy' }}</td>
+                                    <td>{{ item.returnDate | date:'dd-MM-yyyy' }}</td>
                                   
                                     <td><input type="checkbox" [checked]="item.resume" /></td>
                                     <td><input type="checkbox" [checked]="item.rehire"/></td>
