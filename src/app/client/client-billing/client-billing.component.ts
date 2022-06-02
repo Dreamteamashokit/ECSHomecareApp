@@ -12,6 +12,7 @@ export class ClientBillingComponent implements OnInit {
   model= new ClientBilling();
   isAddVisible: Boolean = true;
   isUpdateVisible: Boolean = false;
+  byDaysOfWeekToggle: boolean = false;
   constructor(private modalService: BsModalService) { }
 
   ngOnInit(): void {
@@ -21,5 +22,8 @@ export class ClientBillingComponent implements OnInit {
   }
   decline(): void {
     this.modalRef?.hide();
+  }
+  toggleForm(): void {
+    this.byDaysOfWeekToggle = !this.byDaysOfWeekToggle;
   }
 }
