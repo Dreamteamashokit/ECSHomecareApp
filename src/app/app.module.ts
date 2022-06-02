@@ -10,14 +10,14 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AuthGuardService } from './auth-guard.service';
 
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { LayoutComponent } from './layout/layout.component';
@@ -46,11 +46,11 @@ import { EmpRateComponent } from './employee/emp-rate/emp-rate.component';
 import { EmpDeclinedCasesComponent } from './employee/emp-declined-cases/emp-declined-cases.component';
 import { EmpInfoComponent } from './employee/emp-info/emp-info.component';
 import { EmpDasboardComponent } from './employee/emp-dasboard/emp-dasboard.component';
-import { ScheduleViewComponent } from './employee/schedule-view/schedule-view.component';
+
 import { EmpDocumentComponent } from './employee/emp-document/emp-document.component';
 import { ScheduleComponent } from './meeting/schedule/schedule.component';
 import { EmpScheduleComponent } from './meeting/emp-schedule/emp-schedule.component';
-import { ClientScheduleComponent } from './meeting/client-schedule/client-schedule.component';
+
 import { UserScheduleComponent } from './meeting/user-schedule/user-schedule.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { NewClientComponent } from 'src/app/client/new-client/new-client.component';
@@ -59,7 +59,7 @@ import { ClientDashboardComponent } from 'src/app/client/client-dashboard/client
 import { ClientInfoComponent } from 'src/app/client/client-info/client-info.component';
 import { GeneralClientComponent } from 'src/app/client/general-client/general-client.component';
 import { ClientStatusComponent } from 'src/app/client/client-status/client-status.component';
-import { TaskMasterComponent } from './company/task-master/task-master.component';
+import { TaskMasterComponent } from './common/task-master/task-master.component';
 import { ServiceTaskComponent } from './client/service-task/service-task.component';
 import { ClientMedicationcsComponent } from './client/client-medicationcs/client-medicationcs.component';
 import { DeclinedEmpComponent } from './client/declined-emp/declined-emp.component';
@@ -77,9 +77,17 @@ import { AvailabilitySearchComponent } from 'src/app/common/availability-search/
 import { ClientBillingComponent } from './client/client-billing/client-billing.component';
 import { LocationMapComponent } from './shared/common/location-map/location-map.component';
 import { SearchAvailbilityComponent } from './shared/common/search-availbility/search-availbility.component';
+import { ClockinoutComponent } from './clockinout/clockinout.component';
+import { HHALoginComponent } from './hhalogin/hhalogin.component';
+import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
 import { EmergencyContactComponent } from './shared/common/emergency-contact/emergency-contact.component';
 import { EmergencyProviderComponent } from './shared/common/emergency-provider/emergency-provider.component';
-import { AddRateComponent } from './billing/add-rate/add-rate.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
+import { UserDetailComponent } from './shared/user-detail/user-detail.component';
+import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -114,15 +122,12 @@ import { AddRateComponent } from './billing/add-rate/add-rate.component';
     EmpInfoComponent,
     EmpDasboardComponent,
     EmpScheduleComponent,
-    ClientScheduleComponent,
-    ScheduleViewComponent,
     EmpDocumentComponent,
     ClientDashboardComponent,
     UserScheduleComponent,
     GeneralClientComponent,
     ClientStatusComponent,
-    ClientMedicationcsComponent,
-    TaskMasterComponent, 
+    ClientMedicationcsComponent,  
     ServiceTaskComponent, 
     DeclinedEmpComponent, 
     ClientEmergencyInfoComponent,
@@ -147,7 +152,17 @@ import { AddRateComponent } from './billing/add-rate/add-rate.component';
     ClientBillingComponent, 
     AvailabilitySearchComponent, 
     LocationMapComponent, 
-    SearchAvailbilityComponent, EmergencyContactComponent, EmergencyProviderComponent, AddRateComponent,  
+    SearchAvailbilityComponent, 
+    ClockinoutComponent,
+     HHALoginComponent
+    , HhaportalComponent,
+     PatientComponent,  
+    SearchAvailbilityComponent,
+     EmergencyContactComponent, 
+    EmergencyProviderComponent, 
+    CreateUserComponent, 
+    UserDetailComponent, 
+    UpcommingComponent,  
   ],
   imports: [
     BrowserModule,
@@ -161,7 +176,10 @@ import { AddRateComponent } from './billing/add-rate/add-rate.component';
     TabsModule.forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    SignaturePadModule,
+    NgSelectModule,
   ],
  
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},AuthGuardService, DatePipe,BsDatepickerConfig],

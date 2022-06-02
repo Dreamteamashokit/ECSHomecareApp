@@ -9885,3 +9885,52 @@ width:100%;
   padding: 5px;
   border-radius: 5px;
 }
+
+
+
+.ngxAutocomplte /deep/  .dropdown-menu {
+
+  min-width: 360px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+}
+.ngxAutocomplte /deep/  .dropdown-menu li {
+
+  background-color: #fff!important;
+  border-bottom: solid 1px #eee;
+
+}
+.ngxAutocomplte /deep/  .dropdown-menu>li:hover {
+
+  background-color: #000!important;
+  color: #ffffff !important; 
+
+}
+.ngxAutocomplte /deep/ .dropdown-menu li a {
+  color: #777777;
+  padding: 3px 20px;
+  font-size: 13px;
+   border-bottom: none; 
+}
+.ngxAutocomplte /deep/ .dropdown-menu li a {
+  color: #777777;
+  padding: 3px 20px;
+  font-size: 13px;
+   border-bottom: none; 
+}
+.ngxAutocomplte /deep/ .dropdown-menu li a:hover {
+  background-color: #000!important;
+  color: #ffffff !important; 
+}
+
+
+.ngxAutocomplte /deep/ .nav-pills li.active a {
+  background: #e74c3c;
+  color: #ffffff !important;
+}
+.ngxAutocomplte /deep/ .nav-pills li.active a:hover,
+.ngxAutocomplte /deep/ .nav-pills li.active a:focus {
+  background: #e74c3c;
+  color: #fff !important;
+}

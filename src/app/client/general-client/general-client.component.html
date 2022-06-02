@@ -19,7 +19,7 @@
                                         Active
                                     </td>
                                     <td>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" [checked]="model.isActive===1?true:false" />
                                     </td>
                                 </tr>
                             
@@ -28,7 +28,7 @@
                                         First
                                     </td>
                                     <td>
-                                        <!-- {{model.firstName}} -->
+                                      {{model.firstName}} 
                                     </td>
                                 </tr>    
                                 

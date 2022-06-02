@@ -14,7 +14,7 @@ export class EmployeeModel extends AccountUserModel {
     taxState: string;
     zipCode: string;
     municipality: string;
-    notes: string;
+  
 }
 
 

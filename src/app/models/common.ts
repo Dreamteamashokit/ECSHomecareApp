@@ -49,7 +49,8 @@ export enum MasterType {
     Ethnicity,
     EmpStatusType,
     ClientStatusActivity,
-    ClientStatusReferralCode
+    ClientStatusReferralCode,
+    CaseType
   }
 
 
@@ -80,6 +81,20 @@ export enum MasterType {
         this.itemName = itemName;
         this.IsChecked = IsChecked;
     }
+    
+}
+
+
+export enum UserType {
+  SuperAdmin = 1,
+  Administrators = 2,
+  Coordinators = 3,
+  HR = 4,
+  Nursing = 5,
+  OfficeStaff = 6,
+  Billing=7,
+  Employee = 8,
+  Client = 9
 }
 
 

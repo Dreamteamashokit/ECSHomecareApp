@@ -69,8 +69,8 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">SSN</label>
-                                <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
-                                <!-- <em *ngIf="SSN.invalid && (SSN.dirty || SSN.touched)" for="txtSSN" class="invalid">This field is required</em> -->
+                                <input type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
+                                
 
 
                             </div>
@@ -78,8 +78,8 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Email</label>
-                                <input required type="text" placeholder="Email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
-                                <!-- <em *ngIf="email.invalid && (email.dirty || email.touched)" for="txtemail" class="invalid">This field is required</em> -->
+                                <input  type="text" placeholder="Email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
+                              
                             </div>
                         </div>
 
@@ -87,8 +87,8 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Cell Phone</label>
-                                <input required type="text" placeholder="Cell Phone" class="form-control" id="txtcontact" name="cellPhone" #contact="ngModel" [(ngModel)]="model.contact">
-                                <!-- <em *ngIf="contact.invalid && (contact.dirty || contact.touched)" for="txtcontact" class="invalid">This field is required</em> -->
+                                <input  type="text" placeholder="Cell Phone" class="form-control" id="txtcontact" name="cellPhone" #contact="ngModel" [(ngModel)]="model.contact">
+                              
 
                             </div>
                         </div>
@@ -98,8 +98,8 @@
 
                             <div class="form-group">
                                 <label class="control-label">Emergency Contact</label>
-                                <input required type="text" placeholder="Emergency Contact" class="form-control" id="txtemgContact" name="emgContact" #emgContact="ngModel" [(ngModel)]="model.emgContact">
-                                <!-- <em *ngIf="emgContact.invalid && (emgContact.dirty || emgContact.touched)" for="txtemgContact" class="invalid">This field is required</em> -->
+                                <input  type="text" placeholder="Emergency Contact" class="form-control" id="txtemgContact" name="emgContact" #emgContact="ngModel" [(ngModel)]="model.emgContact">
+                               
 
 
                             </div>
@@ -116,11 +116,19 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Date of Birth<span class="star">*</span></label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-calendar"></i>
-                                    <input required type="text" placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
-                                    <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
+                                <div class="input-group">                                    
+                                    <input required type="text"  id="txtdOB" name="dOB"
+                                    placeholder="Date of Birth" #dOB="ngModel" [(ngModel)]="_dobDate" class="form-control" #dateOB="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                    <div class="input-group-addon" (click)="dateOB.toggle()" [attr.aria-expanded]="dateOB.isOpen" ><i class="fa fa-calendar"></i></div>
                                 </div>
+
+                                <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
+
+
+
+
+
+
                             </div>
                         </div>
 
@@ -165,7 +173,7 @@
                                 <label class="control-label">Ethnicity</label>
                                 <select class="form-control" id="ddethnicity" name="ethnicity" #ethnicity="ngModel" [(ngModel)]="model.ethnicity">
 
-                                    <option value='-1' disabled>Select State</option>
+                                    <option value='-1' disabled>Select Ethnicity</option>
                                     <option *ngFor="let obj of ethnicityData"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
@@ -187,7 +195,8 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Coordinator<span class="star">*</span></label>
-                                <select required class="form-control" id="ddlcoordinator" name="coordinator" #coordinator="ngModel" [(ngModel)]="model.supervisorId">
+                                <select required  class="form-control" id="ddlcoordinator" name="coordinator" #coordinator="ngModel" [(ngModel)]="model.supervisorId">
+                                  
                                     <option *ngFor="let obj of empList"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
@@ -202,7 +211,10 @@
                             <div class="form-group">
                                 <label class="control-label">Nurse</label>
                                 <select class="form-control" id="ddlnurse" name="nurse" #nurse="ngModel" [(ngModel)]="model.nurseId">
-                                    <option *ngFor="let obj of empList"
+                                    <option value='0' disabled>Select State</option>
+                                  
+                                  
+                                    <option *ngFor="let obj of nurseList"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
                                     </option>
@@ -266,14 +278,14 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Insurance ID</label>
-                                <input required type="text" placeholder="Insurance ID" class="form-control" id="txtinsuranceID" name="insuranceID" #insuranceID="ngModel" [(ngModel)]="model.insuranceID">
+                                <input type="text" placeholder="Insurance ID" class="form-control" id="txtinsuranceID" name="insuranceID" #insuranceID="ngModel" [(ngModel)]="model.insuranceID">
 
                             </div>
                         </div>
                         <div class="col-sm-3 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Case Worker Name</label>
-                                <input required type="text" placeholder="Worker Name" class="form-control" id="txtworkerName" name="workerName" #workerName="ngModel" [(ngModel)]="model.workerName">
+                                <input type="text" placeholder="Worker Name" class="form-control" id="txtworkerName" name="workerName" #workerName="ngModel" [(ngModel)]="model.workerName">
 
                             </div>
                         </div>

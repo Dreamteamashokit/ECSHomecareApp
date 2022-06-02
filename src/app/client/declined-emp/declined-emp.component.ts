@@ -1,6 +1,6 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ItemsList } from 'src/app/models/common';
+import { ItemsList,MasterType } from 'src/app/models/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { EmployeeDecline,EmployeeDeclineView }  from 'src/app/models/client/employee-decline';
 import { LoginModel,UserModel } from 'src/app/models/account/login-model';
@@ -21,7 +21,13 @@ export class DeclinedEmpComponent implements OnInit {
   empList = Array<ItemsList>(); 
   declinedList:EmployeeDeclineView[]=[];  
   currentUser:UserModel;
- model=new EmployeeDecline();
+  _time:Date;
+  _reportedDate = new Date();
+  _startDate = new Date();
+  
+
+  model=new EmployeeDecline();
+  caseTyeData: ItemsList[] = [];
   constructor(
     private route:ActivatedRoute,
     private datepipe: DatePipe,
@@ -32,8 +38,6 @@ export class DeclinedEmpComponent implements OnInit {
     ) { 
 
       this.currentUser=this.accountApi.getCurrentUser();
-
-
       this.comApi.getEmpList().subscribe((response) => {
         if(response.result)
         {
@@ -42,11 +46,13 @@ export class DeclinedEmpComponent implements OnInit {
         }
       });
 
-
-
+      this.comApi.getMaster(MasterType.CaseType).subscribe((response) => {
+        this.caseTyeData = response.data;
+      });
+      this.model.caseType=-1;
+      this.model.empId=-1;
+      this._time=new Date();
   
-  
-
     }
 
   ngOnInit(): void {
@@ -72,32 +78,31 @@ export class DeclinedEmpComponent implements OnInit {
 
  closeModel(): void {
   this.modalRef?.hide();
-
-  this.model.reportedDate="";
-  this.model.startDate="";
+  this._reportedDate=new Date();
+  this._startDate=new Date();
+  this.model.caseType=-1;
+  this.model.empId=-1;
 }
 
  
 
 saveDeclined() { 
+ 
+  this.model.reportedDate= (this.datepipe.transform(this._reportedDate, 'dd-MM-yyyy')||"") +', '+  (this.datepipe.transform(this._time, 'hh:mm:ss a')||"" );
 
-  debugger;
    this.model.caseType=Number(this.model.caseType);
    this.model.userId=Number(this.model.userId);
    this.model.createdBy=this.currentUser.userId;
-
-
-   this.model.reportedDate=this.datepipe.transform(this.model.reportedDate, 'dd-MM-yyyy, hh:mm:ss a')||"";   
-   this.model.startDate=this.datepipe.transform(this.model.startDate, 'dd-MM-yyyy')||"";   
-
+   this.model.startDate=this.datepipe.transform(this._startDate, 'dd-MM-yyyy')||"";
    this.model.empId=Number(this.model.empId);
-
-
    this.clientApi.createEmpDeclined(this.model).subscribe((response) => {
     this.GetDeclinedList(this.model.userId);  
     this.closeModel();
  }); 
- }
+ 
+
+
+}
 
 
 
@@ -113,12 +118,15 @@ this.clientApi.getEmpDeclined(userId).subscribe((response) => {
 
 delDeclined(declinedId:number) { 
 
-debugger;
+  let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
 
   this.clientApi.deleteEmpDeclined(declinedId).subscribe((response) => {
    this.GetDeclinedList(this.model.userId);  
    this.closeModel();
 }); 
+  }
 
 }
 

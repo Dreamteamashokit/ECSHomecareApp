@@ -10,18 +10,20 @@ import { EmpInfoComponent } from 'src/app/employee/emp-info/emp-info.component';
 import { EmpScheduleComponent } from 'src/app/meeting/emp-schedule/emp-schedule.component';
 import { NewClientComponent } from 'src/app/client/new-client/new-client.component';
 import { ClientListComponent } from 'src/app/client/client-list/client-list.component';
-import { ClientScheduleComponent } from 'src/app/meeting/client-schedule/client-schedule.component';
 import { ClientInfoComponent } from 'src/app/client/client-info/client-info.component';
-//import { ClientlistComponent } from './dashboard/client/clientlist/clientlist.component';
 import { GenerateinvoiceComponent } from './dashboard/generateinvoice/generateinvoice.component';
 import { GetinvoicesComponent } from './dashboard/getinvoices/getinvoices.component';
 import { InvoicedetailsComponent } from './dashboard/invoicedetails/invoicedetails.component';
-import { TaskMasterComponent } from 'src/app/company/task-master/task-master.component';
+import { TaskMasterComponent } from 'src/app/common/task-master/task-master.component';
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
-
+import { ClockinoutComponent } from './clockinout/clockinout.component';
+import { HHALoginComponent } from './hhalogin/hhalogin.component';
+import { HhaportalComponent } from './hhaportal/hhaportal.component';
+import { PatientComponent } from './patient/patient.component';
+import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
 
 const routes: Routes = [
-
   { path: 'login', component: SignInComponent },
   {
     path: 'admin/master/create', component: LayoutComponent,
@@ -44,7 +46,11 @@ const routes: Routes = [
     children: [{ path: '', component: EmpInfoComponent }]
   },
   {
-    path: 'employee/schedule/:empId/:fromDate', component: LayoutComponent,
+    path: 'employee/info/:empId/:tabId', component: LayoutComponent,
+    children: [{ path: '', component: EmpInfoComponent }]
+  },
+  {
+    path: 'user/schedule/:typeId/:userId/:fromDate', component: LayoutComponent,
     children: [{ path: '', component: EmpScheduleComponent }]
   },
   {
@@ -55,132 +61,63 @@ const routes: Routes = [
     path: 'client/list', component: LayoutComponent,
     children: [{ path: '', component: ClientListComponent }]
   },
+  // {
+  //   path: 'client/schedule/:clientId/:fromDate', component: LayoutComponent,
+  //   children: [{ path: '', component: ClientScheduleComponent }]
+  // },
   {
-    path: 'client/schedule/:clientId', component: LayoutComponent,
-    children: [{ path: '', component: ClientScheduleComponent }]
+    path: 'client/info/:clientId/:tabId', component: LayoutComponent,
+    children: [{ path: '', component: ClientInfoComponent }]
   },
   {
-    path: 'client/info/:clientId', component: LayoutComponent,
-    children: [{ path: '', component: ClientInfoComponent }]
+    path: 'appointMent/info/:meetingId', component: LayoutComponent,
+    children: [{ path: '', component: MeetingDetailComponent }]
   },
   {
     path: 'invoice/create', component: LayoutComponent,
     children: [{ path: '', component: GenerateinvoiceComponent }]
   },
-  {
-    path: 'invoice/list', component: LayoutComponent,
-    children: [{ path: '', component: GetinvoicesComponent }]
-  },
+  //{
+  //  path: 'invoice/list', component: LayoutComponent,
+  //  children: [{ path: '', component: GetinvoicesComponent }]
+  //},
   {
     path: 'invoice/info/:InvId', component: LayoutComponent,
     children: [{ path: '', component: InvoicedetailsComponent }]
   },
-
   {
-    path: 'company/task', component: LayoutComponent,
+    path: 'common/task', component: LayoutComponent,
     children: [{ path: '', component: TaskMasterComponent }]
   },
-
   {
     path: 'availability', component: LayoutComponent,
     children: [{ path: '', component: AvailabilitySearchComponent }]
   },
-
-
-
-
-
-
-
+  {
+    path:'clockinout',component:LayoutComponent,
+    children:[{path:'',component:ClockinoutComponent}]
+  },
+  {
+    path:'hhalogin',component:LayoutComponent,
+    children:[{path:'',component:HHALoginComponent}]
+  },
+  {
+    path:'hhaportal',component:LayoutComponent,
+    children:[{path:'',component:HhaportalComponent}]
+  },
+  {
+    path:'hhapatinet',component:LayoutComponent,
+    children:[{path:'',component:PatientComponent}]
+  },
+  {
+    path: 'user/create', component: LayoutComponent,
+    children: [{ path: '', component: CreateUserComponent }]
+  },
+  {
+    path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
+  },
   { path: '', component: SignInComponent },
   { path: '**', component: SignInComponent },
-
-
-
-  // {path : 'client/info/:eId',component : LayoutComponent,
-  // children : [{path:'',component:EmpInfoComponent}]},
-  // { path: 'employee/create', component: NewEmployeeComponent },
-
-
-  //   { 
-  //     path: '', 
-  //     component: LayoutComponent,
-  //     children: [
-
-  //       { path: 'masterinfo', component: MasterinfoComponent }
-  //     ]
-  // },
-
-
-
-
-  // { 
-  //   path: '', 
-  //   component: LayoutComponent,
-  //   children: [
-
-  //     { path: 'newEmp', component: NewEmployeeComponent }
-  //   ]
-  // },
-
-
-
-
-
-  // {
-  //   path : 'CalList',component : ClientCalenderComponent 
-  // },
-
-  // // {
-  // //   path : 'Layout',component : LayoutComponent 
-
-  // // },
-
-
-  // {
-  //   path : 'employee',component : LayoutComponent ,
-  //    children : [{path:'',component:SaveemployeeComponent}]
-  // },
-  // {
-  //   path : 'employeeList',component : LayoutComponent ,
-  //    children : [{path:'',component:EmployeelistComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'employeeinfo/:eId',component:EmployeeInfoComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent,
-  //    children : [{path:'generateinvoice',component:GenerateinvoiceComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent,
-  //    children : [{path:'getinvoicelist',component:GetinvoicesComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'getinvoicebyId/:InvId',component:InvoicedetailsComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientevent/:clientId',component:ClienteventComponent}]
-  // },
-
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientlist',component:ClientlistComponent}]
-  // },
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'clientinfo/:cId',component:ClientInfoComponent}]
-  // },
-
-  // {
-  //   path : 'Layout',component : LayoutComponent ,
-  //    children : [{path:'saveclient',component:SaveclientComponent}]
-  // }, 
-
-
 ];
 
 @NgModule({

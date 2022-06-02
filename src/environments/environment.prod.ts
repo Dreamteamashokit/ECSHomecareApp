@@ -8,6 +8,4 @@ export const environment = {
    getinvoicebyidurl : "/api/Invoice/getinvoicebyid",
    payinvoicebyidurl : "/api/Invoice/payinvoice",
    /* */
-
-
   };

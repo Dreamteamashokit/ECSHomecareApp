@@ -254,7 +254,7 @@
                     </div>
                 </tab>
                 <tab heading="Schedule">
-                     <app-schedule-view></app-schedule-view> 
+                     <app-user-schedule></app-user-schedule> 
                 </tab>                
                 <tab heading="Personal-info">                
                  <div class="row">
@@ -276,7 +276,7 @@
                                                             Active
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" [checked]="empInfo.isActive===1?true:false" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -380,7 +380,7 @@
                                                             Employee ID
                                                         </td>
                                                         <td>
-                                                           {{empInfo.empKey}}
+                                                           {{empInfo.userKey}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -406,6 +406,7 @@
                                                             Adj. Start Date
                                                         </td>
                                                         <td>
+                                                            {{empInfo.dateOfFirstCase}}  
                                                         </td>
                                                     </tr>
                 
@@ -441,7 +442,8 @@
                                                             Dependents
                                                         </td>
                                                         <td>
-                                                            1
+                                                            {{empInfo.dependents}}  
+                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>

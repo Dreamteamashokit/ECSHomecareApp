@@ -20,3 +20,25 @@ export class UploadFileFolder extends BaseModel
         this.folderName=_filename;
     }
 }
+
+
+
+
+
+export class FolderView {
+    folderName: string;
+    folderId: number;
+    documentList: DocumentView[];
+}
+
+
+export class DocumentView {
+    documentId: number;
+    title: string;
+    searchTag: string;
+    description: string;
+    fileName: string;
+    filePath: string;
+    createdByName: string;
+    createdOn: string;
+}

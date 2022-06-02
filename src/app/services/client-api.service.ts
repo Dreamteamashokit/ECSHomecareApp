@@ -15,7 +15,7 @@ import { OtherInfoModel } from 'src/app/models/client/other-info-model';
 import { ClientNote } from '../models/client/client-note-model';
 import { ClientCommunityMaster } from '../models/client/client-community-model';
 import { ClientCompliance } from '../models/client/client-compliance-model';
-
+import { ClientResult } from '../models/meeting/client-meeting';
 
 @Injectable({
   providedIn: 'root'
@@ -51,10 +51,31 @@ export class ClientApiService {
   }
 
   getClientStatusList(clientId: number) {
-    return this._http.get<APIResponse<ClientStatusLst>>(environment.domain + "/api/Client/getClientStatusList" + "/" + clientId);
+    return this._http.get<APIResponse<ClientStatusLst[]>>(environment.domain + "/api/Client/getClientStatusList" + "/" + clientId);
   }
 
 
+
+  updateClientStatus(model: ClientStatusModel ) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/updateClientStatus", model, httpOptions);
+
+  }
+
+
+  delClientStatus(StatusId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'StatusId': StatusId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Client/delClientStatus", { params: reqPara });
+  }
 
   SaveMedicationcs(_obj: Medicationcs) {
     var headers_object = new HttpHeaders();
@@ -67,7 +88,7 @@ export class ClientApiService {
   }
 
   getClientMedicationcsList(clientId: number) {
-    return this._http.get<APIResponse<Medicationcs>>(environment.domain + "/api/Client/GetClientMedicationcs" + "/" + clientId);
+    return this._http.get<APIResponse<Medicationcs[]>>(environment.domain + "/api/Client/GetClientMedicationcs" + "/" + clientId);
   }
 
   deleteMedicationcsRecord(MedicationId: number, ClientId: number) {
@@ -417,4 +438,27 @@ export class ClientApiService {
     };
     return this._http.post(environment.domain + "/api/Client/DeleteClientCompliance", _obj, httpOptions);
   }
+
+
+
+
+
+  searchClient(item: string) {  
+    return this._http.get<APIResponse<ClientResult[]>>(environment.domain + "/api/Client/searchClient/"+item);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,0 +1,84 @@
+<div id="wrapper">
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">HHA CLockIn</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div id="page-wrapper">
+        <div class="page-content"> 
+            <div class="panel">
+                <div class="panel-body">
+                    
+                <form class="form" name="clockinForm" #clockinForm="ngForm"
+                    (ngSubmit)="clockinForm.form.valid">
+                    <div class="text-center" *ngIf="IsShow">
+                        <label class="validate">{{HHAMessage}}</label>
+                    </div>
+                    <div class="row mtm">
+                        <div class="text-center" *ngIf="SelectedClient != null && SelectedClient != undefined">
+                            {{SelectedClient.meetingDate}}
+                            <!-- Friday, May 6 -->
+                            <!-- <div class="panel panel-orange">
+                                <div class="panel-heading">
+                                    <i class="fa fa-clock-o"></i> Time Entry
+                                </div>
+                                <div class="panel-body">
+                                   <div class="row">
+                                        <div class="col-lg-12 text-center text-14">Clocked Out since 10:34 PM on 25/06/22</div>
+                                    </div>								 
+                                    <div class="row ptl">
+                                        <div class="col-lg-12 text-center">									
+                                            <div class="circlechart" data-percentage="85" y="6.5">7:55<p></p>
+                                            </div>
+                                            <div class="est-am">EST AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Notes</label>
+                                                <input type="text" class="form-control" id="txtNotes" name="Notes" [(ngModel)]="model.Notes" #Notes="ngModel" /> 
+                                            </div>
+                                        </div>
+                                    </div>		
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-block btn-primary" [disabled]="!IsDisable" (click)="HHAClockIn(Notes.value,1)">Clock In</button>												
+                                            </div>  
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-block btn-primary" [disabled]="IsDisable" (click)="HHAClockIn(Notes.value,2)">Clock out</button>												
+                                            </div>
+                                        </div>
+                                    </div>		
+                                </div>
+                            </div>  -->
+                       </div><br>
+                       <div class="row text-center">{{SelectedClient.meetingStartTime }} - {{SelectedClient.meetingEndTime}}</div><br>
+                       <div class="row text-center">{{SelectedClient.firstName}}  {{SelectedClient.middleName}}  {{SelectedClient.lastName}}</div><br>
+                       <div class="row text-center">
+                           {{SelectedClient.flatNo}}  {{SelectedClient.address}} 
+                           {{SelectedClient.city}} {{SelectedClient.country}}  
+                           {{SelectedClient.state}} {{SelectedClient.zipCode}}
+                        </div><br>
+                       <div class="row text-center">Time now at client's location:</div><br>
+                       <h2 class="row text-center">{{CurrentDate | date: 'hh:mm:ss'}}</h2><br>
+                       <div class="row text-center" style="margin-left: 32%;">
+                        <div class="col-lg-3 offset-lg-3  text-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary" [disabled]="!IsDisable" (click)="HHAClockIn(1)">Clock In</button>												
+                            </div>  
+                        </div>
+                        <div class="col-lg-3 offset-lg-3 text-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary" [disabled]="IsDisable" (click)="HHAClockIn(2)">Clock out</button>												
+                            </div>
+                        </div>
+                    </div>
+                     </div>	
+                </form>	
+            </div>
+        </div>
+    </div>
+</div>

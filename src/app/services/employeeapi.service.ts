@@ -14,17 +14,28 @@ import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
+import {employeeclientList,ClockinViewModel} from '../models/employee/employeeClient-model';
+import { ClientFilter } from 'src/app/models/meeting/client-meeting';
+
+const httpOptionsObj = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    "Authorization": "Bearer " + "qatest"
+  }),
+};
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class EmployeeapiService {
 
   constructor(private _http : HttpClient) { }
 
 
 
-  addEmployee(empObj: EmployeeModel){ 
-    debugger;
+  addEmployee(empObj: EmployeeModel){
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -39,24 +50,26 @@ export class EmployeeapiService {
   {
     return this._http.get<APIResponse<EmployeeList[]>>(environment.domain +"/api/Employee/getEmployeeListObj/"+userId);
   } 
+
+
+  getEmpListObj(model:ClientFilter) 
+  {  
+    return this._http.post<APIResponse<EmployeeList[]>>(environment.domain + "/api/Employee/getEmployeeListObj", model, httpOptionsObj);
+  }
+
   
   getEmployeeInfo(empId : number)
   {
     return this._http.get<APIResponse<EmployeeJson>>(environment.domain + "/api/Employee/getEmployeebyId/" + empId);
-  } 
+  }  
 
   deleteEmployee(empId : Number)
   {
-    
     return this._http.get<APIResponse<string>>(environment.domain + "/api/Employee/deleteemployee/" + empId);
   } 
 
 
   saveIncident(_req : Incident){ 
-
-    debugger;
-
-    console.log(_req);
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -69,7 +82,6 @@ export class EmployeeapiService {
 
   getIncidentList(empId : number)
   {
-
     return this._http.get<APIResponse<Incident>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
   } 
 
@@ -77,10 +89,6 @@ export class EmployeeapiService {
 
 
   saveAttendance(_req : Attendance){ 
-
-    debugger;
-
-    console.log(_req);
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -93,7 +101,6 @@ export class EmployeeapiService {
 
   getAttendanceList(empId : number)
   {
-
     return this._http.get<APIResponse<Incident>>(environment.domain + "/api/Employee/getAttendanceList" + '/' + empId);
   } 
 
@@ -112,7 +119,7 @@ export class EmployeeapiService {
   }
 
   getEmpStatusList(empId:number)
-  {   debugger;
+  {   
     return this._http.get<APIResponse<Empstatus>>(environment.domain + "/api/Employee/getEmpStatusList"+"/"+empId);
   } 
   
@@ -122,9 +129,6 @@ export class EmployeeapiService {
   } 
   
   saveAddress(_req : AddressObj){ 
-
-    debugger;
-    console.log(_req);
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -137,14 +141,10 @@ export class EmployeeapiService {
 
   geAddress(empId : number)
   {
-
     return this._http.get<APIResponse<AddressObj>>(environment.domain + "/api/Employee/getAddress" + '/' + empId);
   } 
 
   saveCompliance(_req : ComplianceObj){ 
-
-    debugger;
-    console.log(_req);
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -193,13 +193,11 @@ export class EmployeeapiService {
 
   GetEmpDeclinedCase(empId:number)
   {
-    debugger
     return this._http.get<APIResponse<object>>(environment.domain + "/api/Employee/getEmpDeclinedcase"+ '/' + empId);
   } 
 
   UploadFile(formData:FormData)
   {
-    debugger
     var headers_object = new HttpHeaders();  
     headers_object.append('Content-Type', 'text/plain;charset=UTF-8');  
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -213,8 +211,6 @@ export class EmployeeapiService {
 
 
   saveAvailabilityMapping(_req: EmpAvailablityMappingModel) {
-    debugger;
-    console.log(_req);
     _req.availbilityId = Number(_req.availbilityId);
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
@@ -226,4 +222,11 @@ export class EmployeeapiService {
   }
 
   
+  GetClientListByempId(empId:number){
+    return this._http.get<APIResponse<employeeclientList>>(environment.domain + "/api/Employee/GetClientListByempId"+"/"+empId);
+  }
+
+  GetClockinDetailsByUserId(userId:number){
+    return this._http.get<APIResponse<ClockinViewModel>>(environment.domain + "/api/Employee/GetClockinDetails"+"/"+userId);
+  }
 }

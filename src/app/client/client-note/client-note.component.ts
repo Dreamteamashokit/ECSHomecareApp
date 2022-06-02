@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
+import { Usertype } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-client-note',
   templateUrl: './client-note.component.html',
@@ -18,6 +19,7 @@ export class ClientNoteComponent implements OnInit {
   ClientId: number;
   ClientNoteObjList: any;
   empList = Array<ItemsList>();
+  OfficeUserList: ItemsList[] = [];
   noteTypeList = Array<ItemsList>();
   model = new ClientNote();
   currentUser: UserModel;
@@ -44,6 +46,10 @@ export class ClientNoteComponent implements OnInit {
         this.noteTypeList = response.data;
       }
     });
+
+    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+      this.OfficeUserList = response.data;
+    });
   }
 
   ngOnInit(): void {
@@ -57,10 +63,23 @@ export class ClientNoteComponent implements OnInit {
       }
     );
   }
+
   saveNote() {
-    debugger;
-    this.model.officeUserId = Number(this.model.officeUserId);
-    this.model.empId = Number(this.model.empId);
+debugger;
+
+
+    if (this.model.officeUserId) {
+      this.model.officeUserId = Number(this.model.officeUserId);
+    }
+
+
+    if (this.model.empId) {
+      this.model.empId = Number(this.model.empId);
+    }
+
+
+
+
     this.model.notesTypeId = Number(this.model.notesTypeId);
     this.model.notes = this.model.notes;
     if (this.model.notifyTypeId1) {
@@ -75,15 +94,20 @@ export class ClientNoteComponent implements OnInit {
     this.model.isActive = 1;
     this.model.createdBy = this.currentUser.userId;
     this.model.userId = Number(this.ClientId);
+   
     this.clientapi.SaveNotes(this.model).subscribe(Responce => {
       this.decline();
       this.getClientNoteRecord();
     })
   }
-  updateNote() {
-    debugger;
-    this.model.officeUserId = Number(this.model.officeUserId);
-    this.model.empId = Number(this.model.empId);
+  updateNote() {  
+
+    if (this.model.officeUserId) {
+      this.model.officeUserId = Number(this.model.officeUserId);
+    }
+    if (this.model.empId) {
+      this.model.empId = Number(this.model.empId);
+    }
     this.model.notesTypeId = Number(this.model.notesTypeId);
     this.model.notes = this.model.notes;
     if (this.model.notifyTypeId1) {
@@ -100,16 +124,19 @@ export class ClientNoteComponent implements OnInit {
     this.model.userId = Number(this.ClientId);
     this.model.notesId = this.noteId;
     this.clientapi.updateClientNotes(this.model).subscribe(Responce => {
-      debugger;
+ 
       this.decline();
       this.getClientNoteRecord();
     })
 
   }
   updateNoteData(clientnoteId: number) {
+
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
     this.clientapi.getClientNoteDetails(this.model).subscribe((Responce: any) => {
+
+      debugger;
       if (Responce.data.length > 0) {
         this.model.officeUserId = Number(Responce.data[0].officeUserId);
         this.model.empId = Number(Responce.data[0].empId);
@@ -131,7 +158,7 @@ export class ClientNoteComponent implements OnInit {
     });
   }
   deleteNoteData(clientnoteId: number) { 
-    debugger;
+ 
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
     this.clientapi.deleteClientNote(this.model).subscribe((response) => {
@@ -140,11 +167,14 @@ export class ClientNoteComponent implements OnInit {
     });
   }
   getClientNoteRecord() {
-    debugger;
+
     this.model = new ClientNote();
     this.model.userId = this.ClientId;
     this.clientapi.getClientNoteRecord(this.model).subscribe((Response: any) => {
+ 
       this.ClientNoteObjList = Response.data;
+      console.log("Rakesh");
+      console.log( this.ClientNoteObjList);
       this.isAddVisible = true;
       this.isUpdateVisible = false;
     })

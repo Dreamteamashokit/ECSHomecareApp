@@ -6,7 +6,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 
 import { UserModel } from 'src/app/models/account/login-model';
 import { AvailbilityRequest } from 'src/app/models/availbility/availbility-request';
-import { AvailbilityReponse } from 'src/app/models/availbility/availbility-response';
+import { AvailbilityReponse,ClientGeoProvisions } from 'src/app/models/availbility/availbility-response';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -64,20 +64,20 @@ export class SearchAvailbilityComponent implements OnInit {
       this.IsLoad=true;
       setTheme('bs3');
       this.BindTerm();
-      this.client.latitude = 33.740253;
-      this.client.longitude =-82.745857;
+      this.currentUser=this.acontSrv.getCurrentUser();
+  
       this.currentDate = new Date();
       this.ptrcurrentDate = new Date();
       this.currentYear = new Date().getFullYear();
       this.currentMonthIndex = new Date().getMonth();
       this.currentDay = new Date().getDate();
       this.weekList = this.getWeekDays(this.currentDay, this.currentMonthIndex, this.currentYear);
-    this.currentUser=this.acontSrv.getCurrentUser();
+ 
     this.comSrv.getClientList().subscribe((response) => {
       this.caseList = response.data;
     });
     this.comSrv.getEmpTypeList().subscribe((response) => {
-      this.empTypeList = response.data;
+      this.empTypeList = response.data.filter(x=>((x.itemId==2)||(x.itemId==5)));
     });
 
     this.comSrv.getProvisionList(1).subscribe(response => {
@@ -93,28 +93,72 @@ export class SearchAvailbilityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
    
   }
 
-  termChange(e: any): void {
+  caseChange(e: any): void {
 
-if(e.target.value=="0")
-{
+    if(e.target.value!='0: undefined')
+    {
 
-this.IsDate=false;
-}
-else
-{
+
+      this.comSrv.getUsersGeoProvision(Number(e.target.value)).
+      subscribe({  
+          next: (response) => {  
+            if(response.result)
+            {
+              this.client.latitude =  response.data.latitude;
+              this.client.longitude =  response.data.longitude;  
+              
+              
+              this.provisionsTypeList = this.provisionsTypeList.map(
+                (elem) =>{ elem.IsChecked = response.data.provisions.indexOf(elem.itemId) != -1 ? true : false;
+              return elem});
+
+
+            }
+            else{
+              this.client.latitude =  this.currentUser.latitude;
+              this.client.longitude = this.currentUser.longitude;
+            }         
+           },
+           error: (err) => { 
+            console.log(err);    
+            alert("Some technical issue exist, Please contact to admin !");
+            this.client.latitude =  this.currentUser.latitude;
+            this.client.longitude = this.currentUser.longitude;
+            this.IsLoad=false;
   
-  this.IsDate=true;
-  var nDate=new Date();
-  nDate.setDate(Number(e.target.value));
-  this._toDate=nDate;
-}
+          },   
+          complete: () => {        
+            this.IsLoad=false;
+          }
+      });
+ 
+    }
+    else
+    {
+      this.client.latitude =  this.currentUser.latitude;
+      this.client.longitude = this.currentUser.longitude;
+    }
+  }
 
+
+
+
+  termChange(e: any): void {
     
+    if(e.target.value=="0")
+    {
+      this.IsDate=false;
+    }
+    else
+    {
+      this.IsDate=true;
+      var nDate=new Date();
+      nDate.setDate(Number(e.target.value));
+      this._toDate=nDate;
+    }
   }
  
 
@@ -132,17 +176,34 @@ else
     this.searchModel.empTypeId=Number(this.searchModel.empTypeId);
     const reqObj: AvailbilityRequest = this.searchModel;
     console.log('Search', reqObj);
-    this.locSrv.searchAvailbility(reqObj).subscribe((response) => {
-      if(response.result)
-      {
-        debugger;
-        console.log( response.data);
-        this.availbilityList = response.data;
-        this.IsLoad=false;
-        this.findRadius(this.client);
-        this.loadMap(this.client,this.availbilityList);        
-      }
+    this.locSrv.searchAvailbility(reqObj).
+    subscribe({  
+        next: (response) => {  
+          if(response.result)
+          {
+            debugger;
+            console.log( response.data);
+            this.availbilityList = response.data;
+            this.findRadius(this.client);
+            this.loadMap(this.client,this.availbilityList);        
+          }
+          else{
+            alert("no record found for current criteria");
+          }         
+         },
+         error: (err) => { 
+          console.log(err);    
+          alert("Some technical issue exist, Please contact to admin !");
+          this.IsLoad=false;
+
+        },   
+        complete: () => {        
+          this.IsLoad=false;
+        }
     });
+
+
+    
   }
 
 

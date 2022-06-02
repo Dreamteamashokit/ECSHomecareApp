@@ -6,7 +6,7 @@ import { Empmeeting } from 'src/app/models/meeting/empmeeting';
 import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { MeetingDetailComponent } from 'src/app/meeting/meeting-detail/meeting-detail.component';
-
+import { UserType } from 'src/app/models/common';
 @Component({
   selector: 'app-user-schedule',
   templateUrl: './user-schedule.component.html',
@@ -25,7 +25,8 @@ export class UserScheduleComponent implements OnInit {
   bsModalRef?: BsModalRef;
   public displayMonth: string;
   private monthIndex: number = 0;
-  private empId:number=1;
+  public IsClient:boolean=false;
+  private userId:number;
   meetingList: Empmeeting[];
 
   constructor
@@ -38,22 +39,36 @@ export class UserScheduleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.params
-    .subscribe(
-      (params : Params) =>{
-        this.empId = params["clientId"];
+    this.route.params.subscribe(
+      (params: Params) => {
+        debugger;
+        if (params["empId"] != null) {
+          this.userId = Number(params["empId"]);
+
+          this.momApi.getEmployeeMeeting(this.userId).subscribe((response) => {
+            this.meetingList = response.data;
+            console.log(response.data);  
+            this.generateCalendarDays(this.monthIndex,this.userId);
+          });
+          
+        }
+        else {
+          this.userId = Number(params["clientId"]);
+          this.IsClient=true;
+    this.momApi.getUserMeeting(this.userId,2).subscribe((response) => {
+      this.meetingList = response.data;
+      this.generateCalendarDays(this.monthIndex,this.userId);
+    });
+        }
+
+        
       }
     );
-    console.log("User1");
+
+   
+  
 
 
-    this.momApi.getUserMeeting(this.empId,2).subscribe((response) => {
-      this.meetingList = response.data;
-      console.log("User2");
-      console.log(this.meetingList);
-      console.log("User3");
-      this.generateCalendarDays(this.monthIndex,this.empId);
-    });
     
   }
 
@@ -84,7 +99,8 @@ export class UserScheduleComponent implements OnInit {
   }
 
 
-  private getStartDateForCalendar(selectedDate: Date){
+  private getStartDateForCalendar(selectedDate: Date)
+  {
     // for the day we selected let's get the previous month last day
     let lastDayOfPreviousMonth = new Date(selectedDate.setDate(0));
     // start by setting the starting date of the calendar same as the last day of previous month
@@ -98,23 +114,22 @@ export class UserScheduleComponent implements OnInit {
     }
     return startingDateOfCalendar;
   }
-
+  
    public increaseMonth() 
    {
     this.monthIndex++;
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
 
   public decreaseMonth() {
     this.monthIndex--
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
 
   public setCurrentMonth() {
     this.monthIndex = 0;
-    this.generateCalendarDays(this.monthIndex,this.empId);
+    this.generateCalendarDays(this.monthIndex,this.userId);
   }
-  
   showMeeting(_meetingId :number) {
     const initialState: ModalOptions = {
       initialState: {
@@ -132,15 +147,17 @@ export class UserScheduleComponent implements OnInit {
     this.bsModalRef = this.modalService.show(MeetingDetailComponent, initialState);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
-
-  public addMeeting()
+  public formateTime(hour:number,min:number)
   {
-    this.router.navigate(['/employee/schedule/'+this.empId]);
+    var time=new Date().setHours(hour, min, 0, 0);
+    return this.datepipe.transform(time,"h:mm a");
+  }
+  public addMeeting(_fromDate:Date)
+  {
+    let userType= this.IsClient === true ?  UserType.Client : UserType.Employee;
+    let fromdate=this.datepipe.transform(_fromDate,"yyyy-MM-dd");
+    this.router.navigate(['/user/schedule/'+userType+'/'+this.userId+'/'+fromdate]);
   }
 
-  public addMeetingx(_fromDate:Date)
-  {    
-     this.router.navigate(['/employee/schedule/'+this.empId+'/'+_fromDate.toDateString()]);
-  }
-  
+
 }

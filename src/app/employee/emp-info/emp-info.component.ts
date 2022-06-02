@@ -72,7 +72,10 @@ export class EmpInfoComponent implements OnInit {
   {
     this.empapi.getEmployeeInfo(empId).subscribe(response => {
           this.empInfo = response.data;
-        
+          this.empInfo.isActive=Number(this.empInfo.isActive);
+          this.empInfo.dob = this.datepipe.transform(this.empInfo.dob, 'dd-MM-yyyy')||"";   
+          this.empInfo.dateOfHire = this.datepipe.transform(this.empInfo.dateOfHire, 'dd-MM-yyyy')||"";   
+          this.empInfo.dateOfFirstCase = this.datepipe.transform(this.empInfo.dateOfFirstCase, 'dd-MM-yyyy')||"";   
         }); 
   }
 
@@ -88,6 +91,18 @@ export class EmpInfoComponent implements OnInit {
     }
     return phoneNumberString;
   }
+
+
+  ngAfterViewInit(): void {
+    this.route.params.subscribe((params : Params) =>{ 
+      this.selectTab(Number(params["tabId"]));       
+     });
+  }
+
+
+
+
+
 
 
 

@@ -13,9 +13,6 @@
             <form name="frmAddress" #f="ngForm">
                 <div class="modal-header">
                     <h4 class="modal-title pull-left text-orange">Add Address </h4>
-
-
-
                     <button type="button" class="btn-close close pull-right" aria-label="Close"
                         (click)="modalRef?.hide()">
                         <span aria-hidden="true" class="visually-hidden">&times;</span>
@@ -39,7 +36,7 @@
                   
                       </div>
                   </div> -->
-                        <div class="col-lg-12">
+                        <div class="col-lg-12" *ngIf="!isClient">
                             <div class="form-group"><label class="control-label">C/O Name</label>
 
                                 <input type="text" #owner="ngModel" id="txtowner" name="owner" [(ngModel)]="model.owner"
@@ -47,54 +44,58 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group"><label class="control-label">Apt / Unit</label>
-
-                                <input type="text" #flatNo="ngModel" id="txtflatNo" name="flatNo"
-                                    [(ngModel)]="model.flatNo" class="form-control">
-
-                            </div>
-                        </div>
                    
-                            <div class="col-lg-10">
+                   
+                            <div class="col-lg-12">
                                 
-                            <div class="form-group"><label class="control-label">Address</label>
+                            <div class="form-group"><label class="control-label">Address <span class="star">*</span></label>
                                 
-                                <input type="text" #address="ngModel" id="txtaddress" name="address"
+                                <input  type="text" #address="ngModel" id="txtaddress" name="address"
                                     [(ngModel)]="model.address" class="form-control" >
 
+
+                                    <em *ngIf="address.invalid && (address.dirty || address.touched)" for="txtaddress" class="invalid">This field is required</em>
+
                             </div>
                             </div>
-                            <div class="col-lg-2">
+
+                            <div class="col-lg-12">
+                                <div class="form-group"><label class="control-label">Apt / Unit</label>
+    
+                                    <input type="text" #flatNo="ngModel" id="txtflatNo" name="flatNo"
+                                        [(ngModel)]="model.flatNo" class="form-control">
+    
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-2">
                                 <div class="form-group mtm">
                                     <a (click)="OnChangeAddress(model)"  href="javascript:void(0)" title="Find Location" class="text-orange"><i class="fa fa-map-marker" ></i></a>
+                                </div>
+                            </div> -->
+
+                            <div class="col-lg-12">
+                                <div class="form-group"><label class="control-label">City</label>
+    
+                                    <input type="text" #city="ngModel" id="txtcity" name="city" [(ngModel)]="model.city"
+                                        class="form-control">
+    
                                 </div>
                             </div>
                    
                         <div class="col-lg-12">
-                            <div class="form-group"><label class="control-label">Country</label>
-
-                                <input type="text" #country="ngModel" id="txtcountry" name="country"
-                                    [(ngModel)]="model.country" class="form-control">
-
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
                             <div class="form-group"><label class="control-label">State</label>
 
-                                <input type="text" #state="ngModel" id="txtstate" name="state" [(ngModel)]="model.state"
-                                    class="form-control">
 
+                                    <select class="form-control" id="ddlState" name="state"  [(ngModel)]="model.state" >
+                                        <option value="-1">Select State</option>
+                                        <option *ngFor="let obj of stateList"
+                                                [value]="obj.itemCode">
+                                            {{ obj.itemName }}
+                                        </option>
+                                    </select>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group"><label class="control-label">City</label>
-
-                                <input type="text" #city="ngModel" id="txtcity" name="city" [(ngModel)]="model.city"
-                                    class="form-control">
-
-                            </div>
-                        </div>
+                       
                         <div class="col-lg-12">
                             <div class="form-group"><label class="control-label">Zip Code</label>
 
@@ -103,7 +104,7 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <div class="form-group"><label class="control-label">Longitude</label>
 
                                 <input type="text" #longitude="ngModel" id="txtlongitude" name="longitude"
@@ -118,7 +119,7 @@
                                     [(ngModel)]="model.latitude" class="form-control">
 
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -195,14 +196,14 @@
                                         {{model.zipCode}}
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>
                                         Location
                                     </td>
                                     <td>
                                         {{model.latitude}}, {{model.longitude}}
                                     </td>
-                                </tr>
+                                </tr> -->
 
                             </tbody>
                         </table>
@@ -220,21 +221,11 @@
                 {{model.city}} </div>
                 <div class="panel-body ptn pbn">
                     <div class="row">
-                        <div class="col-sm-12">
-                         
-            
-            
-                                <div #graphDiv id="myMap" style="position:relative;width:100%;min-width:290px;height:600px;" width="100%" height="220px" style="border:0;"  loading="lazy"></div>
-            
-            
-            
+                        <div class="col-sm-12 mtm">
+                            <div #addressMapId id="addressMapId"></div>
                         </div>
-            
                     </div>
-            
                 </div>
-
         </div>
-
     </div>
 </div>
