@@ -1,3 +1,5 @@
+<app-loader [show]="IsLoad"></app-loader>
+
 <div class="row">
   <div class="col-lg-12">
       <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Emergency Info</strong> </h4>      
@@ -17,307 +19,222 @@
   
 </div>
 </div>
+  <div class="panel panel panel-orange">
+    <div class="panel-heading">
 
-
-
-<div class="row">
-
-  <div class="col-lg-12">
-    <app-emergency-provider [emergInfoTypeId]="3"></app-emergency-provider>
-    
-    </div>
-  
-  </div>
-
-
-
-
-<div class="row">
-  <div class="col-lg-12">
-      <div class="row mbm">
-          <div class="col-sm-12 text-14">
-            
-
-              <ng-template #template>  
-      
-                <div class="modal-header">  
-                 
-                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">  
-                    <span aria-hidden="true">×</span>  
-                  </button>  
-                </div> 
-                <form name="frmStatus" #f="ngForm">
-                <div class="modal-body"> 
-
-                
-
-                  <div class="row">
-                    <div class="col-sm-12 text-14">
-                      <div class="form-group">
-                    <label class="control-label">Name</label>
-                    <input type="text"   #firstName="ngModel" id="ddlTypeStatusId" name="firstName" class="form-control"  [(ngModel)]="model.firstName"   >
-                        </div>
-                    </div>
-                    
-                  
-                    </div>
-<div class="row">
-<div class="col-sm-12 text-14">
-  <div class="form-group">
-<label class="control-label">Relationship</label>
-<input type="text"   #relationship="ngModel" id="ddlTypeStatusId"  name="relationship" class="form-control"  [(ngModel)]="model.relationship">
-</div>
-  </div>
-</div>
-
-<div class="row">
-<div class="col-sm-12 text-14">
-  <div class="form-group">
-    <label class="control-label">Phone</label><br>
-    <input type="text" #phone="ngModel" id="txtResume"name="phone" [(ngModel)]="model.phone" >
-</div>
-  </div>
-</div>
-
-<div class="row">
-<div class="col-sm-12 text-14">
-  <div class="form-group">
-    <label class="control-label">Email</label><br>
-    <input type="text" #email="ngModel" id="txtRehire"name="email" [(ngModel)]="model.email" >
-</div>
-  </div>
-</div>
-              
-                    <div class="row">
-                    <div class="col-lg-12 text-center">
-                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Save</button>
-                    </div>
-                      </div>
-                </div>  
-              
-                 </form>                
-              </ng-template> 
-
-
-
-              <ng-template #template1>  
-      
-                <div class="modal-header">  
-                
-                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">  
-                    <span aria-hidden="true">×</span>  
-                  </button>  
-                </div> 
-                <form name="frmStatus" #f="ngForm">
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-sm-6 text-14">
-                      <div class="form-group">
-                    <label class="control-label">First Name</label>
-                    <input type="text" required  #firstName="ngModel" id="ddlTypeStatusId" name="firstName" class="form-control"  [(ngModel)]="model.firstName"   >
-                        </div>
-                    </div>
-                    <div class="col-sm-6 text-14">
-                      <div class="form-group">
-                        <label class="control-label"></label>
-                    <input type="text" required   #lastName="ngModel" id="ddlTypeStatusId" name="lastName" class="form-control"  [(ngModel)]="model.lastName"   >
-                        </div>
-                    </div>
-                    </div>
-<div class="row">
-<div class="col-sm-6 text-14">
-  <div class="form-group">
-<label class="control-label">Title</label>
-<input type="text"   #title="ngModel" id="ddlTypeStatusId"  name="title" class="form-control"  [(ngModel)]="model.title">
-</div>
-  </div>
-  <div class="col-sm-6 text-14">
-    <div class="form-group">
-  <label class="control-label">NPI Number</label>
-  <input type="text"   #nPINumber="ngModel" id="ddlTypeStatusId"  name="nPINumber" class="form-control"  [(ngModel)]="model.nPINumber">
-  </div>
-    </div>
-</div>
-<div class="row">
-<div class="col-sm-6 text-14">
-  <div class="form-group">
-<label class="control-label">Address</label>
-<input type="text"   #address="ngModel" id="ddlTypeStatusId"  name="address" class="form-control"  [(ngModel)]="model.address">
-</div>
-  </div>
-  <div class="col-sm-6 text-14">
-    <div class="form-group">
-  <label class="control-label">City</label>
-  <input type="text"   #city="ngModel" id="ddlTypeStatusId"  name="city" class="form-control"  [(ngModel)]="model.city">
-  </div>
-    </div>
-</div>
-<div class="row">
-<div class="col-sm-6 text-14">
-  <div class="form-group">
-<label class="control-label">State</label>
-<input type="text"   #state="ngModel" id="ddlTypeStatusId"  name="state" class="form-control"  [(ngModel)]="model.state">
-</div>
-  </div>
-  <div class="col-sm-6 text-14">
-    <div class="form-group">
-  <label class="control-label">Zip</label>
-  <input type="text"   #zip="ngModel" id="ddlTypeStatusId"  name="zip" class="form-control"  [(ngModel)]="model.zip">
-  </div>
-    </div>
-</div>
-<div class="row">
-<div class="col-sm-6 text-14">
-  <div class="form-group">
-<label class="control-label">License</label>
-<input type="text"   #license="ngModel" id="ddlTypeStatusId"  name="license" class="form-control"  [(ngModel)]="model.license">
-</div>
-  </div>
-  <div class="col-sm-6 text-14">
-    <div class="form-group">
-  <label class="control-label">License Expires</label>
-  <input type="text" #licenseExpires="ngModel" id="txtEffectiveDate"name="licenseExpires"
-                           [(ngModel)]="model.licenseExpires" class="form-control"  bsDatepicker  >
-  </div>
-    </div>
-</div>
-<div class="row">
-<div class="col-sm-4 text-14">
-  <div class="form-group">
-<label class="control-label">Email</label>
-<input type="text"   #email="ngModel" id="ddlTypeStatusId"  name="email" class="form-control"  [(ngModel)]="model.email">
-</div>
-  </div>
-  <div class="col-sm-4 text-14">
-    <div class="form-group">
-  <label class="control-label">Phone</label>
-  <input type="text"   #phone="ngModel" id="ddlTypeStatusId"  name="phone" class="form-control"  [(ngModel)]="model.phone">
-  </div>
-    </div>
-    <div class="col-sm-4 text-14">
-      <div class="form-group">
-    <label class="control-label">Fax</label>
-    <input type="text"   #fax="ngModel" id="ddlTypeStatusId"  name="fax" class="form-control"  [(ngModel)]="model.fax">
-    </div>
-      </div>
-</div>
-                    <div class="row">
-                    <div class="col-lg-12 text-center">
-                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Save</button>
-                    </div>
-                      </div>
-                </div>  
-                 </form>                
-              </ng-template> 
-          </div>
-      </div>
-      <div class="row mbm">
-      <div class="col-sm-6" *ngFor="let item of EmergencyInfoLst">
-           <div class="table-responsive"  *ngIf="item.typeId<3">
-                  <div class="table-responsive">
-                      <table class="table table-bordered table-striped">
-                          <thead>
-                              <tr>
-                                  <th>{{item.typeName}}</th>
-                                  <th>
-                                  <button type="button"  (click)="openModal(template,item)">Edit</button></th>                                   
-                              </tr>
-                          </thead>
-                         <tbody>
-                                  <tr>
-                                  <td>Name</td>
-                                  <td> 
-                                    {{ item.firstName }}
-                                   
-                                    </td>
-                                  </tr>
-                                   <tr>
-                                    <td>Relationship</td>
-                                    <td>{{ item.relationship }}</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Contact Phone</td>
-                                      <td>{{ item.phone }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Contact Email</td>
-                                        <td>{{ item.email }}</td>
-                                        </tr> 
-                             
-
-                          </tbody>
-                      </table>
-              </div>
-          </div>
         
-             
+        <div class="row">
+            <div class="col-lg-8 col-xs-7">
+              Physician
+            </div>
+            <div class="col-lg-4 col-xs-5 text-right">
+              <a (click)="saveChanges(model)" class="btn  btn-xs btn-dark" title="Save Changes" href="javascript:;"><i class="fa fa-save"></i> Save Changes</a>
+    
+            </div>
+          </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-2 col-sm-4"> 
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input type="text" required #firstName="ngModel" id="txtfirstName" name="firstName" class="form-control" [(ngModel)]="model.firstName">
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-4"> 
+                <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input type="text" required #lastName="ngModel" id="txtlastName" name="lastName" class="form-control" [(ngModel)]="model.lastName">
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-4">
+                <div class="form-group">
+                    <label class="control-label">Title</label>
+                    <input type="text" #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="model.title">
+                </div>
+            </div>
+         
+            <div class="col-lg-2"> 
+                <div class="form-group">
+                    <label class="control-label">NPI Number</label>
+                    <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="model.nPINumber">
+                </div>
+            </div>
+
+            <div class="col-lg-2">     <div class="form-group">
+                <label class="control-label">License</label>
+                <input type="text" #license="ngModel" id="txtlicense" name="license" class="form-control" [(ngModel)]="model.license">
+            </div></div>
+            <div class="col-lg-2">     <div class="form-group">
+                <label class="control-label">License Expires</label>
+                <input type="text" #licenseExpires="ngModel" id="txtlicenseExpires" name="licenseExpires"
+                       [(ngModel)]="model.licenseExpires" class="form-control" bsDatepicker>
+            </div> </div>
+        
+        
+            <div class="col-lg-2"> 
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+                    <input type="text" #address="ngModel" id="txtaddress" name="address" class="form-control" [(ngModel)]="model.address">
+                </div>
+            </div>
+                <div class="col-lg-2"> 
+                    <div class="form-group">
+                        <label class="control-label">City</label>
+                        <input type="text" #city="ngModel" id="txtcity" name="city" class="form-control" [(ngModel)]="model.city">
+                    </div>
+                </div>
+                <div class="col-lg-1"> 
+                    <div class="form-group">
+                        <label class="control-label">State</label>
+                        <input type="text" #state="ngModel" id="txtstate" name="state" class="form-control" [(ngModel)]="model.state">
+                    </div>
+                </div>          
+               
+        
+        
+            <div class="col-lg-1"> 
+                <div class="form-group">
+                    <label class="control-label">Zip</label>
+                    <input type="text" #zipCode="ngModel" id="txtzip" name="zipCode" class="form-control" [(ngModel)]="model.zipCode">
+                </div>
+            </div>
+          
+            <div class="col-lg-2"> 
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input type="text" #email="ngModel" id="txtemail" name="email" class="form-control" [(ngModel)]="model.email">
+                </div>
+            </div>
+            <div class="col-lg-2"> 
+                <div class="form-group">
+                    <label class="control-label">Phone</label>
+                    <input type="text" #phone="ngModel" id="txtphone" name="phone" class="form-control" [(ngModel)]="model.phone">
+                </div>
+            </div>
+            <div class="col-lg-2"> 
+                <div class="form-group">
+                    <label class="control-label">Fax</label>
+                    <input type="text" #fax="ngModel" id="txtfax" name="fax" class="form-control" [(ngModel)]="model.fax">
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="row">
+      <div class="col-sm-12 text-14">
+        <a href="javascript:void(0)" (click)="openPopup(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange mrm"></i>Add Provider </a>
+    </div>   
+    </div>
+
+    <div class="row mbm">
+      <div class="col-sm-12 text-14">
+          <ng-template #template class="popup-big">  
+            <div class="modal-header">
+                Add Provider
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">  
+                <span aria-hidden="true">×</span>  
+              </button>  
+            </div> 
+            <div class="modal-body">
+              <app-emergency-provider [proModel]="proModel"></app-emergency-provider> 
+            </div>   
+            <div class="row" >
+                <div class="col-lg-12 text-center">
+                    <button type="button"  (click)="saveChanges(proModel)"
+                        class="btn btn-md btn-dark">Save Provider</button>
+                </div>
+            </div>      
+          </ng-template> 
+        </div>   
       </div>
-      
-  </div>
-</div>
-  </div>
+      <!-- *ngIf="modelList.length>0" -->
 
+      <div class="panel panel-orange" *ngFor="let item of modelList;">
+        <div class="panel-body" >
+            <div class="row" >
+                <div class="col-lg-12">
+                    <h4 class="text-orange"> <strong> {{item.firstName}} {{item.lastName}} </strong></h4>
+                </div>
+            </div>
+            <div class="row" >
+           
 
-<div class="row">
-  <div class="col-lg-12" *ngFor="let item of EmergencyInfoLst">
-      <div class="table-responsive" *ngIf="item.typeId>2">
-          <div class="table-responsive">
-              <table class="table table-bordered table-striped">
-                  <thead>
-                      <tr>
-                          <th>{{item.typeName}}</th> 
-                          <th>
-                            </th> 
-                            <th></th> 
-                          <th>
-                            <button type="button"  (click)="openModal(template1,item)">Edit</button></th> 
-                      </tr>
-                      <tr>
-                        <td>Name</td>
-                        <td> 
-                          {{ item.firstName }}  {{ item.lastName }}
-                         
-                          </td>
-                          <td>License</td>
-                          <td>{{ item.license }}</td>
-                        </tr>
-                         <tr>
-                          <td>Title</td>
-                          <td>{{ item.title }}</td>
-                          <td>License Expires</td>
-                          <td>{{ item.licenseExpires }}</td>
-                          </tr>
-                          <tr>
-                            <td>NPI Number</td>
-                            <td>{{ item.npiNumber }}</td>
-                            <td>Email</td>
-                            <td>{{ item.email }}</td>
-                            </tr>
-                            <tr>
-                              <td>Address</td>
-                              <td>{{ item.address }}</td>
-                              <td>Phone</td>
-                              <td>{{ item.phone }}</td>
-                              </tr> 
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">Fax</label>
+                        <p><strong class="mrs">{{item.fax}}</strong></p>
+                    </div>                    
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">Cell Phone</label>
+                        <p><strong>{{item.phone}}</strong></p>
+                    </div>                    
+                </div>    
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">Address</label>
+                        <p><strong>{{item.address}}
 
-                              <tr>
-                                <td>City, State, Zip</td>
-                                <td>{{ item.city }}   {{ item.state }}   {{ item.zip }}</td>
-                                <td>Fax</td>
-                                <td>{{ item.fax }}</td>
-                                </tr> 
+                            {{item.city}}, {{item.state}},
+                            {{item.zipCode}}
 
-                               
-                   
-                      
-                  </thead>
+                        </strong></p>
+                    </div>                    
+                </div>   
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">Email</label>
+                        <p><strong>{{item.email}}</strong></p>
+                    </div>                    
+                </div>   
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">NPI Number</label>
+                        <p><strong>{{item.nPINumber}}</strong></p>
+                    </div>                    
+                </div> 
                 
-              </table>
-      </div>
-  </div>
-     
-  </div>
-  <div class="col-lg-12">
-    <button type="button" (click)="CreateNewContact(template1)">Create New Contact</button>
-  </div>
-</div>
+                
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">License</label>
+                        <p><strong>{{item.license}}</strong></p>
+                    </div>                    
+                </div> 
+
+
+
+
+                
+
+            </div>
+        </div>
+    </div>
+
+
+
+

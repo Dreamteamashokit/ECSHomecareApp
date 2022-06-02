@@ -23,5 +23,5 @@ export class ProviderModel extends BaseModel {
     phone: string;
     fax: string;
     state: string;
-    zip: string;
+    zipCode: string;
 }
