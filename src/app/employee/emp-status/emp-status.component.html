@@ -227,7 +227,7 @@
                                    
                                     <th>OK to Resume</th>
                                     <th>Would Rehire	</th>
-                                    <th>Notes</th>
+                                    <th colspan="2">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,6 +240,11 @@
                                     <td><input type="checkbox" [checked]="item.resume" /></td>
                                     <td><input type="checkbox" [checked]="item.rehire"/></td>
                                     <td>{{ item.note }}</td>
+                                    <td>
+                                      <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+                                      <a (click)="delItem(item.userId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
+                              
+                                  </td>
                                     </tr>
                                
 

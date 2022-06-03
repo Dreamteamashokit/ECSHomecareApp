@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef  } from '@angular/core';
+import { Component, OnInit,TemplateRef ,ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
@@ -26,6 +26,7 @@ export class EmpStatusComponent implements OnInit {
   
   ScheduleLst :any;
   modalRef?: BsModalRef;
+  @ViewChild("template") templatelog: TemplateRef<any>;
    model = new Empstatus('',false,false,'','','',0,0,0,0,false,false,false);
    EmpStatusObjList: any;
 
@@ -127,7 +128,15 @@ GetSchedulingLst() {
   });
 }
 
-
+editItem(_item:Empstatus)
+{
+  this.model=_item;
+  this.openModal(this.templatelog);
+}
+delItem(_ItemId:number)
+{
+  
+}
 
   
 

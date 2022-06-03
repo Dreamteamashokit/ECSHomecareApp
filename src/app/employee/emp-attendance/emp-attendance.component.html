@@ -142,7 +142,7 @@
                                 <th>Start Date	</th>
                                 <th>End Date</th>
                                 <th>Activity/Reason</th>
-                                <th>Notes</th>
+                                <th colspan="2">Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,6 +151,12 @@
                                 <td> {{ item.endDate }}</td>
                                 <td> {{ item.reason }}</td>
                                 <td> {{ item.notes }}</td>
+
+                                <td>
+                                    <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+                                    <a (click)="delItem(item.userId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
+                            
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef  } from '@angular/core';
+import { Component, OnInit,TemplateRef ,ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
@@ -18,6 +18,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 })
 export class EmpAttendanceComponent implements OnInit {
   modalRef?: BsModalRef;
+  @ViewChild("template") templatelog: TemplateRef<any>;
   config = {
     animated: true,
     keyboard: true,
@@ -100,5 +101,14 @@ debugger;
     });
   }
 
+  editItem(_item:Attendance)
+  {
+    this.model=_item;
+    this.openModal(this.templatelog);
+  }
+  delItem(_ItemId:number)
+  {
+    
+  }
 
 }
