@@ -55,6 +55,9 @@ export class OtherInformationComponent implements OnInit {
       if(response.result)
       {
         this.model = response.data;
+        this.model.dischargeDate = this.datepipe.transform(this.model.dischargeDate , 'DD MMM YYYY')||"";   
+    	this.model.careDate = this.datepipe.transform(this.model.careDate , 'DD MMM YYYY')||"";   
+    	this.model.serviceRequestDate = this.datepipe.transform(this.model.serviceRequestDate , 'DD MMM YYYY')||"";   
       }
     });
   }
