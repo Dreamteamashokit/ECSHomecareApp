@@ -32,7 +32,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/addClient", clObj, httpOptions);
+    return this._http.post<APIResponse<number>>(environment.domain + "/api/Client/addClient", clObj, httpOptions);
   }
 
   getClientDetail(userId: number) {

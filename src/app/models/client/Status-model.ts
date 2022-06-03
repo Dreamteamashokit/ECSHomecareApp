@@ -13,9 +13,7 @@ export class ClientStatusModel{
     statusId: number;
     userId: number;
     statusDate: string;
-    isActive: number;
-
-
+    isActive: number;    
      constructor(_ActivityId:number, _Date:string,_ReferralCode:number,_Note:string,_OfficeUserId:number,_OfficeUserReferralID:number,
          _clientId:Number,_officeUserId:number,_text:boolean,_screen:boolean,_email:boolean,)
      {

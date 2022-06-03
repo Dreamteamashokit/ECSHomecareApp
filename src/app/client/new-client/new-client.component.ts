@@ -106,9 +106,12 @@ export class NewClientComponent implements OnInit {
 
     
     this.cltApi.addClient(empObj).subscribe((response) => {
+
       this.IsLoad = false;
       console.log('Stock change Response: ', response);
       this.clear();
+      this.model.clientId=response.data
+      this.router.navigate(['/client/info/'+this.model.clientId+'/5']);
     });
   }
 

@@ -42,7 +42,7 @@ export class EmployeeapiService {
         const httpOptions = {
           headers: headers_object
         }; 
-    return this._http.post(environment.domain + "/api/Employee/addEmployee", empObj,httpOptions);            
+    return this._http.post<APIResponse<number>>(environment.domain + "/api/Employee/addEmployee", empObj,httpOptions);            
   }
   
 

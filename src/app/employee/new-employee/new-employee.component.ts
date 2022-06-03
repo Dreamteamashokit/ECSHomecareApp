@@ -122,6 +122,8 @@ export class NewEmployeeComponent implements OnInit {
         console.log("Employee Saved :"+response);
       this.clear();
       this.IsLoad = false;
+      this.model.empId=response.data   
+      this.router.navigate(['/employee/info/'+this.model.empId+'/4']);
        }
   });
   

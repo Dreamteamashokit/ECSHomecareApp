@@ -86,29 +86,63 @@
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">Start Date <span class="star">*</span></label>
-                            <div class="input-icon right">
-                                <i class="fa fa-calendar"></i>
-                                <input required type="text" placeholder="Date of Hire" class="form-control" id="txtdateOfHire" name="dateOfHire" #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+                        
+                            <div class="input-group">                                    
+                                <input required type="text" placeholder="Date of Hire" class="form-control" id="txtdateOfHire" name="dateOfHire"  #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" #startDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="startDate.toggle()" [attr.aria-expanded]="startDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                            
+                                <em *ngIf="dateOfHire.invalid && (dateOfHire.dirty || dateOfHire.touched)" for="txtdateOfHire" class="invalid">This field is required</em>
                             </div>
+
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">Date of First Case </label>
-                            <div class="input-icon right">
-                                <i class="fa fa-calendar"></i>
-                                <input type="text" placeholder="Date of First Case" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+                     
+
+
+
+
+                            <div class="input-group">                                    
+                                <input type="text"  placeholder="Date of First Case" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase"  #FirstCase="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="FirstCase.toggle()" [attr.aria-expanded]="FirstCase.isOpen" ><i class="fa fa-calendar"></i></div>
+                            
+                               
                             </div>
+
+
+
+
+
+
+
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="form-group">
                             <label class="control-label">Date of Birth <span class="star">*</span></label>
-                            <div class="input-icon right">
-                                <i class="fa fa-calendar"></i>
-                                <input required type="text" placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+
+
+
+                            <div class="input-group">                                    
+                                <input required type="text"  placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate"  #dOBDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="dOBDate.toggle()" [attr.aria-expanded]="dOBDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                            
                                 <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
                             </div>
+
+
+                          
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
@@ -296,7 +330,7 @@
 
                 <div class="row mtm">
                     <div class="col-sm-12 col-xs-12 text-center">
-                        <button type="button" (click)="saveChanges()" [disabled]="empf.invalid" class="btn btn-lg btn-primary">Save</button>
+                        <button type="button" (click)="saveChanges()" [disabled]="empf.invalid" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Employee</button>
                     </div>
                 </div>
             </div>
