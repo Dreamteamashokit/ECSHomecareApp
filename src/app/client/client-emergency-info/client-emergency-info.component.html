@@ -37,20 +37,31 @@
         <div class="row">
             <div class="col-lg-2 col-sm-4"> 
                 <div class="form-group">
-                    <label class="control-label">First Name</label>
+                    <label class="control-label">First Name<span class="star">*</span></label>
                     <input type="text" required #firstName="ngModel" id="txtfirstName" name="firstName" class="form-control" [(ngModel)]="model.firstName">
+                    <em *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" for="txtfirstName" class="invalid">This field is required</em>
+      
+      
+               
                 </div>
             </div>
             <div class="col-lg-2 col-sm-4"> 
                 <div class="form-group">
-                    <label class="control-label">Last Name</label>
+                    <label class="control-label">Last Name<span class="star">*</span></label>
                     <input type="text" required #lastName="ngModel" id="txtlastName" name="lastName" class="form-control" [(ngModel)]="model.lastName">
+                    <em *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" for="txtlastName" class="invalid">This field is required</em>
+      
+      
+               
                 </div>
             </div>
             <div class="col-lg-2 col-sm-4">
                 <div class="form-group">
-                    <label class="control-label">Title</label>
-                    <input type="text" #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="model.title">
+                    <label class="control-label">Title<span class="star">*</span></label>
+                    <input type="text" required #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="model.title">
+            
+                    <em *ngIf="title.invalid && (title.dirty || title.touched)" for="txttitle" class="invalid">This field is required</em>
+      
                 </div>
             </div>
          
@@ -65,12 +76,18 @@
                 <label class="control-label">License</label>
                 <input type="text" #license="ngModel" id="txtlicense" name="license" class="form-control" [(ngModel)]="model.license">
             </div></div>
+
+
             <div class="col-lg-2">     <div class="form-group">
                 <label class="control-label">License Expires</label>
                 <input type="text" #licenseExpires="ngModel" id="txtlicenseExpires" name="licenseExpires"
                        [(ngModel)]="model.licenseExpires" class="form-control" bsDatepicker>
             </div> </div>
         
+        </div>
+        <div class="row">
+
+
         
             <div class="col-lg-2"> 
                 <div class="form-group">
@@ -122,27 +139,6 @@
         </div>
         </div>
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <div class="row">
       <div class="col-sm-12 text-14">
         <a href="javascript:void(0)" (click)="openPopup(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange mrm"></i>Add Provider </a>
@@ -175,9 +171,12 @@
       <div class="panel panel-orange" *ngFor="let item of modelList;">
         <div class="panel-body" >
             <div class="row" >
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     <h4 class="text-orange"> <strong> {{item.firstName}} {{item.lastName}} </strong></h4>
                 </div>
+                <div class="col-lg-2 text-right">
+                <a title="Edit" href="javascript:;" (click)="editProvider(item)"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+<a title="Delete"  (click)="delProvider(item.entityId)"     href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  </div>
             </div>
             <div class="row" >
            

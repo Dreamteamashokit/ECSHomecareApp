@@ -1,18 +1,11 @@
-import { Component, OnInit,TemplateRef } from '@angular/core';
+import { Component, OnInit,TemplateRef,ViewChild } from '@angular/core';
 import { Router,ActivatedRoute, Params } from '@angular/router';
-
-
-
-
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { AccountService } from 'src/app/services/account.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
-
-
 import { UserModel } from 'src/app/models/account/login-model';
 import {  ProviderModel } from 'src/app/models/client/contact-model';
-
 
 @Component({
   selector: 'app-client-emergency-info',
@@ -26,7 +19,7 @@ export class ClientEmergencyInfoComponent implements OnInit {
   currentUser:UserModel;
   IsLoad:boolean;
   clientId:number;
-
+  @ViewChild("template") templatelog: TemplateRef<any>;
   //physician=new ProviderModel();
   model=new ProviderModel();
   proModel=new ProviderModel();
@@ -44,27 +37,31 @@ export class ClientEmergencyInfoComponent implements OnInit {
       this.proModel.contactType=4;
      }
 
-  ngOnInit(): void {
-
+    ngOnInit(): void {
     this.route.params.subscribe((params : Params) =>{   
         this.clientId = Number(params["clientId"]);  
         this.getProviderModel(this.clientId);   
       });
-
   }
-
-
-
-
-
 
   openPopup(template: TemplateRef<any>) {
       
     this.modalRef = this.modalService.show(template);
   }
+
+
+
+
+  editProvider(editObj:ProviderModel) {
+    this.proModel=editObj;
+    this.openPopup(this.templatelog);
+  }
+
+
   
   closeModal(): void {
-   
+    this.proModel=new ProviderModel();
+    this.proModel.contactType=4;
     this.modalRef?.hide();
   }
 
@@ -102,33 +99,70 @@ this.model=itemList.filter(x=>x.contactType===3)[0];
 this.model.contactType=3;
 this.modelList=itemList.filter(x=>x.contactType===4);
 
-//this.modelList=itemList;
 
  }
 
 
  saveChanges(_item:ProviderModel)
  {
-   _item.userId=this.clientId;
-   _item.createdBy=this.currentUser.userId;
-   this.IsLoad=true;
-   this.clntSrv.addEmergProvider(_item).subscribe({   
-     next: (res: any) => {  
-       if(res.results)
-       {
-         this.IsLoad=false;
-         alert("fggfg");
-       }
-     },
-      error: (err) => { 
-       this.IsLoad=false;
-      console.log(err);
-     },   
-     complete: () => { 
-       this.IsLoad=false;
-     }
-   });
+  if(_item.firstName && _item.lastName &&_item.title)
+{
+  this.saveData(_item);
+}
+else
+{
+  alert("Please Input Name..!");
+}
+
  }
+
+
+ saveData(_item:ProviderModel)
+ {
+
+  debugger;
+  _item.userId=this.clientId;
+  _item.createdBy=this.currentUser.userId;
+  this.IsLoad=true;
+  this.clntSrv.addEmergProvider(_item).subscribe({   
+    next: (res: any) => {  
+      if(res.result)
+      {
+
+        debugger;
+        this.IsLoad=false;
+        this.closeModal();
+        this.getProviderModel(this.clientId);
+      }
+    },
+     error: (err) => { 
+
+      debugger;
+      this.IsLoad=false;
+     console.log(err);
+    },   
+    complete: () => { 
+      this.IsLoad=false;
+      this.closeModal();
+    }
+  });
+ }
+
+
+
+ delProvider(providerId:number) { 
+debugger;
+  let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
+    this.IsLoad=true;
+  this.clntSrv.delEmergProvider(providerId).subscribe((response) => {
+    this.IsLoad=false;
+    this.getProviderModel(this.clientId);
+}); 
+  }
+
+}
 
 
 

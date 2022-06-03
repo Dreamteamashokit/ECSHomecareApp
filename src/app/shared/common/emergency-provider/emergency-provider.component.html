@@ -1,22 +1,35 @@
 <div class="row">
     <div class="col-lg-4"> 
         <div class="form-group">
-            <label class="control-label">First Name</label>
+            <label class="control-label">First Name<span class="star">*</span></label>
             <input type="text" required #firstName="ngModel" id="txtfirstName" name="firstName" class="form-control" [(ngModel)]="proModel.firstName">
+        
+            <em *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" for="txtfirstName" class="invalid">This field is required</em>
+      
         </div>
     </div>
     <div class="col-lg-4"> 
         <div class="form-group">
-            <label class="control-label">Last Name</label>
+            <label class="control-label">Last Name<span class="star">*</span></label>
             <input type="text" required #lastName="ngModel" id="txtlastName" name="lastName" class="form-control" [(ngModel)]="proModel.lastName">
+            <em *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" for="txtlastName" class="invalid">This field is required</em>
+      
+        
         </div>
     </div>
     <div class="col-lg-4"> 
         <div class="form-group">
-            <label class="control-label">Title</label>
-            <input type="text" #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="proModel.title">
+            <label class="control-label">Title<span class="star">*</span></label>
+            <input type="text" required #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="proModel.title">
+    
+            <em *ngIf="title.invalid && (title.dirty || title.touched)" for="txttitle" class="invalid">This field is required</em>
+
+        
         </div>
     </div>
+
+</div>
+<div class="row">
  
     <div class="col-lg-4"> 
         <div class="form-group">

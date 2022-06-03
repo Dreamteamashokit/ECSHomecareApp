@@ -41,8 +41,22 @@ export class EmergencyContactComponent implements OnInit {
 
   saveChanges(_item:ContactModel)
   {
+if(_item.name)
+{
+  this.saveData(_item);
+}
+else
+{
+  alert("Please Input Name..!");
+}
 
 
+  }
+
+
+
+  saveData(_item:ContactModel)
+  {
     _item.contactType=this.emergInfoTypeId;
     _item.userId=this.model.userId;
     _item.createdBy=this.currentUser.userId;   
@@ -65,6 +79,13 @@ export class EmergencyContactComponent implements OnInit {
       }
     });
   }
+
+
+
+
+
+
+
 
 
   getContactModel(_userId:number,)

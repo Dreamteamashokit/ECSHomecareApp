@@ -24,7 +24,7 @@ export class ClientContactlogListComponent implements OnInit {
   empList = Array<ItemsList>();
   model = new ClientContactLog();
   currentUser: UserModel;
-  @ViewChild("templatelog") templatelog: TemplateRef<any>;
+  @ViewChild("template") templatelog: TemplateRef<any>;
   isAddVisible: Boolean = true;
   isUpdateVisible: Boolean = false;
   contactLogId: number = 0;
@@ -134,7 +134,6 @@ export class ClientContactlogListComponent implements OnInit {
     });
   }
   openModal(template: TemplateRef<any>) {
-    
     this.modalRef = this.modalService.show(template);
   }
   decline(): void {
