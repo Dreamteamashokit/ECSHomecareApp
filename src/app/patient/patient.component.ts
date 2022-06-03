@@ -112,9 +112,12 @@ export class PatientComponent implements OnInit {
   }
 
   HHAClockout(model:NgForm){
+    
     this.GetClockinDetailsByUserId(this.UserId);
     
-    if((this.clockinDetails != null && this.clockinDetails != undefined) && 
+    setTimeout(() => {
+      
+      if((this.clockinDetails != null && this.clockinDetails != undefined) && 
       (this.clockinDetails.clockOutTime == null || this.clockinDetails.clockOutTime == undefined))
       {
         if(model.value.BedBath && model.value.SpongeBath && model.value.Footcare && model.value.Skincare){
@@ -173,5 +176,8 @@ export class PatientComponent implements OnInit {
               that.IsShowMessage = false;
             },5000);
     }
+
+    }, 2000);
+    
   }
 }
