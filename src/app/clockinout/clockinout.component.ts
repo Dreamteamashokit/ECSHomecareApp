@@ -26,7 +26,9 @@ export class ClockinoutComponent implements OnInit {
     private router:Router,private _employeeService:EmployeeapiService) { }
 
   ngOnInit(): void {
-    this.CurrentDate = new Date();
+    setInterval(() => {
+      this.CurrentDate = new Date();
+    }, 1000);
     var objUser = this._accountService.GetCurrentHHAUser();
     if(objUser != null && objUser != undefined){
       this.UserId = objUser.userId;
@@ -47,7 +49,8 @@ export class ClockinoutComponent implements OnInit {
     
     this.model.Type = Type;
     this.model.ClockInTime = new Date();
-    if(Type ==1){
+    if(Type ==1)
+    {
       this._accountService.HHAClockIn(this.model).subscribe((response) => {
         
         if(response != null && response != undefined && response.result)
@@ -59,7 +62,7 @@ export class ClockinoutComponent implements OnInit {
             localStorage.setItem('ShowClockOutButton',JSON.stringify(this.IsDisable));
             setTimeout(function(){
               that.IsShow = false;
-            },5000);
+            },10000);   
         }
         else{
           this.HHAMessage = "HHA User does not exists.";

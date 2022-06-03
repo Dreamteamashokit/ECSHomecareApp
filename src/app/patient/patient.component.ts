@@ -4,6 +4,7 @@ import { AccountService } from '../services/account.service';
 import { DatePipe } from '@angular/common'
 import { HHAClockout } from '../models/account/login-model';
 import { SignaturePad } from 'angular2-signaturepad';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-patient',
@@ -22,6 +23,7 @@ export class PatientComponent implements OnInit {
   CurrentDate:Date;
   model = new HHAClockout();
   Message:string;
+  @ViewChild('clockoutForm') clockoutForm : NgForm;
   IsShowMessage:boolean = false;
   ClientsignatureImg: string ='';
   HHAUserSignatureImg:string = '';
@@ -74,9 +76,14 @@ export class PatientComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.CurrentDate = new Date();
+
+    setInterval(() => {
+      this.CurrentDate = new Date();
+    }, 1000);
+
     var objUser = this._accountService.GetCurrentHHAUser();
-    if(objUser != null && objUser != undefined){
+    if(objUser != null && objUser != undefined)
+    {
       this.UserId = objUser.userId;
       this.userName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
      this.GetClockinDetailsByUserId(objUser.userId);
@@ -104,50 +111,67 @@ export class PatientComponent implements OnInit {
     })
   }
 
-  HHAClockout(model:any){
+  HHAClockout(model:NgForm){
+    this.GetClockinDetailsByUserId(this.UserId);
     
-    if(model.value.BedBath && model.value.SpongeBath && model.value.Footcare && model.value.Skincare){
+    if((this.clockinDetails != null && this.clockinDetails != undefined) && 
+      (this.clockinDetails.clockOutTime == null || this.clockinDetails.clockOutTime == undefined))
+      {
+        if(model.value.BedBath && model.value.SpongeBath && model.value.Footcare && model.value.Skincare){
       
-      this.model = model.value;
-      this.model.userId = this.UserId;
-      this.model.Type = 2;
-      this.model.ClockOutTime = new Date();
-      this.model.ClockInTime = new Date();
+          this.model = model.value;
+          this.model.userId = this.UserId;
+          this.model.Type = 2;
+          this.model.ClockOutTime = new Date();
+          this.model.ClockInTime = new Date();
+          
+          if(!this.signaturePad.isEmpty() && !this.HHAsignaturePad.isEmpty()){
+            if(this.HHAsignaturePad.toDataURL() != null && this.HHAsignaturePad.toDataURL() != undefined){
+              this.model.HHAUserSignature = this.HHAsignaturePad.toDataURL();
+            }
       
-      if(!this.signaturePad.isEmpty() && !this.HHAsignaturePad.isEmpty()){
-        if(this.HHAsignaturePad.toDataURL() != null && this.HHAsignaturePad.toDataURL() != undefined){
-          this.model.HHAUserSignature = this.HHAsignaturePad.toDataURL();
+            if(this.signaturePad.toDataURL() != null && this.signaturePad.toDataURL() != undefined){
+              this.model.ClientSignature = this.signaturePad.toDataURL();
+            }
+            
+            this._accountService.HHAClockout(this.model).subscribe((response) => {
+              this.IsShowMessage = true;
+              this.Message  = "HHA User clock out successfull."
+              var that = this;
+              setTimeout(function(){
+                that.IsShowMessage = false;
+              },10000);
+    
+              this.clockoutForm.resetForm();
+              this.clearHHASignature();
+              this.clearSignature();
+            });
+          }
+          else{
+            this.IsShowMessage = true;
+            this.Message  = "HHA User/Client User Signature required."
+              var that = this;
+              setTimeout(function(){
+                that.IsShowMessage = false;
+              },10000);
+          }
         }
-  
-        if(this.signaturePad.toDataURL() != null && this.signaturePad.toDataURL() != undefined){
-          this.model.ClientSignature = this.signaturePad.toDataURL();
+        else{
+            this.IsShowMessage = true;
+            this.Message  = "Please checked all care plans."
+            var that = this;
+            setTimeout(function(){
+              that.IsShowMessage = false;
+            },10000);
         }
-
-        this._accountService.HHAClockout(this.model).subscribe((response) => {
-          this.IsShowMessage = true;
-          this.Message  = "HHA User clock out successfull."
-          var that = this;
-          setTimeout(function(){
-            that.IsShowMessage = false;
-          },5000);
-        });
-      }
-      else{
-        this.IsShowMessage = true;
-        this.Message  = "HHA User/Client User Signature required."
-          var that = this;
-          setTimeout(function(){
-            that.IsShowMessage = false;
-          },5000);
-      }
     }
     else{
-        this.IsShowMessage = true;
-        this.Message  = "Please checked all care plans."
-        var that = this;
-        setTimeout(function(){
-          that.IsShowMessage = false;
-        },5000);
+      this.IsShowMessage = true;
+            this.Message  = "HHA User already clock out."
+            var that = this;
+            setTimeout(function(){
+              that.IsShowMessage = false;
+            },5000);
     }
   }
 }
