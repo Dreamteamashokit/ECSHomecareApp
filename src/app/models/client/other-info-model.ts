@@ -20,9 +20,16 @@ export class OtherInfoModel extends BaseModel {
     shelter: string;
     facility: string;
     room: string;
+
     serviceRequestDate: string;
     careDate: string;
     dischargeDate: string;
+
+    serviceRequestDateTime: Date;
+    careDateTime: Date;
+    dischargeDateTime: Date;
+
+ 
     notes: string;
     allergies: string;
 }

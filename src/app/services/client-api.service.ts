@@ -256,7 +256,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/GetClientNoteList", _obj, httpOptions);
+    return this._http.post<APIResponse<ClientNote[]>>(environment.domain + "/api/Client/GetClientNoteList", _obj, httpOptions);
   }
 
   getClientNoteDetails(_obj: ClientNote) {
@@ -266,7 +266,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/GetClientNote", _obj, httpOptions);
+    return this._http.post<APIResponse<ClientNote[]>>(environment.domain + "/api/Client/GetClientNote", _obj, httpOptions);
   }
 
   updateClientNotes(_obj: ClientNote) {

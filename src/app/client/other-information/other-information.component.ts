@@ -18,6 +18,9 @@ import { DatePipe } from '@angular/common';
     './other-information.component.scss']
 })
 export class OtherInformationComponent implements OnInit {
+
+
+  IsLoad:boolean;
   modalRef?: BsModalRef;
   currentUser: UserModel;
   model = new OtherInfoModel();
@@ -50,37 +53,54 @@ export class OtherInformationComponent implements OnInit {
 
   BindOtherInfo(userId:number)
   {
-    debugger;
+ 
     this.clientApi.getOtherInfo(userId).subscribe((response) => {
       if(response.result)
-      {
+      {      
         this.model = response.data;
-        this.model.dischargeDate = this.datepipe.transform(this.model.dischargeDate , 'DD MMM YYYY')||"";   
-    	this.model.careDate = this.datepipe.transform(this.model.careDate , 'DD MMM YYYY')||"";   
-    	this.model.serviceRequestDate = this.datepipe.transform(this.model.serviceRequestDate , 'DD MMM YYYY')||"";   
-      }
+        this.model.userId =userId;
+        this.model.serviceRequestDateTime =new Date(response.data.serviceRequestDateTime);
+        this.model.careDateTime =new Date(response.data.careDateTime);
+        this.model.dischargeDateTime =new Date(response.data.dischargeDateTime);
+ 
+   
+    
+    
+    
+    
+    
+    }
     });
   }
 
   saveChangesModel() {
-    debugger;
+
     this.model.isActive = 1;
     this.model.createdBy = this.currentUser.userId;
     this.model.userId = Number(this.model.userId);
-    this.model.dischargeDate = this.datepipe.transform(this.model.dischargeDate , 'dd-MM-yyyy')||"";   
-    this.model.careDate = this.datepipe.transform(this.model.careDate , 'dd-MM-yyyy')||"";   
-    this.model.serviceRequestDate = this.datepipe.transform(this.model.serviceRequestDate , 'dd-MM-yyyy')||"";   
+    this.model.dischargeDate = this.datepipe.transform(this.model.dischargeDateTime , 'dd-MM-yyyy')||"";   
+    this.model.careDate = this.datepipe.transform(this.model.careDateTime , 'dd-MM-yyyy')||"";   
+    this.model.serviceRequestDate = this.datepipe.transform(this.model.serviceRequestDateTime , 'dd-MM-yyyy')||"";   
+    this.IsLoad=true;
+    
     if(this.model.entityId==0)
     {
-      this.clientApi.addOtherInfo(this.model).subscribe(Responce => {
+      this.clientApi.addOtherInfo(this.model).subscribe(responce => {
+
+
+        this.IsLoad=false;
+        this.BindOtherInfo(this.model.userId);
       });
     }
     else
     {
-      this.clientApi.updateOtherInfo(this.model).subscribe(Responce => {
+      this.clientApi.updateOtherInfo(this.model).subscribe(responce => {
+
+        this.IsLoad=false;
+        this.BindOtherInfo(this.model.userId);
       });
     }
-    this.BindOtherInfo(this.model.userId);
+
   }
 
 
