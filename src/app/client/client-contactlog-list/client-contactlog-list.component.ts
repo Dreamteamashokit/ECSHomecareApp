@@ -9,7 +9,8 @@ import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 
-
+import { DatePipe } from '@angular/common';
+import { Usertype } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-client-contactlog-list',
   templateUrl: './client-contactlog-list.component.html',
@@ -18,13 +19,18 @@ import { AccountService } from 'src/app/services/account.service';
     './client-contactlog-list.component.scss']
 })
 export class ClientContactlogListComponent implements OnInit {
+
+  _time:Date;
+  _reportedDate = new Date();
+
   modalRef?: BsModalRef;
   ClientId: number;
   ClientContactLogObjList: any;
   empList = Array<ItemsList>();
+  OfficeUserList: ItemsList[] = [];
   model = new ClientContactLog();
   currentUser: UserModel;
-  @ViewChild("template") templatelog: TemplateRef<any>;
+  @ViewChild("templatelog") templatelog: TemplateRef<any>;
   isAddVisible: Boolean = true;
   isUpdateVisible: Boolean = false;
   contactLogId: number = 0;
@@ -33,7 +39,8 @@ export class ClientContactlogListComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private accountApi: AccountService,
-    private clientapi: ClientApiService
+    private clientapi: ClientApiService,
+    private datepipe: DatePipe
   ) {
     this.model.isActive = 1;
     this.currentUser = this.accountApi.getCurrentUser();
@@ -42,6 +49,12 @@ export class ClientContactlogListComponent implements OnInit {
         this.empList = response.data;
       }
     });
+
+    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+      this.OfficeUserList = response.data;
+    });
+
+    this._time=new Date();
   }
 
   ngOnInit(): void {
@@ -61,7 +74,10 @@ export class ClientContactlogListComponent implements OnInit {
     this.model.officeUserId = Number(this.model.officeUserId);
     this.model.empId = Number(this.model.empId);
     this.model.reason = this.model.reason;
-    this.model.callDateTime = this.model.callDateTime;
+
+
+    this.model.CallLogDateTime= (this.datepipe.transform(this._reportedDate, 'dd-MM-yyyy')||"") +', '+  (this.datepipe.transform(this._time, 'hh:mm:ss a')||"" );
+
     this.model.scheduleDate = this.model.scheduleDate;
     this.model.followUpDate = this.model.followUpDate;
     this.model.issue = this.model.issue;
@@ -91,7 +107,11 @@ export class ClientContactlogListComponent implements OnInit {
         this.model.officeUserId = Number(Responce.data[0].officeUserId);
         this.model.empId = Number(Responce.data[0].empId);
         this.model.reason = Responce.data[0].reason;
+
+
         this.model.callDateTime = new Date(Responce.data[0].callDateTime);
+
+
         this.model.scheduleDate = new Date(Responce.data[0].scheduleDate);
         this.model.followUpDate = new Date(Responce.data[0].followUpDate);
         this.model.issue = Responce.data[0].issue;
@@ -112,6 +132,9 @@ export class ClientContactlogListComponent implements OnInit {
     this.model.empId = Number(this.model.empId);
     this.model.reason = this.model.reason;
     this.model.callDateTime = this.model.callDateTime;
+
+    this.model.CallLogDateTime= (this.datepipe.transform(this._reportedDate, 'dd-MM-yyyy')||"") +', '+  (this.datepipe.transform(this._time, 'hh:mm:ss a')||"" );
+
     this.model.scheduleDate = this.model.scheduleDate;
     this.model.followUpDate = this.model.followUpDate;
     this.model.issue = this.model.issue;
@@ -127,11 +150,17 @@ export class ClientContactlogListComponent implements OnInit {
     })
   }
   deleteDeleteContactLogData(contactlogId: number) {
-    debugger;
-    this.clientapi.deleteClientContactLog(contactlogId).subscribe((response) => {
-      this.getClientContactLogRecord();
-      this.decline();
-    });
+
+    let isOk = confirm("Are you sure to delete?");
+    if(isOk)
+    {
+      this.clientapi.deleteClientContactLog(contactlogId).subscribe((response) => {
+        this.getClientContactLogRecord();
+        this.decline();
+      });
+    }
+
+   
   }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

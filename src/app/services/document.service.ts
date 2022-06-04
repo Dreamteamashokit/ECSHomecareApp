@@ -70,4 +70,26 @@ export class DocumentService {
   return this._http.delete(environment.domain + "/api/Document/DeletetDocumentFromS3",{params:Req_param});
   }
 
+
+  deleteFolder(folderId:number){   
+    var headers_object = new HttpHeaders();
+    const Req_param=new HttpParams({
+      fromObject:{
+        'folderId':folderId
+      }
+    });
+  return this._http.delete<APIResponse<string>>(environment.domain + "/api/Document/deleteFolder",{params:Req_param});
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
 }

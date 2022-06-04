@@ -1,5 +1,5 @@
 import { Component, OnInit, Input ,ViewChild, ElementRef  } from '@angular/core';
-import { HttpEventType, HttpClient } from '@angular/common/http';
+import { HttpEventType, HttpClient, HttpResponseBase } from '@angular/common/http';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import{ DocumentService} from 'src/app/services/document.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -165,16 +165,21 @@ DownloadFile(documentName:string,foldername:string)
   });
 }
 
-DeleteFolder(obj:any){
-  this.Deletemodel.documentId=0;
-  this.Deletemodel.folderId=Number(obj.folderId);
-  this.Deletemodel.folderName=obj.folderName;
-  this.Deletemodel.empId=this.UserId;
-  this.Deletemodel.requestType=1;
-  
-  this.docSrv.DeleteFile(this.Deletemodel).subscribe(Response=>{
-    this.GetFolderList(this.UserId);
+DeleteFolder(folderId:number){
+ 
+  let isOk = confirm("Are you sure to delete?");
+    if(isOk)
+    {
+      this.IsLoad=true;
+  this.docSrv.deleteFolder(folderId).subscribe(response=>{
+
+    if(response.result)
+    {
+      this.GetFolderList(this.UserId);
+    }
+    this.IsLoad=false;
   });
+}
 }
 
 DeleteFile(obj:any,foldername:string,folderid:number){
@@ -184,9 +189,17 @@ DeleteFile(obj:any,foldername:string,folderid:number){
   this.Deletemodel.empId=this.UserId;
   this.Deletemodel.requestType=2;
   this.Deletemodel.fileName=obj.fileName;
+
+
+
+  let isOk = confirm("Are you sure to delete?");
+    if(isOk)
+    {
+
   this.docSrv.DeleteFile(this.Deletemodel).subscribe(Response=>{
     this.GetFolderList(this.UserId);
   });
+}
 }
 
 openfile(url:string){
