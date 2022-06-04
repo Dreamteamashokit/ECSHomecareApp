@@ -68,7 +68,7 @@
             <div class="col-lg-2"> 
                 <div class="form-group">
                     <label class="control-label">NPI Number</label>
-                    <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="model.nPINumber">
+                    <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="model.npiNumber">
                 </div>
             </div>
 
@@ -80,8 +80,14 @@
 
             <div class="col-lg-2">     <div class="form-group">
                 <label class="control-label">License Expires</label>
-                <input type="text" #licenseExpires="ngModel" id="txtlicenseExpires" name="licenseExpires"
-                       [(ngModel)]="model.licenseExpires" class="form-control" bsDatepicker>
+                
+                       <div class="input-group">                                    
+                        <input required type="text"  id="txtlicenseExpires" name="licenseExpires"
+                        placeholder="License Expires" #licenseExpires="ngModel" [(ngModel)]="model.licenseExpires" class="form-control" #licenseExp="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                        <div class="input-group-addon" (click)="licenseExp.toggle()" [attr.aria-expanded]="licenseExp.isOpen" ><i class="fa fa-calendar"></i></div>
+                    </div>
+
+
             </div> </div>
         
         </div>
@@ -198,30 +204,20 @@
             </div>
             <div class="row" >
            
-
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">Cell Phone</label>
+                        <p><strong>{{item.phone}}</strong></p>
+                    </div>                    
+                </div> 
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label mrs">Fax</label>
                         <p><strong class="mrs">{{item.fax}}</strong></p>
                     </div>                    
                 </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label class="control-label mrs">Cell Phone</label>
-                        <p><strong>{{item.phone}}</strong></p>
-                    </div>                    
-                </div>    
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label class="control-label mrs">Address</label>
-                        <p><strong>{{item.address}}
-
-                            {{item.city}}, {{item.state}},
-                            {{item.zipCode}}
-
-                        </strong></p>
-                    </div>                    
-                </div>   
+                  
+             
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label mrs">Email</label>
@@ -231,7 +227,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label mrs">NPI Number</label>
-                        <p><strong>{{item.nPINumber}}</strong></p>
+                        <p><strong>{{item.npiNumber}}</strong></p>
                     </div>                    
                 </div> 
                 
@@ -244,9 +240,29 @@
                 </div> 
 
 
+     
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label mrs">License Expires</label>
+                        <p><strong>
 
 
-                
+                            {{ item.dateExpires | date :"dd MMM YYYY"}}
+                        </strong></p>
+                    </div>                    
+                </div> 
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label mrs">Address</label>
+                        <p><strong>{{item.address}}
+
+                            {{item.city}}, {{item.state}},
+                            {{item.zipCode}}
+
+                        </strong></p>
+                    </div>                    
+                </div>  
 
             </div>
         </div>

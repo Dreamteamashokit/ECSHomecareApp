@@ -12,332 +12,280 @@
     <!--BEGIN CONTENT-->
     <div class="page-content">
         <form #empf="ngForm">
-        <div class="panel">
-            <div class="panel-body">
-                <div class="row mtm">
-                    <div class="col-sm-3 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Status<span class="star">*</span></label>
-                            <select class="form-control" id="txtempStatus" name="empStatus" #empStatus="ngModel" [(ngModel)]="model.isActive">
-                                <option *ngFor="let obj of statusData"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">Status<span class="star">*</span></label>
+                                <select class="form-control" id="txtempStatus" name="empStatus" #empStatus="ngModel" [(ngModel)]="model.isActive">
+                                    <option *ngFor="let obj of statusData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">First Name<span class="star">*</span></label>
+                                <input required type="text" placeholder="First Name" class="form-control" id="txtFirstName" name="FirstName" #FirstName="ngModel" [(ngModel)]="model.firstName">
+                                <em *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" for="txtFirstName" class="invalid">This field is required</em>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Middle Name</label>
+                                <input type="text" placeholder="Middle Name" class="form-control" id="txtMiddleName" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="model.middleName">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Last Name <span class="star">*</span></label>
+                                <input required type="text" placeholder="Last Name" class="form-control" id="txtLastName" name="LastName" #LastName="ngModel" [(ngModel)]="model.lastName">
+                                <em *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" for="txtLastName" class="invalid">This field is required</em>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">First Name<span class="star">*</span></label>
-                            <input required type="text" placeholder="First Name" class="form-control" id="txtFirstName" name="FirstName" #FirstName="ngModel" [(ngModel)]="model.firstName">
-                            <em *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" for="txtFirstName" class="invalid">This field is required</em>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Middle Name</label>
-                            <input type="text" placeholder="Middle Name" class="form-control" id="txtMiddleName" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="model.middleName">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Last Name <span class="star">*</span></label>
-                            <input required type="text" placeholder="Last Name" class="form-control" id="txtLastName" name="LastName" #LastName="ngModel" [(ngModel)]="model.lastName">
-                            <em *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" for="txtLastName" class="invalid">This field is required</em>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mtm">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">SSN <span class="star">*</span></label>
-                            <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
-                            <em *ngIf="SSN.invalid && (SSN.dirty || SSN.touched)" for="txtSSN" class="invalid">This field is required</em>
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">SSN <span class="star">*</span></label>
+                                <input required type="text" placeholder="SSN" class="form-control" id="txtSSN" name="SSN" #SSN="ngModel" [(ngModel)]="model.ssn">
+                                <em *ngIf="SSN.invalid && (SSN.dirty || SSN.touched)" for="txtSSN" class="invalid">This field is required</em>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Cell Phone <span class="star">*</span></label>
-                            <input required type="text" placeholder="Cell Phone" class="form-control" id="txtcellPhone" name="cellPhone" #cellPhone="ngModel" [(ngModel)]="model.cellPhone">
-                            <em *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)" for="txtcellPhone" class="invalid">This field is required</em>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Cell Phone <span class="star">*</span></label>
+                                <input required type="text" placeholder="Cell Phone" class="form-control" id="txtcellPhone" name="cellPhone" #cellPhone="ngModel" [(ngModel)]="model.cellPhone">
+                                <em *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)" for="txtcellPhone" class="invalid">This field is required</em>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Home Phone </label>
-                            <input  type="text" placeholder="Home Phone" class="form-control" id="txthomePhone" name="homePhone" #homePhone="ngModel" [(ngModel)]="model.homePhone">
-                            
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Home Phone </label>
+                                <input type="text" placeholder="Home Phone" class="form-control" id="txthomePhone" name="homePhone" #homePhone="ngModel" [(ngModel)]="model.homePhone">
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Email </label>
-                            <input  type="text" placeholder="Email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
-                          
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Email </label>
+                                <input type="text" placeholder="Email" class="form-control" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel">
-            <div class="panel-body">
-                <div class="row mtm">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Start Date <span class="star">*</span></label>
-                        
-                            <div class="input-group">                                    
-                                <input required type="text" placeholder="Date of Hire" class="form-control" id="txtdateOfHire" name="dateOfHire"  #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" #startDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
-                                <div class="input-group-addon" (click)="startDate.toggle()" [attr.aria-expanded]="startDate.isOpen" ><i class="fa fa-calendar"></i></div>
-                            
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Start Date <span class="star">*</span></label>
+                                <div class="input-group">
+                                    <input required type="text" placeholder="Date of Hire" class="form-control" id="txtdateOfHire" name="dateOfHire" #dateOfHire="ngModel" [(ngModel)]="model.dateOfHire" #startDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                    <div class="input-group-addon" (click)="startDate.toggle()" [attr.aria-expanded]="startDate.isOpen"><i class="fa fa-calendar"></i></div>
+
+                                </div>
                                 <em *ngIf="dateOfHire.invalid && (dateOfHire.dirty || dateOfHire.touched)" for="txtdateOfHire" class="invalid">This field is required</em>
                             </div>
-
-
-
-
-
-
-
-
-
-
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Date of First Case </label>
-                     
-
-
-
-
-                            <div class="input-group">                                    
-                                <input type="text"  placeholder="Date of First Case" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase"  #FirstCase="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
-                                <div class="input-group-addon" (click)="FirstCase.toggle()" [attr.aria-expanded]="FirstCase.isOpen" ><i class="fa fa-calendar"></i></div>
-                            
-                               
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Date of First Case </label>
+                                <div class="input-group">
+                                    <input type="text" placeholder="Date of First Case" class="form-control" id="txtdateOfFirstCase" name="dateOfFirstCase" #dateOfFirstCase="ngModel" [(ngModel)]="model.dateOfFirstCase" #FirstCase="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                    <div class="input-group-addon" (click)="FirstCase.toggle()" [attr.aria-expanded]="FirstCase.isOpen"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
-
-
-
-
-
-
-
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Date of Birth <span class="star">*</span></label>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Date of Birth <span class="star">*</span></label>
+                                <div class="input-group">
+                                    <input required type="text" placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate" #dOBDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                    <div class="input-group-addon" (click)="dOBDate.toggle()" [attr.aria-expanded]="dOBDate.isOpen"><i class="fa fa-calendar"></i></div>
 
+                                </div>
 
-
-                            <div class="input-group">                                    
-                                <input required type="text"  placeholder="Date of Birth" class="form-control" id="txtdOB" name="dOB" #dOB="ngModel" [(ngModel)]="_dobDate"  #dOBDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
-                                <div class="input-group-addon" (click)="dOBDate.toggle()" [attr.aria-expanded]="dOBDate.isOpen" ><i class="fa fa-calendar"></i></div>
-                            
                                 <em *ngIf="dOB.invalid && (dOB.dirty || dOB.touched)" for="txtdOB" class="invalid">This field is required</em>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Dependents</label>
+                                <input type="number" placeholder="Dependents" class="form-control" id="txtdependents" name="dependents" #dependents="ngModel" [(ngModel)]="model.dependents">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Gender <span class="star">*</span></label>
+                                <select required class="form-control" id="ddlgender" name="gender" #gender="ngModel" [(ngModel)]="model.gender">
+                                    <option *ngFor="let obj of genderData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Ethnicity</label>
+                                <select class="form-control" id="ddlenthnicity" name="enthnicity" #enthnicity="ngModel" [(ngModel)]="model.enthnicity">
+
+                                    <option value='0' disabled>Select Ethnicity</option>
+                                    <option *ngFor="let obj of ethnicityData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Marital Status</label>
+                                <select class="form-control" id="ddlmaritalStatus" name="maritalStatus" #maritalStatus="ngModel" [(ngModel)]="model.maritalStatus">
+                                    <option value='0' disabled>Select Marital Status</option>
+                                    <option *ngFor="let obj of marriedStatusData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">HR Supervisor</label>
+                                <select class="form-control" id="ddlhRSupervisor" name="supervisorId" #hRSupervisor="ngModel" [(ngModel)]="model.supervisorId">
+
+                                    <option value='0' disabled>Select Supervisor</option>
+                                    <option *ngFor="let obj of empList"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Employee ID </label>
+                                <input type="text" placeholder="Employee ID" class="form-control" id="txtempKey" name="empKey" #empKey="ngModel" [(ngModel)]="model.empKey">
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label"> Type <span class="star">*</span></label>
+                                <select required class="form-control" id="ddlempType" name="empType" #empType="ngModel" [(ngModel)]="model.empType">
+                                    <option *ngFor="let obj of empTypeList"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                                <em *ngIf="empType.invalid && (empType.dirty || empType.touched)" for="ddlempType" class="invalid">This field is required</em>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-xs-6">
+
+
+                            <div class="form-group">
+                                <label class="control-label">Emergency Phone </label>
+                                <input type="text" placeholder="Emergency Phone" class="form-control" id="txtemgPhone" name="emgPhone" #emgPhone="ngModel" [(ngModel)]="model.emgPhone">
+
+
+
                             </div>
 
 
-                          
                         </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
+                        <div class="col-sm-3 col-xs-6">
 
-                        <div class="form-group">
-                            <label class="control-label">Dependents</label>
-                            <input type="number" placeholder="Dependents" class="form-control" id="txtdependents" name="dependents" #dependents="ngModel" [(ngModel)]="model.dependents">
+                            <div class="form-group">
+                                <label class="control-label">Emergency Contact </label>
+                                <input type="text" placeholder="Emergency Contact" class="form-control" id="txtemgContact" name="emgContact" #emgContact="ngModel" [(ngModel)]="model.emgContact">
 
+
+
+                            </div>
 
                         </div>
 
-                    </div>
-
-
-
-
-
-
-
+                   </div>
                 </div>
-                <div class="row mtm">
-
-
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Gender <span class="star">*</span></label>
-                            <select required class="form-control" id="ddlgender" name="gender" #gender="ngModel" [(ngModel)]="model.gender">
-                                <option *ngFor="let obj of genderData"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Ethnicity</label>
-                            <select class="form-control" id="ddlenthnicity" name="enthnicity" #enthnicity="ngModel" [(ngModel)]="model.enthnicity">
-                               
-                                <option value='0' disabled>Select Ethnicity</option>
-                                <option *ngFor="let obj of ethnicityData"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Marital Status</label>
-                            <select class="form-control" id="ddlmaritalStatus" name="maritalStatus" #maritalStatus="ngModel" [(ngModel)]="model.maritalStatus">
-                                <option value='0' disabled>Select Marital Status</option>
-                                <option *ngFor="let obj of marriedStatusData"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">HR Supervisor</label>
-                            <select  class="form-control" id="ddlhRSupervisor" name="supervisorId" #hRSupervisor="ngModel" [(ngModel)]="model.supervisorId">
-                                
-                                <option value='0' disabled>Select Supervisor</option>
-                                <option *ngFor="let obj of empList"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                          
-
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="row mtm">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Employee ID </label>
-                            <input  type="text" placeholder="Employee ID" class="form-control" id="txtempKey" name="empKey" #empKey="ngModel" [(ngModel)]="model.empKey">
-                          
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label"> Type <span class="star">*</span></label>
-                            <select required class="form-control" id="ddlempType" name="empType" #empType="ngModel" [(ngModel)]="model.empType">
-                                <option *ngFor="let obj of empTypeList"
-                                        [value]="obj.itemId">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                            <em *ngIf="empType.invalid && (empType.dirty || empType.touched)" for="ddlempType" class="invalid">This field is required</em>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3 col-xs-6">
-
-
-                        <div class="form-group">
-                            <label class="control-label">Emergency Phone </label>
-                            <input  type="text" placeholder="Emergency Phone" class="form-control" id="txtemgPhone" name="emgPhone" #emgPhone="ngModel" [(ngModel)]="model.emgPhone">
-                           
-
-
-                        </div>
-
-
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-
-                        <div class="form-group">
-                            <label class="control-label">Emergency Contact </label>
-                            <input  type="text" placeholder="Emergency Contact" class="form-control" id="txtemgContact" name="emgContact" #emgContact="ngModel" [(ngModel)]="model.emgContact">
-                          
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
             </div>
-        </div>
-        <div class="panel">
-            <div class="panel-body">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row mtm">
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label">Tax State </label>
+                                <select class="form-control" id="ddltaxState" name="taxState" #taxState="ngModel" [(ngModel)]="model.taxState">
+                                    <option value='' disabled>Select State</option>
+                                    <option *ngFor="let obj of stateData"
+                                            [value]="obj.itemCode">
+                                        {{ obj.itemName }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">City </label>
+                                <input type="text" placeholder="City" class="form-control" id="txtcity" name="city" #city="ngModel" [(ngModel)]="model.city">
 
-                <div class="row mtm">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label">Zip Code </label>
+                                <input type="text" placeholder="Zip Code" class="form-control" id="txtzipCode" name="zipCode" #zipCode="ngModel" [(ngModel)]="model.zipCode">
 
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Tax State </label>
-                            <select  class="form-control" id="ddltaxState" name="taxState" #taxState="ngModel" [(ngModel)]="model.taxState"> 
-                                <option value='' disabled>Select State</option>
-                                <option *ngFor="let obj of stateData"
-                                        [value]="obj.itemCode">
-                                    {{ obj.itemName }}
-                                </option>
-                            </select>
-                            
 
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">City </label>
-                            <input  type="text" placeholder="City" class="form-control" id="txtcity" name="city" #city="ngModel" [(ngModel)]="model.city">
-                        
+                    <div class="row mtm">
+                        <div class="col-sm-12 col-xs-12">
+
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+<textarea rows="3" placeholder="Notes"
+          #notes="ngModel"
+          id="txtnotes"
+          name="notes"
+          [(ngModel)]="model.notes"
+          class="form-control"></textarea>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group">
-                            <label class="control-label">Zip Code </label>
-                            <input  type="text" placeholder="Zip Code" class="form-control" id="txtzipCode" name="zipCode" #zipCode="ngModel" [(ngModel)]="model.zipCode">
-                          
-
+                    <div class="row mtm">
+                        <div class="col-sm-12 col-xs-12 text-center">
+                            <button type="button" (click)="saveChanges()" [disabled]="empf.invalid" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Employee</button>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row mtm">
-                    <div class="col-sm-12 col-xs-12">
-
-                        <div class="form-group">
-                            <label class="control-label">Notes</label>
-                            <textarea rows="3" placeholder="Notes"
-                                      #notes="ngModel"
-                                      id="txtnotes"
-                                      name="notes"
-                                      [(ngModel)]="model.notes"
-                                      class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row mtm">
-                    <div class="col-sm-12 col-xs-12 text-center">
-                        <button type="button" (click)="saveChanges()" [disabled]="empf.invalid" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Employee</button>
                     </div>
                 </div>
             </div>
-        </div>
-
         </form>
-
     </div>
     <!--END CONTENT-->
 </div>

@@ -13,7 +13,7 @@ export class ProviderModel extends BaseModel {
     title: string;
     firstName: string;
     lastName: string;
-    nPINumber: string;
+    npiNumber: string;
     address: string;
     relationship: string;
     city: string;
@@ -24,4 +24,5 @@ export class ProviderModel extends BaseModel {
     fax: string;
     state: string;
     zipCode: string;
+    dateExpires:Date;
 }

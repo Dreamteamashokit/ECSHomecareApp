@@ -1,5 +1,6 @@
 import { Component, OnInit,TemplateRef,ViewChild } from '@angular/core';
 import { Router,ActivatedRoute, Params } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { AccountService } from 'src/app/services/account.service';
@@ -29,12 +30,14 @@ export class ClientEmergencyInfoComponent implements OnInit {
     private route:ActivatedRoute,
     private modalService: BsModalService,
     private acontSrv: AccountService,
-    private clntSrv: ClientApiService
+    private clntSrv: ClientApiService,
+    public dtPipe: DatePipe,
     ) 
     {
       setTheme('bs3');
       this.currentUser=acontSrv.getCurrentUser();
       this.proModel.contactType=4;
+      this.model.contactType=3;
      }
 
     ngOnInit(): void {
@@ -53,7 +56,10 @@ export class ClientEmergencyInfoComponent implements OnInit {
 
 
   editProvider(editObj:ProviderModel) {
+debugger;
     this.proModel=editObj;
+
+    this.proModel.dateExpires = new Date(editObj.dateExpires);
     this.openPopup(this.templatelog);
   }
 
@@ -75,13 +81,11 @@ export class ClientEmergencyInfoComponent implements OnInit {
       debugger;
        if(response.result)
        {    
+        debugger;
          this.bindModel(response.data);  
          this.IsLoad=false;
        }
-       else
-       {
-        this.model.contactType=3;
-       }
+      
      },
       error: (err) => { 
        this.IsLoad=false;
@@ -95,9 +99,20 @@ export class ClientEmergencyInfoComponent implements OnInit {
 
  bindModel(itemList: ProviderModel[])
  {
-this.model=itemList.filter(x=>x.contactType===3)[0];
-this.model.contactType=3;
-this.modelList=itemList.filter(x=>x.contactType===4);
+  debugger;
+
+if(itemList.filter(x=>x.contactType===3).length>0)
+{
+  this.model=itemList.filter(x=>x.contactType===3)[0];
+  this.model.contactType=3;
+}
+
+if(itemList.filter(x=>x.contactType===4).length>0)
+{
+  this.modelList=itemList.filter(x=>x.contactType===4);
+}
+
+
 
 
  }
@@ -107,11 +122,14 @@ this.modelList=itemList.filter(x=>x.contactType===4);
  {
   if(_item.firstName && _item.lastName &&_item.title)
 {
+
+   _item.licenseExpires = this.dtPipe.transform(_item.dateExpires, 'dd-MM-yyyy')||"";
+
   this.saveData(_item);
 }
 else
 {
-  alert("Please Input Name..!");
+  alert("Please First Name & Last Name!");
 }
 
  }
@@ -164,6 +182,13 @@ debugger;
 
 }
 
+
+public formateDateTime(logTime:string)
+{
+ 
+  return this.dtPipe.transform(new Date(logTime), 'dd-MM-yyyy')||"";
+
+}
 
 
 

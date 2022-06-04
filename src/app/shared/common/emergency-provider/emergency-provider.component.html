@@ -34,7 +34,7 @@
     <div class="col-lg-4"> 
         <div class="form-group">
             <label class="control-label">NPI Number</label>
-            <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="proModel.nPINumber">
+            <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="proModel.npiNumber">
         </div>
     </div>
 
@@ -44,8 +44,12 @@
     </div></div>
     <div class="col-lg-4">      <div class="form-group">
         <label class="control-label">License Expires</label>
-        <input type="text" #licenseExpires="ngModel" id="txtlicenseExpires" name="licenseExpires"
-               [(ngModel)]="proModel.licenseExpires" class="form-control" bsDatepicker>
+        <div class="input-group">                                    
+            <input required type="text"  id="txtlicenseExpires" name="licenseExpires"
+            placeholder="License Expires" #licenseExpires="ngModel" [(ngModel)]="proModel.dateExpires" class="form-control" #licenseExp="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+            <div class="input-group-addon" (click)="licenseExp.toggle()" [attr.aria-expanded]="licenseExp.isOpen" ><i class="fa fa-calendar"></i></div>
+        </div>
+
     </div> </div>
 
 
