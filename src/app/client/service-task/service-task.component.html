@@ -58,7 +58,9 @@
                  </form>                
               </ng-template> 
         </div>
-        <div class="row mbm" *ngIf="srvTaskLst.length>0">
+      
+
+          <div class="row mbm"  *ngIf="(srvTaskLst?.length || 0)>0">
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <div class="table-responsive">

@@ -43,18 +43,20 @@ export class ClientContactlogListComponent implements OnInit {
     private datepipe: DatePipe
   ) {
     this.model.isActive = 1;
+    this._time=new Date();
     this.currentUser = this.accountApi.getCurrentUser();
     this.comApi.getEmpList().subscribe((response) => {
       if (response.result) {
         this.empList = response.data;
       }
     });
-
     this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
-      this.OfficeUserList = response.data;
+      if (response.result) {
+        this.OfficeUserList = response.data;
+      }
     });
 
-    this._time=new Date();
+
   }
 
   ngOnInit(): void {
