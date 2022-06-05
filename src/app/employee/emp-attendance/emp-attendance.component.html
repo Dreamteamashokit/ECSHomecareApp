@@ -61,20 +61,28 @@
                     <div class="col-lg-4">
                         <div class="form-group" ><label class="control-label">From Date</label>
                          
-                            <input type="text"
-                            #StartDate="ngModel"
-                            id="txtStartDate"
-                            name="StartDate"
-                            placeholder="From Date"
-                            [(ngModel)]="model.startDate"
-                            class="form-control"
-                            bsDatepicker  >
-                          <em
+                          
+                         
+                            <div class="input-group">
+                              <input class="form-control" type="text" 
+                              id="txtstartDate"
+                              name="startDate"
+                              placeholder="From Date"
+                              #startDate="ngModel"  [(ngModel)]="_startDate"
+                                #stDate="bsDatepicker" bsDatepicker  
+                                 [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                              <div class="input-group-addon" (click)="stDate.toggle()" 
+                              [attr.aria-expanded]="stDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                          </div>
+                         
+                         
+                         
+                            <em
                             *ngIf="
-                            StartDate.invalid &&
-                              (StartDate.dirty || StartDate.touched)
+                            startDate.invalid &&
+                              (startDate.dirty || startDate.touched)
                             "
-                            for="txtStartDate"
+                            for="txtstartDate"
                             class="invalid"
                             >This field is required</em
                           >
@@ -85,18 +93,30 @@
                     <div class="col-lg-4">
                         <div class="form-group" ><label class="control-label">To Date</label>
                          
-                            <input type="text"
-                            #EndDate="ngModel"
-                            id="txtEndDate"
-                            name="EndDate"
-                            placeholder="To Date"
-                            [(ngModel)]="model.endDate"
-                            class="form-control"
-                            bsDatepicker  >
+                       
+                            <div class="input-group">
+                              <input class="form-control" type="text" 
+                              id="txtendDate"
+                              name="endDate"
+                              placeholder="To Date"
+                              #endDate="ngModel"  [(ngModel)]="_endDate"
+                                #eDate="bsDatepicker" bsDatepicker  
+                                 [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                              <div class="input-group-addon" (click)="eDate.toggle()" 
+                              [attr.aria-expanded]="eDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                          </div>
+                         
+
+
+
+
+
+
+
                           <em
                             *ngIf="
-                            EndDate.invalid &&
-                              (EndDate.dirty || EndDate.touched)
+                            endDate.invalid &&
+                              (endDate.dirty || endDate.touched)
                             "
                             for="txtEndDate"
                             class="invalid"
@@ -121,19 +141,16 @@
                      </div>
                      <div class="row mtm">
                         <div class="col-sm-12 col-xs-12 text-center">
-                                <button type="button" (click)="saveAttendance()"
-                         
-  
-                  [disabled]="f.invalid"
-                                
-                                class="btn btn-lg btn-dark">Save</button>
+
+                          <button type="button" (click)="saveAttendance()"  [disabled]="f.invalid"
+                          class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
                             </div>
   </div>
                 </form>
               </div>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm"  *ngIf="(attendanceObjList?.length || 0)>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -147,8 +164,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of attendanceObjList;">
-                                <td> {{ item.startDate }}</td>
-                                <td> {{ item.endDate }}</td>
+                                <td> {{item.startDate  | date: 'dd MMM YYYY'}}</td>
+                                <td> {{ item.endDate | date: 'dd MMM YYYY' }}</td>
                                 <td> {{ item.reason }}</td>
                                 <td> {{ item.notes }}</td>
 

@@ -10,7 +10,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType} from 'src/app/models/common';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
-
+import { Usertype } from 'src/app/commanHelper/usertype';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-emp-status',
   templateUrl: './emp-status.component.html',
@@ -22,6 +23,8 @@ export class EmpStatusComponent implements OnInit {
   OfficeUser:ItemsList[] = [];
   EmplList = Array<ItemsList>(); 
   TypeStatusList: ItemsList[] = [];
+  _effectiveDate:Date;
+  _returnDate:Date;
   currentUser:UserModel;
   
   ScheduleLst :any;
@@ -35,25 +38,27 @@ export class EmpStatusComponent implements OnInit {
     private route:ActivatedRoute,
     private modalService: BsModalService,
     private accountApi: AccountService,
-    private empApi: EmployeeapiService, private clientapi : ClientApiService) {
+    private empApi: EmployeeapiService, 
+    private clientapi : ClientApiService,
+    private datepipe: DatePipe,
+    ) {
     setTheme('bs3');
-
     this.currentUser=this.accountApi.getCurrentUser();
-   
     this.comApi.getEmpList().subscribe((response) => {
       if(response.result)
-      {
-      
+      {      
         this.EmplList = response.data;
-      }
-    });
-
+      }});
     this.comApi.getMaster(MasterType.EmpStatusType).subscribe((response) => {
-      this.TypeStatusList = response.data;
-    });
-
-
-
+      if(response.result)
+      {      
+        this.TypeStatusList = response.data;
+      }});
+    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {  
+      if(response.result)
+      {      
+        this.OfficeUser = response.data;
+      }});
 
    }
 
@@ -64,15 +69,11 @@ export class EmpStatusComponent implements OnInit {
      this.model.employeeId = Number(params["empId"]);   
      debugger;
          this.getEmployeeStatusLst(this.model.employeeId);
-         
       });
    
   }
 
   openModal(template: TemplateRef<any>) {
-     this.GetOfficeUserLst();
-
-  
      this.GetSchedulingLst();
     this.modalRef = this.modalService.show(template);
   }
@@ -82,9 +83,12 @@ export class EmpStatusComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  onClickSubmit() {     
-
+  onClickSubmit() { 
     
+
+    this.model.effectiveDate=this.datepipe.transform(this._effectiveDate, 'dd-MM-yyyy')||"";
+    this.model.returnDate=this.datepipe.transform(this._returnDate, 'dd-MM-yyyy')||"";
+
     this.model.userId=Number(this.model.employeeId);    
     this.model.createdBy=this.currentUser.userId;
     this.model.officeUserId=Number(this.model.officeUserId);
@@ -97,32 +101,23 @@ export class EmpStatusComponent implements OnInit {
     this.model.rehire=Boolean(this.model.rehire);
     this.model.resume=Boolean(this.model.resume);    
     this.empApi.SaveEmployeeStatus(this.model).subscribe((response) => {
-      // this.modalRef?.hide();
       this.decline();   
-      this.getEmployeeStatusLst(this.model.employeeId);
-      
+      this.getEmployeeStatusLst(this.model.employeeId);     
      
     }); 
  }
 
- getEmployeeStatusLst(empid:number) {
+ getEmployeeStatusLst(userId:number) {
    debugger;
-  this.empApi.getEmpStatusList(empid).subscribe((response) => {
-    this.EmpStatusObjList = response.data;      
-  });
+  this.empApi.getEmpStatusList(userId).subscribe((response) => {
+    if(response.result)
+    {      
+      this.EmpStatusObjList = response.data; 
+    }});
 }
 
-GetOfficeUserLst() {
 
-  this.comApi.getEmployees(1).subscribe((response) => {
-    this.OfficeUser = response.data;
-  });
-
-
-}
-
-GetSchedulingLst() {
- 
+GetSchedulingLst() { 
   this.comApi.getEmpList().subscribe((response) => {
     this.empList = response.data;
   });
@@ -130,12 +125,29 @@ GetSchedulingLst() {
 
 editItem(_item:Empstatus)
 {
-  this.model=_item;
+  this.model.userId=Number(_item.employeeId);    
+  this.model.createdBy=this.currentUser.userId;
+  this.model.officeUserId=Number(_item.officeUserId);
+  this.model.scheduling=Number(_item.scheduling);
+  this.model.employeeId=Number(_item.employeeId);
+  this.model.typeStatusId=Number(_item.typeStatusId);
+  this.model.text=Boolean(_item.text);
+  this.model.screen=Boolean(_item.screen);
+  this.model.email=Boolean(_item.email);
+  this.model.rehire=Boolean(_item.rehire);
+  this.model.resume=Boolean(_item.resume);  
+
+ this._effectiveDate=new Date(_item.effectiveDate);
+ this._returnDate=new Date(_item.returnDate);
+
   this.openModal(this.templatelog);
 }
-delItem(_ItemId:number)
+delItem(_itemId:number)
 {
-  
+  let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
+  }
 }
 
   

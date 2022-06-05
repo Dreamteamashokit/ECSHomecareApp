@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders  } from '@angular/common/http'; 
+import { HttpClient,HttpHeaders,HttpParams  } from '@angular/common/http'; 
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
@@ -105,7 +105,14 @@ export class EmployeeapiService {
   } 
 
 
-
+  delAttendance(attendanceId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'attendanceId': attendanceId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delAttendance", { params: reqPara });
+  }
 
   SaveEmployeeStatus(_obj : Empstatus){ 
     var headers_object = new HttpHeaders();

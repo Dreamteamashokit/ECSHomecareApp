@@ -1,4 +1,5 @@
 import { Component, OnInit,TemplateRef ,ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
@@ -30,22 +31,24 @@ export class EmpAttendanceComponent implements OnInit {
   currentUser:UserModel;
   ClientList = Array<ItemsList>();
   attendanceObjList: any;
-  // bsInlineValue = new Date();
-  // ;
-  // maxDate = new Date();
+
+  _startDate:Date;
+  _endDate:Date;
+
   constructor(
     private comApi: CommonService,
     private route:ActivatedRoute,
     private modalService: BsModalService, private empApi: EmployeeapiService,
     private accountApi: AccountService,
-    private clientapi : ClientApiService) {
+    private clientapi : ClientApiService,
+    private datepipe: DatePipe,) {
     setTheme('bs3');
     this.currentUser=this.accountApi.getCurrentUser();
 
     this.comApi.getClientList().subscribe((response) => {
       if(response.result)
       {
-        debugger;
+     
         this.ClientList = response.data;
       }
     });
@@ -55,7 +58,7 @@ export class EmpAttendanceComponent implements OnInit {
 
   ngOnInit(): void {
       
-debugger;
+
     this.route.params.subscribe(
       (params : Params) =>{
          this.model.empId = Number(params["empId"]);
@@ -76,23 +79,19 @@ debugger;
   }
 
   saveAttendance() {
-    // debugger;
-    //this.model.clientId=Number(this.model.clientId);
+    debugger;
 
-      
+    this.model.entityId=Number(this.model.entityId);
+    this.model.startDate=this.datepipe.transform(this._startDate, 'dd-MM-yyyy')||"";
+    this.model.endDate=this.datepipe.transform(this._endDate, 'dd-MM-yyyy')||"";
     this.model.userId=Number(this.model.empId);
     this.model.createdBy=this.currentUser.userId;
     const reqObj: Attendance = this.model;
-
-
-    console.log('Search', reqObj);
     this.empApi.saveAttendance(reqObj).subscribe((response) => {
       this.decline();
       this.getAttendanceList(reqObj.empId);
     });
   }
-
-
 
   getAttendanceList(empId : number) {
     this.empApi.getAttendanceList(empId).subscribe((response) => {
@@ -103,12 +102,24 @@ debugger;
 
   editItem(_item:Attendance)
   {
-    this.model=_item;
+  
+    this.model.entityId=_item.attendanceId;
+    this.model.notes=_item.notes;
+    this.model.reason=_item.reason;
+    this._startDate=new Date(_item.startDate);
+    this._endDate=new Date(_item.endDate);
     this.openModal(this.templatelog);
   }
-  delItem(_ItemId:number)
+
+  delItem(attendanceId:number)
   {
-    
+    let isOk = confirm("Are you sure to delete?");
+  if(isOk)
+  {
+    this.empApi.delAttendance(attendanceId).subscribe((response) => {
+      this.getAttendanceList(this.model.empId);
+    });
+  }
   }
 
 }
