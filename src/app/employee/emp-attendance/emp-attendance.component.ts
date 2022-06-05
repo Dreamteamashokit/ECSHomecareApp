@@ -44,6 +44,7 @@ export class EmpAttendanceComponent implements OnInit {
     private datepipe: DatePipe,) {
     setTheme('bs3');
     this.currentUser=this.accountApi.getCurrentUser();
+    this.model.entityId=0;
 
     this.comApi.getClientList().subscribe((response) => {
       if(response.result)
@@ -90,6 +91,12 @@ export class EmpAttendanceComponent implements OnInit {
     this.empApi.saveAttendance(reqObj).subscribe((response) => {
       this.decline();
       this.getAttendanceList(reqObj.empId);
+      this.model.entityId=0;
+
+      this.model.notes="";
+      this.model.reason="";
+      this._startDate=new Date();
+      this._endDate=new Date();
     });
   }
 
