@@ -117,7 +117,7 @@ editItem(_item:EmpDeclinedCase)
   this.model.week=_item.week;
 
 
-  this._startDate=new Date(_item.assignmentStartDateTime);;
+  this._startDate=new Date(_item.assignmentStartDateTime);
   this._reportedDate=new Date(_item.reportedDateTime);
   this._time=new Date(_item.reportedDateTime);
   this.openModal(this.templatelog);
@@ -133,6 +133,7 @@ if(isOk)
   });
 }
 }
+
 formateDate(item:string)
 {
 return new Date(item);

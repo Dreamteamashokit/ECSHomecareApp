@@ -82,10 +82,17 @@ export class EmployeeapiService {
 
   getIncidentList(empId : number)
   {
-    return this._http.get<APIResponse<Incident>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
+    return this._http.get<APIResponse<Incident[]>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
   } 
 
-
+  delIncident(incidentId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'incidentId': incidentId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delIncident", { params: reqPara });
+  }
 
 
   saveAttendance(_req : Attendance){ 

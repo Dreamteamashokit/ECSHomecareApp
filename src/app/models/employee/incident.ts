@@ -6,6 +6,8 @@ export class Incident  extends BaseModel {
     public clientId: number;
     public incidentDate: string;
     public incidentDetail: string;
+    public incidentDateTime: Date;
+    
     constructor(_incidentId : number, _empId : number, _clientId : number, _incidentDate : string, _incidentDetail : string)
     {
         super();
