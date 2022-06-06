@@ -21,8 +21,12 @@
                     <div class="col-lg-4">
                         <div class="form-group ptx">
                             <label>Payer</label>
+                            
                             <select class="form-control mtm mt-0-mobile">
-                                <option>1</option>
+                                <option value="-1" disabled>Select Payer</option>
+                                <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
+                                    {{ payer.itemName }}
+                                </option>
                             </select>
                         </div>
                     </div>
