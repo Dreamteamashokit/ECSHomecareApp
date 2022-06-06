@@ -3,8 +3,9 @@
 	import { BaseModel } from 'src/app/models/common';
 	
     export class EmpDeclinedCase extends BaseModel {
-        repotedDate: string;
-        clientId: number;
+        declinedCaseId: number;       
+        reportedDate: string;
+        clientId: number;        
         caseTypeId: number;
         declineReason: string;
         assignmentStart: string;
@@ -13,6 +14,8 @@
         week: number;
         clientName: string;
         caseTypeName: string;
+        reportedDateTime: Date;
+        assignmentStartDateTime: Date;
     }
 	
 	

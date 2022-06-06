@@ -1,3 +1,4 @@
+<app-loader [show]="IsLoad"></app-loader>
 <div class="row">
     <div class="col-lg-12">
         <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Declined Cases</strong> </h4>
@@ -44,17 +45,8 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
                     <div class="row">
-                    
-                        <div class="col-lg-4">                           
+                        <div class="col-lg-6">                           
                                 <div class="form-group">
                             <label class="control-label">Client</label>
                             <select
@@ -66,20 +58,15 @@
                           > 
                           <option value="-1" disabled>Select</option>
                           <option
-                           *ngFor="let obj of ClientList"
+                           *ngFor="let obj of clientList"
                            [value]="obj.itemId"
                          >
                            {{ obj.itemName }}
                          </option> 
                        </select>
- 
-           
                         </div>
-                        
-                        
                         </div>
-                        <div class="col-lg-4">
-                           
+                        <div class="col-lg-6">                           
                             <div class="form-group">
                         <label class="control-label">Case Type</label>
                         <select
@@ -88,18 +75,14 @@
                         id="ddlTypeStatusId"
                         name="Casetypeid"                                   
                         [(ngModel)]="model.caseTypeId"
-                      >
-                      
+                      >                      
                       <option value='-1' disabled>Select Case Type</option>
                                     <option *ngFor="let obj of caseTyeData"
                                             [value]="obj.itemId">
                                         {{ obj.itemName }}
                                     </option>
-                        </select>
-                               
+                        </select>                               
                         </div>
-                  
-                    
                        </div>
                     </div>
                     <div class="row">
@@ -114,7 +97,7 @@
                                 <label class="control-label">Assignment Started</label>
                                  
                                 <div class="input-group">
-                                  <input class="form-control" type="text" id="txtassignmentStart"name="assignmentStart" placeholder="Assignment Start Date"  [(ngModel)]="_startDate"
+                                  <input class="form-control" type="text" id="txtassignmentStart" name="assignmentStart" placeholder="Assignment Start Date"  [(ngModel)]="_startDate"
                                     #assignmentStart="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
                                   <div class="input-group-addon" (click)="assignmentStart.toggle()" [attr.aria-expanded]="assignmentStart.isOpen" ><i class="fa fa-calendar"></i></div>
                               </div>
@@ -176,8 +159,12 @@
                    
                         <div class="row">
                         <div class="col-lg-12 text-center">
-                            <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Add Declined Cases</button>
-                        </div>
+                       
+                            <button type="button" (click)="onClickSubmit()"  [disabled]="f.invalid"
+                            class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
+                     
+                     
+                          </div>
                         </div>
                   
               
@@ -185,7 +172,7 @@
               </div>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm"  *ngIf="(empCaseList?.length || 0)>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -200,12 +187,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of EmpCaseObj">
-                                <td>{{ item.assignmentStart }}</td>
-                                <td>{{ item.repotedDate }}</td>
+                            <tr *ngFor="let item of empCaseList">
+                        
+                                <td> {{ item.assignmentStartDateTime | date: 'dd MMM YYYY' }}</td>
+                                <td> 
+                             
+                                {{  item.reportedDateTime  | date: 'dd MMM YYYY, hh:mm a'}}</td>
                                 <td>{{ item.declineReason }}</td>
-                   
-                           
+                                <td>
+                                  <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+                                  <a (click)="delItem(item.declinedCaseId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
+                          
+                              </td>
                             </tr>
                         </tbody>
                     </table>
