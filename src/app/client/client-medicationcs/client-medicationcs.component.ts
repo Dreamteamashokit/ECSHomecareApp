@@ -54,7 +54,7 @@ export class ClientMedicationcsComponent implements OnInit {
 
   saveMedicationcs() {
 
-    debugger;
+      
     this.model.createdBy=this.currentUser.userId;
     this.model.clientID=Number(this.clientId);
     this.model.frequencyText=Number(this.model.frequencyText);

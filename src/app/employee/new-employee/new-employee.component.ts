@@ -90,12 +90,11 @@ export class NewEmployeeComponent implements OnInit {
     
   }
   _dobDate : Date=new Date();
-  // _dateOfHire : Date=new Date();
-  // _dateOfFirstCase : Date=new Date();
+
 
 
   saveChanges() {
-    debugger;
+
     this.IsLoad = true;    
     this.model.userId=Number(0);
     this.model.dateOfHire = this.datepipe.transform(this.model.dateOfHire, 'dd-MM-yyyy')||"";   

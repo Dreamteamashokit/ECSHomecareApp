@@ -53,7 +53,7 @@ export class EmpDeclinedCasesComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger
+
     this.route.params.subscribe(
       (params : Params) =>{
         this.model.userId= Number(params["empId"]);
@@ -74,7 +74,7 @@ export class EmpDeclinedCasesComponent implements OnInit {
 
 onClickSubmit() { 
 
-  debugger;
+
   this.IsLoad=true;
   this.model.reportedDate= (this.datepipe.transform(this._reportedDate, 'dd-MM-yyyy')||"") +', '+  (this.datepipe.transform(this._time, 'hh:mm:ss a')||"" );
   this.model.assignmentStart=this.datepipe.transform(this._startDate, 'dd-MM-yyyy')||"";

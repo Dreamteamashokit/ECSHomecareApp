@@ -80,7 +80,7 @@ export class EmpAttendanceComponent implements OnInit {
   }
 
   saveAttendance() {
-    debugger;
+     
 
     this.model.entityId=Number(this.model.entityId);
     this.model.startDate=this.datepipe.transform(this._startDate, 'dd-MM-yyyy')||"";

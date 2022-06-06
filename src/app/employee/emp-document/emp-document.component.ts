@@ -49,7 +49,7 @@ export class EmpDocumentComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-        debugger;
+     
         if (params["empId"] != null) {
           this.UserId = Number(params["empId"]);
         }

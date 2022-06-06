@@ -73,7 +73,7 @@ export class ClientComplianceComponent implements OnInit {
     );
   }
   GetFolderList(empid: number) {
-    debugger;
+     
     this.DocApi.GetFolderList(empid).subscribe(Response => {
       this.folders = Response.data;
     });
@@ -183,7 +183,7 @@ export class ClientComplianceComponent implements OnInit {
 
   }
   updateComplianceRecord(compId: number) {
-    debugger;
+     
     this.clientComplianceId = compId;
     this.model.clientComplianceId = this.clientComplianceId;
     this.clientapi.getClientComplianceRecordDetails(this.model).subscribe((Responce: any) => {
@@ -251,7 +251,7 @@ export class ClientComplianceComponent implements OnInit {
     });
   }
   deleteComplianceRecord(compId: number) {
-    debugger;
+     
     this.clientComplianceId = compId;
     this.model.clientComplianceId = this.clientComplianceId;
     this.clientapi.deleteClientCompliance(this.model).subscribe((response) => {
@@ -271,7 +271,7 @@ export class ClientComplianceComponent implements OnInit {
     this.modalRef?.hide();
   }
   onCategoryChange(event: any) {
-    debugger;
+     
     var selectedText = event.target.options[event.target.options.selectedIndex].text;
     if (selectedText == "Assessment") {
       this.isScreenDate = true;

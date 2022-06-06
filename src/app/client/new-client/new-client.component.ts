@@ -92,7 +92,7 @@ export class NewClientComponent implements OnInit {
 
   saveChanges() {
 
-    debugger;
+      
     this.IsLoad = true;
     this.model.dob = this.datepipe.transform(this._dobDate, 'dd-MM-yyyy')||"";   
     this.model.isActive=Number(this.model.isActive);

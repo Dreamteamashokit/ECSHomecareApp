@@ -56,7 +56,7 @@ export class ClientEmergencyInfoComponent implements OnInit {
 
 
   editProvider(editObj:ProviderModel) {
-debugger;
+      
     this.proModel=editObj;
 
     this.proModel.dateExpires = new Date(editObj.dateExpires);
@@ -73,15 +73,15 @@ debugger;
 
  getProviderModel(_userId:number)
  {
-   debugger;
+         
    this.IsLoad=true;
    this.clntSrv.getEmergProvider(_userId).subscribe({   
      next: (response) => {  
       console.log(response);
-      debugger;
+            
        if(response.result)
        {    
-        debugger;
+              
          this.bindModel(response.data);  
          this.IsLoad=false;
        }
@@ -99,7 +99,7 @@ debugger;
 
  bindModel(itemList: ProviderModel[])
  {
-  debugger;
+        
 
 if(itemList.filter(x=>x.contactType===3).length>0)
 {
@@ -138,7 +138,7 @@ else
  saveData(_item:ProviderModel)
  {
 
-  debugger;
+        
   _item.userId=this.clientId;
   _item.createdBy=this.currentUser.userId;
   this.IsLoad=true;
@@ -147,7 +147,7 @@ else
       if(res.result)
       {
 
-        debugger;
+              
         this.IsLoad=false;
         this.closeModal();
         this.getProviderModel(this.clientId);
@@ -155,7 +155,7 @@ else
     },
      error: (err) => { 
 
-      debugger;
+            
       this.IsLoad=false;
      console.log(err);
     },   
@@ -169,7 +169,7 @@ else
 
 
  delProvider(providerId:number) { 
-debugger;
+      
   let isOk = confirm("Are you sure to delete?");
   if(isOk)
   {

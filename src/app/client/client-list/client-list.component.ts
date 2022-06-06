@@ -103,7 +103,7 @@ IsLoad: boolean = false;
     }
 
   getFilterData(model: ClientFilter) {
-    debugger;
+     
     this.IsLoad = true;
     console.log(this.statusData);
     model.status=Number(model.status);

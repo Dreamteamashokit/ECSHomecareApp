@@ -72,7 +72,7 @@ export class ClientContactlogListComponent implements OnInit {
   }
 
   saveContactLog() {
-    debugger;
+        
     this.model.officeUserId = Number(this.model.officeUserId);
     this.model.empId = Number(this.model.empId);
     this.model.reason = this.model.reason;
@@ -129,7 +129,7 @@ export class ClientContactlogListComponent implements OnInit {
   }
 
   updateContactLog() {
-    debugger;
+        
     this.model.officeUserId = Number(this.model.officeUserId);
     this.model.empId = Number(this.model.empId);
     this.model.reason = this.model.reason;
@@ -146,7 +146,7 @@ export class ClientContactlogListComponent implements OnInit {
     this.model.isSchedule = this.model.isSchedule;
     this.model.contactlogId = this.contactLogId;
     this.clientapi.updateClientContactLog(this.model).subscribe(Responce => {
-      debugger;
+          
       this.decline();
       this.getClientContactLogRecord();
     })

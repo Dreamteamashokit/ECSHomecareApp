@@ -41,7 +41,7 @@ export class GeneralClientComponent implements OnInit {
 
   BindClientInfo(userId:number)
   {
-    debugger;
+       
     console.log("Rakesh07");
     this.IsLoad=true;
     this.clientApi.getClientDetail(userId).subscribe((response) => {

@@ -34,7 +34,7 @@ export class EmpComplianceComponent implements OnInit {
     this.comApi.getEmpList().subscribe((response) => {
       if(response.result)
       {
-        debugger;
+     
         this.EmplList = response.data;
       }
     });
@@ -53,12 +53,6 @@ export class EmpComplianceComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -69,7 +63,7 @@ export class EmpComplianceComponent implements OnInit {
   }
 
   saveCompliance() {
-    debugger;
+
     this.model.userId=Number(this.model.empId);
     this.model.createdBy=this.currentUser.userId;
     this.model.empId=Number(this.model.empId);
@@ -86,7 +80,6 @@ export class EmpComplianceComponent implements OnInit {
   getCompliance(empId : number) {
     this.empApi.geComplianceList(empId).subscribe((response) => {
       this.complianceObjList = response.data;
-
       console.log(response);
     });
   }

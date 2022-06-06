@@ -50,10 +50,10 @@ export class EmpAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-debugger;
+ 
     this.route.params.subscribe(
       (params: Params) => {
-        debugger;
+         
         if (params["empId"] != null) {
           this.model.userId = Number(params["empId"]);
           this.isClient=false;
@@ -80,7 +80,7 @@ debugger;
 
 
   getAddressPoint(item:string) {
-    debugger;
+     
     var loc = new LocationView();
     loc.Location=item;
     this.locSrv.getGeoPoint(item).subscribe({   
@@ -103,7 +103,7 @@ debugger;
 
 
   saveAddress() {
-    debugger;
+     
     this.IsLoad=true;
     this.model.createdBy=this.currentUser.userId;
     this.locSrv.getGeoPoint( this.model.address).subscribe({   
@@ -159,7 +159,7 @@ debugger;
 
   getAddress(empId: number) {
 
-debugger;
+ 
 console.log(this.currentUser);
     var loc = new LocationView();  
     this.IsLoad=true;
