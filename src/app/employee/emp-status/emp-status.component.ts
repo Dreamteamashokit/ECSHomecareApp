@@ -78,6 +78,16 @@ export class EmpStatusComponent implements OnInit {
   
   decline(): void {
     this.model.entityId=0;  
+    this.model.effectiveDateTime=new Date();
+    this.model.returnDateTime=new Date();
+    this.model.text=false;
+    this.model.screen=false;
+    this.model.email=false;
+    this.model.rehire=false;
+    this.model.resume=false;  
+    this.model.note='';
+
+
     this.modalRef?.hide();
   }
 
@@ -100,8 +110,7 @@ export class EmpStatusComponent implements OnInit {
 
     this.empApi.SaveEmployeeStatus(this.model).subscribe((response) => {
       this.decline();   
-      this.getEmployeeStatusLst(this.model.userId);     
-     
+      this.getEmployeeStatusLst(this.model.userId); 
     }); 
  }
 
