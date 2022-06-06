@@ -3,7 +3,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
-
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import{Empstatus} from 'src/app/models/employee/empstatus';
 import { CommonService } from 'src/app/services/common.service';
@@ -19,19 +18,15 @@ import { DatePipe } from '@angular/common';
 })
 
 export class EmpStatusComponent implements OnInit {
-  empList = Array<ItemsList>();
-  OfficeUser:ItemsList[] = [];
-  EmplList = Array<ItemsList>(); 
+  empList : ItemsList[] = [];
+  officeUserList:ItemsList[] = [];
   TypeStatusList: ItemsList[] = [];
-  _effectiveDate:Date;
-  _returnDate:Date;
   currentUser:UserModel;
-  
-  ScheduleLst :any;
+  scheduleList :any;
   modalRef?: BsModalRef;
   @ViewChild("template") templatelog: TemplateRef<any>;
    model = new Empstatus('',false,false,'','','',0,0,0,0,false,false,false);
-   EmpStatusObjList: any;
+   empStatusList: Empstatus[]=[];
 
   constructor(
     private comApi: CommonService,
@@ -42,13 +37,11 @@ export class EmpStatusComponent implements OnInit {
     private clientapi : ClientApiService,
     private datepipe: DatePipe,
     ) {
+
+      this.model.effectiveDateTime=new Date();
+      this.model.returnDateTime=new Date();
     setTheme('bs3');
-    this.currentUser=this.accountApi.getCurrentUser();
-    this.comApi.getEmpList().subscribe((response) => {
-      if(response.result)
-      {      
-        this.EmplList = response.data;
-      }});
+    this.currentUser=this.accountApi.getCurrentUser();  
     this.comApi.getMaster(MasterType.EmpStatusType).subscribe((response) => {
       if(response.result)
       {      
@@ -57,8 +50,14 @@ export class EmpStatusComponent implements OnInit {
     this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {  
       if(response.result)
       {      
-        this.OfficeUser = response.data;
+        this.officeUserList = response.data;
       }});
+
+      this.comApi.getEmpList().subscribe((response) => {
+        this.empList = response.data;
+      });
+
+   
 
    }
 
@@ -66,31 +65,25 @@ export class EmpStatusComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params : Params) =>{   
-     this.model.employeeId = Number(params["empId"]);   
-     debugger;
-         this.getEmployeeStatusLst(this.model.employeeId);
+        this.model.userId = Number(params["empId"]);   
+         this.getEmployeeStatusLst(this.model.userId);
       });
    
   }
 
   openModal(template: TemplateRef<any>) {
-     this.GetSchedulingLst();
+
     this.modalRef = this.modalService.show(template);
   }
   
   decline(): void {
-   
+    this.model.entityId=0;  
     this.modalRef?.hide();
   }
 
   onClickSubmit() { 
     
-
-    this.model.effectiveDate=this.datepipe.transform(this._effectiveDate, 'dd-MM-yyyy')||"";
-    this.model.returnDate=this.datepipe.transform(this._returnDate, 'dd-MM-yyyy')||"";
-
-    this.model.userId=Number(this.model.employeeId);    
-    this.model.createdBy=this.currentUser.userId;
+    this.model.userId=Number(this.model.userId);
     this.model.officeUserId=Number(this.model.officeUserId);
     this.model.scheduling=Number(this.model.scheduling);
     this.model.employeeId=Number(this.model.employeeId);
@@ -99,57 +92,72 @@ export class EmpStatusComponent implements OnInit {
     this.model.screen=Boolean(this.model.screen);
     this.model.email=Boolean(this.model.email);
     this.model.rehire=Boolean(this.model.rehire);
-    this.model.resume=Boolean(this.model.resume);    
+    this.model.resume=Boolean(this.model.resume);  
+    
+    this.model.createdBy=this.currentUser.userId;
+    this.model.effectiveDate=this.datepipe.transform(this.model.effectiveDateTime, 'dd-MM-yyyy')||"";
+    this.model.returnDate=this.datepipe.transform(this.model.returnDateTime, 'dd-MM-yyyy')||""; 
+
     this.empApi.SaveEmployeeStatus(this.model).subscribe((response) => {
       this.decline();   
-      this.getEmployeeStatusLst(this.model.employeeId);     
+      this.getEmployeeStatusLst(this.model.userId);     
      
     }); 
  }
 
  getEmployeeStatusLst(userId:number) {
-   debugger;
   this.empApi.getEmpStatusList(userId).subscribe((response) => {
     if(response.result)
     {      
-      this.EmpStatusObjList = response.data; 
+      this.empStatusList = response.data; 
+
+      console.log(response.data);
     }});
 }
 
 
-GetSchedulingLst() { 
-  this.comApi.getEmpList().subscribe((response) => {
-    this.empList = response.data;
-  });
-}
 
 editItem(_item:Empstatus)
 {
+
+
+  this.model.note=_item.note;
+  this.model.rehire=_item.rehire;
+  this.model.resume=_item.resume;  
+  this.model.entityId=_item.entityId;  
+
+  this.model.typeStatusId=Number(_item.typeStatusId);
+
+  this.model.employeeId=Number(_item.userId);
+
   this.model.userId=Number(_item.employeeId);    
   this.model.createdBy=this.currentUser.userId;
   this.model.officeUserId=Number(_item.officeUserId);
   this.model.scheduling=Number(_item.scheduling);
-  this.model.employeeId=Number(_item.employeeId);
-  this.model.typeStatusId=Number(_item.typeStatusId);
+
+
   this.model.text=Boolean(_item.text);
   this.model.screen=Boolean(_item.screen);
   this.model.email=Boolean(_item.email);
-  this.model.rehire=Boolean(_item.rehire);
-  this.model.resume=Boolean(_item.resume);  
 
- this._effectiveDate=new Date(_item.effectiveDate);
- this._returnDate=new Date(_item.returnDate);
-
+  this.model.effectiveDateTime=new Date(_item.effectiveDateTime);
+  this.model.returnDateTime=new Date(_item.returnDateTime);
   this.openModal(this.templatelog);
 }
-delItem(_itemId:number)
+
+delItem(statusId:number)
 {
   let isOk = confirm("Are you sure to delete?");
   if(isOk)
   {
-  }
+    this.empApi.delEmpStatus(statusId).subscribe((response) => {
+      this.getEmployeeStatusLst(this.model.userId);   
+
+  });
 }
 
-  
+}
+
+
 
 }

@@ -8,9 +8,9 @@ import { Attendance } from 'src/app/models/employee/attendance';
 import { Empstatus } from '../models/employee/empstatus';
 import { AddressObj } from 'src/app/models/employee/address';
 import { ComplianceObj } from 'src/app/models/employee/compliance-obj';
-import{EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
+import {EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
 import { EmpDeclinedCase } from 'src/app/models/employee/save-emp-declined-case';
-import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
+import { EmpDeclineCaseList } from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
@@ -128,14 +128,23 @@ export class EmployeeapiService {
         const httpOptions = {
           headers: headers_object
         }; 
-    return this._http.post(environment.domain + "/api/Employee/addStatus", _obj,httpOptions);   
-              
+    return this._http.post(environment.domain + "/api/Employee/addStatus", _obj,httpOptions);
   }
 
   getEmpStatusList(empId:number)
   {   
-    return this._http.get<APIResponse<Empstatus>>(environment.domain + "/api/Employee/getEmpStatusList"+"/"+empId);
-  } 
+    return this._http.get<APIResponse<Empstatus[]>>(environment.domain + "/api/Employee/getEmpStatusList"+"/"+empId);
+  }
+
+  delEmpStatus(statusId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'statusId': statusId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delEmpStatus", { params: reqPara });
+  }
+
   
   getAvailabilityList()
   {
