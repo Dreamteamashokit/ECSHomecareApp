@@ -2,9 +2,9 @@ import { Component, OnInit,TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
-import { ItemsList } from 'src/app/models/common';
+import { ItemsList,MasterType } from 'src/app/models/common';
 import { Router,ActivatedRoute, Params } from '@angular/router';
-import{SaveEmpDeclinedCase} from 'src/app/models/employee/save-emp-declined-case';
+import{ EmpDeclinedCase } from 'src/app/models/employee/save-emp-declined-case';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
@@ -23,7 +23,14 @@ export class EmpDeclinedCasesComponent implements OnInit {
  ClientId:number;
     
  currentUser:UserModel;
- model=new SaveEmpDeclinedCase("",0,0,"","","",0,0,"","",0);
+ caseTyeData: ItemsList[] = [];
+ model=new EmpDeclinedCase();
+
+
+ _time:Date;
+ _reportedDate = new Date();
+ _startDate = new Date();
+
   constructor(
     private comApi: CommonService,
     private route:ActivatedRoute,
@@ -41,8 +48,14 @@ export class EmpDeclinedCasesComponent implements OnInit {
           this.ClientList = response.data;
         }
       });
-  
-  
+
+
+      this.comApi.getMaster(MasterType.CaseType).subscribe((response) => {
+        this.caseTyeData = response.data;
+      });
+      this.model.caseTypeId=-1;
+      this.model.day=1;
+      this.model.week=1;
 
     }
 
@@ -50,9 +63,9 @@ export class EmpDeclinedCasesComponent implements OnInit {
     debugger
     this.route.params.subscribe(
       (params : Params) =>{
-        this.model.empId= Number(params["empId"]);
+        this.model.userId= Number(params["empId"]);
 
-         this.GetCaseList(this.model.empId);
+         this.GetCaseList(this.model.userId);
 
       }
     );
@@ -74,23 +87,23 @@ export class EmpDeclinedCasesComponent implements OnInit {
 
 onClickSubmit() { 
 
-  this.model.userId=Number(this.model.empId);
+  this.model.userId=Number(this.model.userId);
 
   this.model.createdBy=this.currentUser.userId;
  
    this.model.assignmentStart=this.model.assignmentStart;
-   this.model.casetypeId=Number(this.model.casetypeId);
+   this.model.caseTypeId=Number(this.model.caseTypeId);
    this.model.clientId=Number(this.model.clientId);
    this.model.day=Number(this.model.day);
    this.model.week=Number(this.model.week);
    this.model.repotedDate=this.model.repotedDate;
    this.model.declineReason=this.model.declineReason;  
    this.model.note=this.model.note; 
-   this.model.empId=Number(this.model.empId); 
+   this.model.userId=Number(this.model.userId); 
 
-   this.empApi.SaveEmpDeclinedCase(this.model).subscribe((response) => {
+   this.empApi.addEmpDeclinedCase(this.model).subscribe((response) => {
 
-    this.GetCaseList( this.model.empId);  
+    this.GetCaseList( this.model.userId);  
   this.decline();
 
  }); 
@@ -101,7 +114,7 @@ onClickSubmit() {
 
 GetCaseList(empId : number) {
   
-this.empApi.GetEmpDeclinedCase(empId).subscribe((response) => {
+this.empApi.getEmpDeclinedcase(empId).subscribe((response) => {
     this.EmpCaseObj = response.data;
 
     console.log(response);

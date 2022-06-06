@@ -9,7 +9,7 @@ import { Empstatus } from '../models/employee/empstatus';
 import { AddressObj } from 'src/app/models/employee/address';
 import { ComplianceObj } from 'src/app/models/employee/compliance-obj';
 import{EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
-import{SaveEmpDeclinedCase} from 'src/app/models/employee/save-emp-declined-case';
+import { EmpDeclinedCase } from 'src/app/models/employee/save-emp-declined-case';
 import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
@@ -187,7 +187,7 @@ export class EmployeeapiService {
   } 
   
 
-  SaveEmpDeclinedCase(_obj : SaveEmpDeclinedCase){ 
+  addEmpDeclinedCase(_obj : EmpDeclinedCase){ 
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -198,10 +198,28 @@ export class EmployeeapiService {
               
   }
 
-  GetEmpDeclinedCase(empId:number)
+  getEmpDeclinedcase(empId:number)
   {
-    return this._http.get<APIResponse<object>>(environment.domain + "/api/Employee/getEmpDeclinedcase"+ '/' + empId);
+    return this._http.get<APIResponse<EmpDeclinedCase[]>>(environment.domain + "/api/Employee/getEmpDeclinedcase"+ '/' + empId);
   } 
+
+
+
+  delDeclinedCase(declinedCaseId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'declinedCaseId': declinedCaseId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delDeclinedCase", { params: reqPara });
+  }
+  
+
+
+
+
+
+
 
   UploadFile(formData:FormData)
   {
