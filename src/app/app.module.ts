@@ -87,6 +87,7 @@ import { CreateUserComponent } from './user/create-user/create-user.component';
 import { UserDetailComponent } from './shared/user-detail/user-detail.component';
 import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
 
 
 @NgModule({
@@ -162,7 +163,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent,  
+    UpcommingComponent, ComplianceCategoryComponent,  
   ],
   imports: [
     BrowserModule,
