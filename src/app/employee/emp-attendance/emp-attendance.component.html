@@ -37,9 +37,9 @@
                             name="Reason"  
                             [(ngModel)]="model.reason"                                       
                           >
-                            <option value="" disabled>Select</option>
+                            <option value="0" disabled>Select</option>
                             <option
-                              *ngFor="let obj of ClientList"
+                              *ngFor="let obj of AbsenceActivityList"
                               [value]="obj.itemId"
                             >
                               {{ obj.itemName }}
@@ -166,7 +166,7 @@
                             <tr *ngFor="let item of attendanceObjList;">
                                 <td> {{item.startDate  | date: 'dd MMM YYYY'}}</td>
                                 <td> {{ item.endDate | date: 'dd MMM YYYY' }}</td>
-                                <td> {{ item.reason }}</td>
+                                <td> {{ item.reasonName }}</td>
                                 <td> {{ item.notes }}</td>
 
                                 <td>
