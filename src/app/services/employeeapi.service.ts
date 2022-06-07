@@ -200,8 +200,19 @@ export class EmployeeapiService {
 
   GetEmployeeRateLst(empId:number)
   {
-    return this._http.get<APIResponse<EmpRate[]>>(environment.domain + "/api/Employee/getEmpRate"+ '/' + empId);
+    return this._http.get<APIResponse<EmployeeRateModel[]>>(environment.domain + "/api/Employee/getEmpRate"+ '/' + empId);
   } 
+
+
+
+  delEmpPayRate(rateId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'rateId': rateId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delEmpPayRate", { params: reqPara });
+  }
   
 
   addEmpDeclinedCase(_obj : EmpDeclinedCase){ 
