@@ -22,6 +22,7 @@ import { HhaportalComponent } from './hhaportal/hhaportal.component';
 import { PatientComponent } from './patient/patient.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
+import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
 
 const routes: Routes = [
   { path: 'login', component: SignInComponent },
@@ -115,6 +116,9 @@ const routes: Routes = [
   },
   {
     path: 'billing', loadChildren: () => import('src/app/billing/billing.module').then(m => m.BillingModule) 
+  },
+  { path: 'user/category', component: LayoutComponent ,
+    children: [{ path: '', component:  ComplianceCategoryComponent }]
   },
   { path: '', component: SignInComponent },
   { path: '**', component: SignInComponent },

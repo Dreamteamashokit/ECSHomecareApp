@@ -16,7 +16,6 @@ import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
 import {employeeclientList,ClockinViewModel} from '../models/employee/employeeClient-model';
 import { ClientFilter } from 'src/app/models/meeting/client-meeting';
-import { CategoryModel } from '../models/employee/category';
 
 const httpOptionsObj = {
   headers: new HttpHeaders({
@@ -270,23 +269,5 @@ export class EmployeeapiService {
 
   GetClockinDetailsByUserId(userId:number){
     return this._http.get<APIResponse<ClockinViewModel>>(environment.domain + "/api/Employee/GetClockinDetails"+"/"+userId);
-  }
-
-  SaveCategory(_req: CategoryModel) {
-    var headers_object = new HttpHeaders();
-    headers_object.append('Content-Type', 'application/json');
-    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
-    const httpOptions = {
-      headers: headers_object
-    };
-    return this._http.post(environment.domain + "/api/Employee/addCategory", _req, httpOptions);
-  }
-
-  GetCategoryList(){
-    return this._http.get<APIResponse<CategoryModel>>(environment.domain + "/api/Employee/getCategoryList");
-  }
-
-  GetSubCategoryList(categoryId:number){
-    return this._http.get<APIResponse<CategoryModel>>(environment.domain + "/api/Employee/getSubCategoryList"+"/"+categoryId);
-  }
+  }  
 }
