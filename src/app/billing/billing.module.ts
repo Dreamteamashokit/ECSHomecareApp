@@ -6,6 +6,9 @@ import { LayoutComponent } from '../layout/layout.component';
 import { AddRateComponent } from './component/manage_payer_and_rate/add-rate/add-rate.component';
 import { GetinvoicesComponent } from '../dashboard/getinvoices/getinvoices.component';
 import { FormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+
 
 
 
@@ -28,7 +31,8 @@ const routes: Routes = [
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        BsDatepickerModule.forRoot(),
     ]
 })
 export class BillingModule { }
