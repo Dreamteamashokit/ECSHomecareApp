@@ -29,23 +29,23 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">Type/Status</label>
-                    <select
+                    <select required
                     class="form-control"
                     #typeStatusId="ngModel"                                   
                     id="ddltypeStatusId"
                     name="typeStatusId"                                   
                     [(ngModel)]="model.typeStatusId"                                       
                   > 
-                  <option value="" disabled>Select</option>
+                  <option [ngValue]="0" selected>Select</option>
                                 <option
                                   *ngFor="let obj of TypeStatusList"
-                                  [value]="obj.itemId"
+                                  [ngValue]="obj.itemId"
                                 >
                                   {{ obj.itemName }}
                                 </option>
                                                   
                         </select>
-
+                        <em *ngIf="(typeStatusId.invalid  && (typeStatusId.dirty || typeStatusId.touched))||(typeStatusId.value==0)" for="ddltypeStatusId" class="invalid">This field is required</em>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -76,6 +76,7 @@
                         #RetDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
                       <div class="input-group-addon" (click)="RetDate.toggle()" [attr.aria-expanded]="RetDate.isOpen" ><i class="fa fa-calendar"></i></div>
                   </div>
+                  
                     </div>
                       </div>
                     </div>
@@ -85,7 +86,7 @@
                     <label class="control-label">Ok of Resume</label><br>
                     <input type="checkbox" #Resume="ngModel" id="txtResume"name="Resume" checked="model.resume" 
                     [(ngModel)]="model.resume" >
-                    {{model.resume}}
+               
                     </div>
                       </div>
                       <div class="col-lg-6 col-xs-6">
@@ -185,7 +186,7 @@
                           </div>
                     <div class="row">
                     <div class="col-lg-12 text-center">
-                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
+                      <button type="button" [disabled]="f.invalid || (typeStatusId.value==0)" (click)="onClickSubmit()" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
                     </div>
                       </div>
                 </div>
@@ -214,7 +215,7 @@
                                     <tr *ngFor="let item of empStatusList">
                                     <td> {{ item.statusType }}
 
-                                      {{item.typeStatusId}}
+                        
                                     </td>                    
                                     <td> {{ item.effectiveDateTime | date:'dd MMM YYYY' }}</td>
                                     <td>{{ item.returnDateTime | date:'dd MMM YYYY' }}</td>

@@ -57,7 +57,7 @@ export class EmpStatusComponent implements OnInit {
         this.empList = response.data;
       });
 
-   
+      this.model.typeStatusId=0;
 
    }
 
