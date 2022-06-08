@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { DiagnosisItem } from 'src/app/models/master/diagnosis-item';
 import {  TaskModel}  from 'src/app/models/client/service-task-model';
+import { CategoryModel } from '../models/common/category';
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -59,7 +60,27 @@ export class MasterService {
       return this._http.delete(environment.domain + "/api/Master/activeTask", { params: reqPara });
     }
 
+    SaveCategory(_req: CategoryModel) {
+      var headers_object = new HttpHeaders();
+      headers_object.append('Content-Type', 'application/json');
+      var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+      const httpOptions = {
+        headers: headers_object
+      };
+      return this._http.post(environment.domain + "/api/Master/addCategory", _req, httpOptions);
+    }
+  
+    GetCategoryList(){
+      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getParentCategoryList");
+    }
 
+    GetMasterCategoryList(){
+      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getMasterCategoryList");
+    }
+  
+    GetSubCategoryList(categoryId:number){
+      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getSubCategoryList"+"/"+categoryId);
+    }
 
 
 }
