@@ -1,188 +1,188 @@
-<div class="modal-header">
+<app-loader [show]="IsLoad"></app-loader>
 
-  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-  </button>
+<div class="modal-header">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
 </div>
 <div class="modal-body">
-  <div class="row">
-      <div class="col-sm-12 col-xs-12">
-          <div class="form-group text-center">
-              <h4 class="mtn mbs"><strong> {{momObj?.meetingDate}}</strong></h4>
-              <h3 class="text-orange mtn mbs"><strong>{{momObj?.startTime}} - {{momObj?.endTime}}</strong></h3>
-              <h3 class="text-orange mtn mbs"><strong>Hourly</strong></h3>
-          </div>
-      </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <div class="form-group text-center">
+                <h4 class="mtn mbs"><strong> {{momObj?.meetingDate}}</strong></h4>
+                <h3 class="text-orange mtn mbs"><strong>{{momObj?.startTime}} - {{momObj?.endTime}}</strong></h3>
+                <h3 class="text-orange mtn mbs"><strong>Hourly</strong></h3>
+            </div>
+        </div>
 
-  </div>
-  <div class="row">
-      <div class="col-sm-6 col-xs-12">
-          <div class="panel mbn">
-              <div class="panel-body">
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="panel mbn">
+                <div class="panel-body">
+                    <p>CLIENT</p>
+                    <p>
+                        <a (click)="scheduling(bsModalRef,9,momObj?.client?.id)">
+                            <i class="fa fa-calendar medium-txt mrm"></i>
+                        </a>
+                        <a (click)="profile(bsModalRef,9,momObj?.client?.id)">
+                            <i class="fa fa-user medium-txt mrm"></i>
+                        </a>
+                    </p>
+                    <hr class="mtn mbn">
+                    <h3><strong>{{momObj?.client?.lastName}}, {{momObj?.client?.firstName}}</strong></h3>
+                    <p>
+                        <i class="fa fa-map-marker text-orange"></i> {{momObj?.client?.address?.flatNo}},
+                        {{momObj?.client?.address?.locationDetail}}, {{momObj?.client?.address?.country}},
+                        {{momObj?.client?.address?.state}},
+                        {{momObj?.client?.address?.city}},{{momObj?.client?.address?.zipCode}},
+                    </p>
+                    <p><i class="fa fa-phone text-orange "></i> Phone: (609) 498-0438</p>
+                </div>
 
-                  <p>CLIENT</p>
-                  <p><i class="fa fa-calendar medium-txt mrm"></i><i class="fa fa-user medium-txt mrm"></i><i class="fa fa-edit medium-txt"></i> </p>
-                  <hr class="mtn mbn">
-                  <h3><strong>{{momObj?.client?.lastName}}, {{momObj?.client?.firstName}}</strong></h3>
-                  <p>
-                    <i class="fa fa-map-marker text-orange"></i> {{momObj?.client?.address?.flatNo}}, {{momObj?.client?.address?.locationDetail}},  {{momObj?.client?.address?.country}}, {{momObj?.client?.address?.state}},
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="panel mbn">
+                <div class="panel-body">
+                    <p>EMPLOYEE</p>         
+                    <p>
+                        <a (click)="scheduling(bsModalRef,8,momObj?.employee?.id)">
+                            <i class="fa fa-calendar medium-txt mrm"></i>
+                        </a>
+                        <a (click)="profile(bsModalRef,8,momObj?.employee?.id)">
+                            <i class="fa fa-user medium-txt mrm"></i>
+                        </a>
+                    </p>
+                    <hr class="mtn mbn">
+                    <h3><strong>{{momObj?.employee?.lastName}}, {{momObj?.employee?.firstName}}</strong></h3>
+                    <p>
+                        <i class="fa fa-map-marker text-orange"></i> {{momObj?.employee?.address?.flatNo}},
+                        {{momObj?.employee?.address?.locationDetail}}, {{momObj?.employee?.address?.country}},
+                        {{momObj?.employee?.address?.state}},
+                        {{momObj?.employee?.address?.city}},{{momObj?.employee?.address?.zipCode}},
+                    </p>
+                    <p><i class="fa fa-phone text-orange "></i> Phone: {{momObj?.employee?.cellPhone}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mtn mbn">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <p class="mbn"><i class="fa fa-envelope text-orange"></i> <strong>Send message to Employee</strong></p>
+            <p class="small-txt">Message will be sent to . Reply will be sent to coordinator's cellphone.</p>
+        </div>
+    </div>
+    <hr class="mtn mbn">
+    <div class="panel panel-default">
+        <div class="panel-body light-bg-grey">
+            <div class="row">
+                <div class="col-sm-10 col-xs-10">
+                    <div class="form-group">
+                        <textarea placeholder="Notes" class="form-control" id="txtNotes" name="Notes"
+                            placeholder="Notes" [(ngModel)]="message"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-2">
+                    <div class="form-group pbn">
+                        <button type="button" class="btn btn-sm btn-primary mtm" (click)="addNote()">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mbm mtl">
+        <div class="col-sm-12 col-xs-12 " *ngIf="mNoteList.length>0">
+            <a class="" data-toggle="collapse" href="#list-1" role="button" aria-expanded="false"><i
+                    class="fa fa-plus-square text-orange"></i> Notes</a>
+            <div class="collapse" id="list-1">
+                <div class="panel panel-primary mtx">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul>
+                                    <li class="smalltxt" *ngFor="let obj of momObj?.notes"> {{ obj }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mtn mbn">
+    <div class="row mbm mtl">
+        <div class="col-sm-12 col-xs-12 text-center">
+            <!-- <button type="button"  class="btn btn-sm btn-primary mrm">MAKE CHANGES</button>-->
+            <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm"
+                (click)="openModal(template,2)">CANCELLED</button>&nbsp;&nbsp;
+            <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm"
+                (click)="openModal(template,3)">CANCELLED BY CLIENT</button>&nbsp;&nbsp;
+            <button type="button" *ngIf="!this.IsCancel" class="btn btn-sm btn-primary mrm"
+                (click)="onChange(1,momObj?.meetingId)">Restore</button>
 
+            <button type="button" class="btn btn-sm btn-primary mrm"
+                (click)="delScheduling(bsModalRef,momObj?.meetingId)">DELETE</button>
+        </div>
+    </div>
+    <hr class="mtn mbn">
+    <div class="row mbm mtl">
+        <div class="col-sm-12 col-xs-12 " *ngIf="mlogList.length>0">
+            <a class="" data-toggle="collapse" href="#list-2" role="button" aria-expanded="false"><i
+                    class="fa fa-plus-square text-orange"></i> History</a>
+            <div class="collapse" id="list-2">
+                <div class="panel panel-primary mtx">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul>
+                                    <li class="smalltxt" *ngFor="let obj of mlogList">{{
+                                        formateDateTime(obj.createdOn)}} - {{obj.logNote}} by {{obj.createdBy.lastName +
+                                        ' ' + obj.createdBy.firstName}}</li>
 
-                    {{momObj?.client?.address?.city}},{{momObj?.client?.address?.zipCode}},
-                </p>
-                 
-                 
-                 
-                  <p><i class="fa fa-phone text-orange "></i> Phone: (609) 498-0438</p>
-                  <p>Payer: <strong>HORIZON NJ HEALTH</strong></p>
-                  <p>Code: <strong>T1019</strong></p>
-
-              </div>
-
-          </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-          <div class="panel mbn">
-              <div class="panel-body">
-
-                  <p>EMPLOYEE</p>
-                  <p><i class="fa fa-calendar medium-txt mrm"></i><i class="fa fa-user medium-txt mrm"></i><i class="fa fa-edit medium-txt"></i> </p>
-                  <hr class="mtn mbn">
-                  <h3><strong>{{momObj?.employee?.lastName}}, {{momObj?.employee?.firstName}}</strong></h3>
-                  <p>
-                      <i class="fa fa-map-marker text-orange"></i> {{momObj?.employee?.address?.flatNo}}, {{momObj?.employee?.address?.locationDetail}},  {{momObj?.employee?.address?.country}}, {{momObj?.employee?.address?.state}},
-
-
-                      {{momObj?.employee?.address?.city}},{{momObj?.employee?.address?.zipCode}},
-                  </p>
-                  <p><i class="fa fa-phone text-orange "></i> Phone: {{momObj?.employee?.cellPhone}}</p>
-                  <p>Payer: <strong>HORIZON NJ HEALTH</strong></p>
-                  <p>Code: <strong>T1019</strong></p>
-
-
-
-              </div>
-
-          </div>
-      </div>
-
-  </div>
-  <hr class="mtn mbn">
-  <div class="row">
-      <div class="col-sm-12 col-xs-12">
-          <p class="mbn"><i class="fa fa-envelope text-orange"></i> <strong>Send message to Employee</strong></p>
-          <p class="small-txt">Message will be sent to . Reply will be sent to coordinator's cellphone.</p>
-      </div>
-
-  </div>
-  <hr class="mtn mbn">
-  <div class="panel panel-default">
-      <div class="panel-body light-bg-grey">
-          <div class="row">
-              <div class="col-sm-10 col-xs-10">
-                  <div class="form-group">
-                      <textarea placeholder="Notes"
-                                class="form-control"
-                                id="txtNotes"
-                                name="Notes"
-                                placeholder="Notes"
-                                [(ngModel)]="message"></textarea>
-                  </div>
-              </div>
-              <div class="col-sm-2 col-xs-2">
-                  <div class="form-group pbn">
-
-
-                      <button type="button" class="btn btn-sm btn-primary mtm" (click)="addNote()">Post</button>
-
-
-
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-  </div>
-  <div class="row mbm mtl">
-      <div class="col-sm-12 col-xs-12 "  *ngIf="mNoteList.length>0"  >
-          <a class="" data-toggle="collapse" href="#list-1" role="button" aria-expanded="false"><i class="fa fa-plus-square text-orange"></i> Notes</a>
-          <div class="collapse" id="list-1">
-              <div class="panel panel-primary mtx">
-                  <div class="panel-body">
-                      <div class="row">
-                          <div class="col-lg-12">
-                              <ul>
-                                  <li class="smalltxt" *ngFor="let obj of momObj?.notes">  {{ obj }}</li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <hr class="mtn mbn">
-  <div class="row mbm mtl" >
-      <div class="col-sm-12 col-xs-12 text-center" >
-          <!-- <button type="button"  class="btn btn-sm btn-primary mrm">MAKE CHANGES</button>-->
-          <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm" (click)="openModal(template,2)">CANCELLED</button>&nbsp;&nbsp;
-          <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm" (click)="openModal(template,3)">CANCELLED BY CLIENT</button>&nbsp;&nbsp;
-          <button type="button" *ngIf="!this.IsCancel" class="btn btn-sm btn-primary mrm" (click)="onChange(1,momObj?.meetingId)">Restore</button>
-          <button type="button" class="btn btn-sm btn-primary mrm" (click)="onChange(0,momObj?.meetingId)">DELETE</button>
-      </div>
-  </div>
-  <hr class="mtn mbn">
-  <div class="row mbm mtl">
-      <div class="col-sm-12 col-xs-12 " *ngIf="mlogList.length>0" >
-          <a class="" data-toggle="collapse" href="#list-2" role="button" aria-expanded="false"><i class="fa fa-plus-square text-orange"></i> History</a>
-          <div class="collapse" id="list-2">
-              <div class="panel panel-primary mtx">
-                  <div class="panel-body">
-                      <div class="row">
-                          <div class="col-lg-12">
-                              <ul>
-                                  <li class="smalltxt" *ngFor="let obj of mlogList">{{ formateDateTime(obj.createdOn)}} - {{obj.logNote}} by {{obj.createdBy.lastName + ' ' + obj.createdBy.firstName}}</li>
-                               
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <ng-template #template>
-  <div class="modal-header">
-      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline()">
-          <span aria-hidden="true" class="visually-hidden">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-      <form name="frmMStatus" #f="ngForm">
-          <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
-          <div class="row mtm">
-              <div class="col-sm-12 col-xs-12">
-                  <p>Please add cancellation reason and click 'Confirm'.</p>
-              </div>
-              <div class="col-sm-12 col-xs-12">
-                  <div class="form-group">
-                      <label class="control-label">Add Notes </label>
-                      <textarea placeholder="Notes"
-                                class="form-control"
-                                id="txtNotes"
-                                name="Notes"
-                                [(ngModel)]="model.meetingNote"></textarea>
-                  </div>
-              </div>
-          </div>
-      </form>
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-default" (click)="confirm(this.model.isStatus)">Confirm</button>
-      <button type="button" class="btn btn-primary" (click)="decline()">Cancel</button>
-  </div>
+    <div class="modal-header">
+        <div class="row mtm">
+            <div class="col-sm-8 col-xs-8">
+                <p>{{title}}</p>
+            </div>
+            <div class="col-sm-2 col-xs-2 text-right">
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+        </div>
+ 
+    
+    </div>
+    <div class="modal-body">
+        <form name="frmMStatus" #f="ngForm">
+            <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
+            <div class="row mtm">
+            
+                <div class="col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">Add Notes </label>
+                        <textarea placeholder="Notes" class="form-control" id="txtconfirmNote" name="confirmNote"
+                            [(ngModel)]="confirmNote"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="confirm(this.model.isStatus)">Confirm</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">Cancel</button>
+    </div>
 </ng-template>

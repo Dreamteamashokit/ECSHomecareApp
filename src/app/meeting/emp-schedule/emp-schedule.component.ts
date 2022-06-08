@@ -10,6 +10,8 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserType } from 'src/app/models/common';
+
+
 @Component({
   selector: 'app-emp-schedule',
   templateUrl: './emp-schedule.component.html',
@@ -46,6 +48,19 @@ export class EmpScheduleComponent implements OnInit {
    {
     this.currentUser = this.accountApi.getCurrentUser();
      this.BindMaster();
+
+     const sTime= this._startTime;
+     sTime.setMinutes(sTime.getMinutes() + 15);
+     this._startTime=sTime;
+     const eTime= this._endTime;
+     eTime.setMinutes(eTime.getMinutes() + 30);
+     this._endTime=eTime;
+
+     let tDate = new Date();
+     tDate.setDate(tDate.getDate() + 1);
+     this._toDate=tDate;
+
+
    }
 
   ngOnInit(): void {
@@ -88,8 +103,14 @@ onChange(e:any):void {
 
   if (e.target.checked) {
     this._fromDate = new Date(this.model.meetingDate);
-    this._toDate = new Date(this.model.meetingDate);
+    let tDate = new Date(this._fromDate);
+    tDate.setDate(tDate.getDate() + 1);
+    this._toDate=tDate;
     this.isRecurrence=true;
+  }
+  else
+  {
+
   }
   
   

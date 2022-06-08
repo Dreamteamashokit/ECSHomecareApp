@@ -10,7 +10,7 @@
     <!--BEGIN CONTENT-->
     <div class="page-content">
       <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
-      <form name="frmMom" #f="ngForm">
+      <form name="frmMom" #frmMom="ngForm">
 
         <div class="panel">       
         <div class="panel-body">
@@ -18,8 +18,8 @@
             <div class="col-sm-6 col-xs-12">
               <!-- <h2 class="mbn">Awie, Mentee, HHA</h2> -->
        
-              <h3 class="text-orange">{{ model.meetingDate | date :"EEEE, MMMM d, y"}} {{_startTime | date:'h:mm a'}} - {{_endTime | date:'h:mm a'}}</h3>
-              <h4><strong>Date of Service :   {{model.meetingDate | date :"dd MMM YYYY"}}</strong>
+              <h3 class="text-orange" *ngIf="!isRecurrence">{{ model.meetingDate | date :"EEEE, MMMM d, y"}} {{_startTime | date:'h:mm a'}} - {{_endTime | date:'h:mm a'}}</h3>
+              <h4 *ngIf="!isRecurrence"><strong>Date of Service :   {{model.meetingDate | date :"dd MMM YYYY"}}</strong>
               
    
 
@@ -42,35 +42,28 @@
                 <div class="form-group">
 
                     <label class="control-label">From Date</label>
-                    <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
-                    <input type="text"
-                      #fromDate="ngModel"
-                      id="txtfromDate"
-                      name="fromDate"
-                      placeholder="From Date"
-                      [(ngModel)]="_fromDate"
-                      class="form-control"
-                      bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
-                </div>
+                    <div class="input-group">                                    
+                      <input required type="text"  id="txtfromDate" name="fromDate"
+                      placeholder="From Date" #fromDate="ngModel" [(ngModel)]="_fromDate" 
+                      class="form-control" #frmDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                      <div class="input-group-addon" (click)="frmDate.toggle()" 
+                      [attr.aria-expanded]="frmDate.isOpen" ><i class="fa fa-calendar text-orange"></i></div>
+                  </div>
             </div>
-                <!-- {{_meetingDate}} -->
+             
             </div>
                   
 
             <div class="col-sm-3 col-xs-12" *ngIf="isRecurrence">
                 <div class="form-group">
-
                     <label class="control-label">To Date</label>
-          <div class="input-icon right desktop-ptl"><i class="fa fa-calendar"></i>
-                    <input type="text"
-                      #toDate="ngModel"
-                      id="txttoDate"
-                      name="toDate"
-                      placeholder="To Date"
-                      [(ngModel)]="_toDate"
-                      class="form-control"
-                      bsDatepicker    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }" >
-                </div>
+                <div class="input-group">                                    
+                  <input required type="text"  id="txttoDate" name="toDate"
+                  placeholder="From Date" #toDate="ngModel" [(ngModel)]="_toDate" 
+                  class="form-control" #tDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                  <div class="input-group-addon" (click)="tDate.toggle()" 
+                  [attr.aria-expanded]="tDate.isOpen" ><i class="fa fa-calendar text-orange"></i></div>
+              </div>
             </div>
                 <!-- {{_meetingDate}} -->
             </div>
@@ -78,10 +71,11 @@
        
             <div class="col-sm-2 col-xs-12">
                 <div class="form-group"><label class="control-label">Time In</label>
-                    <timepicker
+                    <timepicker required
                     #StartTime="ngModel"
                   id="txtStartTime"
                   name="StartTime"
+                  [showSpinners]="true"
                   (ngModelChange)="changed()" 
                     [(ngModel)]="_startTime" ></timepicker>
                 </div>
@@ -89,11 +83,11 @@
             </div>        
                 <div class="col-sm-2 col-xs-12">
                     <div class="form-group"><label class="control-label">Time Out</label>
-                        <timepicker 
+                        <timepicker required
                         #EndTime="ngModel"
                   id="txtEndTime"
                   name="EndTime"
-                  [min]="_startTime"
+                  [showSpinners]="true"
                         [(ngModel)]="_endTime"  
                         (ngModelChange)="changed()" 
                         ></timepicker>
@@ -120,7 +114,7 @@
           <div class="row mtm">
 
             <div class="col-lg-12">
-              <button class="btn btn-lg btn-primary"  (click) = "OnScheduling()">SCHEDULE</button>
+              <button class="btn btn-lg btn-primary" [disabled]="(frmMom.invalid || ClientId.value==-1 || EmpId.value==-1)"  (click) = "OnScheduling()">SCHEDULE</button>
             </div>
           </div>
 
@@ -134,11 +128,12 @@
                   <div class="panel-body">		
                      <div class="col-sm-6 col-xs-12">  
                          <div class="form-group"><label class="control-label">Client</label>                                     
-                                     <select class="form-control"
+                                     <select required class="form-control"
                                      #ClientId="ngModel"
                                      id="ddlClientId"
                                      name="ClientId"  
-                                     [(ngModel)]="model.clientId"    
+                                     [(ngModel)]="model.clientId"  
+                                       
                                      [disabled]="isClient"                                    
                                    >
                                      <option value="-1" disabled>Select</option>
@@ -169,7 +164,7 @@
                <div class="panel-body">		
                   <div class="col-sm-6 col-xs-12">  
                       <div class="form-group"><label class="control-label">Employee</label>                                     
-                                  <select
+                                  <select required
                                   class="form-control"
                                   #EmpId="ngModel"
                                   id="ddlEmpId"
@@ -207,13 +202,7 @@
 
     </div> 
       </form>
-            <div class="row mtm">
-                 <div class="col-sm-12 col-xs-12">
-                     <p><a  ><i class="fa fa-plus-square"></i> BILLING/PAYROLL</a></p>
-                      <p><a  ><i class="fa fa-plus-square"></i> ADDITIONAL ITEMS / CPT</a></p>
-                      <p><a  ><i class="fa fa-plus-square"></i> REQUIRED FORMS</a></p>
-                        </div>
-                    </div> 
+      
         </div>
 </div>
 
