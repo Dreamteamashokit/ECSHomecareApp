@@ -65,7 +65,7 @@
                         [(ngModel)]="model.nurse"                                       
                       ><option value="-1" disabled>Select</option>
                          <option
-                          *ngFor="let obj of EmplList"
+                          *ngFor="let obj of nurseList"
                           [value]="obj.itemId"
                         >
                           {{ obj.itemName }}
@@ -76,25 +76,26 @@
                     </div>
                   <div class="row">
                     <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Category</label>
-                    <input type="text"
-                    #category="ngModel"
-                    id="txtcategory"
-                    name="category"                     
-                    [(ngModel)]="model.category"
-                    class="form-control" ></div>
+                      <div class="form-group">       
+                        <label class="control-label">Category</label>                 
+                          <select class="form-control" id="ddlCategory" name="paretntCategory" [(ngModel)]="model.category" (change)="OnChangeCategory($event)">                            
+                            <option value="0">Please select</option>
+                            <option *ngFor="let obj of categoryList"
+                                    [value]="obj.categoryId">
+                                {{ obj.categoryName }}
+                            </option>
+                        </select> 
+                    </div>
                     </div>
                     <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Code</label>
-                    <input type="text"
-                    #code="ngModel"
-                    id="txtcode"
-                    name="code"                     
-                    [(ngModel)]="model.code"
-                    class="form-control"
-           >
+                      <div class="form-group">       
+                        <label class="control-label">Code</label>                 
+                          <select class="form-control" id="ddlCode" name="code" [(ngModel)]="model.code">                            
+                            <option *ngFor="let obj of subCategoryList"
+                                    [value]="obj.categoryId">
+                                {{ obj.categoryName }}
+                            </option>
+                        </select> 
                     </div>
                       </div>
                   <div class="col-lg-4">
