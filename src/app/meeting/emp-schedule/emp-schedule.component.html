@@ -75,10 +75,13 @@
                     #StartTime="ngModel"
                   id="txtStartTime"
                   name="StartTime"
+                  [min]="_startMinTime"
                   [showSpinners]="true"
                   (ngModelChange)="changed()" 
                     [(ngModel)]="_startTime" ></timepicker>
                 </div>
+
+                {{_endTime}}
                 <!-- {{_startTime}} -->
             </div>        
                 <div class="col-sm-2 col-xs-12">
