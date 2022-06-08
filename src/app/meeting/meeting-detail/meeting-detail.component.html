@@ -6,7 +6,62 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="row">
+
+
+    <div class="panel panel-default" *ngIf="IsEdit">
+        <div class="panel-body light-bg-grey">
+
+            <div class="row mtm">
+                <div class="col-xs-12">
+                    <div class="form-group"><label class="control-label mbxl">Date of Service</label>
+                        <div class="input-group">
+                            <input required type="text" id="txtMeetingDate" name="MeetingDate"
+                                placeholder="Date of Birth" #MeetingDate="ngModel" [(ngModel)]="_meetingDate"
+                                class="form-control" #mDate="bsDatepicker" bsDatepicker
+                                [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="mDate.toggle()" [attr.aria-expanded]="mDate.isOpen">
+                                <i class="fa fa-calendar text-orange"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row mtm">
+                <div class="col-xs-6">
+                    <div class="form-group"><label class="control-label">Time In</label>
+                        <timepicker #StartTime="ngModel" id="txtStartTime" name="StartTime" [showMeridian]="false"
+                            [showSpinners]="true" [(ngModel)]="_startTime"></timepicker>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group"><label class="control-label">Time Out</label>
+                        <timepicker #EndTime="ngModel" id="txtEndTime" name="EndTime" [showMeridian]="false"
+                            [showSpinners]="true" [(ngModel)]="_endTime"></timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mtm">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <textarea placeholder="Notes" class="form-control" id="txtNotes" name="Notes"
+                            placeholder="Notes" [(ngModel)]="message"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mtm">
+                <div class="col-lg-12 text-center">
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-dark" (click)="reScheduling()"><i class="fa fa-save mrm"></i>
+                            RESCHEDULE</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row mtm" *ngIf="!IsEdit">
         <div class="col-sm-12 col-xs-12">
             <div class="form-group text-center">
                 <h4 class="mtn mbs"><strong> {{momObj?.meetingDate}}</strong></h4>
@@ -14,23 +69,21 @@
                 <h3 class="text-orange mtn mbs"><strong>Hourly</strong></h3>
             </div>
         </div>
-
     </div>
     <div class="row">
         <div class="col-sm-6 col-xs-12">
             <div class="panel mbn">
                 <div class="panel-body">
                     <p>CLIENT</p>
-                    <p>
-                        <a (click)="scheduling(bsModalRef,9,momObj?.client?.id)">
-                            <i class="fa fa-calendar medium-txt mrm"></i>
-                        </a>
+                    <p><a (click)="scheduling(bsModalRef,9,momObj?.client?.id)">
+                            <i class="fa fa-calendar medium-txt mrm"></i></a>
                         <a (click)="profile(bsModalRef,9,momObj?.client?.id)">
                             <i class="fa fa-user medium-txt mrm"></i>
                         </a>
                     </p>
                     <hr class="mtn mbn">
-                    <h3><strong>{{momObj?.client?.lastName}}, {{momObj?.client?.firstName}}</strong></h3>
+                    <h3 class="text-capitalize"><strong>{{momObj?.client?.lastName}},
+                            {{momObj?.client?.firstName}}</strong></h3>
                     <p>
                         <i class="fa fa-map-marker text-orange"></i> {{momObj?.client?.address?.flatNo}},
                         {{momObj?.client?.address?.locationDetail}}, {{momObj?.client?.address?.country}},
@@ -45,7 +98,7 @@
         <div class="col-sm-6 col-xs-12">
             <div class="panel mbn">
                 <div class="panel-body">
-                    <p>EMPLOYEE</p>         
+                    <p>EMPLOYEE</p>
                     <p>
                         <a (click)="scheduling(bsModalRef,8,momObj?.employee?.id)">
                             <i class="fa fa-calendar medium-txt mrm"></i>
@@ -55,7 +108,8 @@
                         </a>
                     </p>
                     <hr class="mtn mbn">
-                    <h3><strong>{{momObj?.employee?.lastName}}, {{momObj?.employee?.firstName}}</strong></h3>
+                    <h3 class="text-capitalize"><strong>{{momObj?.employee?.lastName}},
+                            {{momObj?.employee?.firstName}}</strong></h3>
                     <p>
                         <i class="fa fa-map-marker text-orange"></i> {{momObj?.employee?.address?.flatNo}},
                         {{momObj?.employee?.address?.locationDetail}}, {{momObj?.employee?.address?.country}},
@@ -67,15 +121,15 @@
             </div>
         </div>
     </div>
-    <hr class="mtn mbn">
-    <div class="row">
+    <!-- <hr class="mtn mbn"> -->
+    <!-- <div class="row">
         <div class="col-sm-12 col-xs-12">
             <p class="mbn"><i class="fa fa-envelope text-orange"></i> <strong>Send message to Employee</strong></p>
             <p class="small-txt">Message will be sent to . Reply will be sent to coordinator's cellphone.</p>
         </div>
-    </div>
-    <hr class="mtn mbn">
-    <div class="panel panel-default">
+    </div> -->
+
+    <div class="panel" *ngIf="!IsEdit">
         <div class="panel-body light-bg-grey">
             <div class="row">
                 <div class="col-sm-10 col-xs-10">
@@ -86,69 +140,66 @@
                 </div>
                 <div class="col-sm-2 col-xs-2">
                     <div class="form-group pbn">
-                        <button type="button" class="btn btn-sm btn-primary mtm" (click)="addNote()">Post</button>
+                        <button type="button" class="btn btn-sm btn-dark" (click)="addNote()">
+                            <i class="fa fa-save mrm"></i>Post</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mbm mtl">
-        <div class="col-sm-12 col-xs-12 " *ngIf="mNoteList.length>0">
-            <a class="" data-toggle="collapse" href="#list-1" role="button" aria-expanded="false"><i
-                    class="fa fa-plus-square text-orange"></i> Notes</a>
-            <div class="collapse" id="list-1">
-                <div class="panel panel-primary mtx">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <ul>
-                                    <li class="smalltxt" *ngFor="let obj of momObj?.notes"> {{ obj }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr class="mtn mbn">
-    <div class="row mbm mtl">
-        <div class="col-sm-12 col-xs-12 text-center">
-            <!-- <button type="button"  class="btn btn-sm btn-primary mrm">MAKE CHANGES</button>-->
-            <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm"
-                (click)="openModal(template,2)">CANCELLED</button>&nbsp;&nbsp;
-            <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-primary mrm"
-                (click)="openModal(template,3)">CANCELLED BY CLIENT</button>&nbsp;&nbsp;
-            <button type="button" *ngIf="!this.IsCancel" class="btn btn-sm btn-primary mrm"
-                (click)="onChange(1,momObj?.meetingId)">Restore</button>
+        <div class="row">
 
-            <button type="button" class="btn btn-sm btn-primary mrm"
-                (click)="delScheduling(bsModalRef,momObj?.meetingId)">DELETE</button>
-        </div>
-    </div>
-    <hr class="mtn mbn">
-    <div class="row mbm mtl">
-        <div class="col-sm-12 col-xs-12 " *ngIf="mlogList.length>0">
-            <a class="" data-toggle="collapse" href="#list-2" role="button" aria-expanded="false"><i
-                    class="fa fa-plus-square text-orange"></i> History</a>
-            <div class="collapse" id="list-2">
-                <div class="panel panel-primary mtx">
+            <div class="col-sm-12 col-xs-12 " *ngIf="mNoteList.length>0">
+                <a data-toggle="collapse" href="#list" role="button" aria-expanded="false"><i
+                        class="fa fa-plus-square text-orange mrm"></i>Notes </a>
+                <div class="collapse" id="list">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <ul>
-                                    <li class="smalltxt" *ngFor="let obj of mlogList">{{
-                                        formateDateTime(obj.createdOn)}} - {{obj.logNote}} by {{obj.createdBy.lastName +
-                                        ' ' + obj.createdBy.firstName}}</li>
+                        <ol class="plm">
+                            <li *ngFor="let obj of momObj?.notes">{{ obj }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mtn mbn">
+        <div class="row mbm mtl">
+            <div class="col-sm-12 col-xs-12 text-center">
+                <button type="button" class="btn btn-sm btn-dark mrm mbm" (click)="editMeeting()">
+                    <i class="fa fa-edit"></i>CHANGES</button>
+                <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-dark mrm mbm"
+                    (click)="openModal(template,2)">
+                    <i class="fa fa-times"></i>
+                    CANCELLED</button>
+                <button type="button" *ngIf="this.IsCancel" class="btn btn-sm btn-dark mrm mbm"
+                    (click)="openModal(template,3)">
+                    <i class="fa fa-times"></i>
+                    CANCELLED BY CLIENT</button>
+                <button type="button" *ngIf="!this.IsCancel" class="btn btn-sm btn-dark mrm mbm"
+                    (click)="onChange(1,momObj?.meetingId)"><i class="fa fa-undo"></i>Restore</button>
+                <button type="button" class="btn btn-sm btn-dark mrm mbm"
+                    (click)="delScheduling(bsModalRef,momObj?.meetingId)">
+                    <i class="fa fa-trash"></i>
+                    DELETE</button>
+            </div>
+        </div>
+        <hr class="mtn mbn">
+        <div class="row mbm mtl">
+            <div class="col-sm-12 col-xs-12 " *ngIf="mlogList.length>0">
+                <a class="" data-toggle="collapse" href="#list-2" role="button" aria-expanded="false">
+                    <i class="fa fa-history text-orange mrn"></i> History</a>
+                <div class="collapse" id="list-2">
 
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="panel-body">
+                        <ul class="list-icon" style="max-height: 200px;overflow:auto">
+                            <li class="smalltxt" *ngFor="let obj of mlogList">
+                                {{obj.logNote}} by {{obj.createdBy.lastName +
+                                ' ' + obj.createdBy.firstName}} at <b>{{formateDateTime(obj.createdOn)}}</b> </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <ng-template #template>
@@ -163,14 +214,14 @@
                 </button>
             </div>
         </div>
- 
-    
+
+
     </div>
     <div class="modal-body">
         <form name="frmMStatus" #f="ngForm">
             <!-- <pre>{{f.value | json}} {{f.invalid}}</pre> -->
             <div class="row mtm">
-            
+
                 <div class="col-sm-12 col-xs-12">
                     <div class="form-group">
                         <label class="control-label">Add Notes </label>

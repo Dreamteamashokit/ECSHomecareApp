@@ -18,6 +18,7 @@ import { StatusEnum } from 'src/app/models/common';
 })
 export class MeetingDetailComponent implements OnInit {
   IsLoad: boolean = false;
+  IsEdit: boolean = false;
   title?: string;
   closeBtnName?: string;
   momObj?: MeetingView;
@@ -213,8 +214,18 @@ export class MeetingDetailComponent implements OnInit {
    }
 
 
+   _meetingDate : Date=new Date();
+   _startTime : Date=new Date();
+   _endTime : Date=new Date();
+   editMeeting() {
+    this.IsEdit=true;
+   }
 
 
+   reScheduling()
+   {
+    this.IsEdit=false;
+   }
 
 
 

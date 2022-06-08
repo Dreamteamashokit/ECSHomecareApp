@@ -19,6 +19,9 @@
 .text-line-through {
   text-decoration: line-through;
 }
+.text-capitalize {
+  text-transform:capitalize;
+}
 .box-heading {
   font-weight: bold;
   font-family: 'Oswald';
