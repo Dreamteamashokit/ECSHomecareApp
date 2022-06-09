@@ -46,7 +46,10 @@
                                 id="txtType" 
                                 name="type" #type="ngModel" [(ngModel)]="model.type"
                                 >
-                                    <option [value]="1">1</option>
+                                    <option [value]="1">Hourly</option>
+                                    <option [value]="2">Daily</option>
+                                    <option [value]="3">Visit</option>
+                                    <option [value]="4">Travel</option>
                                 </select>
                             </div>
                         </div>
@@ -89,6 +92,7 @@
                                         id="hourly" name="hourly" #hourly="ngModel" 
                                         [(ngModel)]="model.hourly"
                                         >
+                                            <option [value]="1">Hour</option>
                                             <option [value]="1">Day</option>
                                             <option [value]="2">Visit</option>
                                             <option [value]="3">Mile</option>
