@@ -192,18 +192,18 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label">From Date:</label>
-                        <div class="input-icon right"><i class="fa fa-calendar"></i>
+                        <div class="input-icon right"><i class="fa fa-calendar" (click)="fromDate.toggle()"></i>
                             <input type="text" id="txtFromDateTime" name="fromDate" [(ngModel)]="model.fromDate"
-                                class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                                class="form-control"  #fromDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label">To Date:</label>
-                        <div class="input-icon right"><i class="fa fa-calendar"></i>
+                        <div class="input-icon right"><i class="fa fa-calendar" (click)="toDate.toggle()"></i>
                             <input type="text" id="txtToDateTime" name="toDate" [(ngModel)]="model.toDate"
-                                class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                                class="form-control" #toDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
                         </div>
                     </div>
                 </div>

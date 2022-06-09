@@ -77,7 +77,10 @@
                                 <div class="row mtm pts mt-0-mobile">
                                     <div class="col-lg-4 col-xs-4">
                                         <select class="form-control">
-                                            <option>1</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-3 col-xs-3 text-center ptm"><strong>Per</strong></div>
@@ -86,7 +89,10 @@
                                         id="hourly" name="hourly" #hourly="ngModel" 
                                         [(ngModel)]="model.hourly"
                                         >
-                                            <option [value]="1">Hour</option>
+                                            <option [value]="1">Day</option>
+                                            <option [value]="2">Visit</option>
+                                            <option [value]="3">Mile</option>
+                                            <option [value]="4">Each</option>
                                         </select>
                                     </div>
                                 </div>
@@ -154,9 +160,10 @@
 
                                     <div class="col-lg-6 mbm">
                                         <div class="input-icon right">
-                                            <i class="fa fa-calendar"></i>
+                                            <i class="fa fa-calendar" (click)="fromDate.toggle()"></i>
                                             <input type="text" placeholder=""
                                                 class="form-control"
+                                                #fromDate="bsDatepicker"
                                                 bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"         
                                                 id="txtvalidFrom"
                                                 name="validFrom" 
@@ -167,9 +174,11 @@
                                     </div>
                                     <div class="col-lg-6 mbm">
                                         <div class="input-icon right">
-                                            <i class="fa fa-calendar"></i><input type="text" placeholder=""
+                                            <i class="fa fa-calendar"(click)="toDate.toggle()"></i><input type="text" placeholder=""
                                             class="form-control"
-                                            bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                                            bsDatepicker 
+                                            #toDate="bsDatepicker"
+                                            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                                             id="txtvalidTo"
                                             name="validTo" 
                                             #validFrom="ngModel" 
