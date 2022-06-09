@@ -5,6 +5,8 @@ import { GenerateInvoice } from 'src/app/models/generate-invoice';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { Invoice } from '../models/invoice';
+import { RateModel } from '../billing/component/manage_payer_and_rate/model/rate.model';
+import { ClientBilling } from '../models/client/client-billling-model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,4 +44,54 @@ export class InvoiceService {
         }; 
     return this._http.post(environment.domain + environment.payinvoicebyidurl + '/' + invoiceid, null,httpOptions);            
   }
+
+  addUpdatePayerRate(_obj:RateModel) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this._http.post(environment.domain +  "/api/Invoice/AddUpdatePayerRate", _obj, httpOptions)
+
+  }
+
+  AddUpdateBilling(_obj:ClientBilling) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this._http.post<APIResponse<object>>(environment.domain +  "/api/Invoice/AddUpdateBilling", _obj, httpOptions)
+  }
+
+  GetActiveBillAndExpiredBill(status:boolean) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this._http.post<APIResponse<ClientBilling[]>>(environment.domain +  "/api/Invoice/GetActiveBillAndExpiredBill/true", {}, httpOptions)
+  }
+
+  deleteBilling(billingId : number) {
+    return this._http.delete<APIResponse<Object>>(environment.domain + `/api/Invoice/DeleteBillng?billingId=${billingId}`)
+  }
+  
+  getBillingDetailsByBillingId(billingId: number) {
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post<APIResponse<ClientBilling>>(environment.domain +  `/api/Invoice/GetBillingDetailsByBillingId/${billingId}`, {}, httpOptions)
+  }
+
+
 }
