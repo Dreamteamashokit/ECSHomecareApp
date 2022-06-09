@@ -144,7 +144,7 @@ updateStatus(item:ClientStatusLst) {
   reqObj.activityId=Number(item.activityId);
   reqObj.referralCode=Number(item.referralCode);
   reqObj.note=item.note;
-  reqObj.userId=Number(item.userId);
+  reqObj.userId=Number(this.ClientId);
 
   reqObj.statusDate=this.datepipe.transform(item.effectiveDate, 'dd-MM-yyyy')||"";
   this.clientapi.updateClientStatus(reqObj).subscribe(response => {
