@@ -263,7 +263,7 @@
               </div>
             </ng-template>
         </div>
-        <div class="row mbm" *ngIf="medicationList.length>0">
+        <div class="row mbm" *ngIf="(medicationList?.length || 0)>0">
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">

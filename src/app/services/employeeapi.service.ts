@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders  } from '@angular/common/http'; 
+import { HttpClient,HttpHeaders,HttpParams  } from '@angular/common/http'; 
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
@@ -8,9 +8,9 @@ import { Attendance } from 'src/app/models/employee/attendance';
 import { Empstatus } from '../models/employee/empstatus';
 import { AddressObj } from 'src/app/models/employee/address';
 import { ComplianceObj } from 'src/app/models/employee/compliance-obj';
-import{EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
-import{SaveEmpDeclinedCase} from 'src/app/models/employee/save-emp-declined-case';
-import{EmpDeclineCaseList} from 'src/app/models/employee/emp-decline-case-list';
+import {EmpRate,EmployeeRateModel} from 'src/app/models/employee/emp-rate'
+import { EmpDeclinedCase } from 'src/app/models/employee/save-emp-declined-case';
+import { EmpDeclineCaseList } from 'src/app/models/employee/emp-decline-case-list';
 import { EmployeeModel,EmployeeList } from 'src/app/models/employee/employee-model';
 import { EmployeeJson } from 'src/app/models/employee/employee-json';
 import { EmpAvailablityMappingModel } from 'src/app/models/employee/EmpAvailablityMappingModel';
@@ -42,7 +42,7 @@ export class EmployeeapiService {
         const httpOptions = {
           headers: headers_object
         }; 
-    return this._http.post(environment.domain + "/api/Employee/addEmployee", empObj,httpOptions);            
+    return this._http.post<APIResponse<number>>(environment.domain + "/api/Employee/addEmployee", empObj,httpOptions);            
   }
   
 
@@ -82,10 +82,17 @@ export class EmployeeapiService {
 
   getIncidentList(empId : number)
   {
-    return this._http.get<APIResponse<Incident>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
+    return this._http.get<APIResponse<Incident[]>>(environment.domain + "/api/Employee/getIncidentList" + '/' + empId);
   } 
 
-
+  delIncident(incidentId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'incidentId': incidentId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delIncident", { params: reqPara });
+  }
 
 
   saveAttendance(_req : Attendance){ 
@@ -105,7 +112,14 @@ export class EmployeeapiService {
   } 
 
 
-
+  delAttendance(attendanceId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'attendanceId': attendanceId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delAttendance", { params: reqPara });
+  }
 
   SaveEmployeeStatus(_obj : Empstatus){ 
     var headers_object = new HttpHeaders();
@@ -114,14 +128,23 @@ export class EmployeeapiService {
         const httpOptions = {
           headers: headers_object
         }; 
-    return this._http.post(environment.domain + "/api/Employee/addStatus", _obj,httpOptions);   
-              
+    return this._http.post(environment.domain + "/api/Employee/addStatus", _obj,httpOptions);
   }
 
   getEmpStatusList(empId:number)
   {   
-    return this._http.get<APIResponse<Empstatus>>(environment.domain + "/api/Employee/getEmpStatusList"+"/"+empId);
-  } 
+    return this._http.get<APIResponse<Empstatus[]>>(environment.domain + "/api/Employee/getEmpStatusList"+"/"+empId);
+  }
+
+  delEmpStatus(statusId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'statusId': statusId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delEmpStatus", { params: reqPara });
+  }
+
   
   getAvailabilityList()
   {
@@ -176,11 +199,22 @@ export class EmployeeapiService {
 
   GetEmployeeRateLst(empId:number)
   {
-    return this._http.get<APIResponse<EmpRate[]>>(environment.domain + "/api/Employee/getEmpRate"+ '/' + empId);
+    return this._http.get<APIResponse<EmployeeRateModel[]>>(environment.domain + "/api/Employee/getEmpRate"+ '/' + empId);
   } 
+
+
+
+  delEmpPayRate(rateId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'rateId': rateId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delEmpPayRate", { params: reqPara });
+  }
   
 
-  SaveEmpDeclinedCase(_obj : SaveEmpDeclinedCase){ 
+  addEmpDeclinedCase(_obj : EmpDeclinedCase){ 
     var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -191,10 +225,28 @@ export class EmployeeapiService {
               
   }
 
-  GetEmpDeclinedCase(empId:number)
+  getEmpDeclinedcase(empId:number)
   {
-    return this._http.get<APIResponse<object>>(environment.domain + "/api/Employee/getEmpDeclinedcase"+ '/' + empId);
+    return this._http.get<APIResponse<EmpDeclinedCase[]>>(environment.domain + "/api/Employee/getEmpDeclinedcase"+ '/' + empId);
   } 
+
+
+
+  delDeclinedCase(declinedCaseId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'declinedCaseId': declinedCaseId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Employee/delDeclinedCase", { params: reqPara });
+  }
+  
+
+
+
+
+
+
 
   UploadFile(formData:FormData)
   {
@@ -228,5 +280,5 @@ export class EmployeeapiService {
 
   GetClockinDetailsByUserId(userId:number){
     return this._http.get<APIResponse<ClockinViewModel>>(environment.domain + "/api/Employee/GetClockinDetails"+"/"+userId);
-  }
+  }  
 }

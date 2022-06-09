@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { APIResponse } from '../models/api-response';
 import { ClientModel } from 'src/app/models/client/client-model';
-import { ClientStatusModel, ClientStatusLst } from 'src/app/models/client/status-model';
+import { ClientStatusModel,ClientStatusLst } from 'src/app/models/client/status-model';
 import { Medicationcs } from '../models/client/medicationcs-model';
 import { ClientEmrgencyInfo } from 'src/app/models/client/EmergencyInfo';
 import { ServiceTaskView, ServiceTaskModel } from 'src/app/models/client/service-task-model';
@@ -16,7 +16,7 @@ import { ClientNote } from '../models/client/client-note-model';
 import { ClientCommunityMaster } from '../models/client/client-community-model';
 import { ClientCompliance } from '../models/client/client-compliance-model';
 import { ClientResult } from '../models/meeting/client-meeting';
-
+import { ContactModel,  ProviderModel } from 'src/app/models/client/contact-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +32,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/addClient", clObj, httpOptions);
+    return this._http.post<APIResponse<number>>(environment.domain + "/api/Client/addClient", clObj, httpOptions);
   }
 
   getClientDetail(userId: number) {
@@ -256,7 +256,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/GetClientNoteList", _obj, httpOptions);
+    return this._http.post<APIResponse<ClientNote[]>>(environment.domain + "/api/Client/GetClientNoteList", _obj, httpOptions);
   }
 
   getClientNoteDetails(_obj: ClientNote) {
@@ -266,7 +266,7 @@ export class ClientApiService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post(environment.domain + "/api/Client/GetClientNote", _obj, httpOptions);
+    return this._http.post<APIResponse<ClientNote[]>>(environment.domain + "/api/Client/GetClientNote", _obj, httpOptions);
   }
 
   updateClientNotes(_obj: ClientNote) {
@@ -439,14 +439,50 @@ export class ClientApiService {
     return this._http.post(environment.domain + "/api/Client/DeleteClientCompliance", _obj, httpOptions);
   }
 
-
-
-
-
   searchClient(item: string) {  
     return this._http.get<APIResponse<ClientResult[]>>(environment.domain + "/api/Client/searchClient/"+item);
   }
 
+
+  addEmergContact(_obj: ContactModel) {
+    debugger;
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/addEmergContact", _obj, httpOptions);
+  }
+
+  addEmergProvider(_obj: ProviderModel) {
+    debugger;
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post(environment.domain + "/api/Client/addEmergProvider", _obj, httpOptions);
+  }
+  delEmergProvider(providerId: number) {
+    const reqPara = new HttpParams({
+      fromObject: {
+        'providerId': providerId
+      }
+    });
+    return this._http.delete(environment.domain + "/api/Client/delEmergProvider", { params: reqPara });
+  }
+
+
+  getEmergContact(clientId: number,typeId:number) {
+    return this._http.get<APIResponse<ContactModel>>(environment.domain + "/api/Client/getEmergContact" + "/" + clientId + "/" + typeId);
+  }
+
+
+  getEmergProvider(clientId: number) {
+    return this._http.get<APIResponse<ProviderModel[]>>(environment.domain + "/api/Client/getEmergProvider" + "/" + clientId);
+  }
 
 
 

@@ -53,7 +53,7 @@ getProvisionLst()
 }
 
 SaveProvisionData(){
-  debugger;
+
   this.IsLoad=true;
   let data=this.ModelLst;
   this.clientapi.SaveProvisionInfoList(data).subscribe(responce=>{

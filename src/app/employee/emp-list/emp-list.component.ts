@@ -100,7 +100,7 @@ export class EmpListComponent implements OnInit {
   }
 
   OnChangeStatus(_status: any) {
-    debugger;
+ 
      if (_status == '0') {
        this.empList = this.currentList;
      }
@@ -111,7 +111,7 @@ export class EmpListComponent implements OnInit {
  
    }
    OnChangeManager(_md: any) {
-    debugger;
+
      if (_md == '0') {
        this.empList = this.currentList;
      }
@@ -124,7 +124,7 @@ export class EmpListComponent implements OnInit {
 
 
    getFilterData(model: ClientFilter) {
-    debugger;
+
     this.IsLoad = true;
     console.log(this.statusData);
     model.empType=Number(model.empType);

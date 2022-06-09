@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import {  ProviderModel } from 'src/app/models/client/contact-model';
 @Component({
   selector: 'app-emergency-provider',
@@ -8,12 +8,15 @@ import {  ProviderModel } from 'src/app/models/client/contact-model';
     './emergency-provider.component.scss']
 })
 export class EmergencyProviderComponent implements OnInit {
-
-  model=new ProviderModel();
+ @Input() proModel=new ProviderModel();
   
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
   }
+
+
+
 
 }

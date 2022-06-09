@@ -1,3 +1,4 @@
+<app-loader [show]="IsLoad"></app-loader>
 <div class="row">
     <div class="col-lg-12">
         <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Declined Cases</strong> </h4>
@@ -22,22 +23,30 @@
               </div>
               <div class="modal-body">
                 <form name="frmRate" #f="ngForm">
+
+
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                       <label class="control-label">Reported Date/Time:</label>
+                       <div class="input-group">
+                        <input class="form-control" type="text" id="txtreportedDate"name="reportedDate" placeholder="Date"  [(ngModel)]="_reportedDate"
+                          #reportedDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                        <div class="input-group-addon" (click)="reportedDate.toggle()" [attr.aria-expanded]="reportedDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                    </div>
+
+
+                    </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">                            
+                            <timepicker id="txtstartTime" name="startTime"  [(ngModel)]="_time"  ></timepicker>
+                        </div>
+                    </div>
+                </div>
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                           <label class="control-label">Reprted Date/Time:</label>
-                            
-                            
-                            <div class="input-group">
-                                <input class="form-control" type="text" id="txtEffectiveDate"name="RepotedDate" placeholder="Date"  [(ngModel)]="model.repotedDate"
-                                  #RepotedDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY, hh:mm a', containerClass: 'theme-red' }">
-                                <div class="input-group-addon" (click)="RepotedDate.toggle()" [attr.aria-expanded]="RepotedDate.isOpen" ><i class="fa fa-calendar"></i></div>
-                            </div>
-                            
-                            
-                        </div>
-                        </div>
-                        <div class="col-lg-4">                           
+                        <div class="col-lg-6">                           
                                 <div class="form-group">
                             <label class="control-label">Client</label>
                             <select
@@ -49,20 +58,15 @@
                           > 
                           <option value="-1" disabled>Select</option>
                           <option
-                           *ngFor="let obj of ClientList"
+                           *ngFor="let obj of clientList"
                            [value]="obj.itemId"
                          >
                            {{ obj.itemName }}
                          </option> 
                        </select>
- 
-           
                         </div>
-                        
-                        
                         </div>
-                        <div class="col-lg-4">
-                           
+                        <div class="col-lg-6">                           
                             <div class="form-group">
                         <label class="control-label">Case Type</label>
                         <select
@@ -70,17 +74,15 @@
                         #Casetypeid="ngModel"                                   
                         id="ddlTypeStatusId"
                         name="Casetypeid"                                   
-                        [(ngModel)]="model.casetypeId"                                       
-                      > 
-                      <option value="" disabled>Select</option>
-                                    <option value="1">Parmanent</option>
-                                 <option value="2">Full-In</option>
-                                                      
-                        </select>
-                               
+                        [(ngModel)]="model.caseTypeId"
+                      >                      
+                      <option value='-1' disabled>Select Case Type</option>
+                                    <option *ngFor="let obj of caseTyeData"
+                                            [value]="obj.itemId">
+                                        {{ obj.itemName }}
+                                    </option>
+                        </select>                               
                         </div>
-                  
-                    
                        </div>
                     </div>
                     <div class="row">
@@ -94,12 +96,11 @@
                         <div class="form-group">
                                 <label class="control-label">Assignment Started</label>
                                  
-                            
-                                 <div class="input-group">
-                                    <input class="form-control" type="text" id="txtEffectiveDate"name="AssignmentStart" placeholder="Date"  [(ngModel)]="model.assignmentStart"
-                                      #AssignmentStart="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
-                                    <div class="input-group-addon" (click)="AssignmentStart.toggle()" [attr.aria-expanded]="AssignmentStart.isOpen" ><i class="fa fa-calendar"></i></div>
-                                </div>                              
+                                <div class="input-group">
+                                  <input class="form-control" type="text" id="txtassignmentStart" name="assignmentStart" placeholder="Assignment Start Date"  [(ngModel)]="_startDate"
+                                    #assignmentStart="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                  <div class="input-group-addon" (click)="assignmentStart.toggle()" [attr.aria-expanded]="assignmentStart.isOpen" ><i class="fa fa-calendar"></i></div>
+                              </div>
                         </div>
                         
                     </div>
@@ -111,8 +112,7 @@
                                  id="ddlTypeStatusId"
                                  name="Day"                                   
                                  [(ngModel)]="model.day"                                       
-                               > 
-                               <option value="" disabled>Select</option>
+                               >                            
                                  <option value="1">1</option>
                                  <option value="2">2</option>
                                  <option value="3">3</option>
@@ -133,7 +133,7 @@
                                      name="week"                                   
                                      [(ngModel)]="model.week"                                       
                                    > 
-                                   <option value="" disabled>Select</option>
+                               
                                      <option value="1">1</option>
                                      <option value="2">2</option>
                                      <option value="3">3</option>
@@ -159,8 +159,12 @@
                    
                         <div class="row">
                         <div class="col-lg-12 text-center">
-                            <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Add Declined Cases</button>
-                        </div>
+                       
+                            <button type="button" (click)="onClickSubmit()"  [disabled]="f.invalid"
+                            class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
+                     
+                     
+                          </div>
                         </div>
                   
               
@@ -168,7 +172,7 @@
               </div>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm"  *ngIf="(empCaseList?.length || 0)>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -183,12 +187,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of EmpCaseObj">
-                                <td>{{ item.assignmentStart }}</td>
-                                <td>{{ item.repotedDate }}</td>
+                            <tr *ngFor="let item of empCaseList">
+                        
+                                <td> {{ item.assignmentStartDateTime | date: 'dd MMM YYYY' }}</td>
+                                <td> 
+                             
+                                {{  item.reportedDateTime  | date: 'dd MMM YYYY, hh:mm a'}}</td>
                                 <td>{{ item.declineReason }}</td>
-                   
-                           
+                                <td>
+                                  <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+                                  <a (click)="delItem(item.declinedCaseId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
+                          
+                              </td>
                             </tr>
                         </tbody>
                     </table>

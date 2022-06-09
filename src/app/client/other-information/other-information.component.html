@@ -1,3 +1,5 @@
+<app-loader [show]="IsLoad"></app-loader>
+
 <div class="row">
     <div class="col-lg-6 col-xs-6">
         <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Other</strong> </h4>
@@ -46,7 +48,7 @@
                 <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="control-label">Linked Clients</label>
-                        <input required type="text" placeholder="CASA3" class="form-control" id="txtLinkedClients" name="LinkedClients" #FirstName="ngModel" [(ngModel)]="model.linkedClients">
+                        <input required type="text" placeholder="Linked Clients" class="form-control" id="txtLinkedClients" name="LinkedClients" #FirstName="ngModel" [(ngModel)]="model.linkedClients">
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
@@ -91,19 +93,38 @@
                 <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="control-label">Service Request Date</label>
-                        <div class="input-icon right">
-                            <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="Service Request Date" class="form-control" id="txtserviceRequestDate" name="serviceRequestDate" #serviceRequestDate="ngModel" [(ngModel)]="model.serviceRequestDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+
+                        <div class="input-group">
+                            <input  class="form-control" type="text" id="txtserviceRequestDate" name="serviceRequestDate" placeholder="Service Request Date"  #serviceRequestDate="ngModel"  [(ngModel)]="model.serviceRequestDateTime"
+                              #servRequestDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="servRequestDate.toggle()" [attr.aria-expanded]="servRequestDate.isOpen" ><i class="fa fa-calendar"></i></div>
                         </div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="control-label ellipsis-text">Plan Of Care Date</label>
-                        <div class="input-icon right">
-                            <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="Plan Of Care Date" class="form-control" id="txtcareDate" name="careDate" #careDate="ngModel" [(ngModel)]="model.careDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+                     
+
+
+                        <div class="input-group">
+                            <input  class="form-control" type="text" id="txtcareDate" name="careDate" placeholder="Plan Of Care Date"  #careDate="ngModel" [(ngModel)]="model.careDateTime"
+                              #crDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="crDate.toggle()" [attr.aria-expanded]="crDate.isOpen" ><i class="fa fa-calendar"></i></div>
                         </div>
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -113,10 +134,21 @@
                 <div class="col-sm-3 col-xs-6">
                     <div class="form-group">
                         <label class="control-label">Projected Discharge</label>
-                        <div class="input-icon right">
-                            <i class="fa fa-calendar"></i>
-                            <input required type="text" placeholder="Projected Discharge" class="form-control" id="txtdischargeDate" name="dischargeDate" #dischargeDate="ngModel" [(ngModel)]="model.dischargeDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY' }">
+
+
+                        <div class="input-group">
+                            <input  class="form-control" type="text" id="txtdischargeDate" name="dischargeDate" placeholder="Projected Discharge"  #dischargeDate="ngModel"   [(ngModel)]="model.dischargeDateTime"
+                              #dischgeDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="dischgeDate.toggle()" [attr.aria-expanded]="dischgeDate.isOpen" ><i class="fa fa-calendar"></i></div>
                         </div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
 

@@ -1,15 +1,19 @@
 import { BaseModel } from 'src/app/models/common';
 
-export class EmployeeRateModel  extends BaseModel {
-    effectiveDate: string;
-    endDate: string;
+
+export class EmployeeRateModel extends BaseModel {
+    rateId:number;
+    effectiveDateTime: string;
+    endDateTime: string;
+    effectiveDate: Date;
+    endDate: Date; 
     description: string;
     note: string;
     hourly: number;
-    livein: number;
+    liveIn: number;
     visit: number;
     overHourly: number;
-    overLivein: number;
+    overLiveIn: number;
     overVisit: number;
     applyRateCheck: boolean;
     optionalHour: number;
@@ -21,8 +25,12 @@ export class EmployeeRateModel  extends BaseModel {
     payerId: number;
     clientId: number;
     empId: number;
-
 }
+
+
+
+
+
 
 export class EmpRate {
     active: boolean;

@@ -17,7 +17,7 @@ import { Usertype } from 'src/app/commanHelper/usertype';
 export class ClientNoteComponent implements OnInit {
   modalRef?: BsModalRef;
   ClientId: number;
-  ClientNoteObjList: any;
+  ClientNoteObjList: ClientNote[]=[];
   empList = Array<ItemsList>();
   OfficeUserList: ItemsList[] = [];
   noteTypeList = Array<ItemsList>();
@@ -65,8 +65,6 @@ export class ClientNoteComponent implements OnInit {
   }
 
   saveNote() {
-debugger;
-
 
     if (this.model.officeUserId) {
       this.model.officeUserId = Number(this.model.officeUserId);
@@ -134,23 +132,23 @@ debugger;
 
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
-    this.clientapi.getClientNoteDetails(this.model).subscribe((Responce: any) => {
+    this.clientapi.getClientNoteDetails(this.model).subscribe((responce) => {   
 
-      debugger;
-      if (Responce.data.length > 0) {
-        this.model.officeUserId = Number(Responce.data[0].officeUserId);
-        this.model.empId = Number(Responce.data[0].empId);
-        this.model.notes = Responce.data[0].notes;
-        if (Responce.data[0].notifyTypeId == 1) {
+
+      if (responce.result) {
+        this.model.officeUserId = Number(responce.data[0].officeUserId);
+        this.model.empId = Number(responce.data[0].empId);
+        this.model.notes = responce.data[0].notes;
+        if (responce.data[0].notifyTypeId == 1) {
           this.model.notifyTypeId1 = 1;
         }
-        if (Responce.data[0].notifyTypeId == 2) {
+        if (responce.data[0].notifyTypeId == 2) {
           this.model.notifyTypeId2 = 1;
         }
-        if (Responce.data[0].notifyTypeId == 3) {
+        if (responce.data[0].notifyTypeId == 3) {
           this.model.notifyTypeId3 = 1;
         }
-        this.model.notesTypeId = Number(Responce.data[0].notesTypeId);
+        this.model.notesTypeId = Number(responce.data[0].notesTypeId);
         this.isAddVisible = false;
         this.isUpdateVisible = true;
         this.openModal(this.templatenote);
@@ -170,11 +168,8 @@ debugger;
 
     this.model = new ClientNote();
     this.model.userId = this.ClientId;
-    this.clientapi.getClientNoteRecord(this.model).subscribe((Response: any) => {
- 
+    this.clientapi.getClientNoteRecord(this.model).subscribe((Response: any) => { 
       this.ClientNoteObjList = Response.data;
-      console.log("Rakesh");
-      console.log( this.ClientNoteObjList);
       this.isAddVisible = true;
       this.isUpdateVisible = false;
     })

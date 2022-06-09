@@ -2,6 +2,9 @@ import { BaseModel } from 'src/app/models/common';
 
 export class Empstatus extends BaseModel {
 
+    effectiveDateTime: Date;
+    returnDateTime: Date;
+    statusType: string;
     reason:string;
     resume:boolean;
     rehire:boolean;

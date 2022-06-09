@@ -1,12 +1,25 @@
+<app-loader [show]="IsLoad"></app-loader>
 <div class="panel panel panel-orange">
-    <div class="panel-heading">Primary Contact</div>
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-lg-8 col-xs-7">
+          {{emergInfoTypeId===1?"Primary Contact":"Emergency Contact"}}
+        </div>
+        <div class="col-lg-4 col-xs-5 text-right">
+          <a class="btn  btn-xs btn-dark"   title="Save Changes" href="javascript:;" (click)="saveChanges(model)"><i class="fa fa-save"></i> Save Changes</a>
+
+        </div>
+      </div>
+
+    </div>
     <div class="panel-body ">
       <div class="row">
         <div class="col-lg-6">
           <div class="form-group">
-        <label class="control-label">Name</label>
-        <input type="text" #name="ngModel" id="txtname" name="name" class="form-control"  [(ngModel)]="model.name"   >
-            </div>
+        <label class="control-label">Name<span class="star">*</span></label>
+        <input required type="text" #name="ngModel" id="txtname" name="name" class="form-control"  [(ngModel)]="model.name" >            
+        <em *ngIf="name.invalid && (name.dirty || name.touched)" for="txtname" class="invalid">This field is required</em>                 
+      </div>
         </div>
         
       
@@ -17,6 +30,11 @@
   <input type="text"   #relationship="ngModel" id="txtrelationship"  name="relationship" class="form-control"  [(ngModel)]="model.relationship">
   </div>
   </div>
+
+</div>
+<div class="row">
+
+
   <div class="col-lg-6">
   <div class="form-group">
   <label class="control-label">Phone</label><br>

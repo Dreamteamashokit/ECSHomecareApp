@@ -48,7 +48,7 @@ export class ClientCommunityComponent implements OnInit {
   }
 
   saveCommunity() {
-    debugger;
+   
     this.model.communityName = this.model.communityName;
     this.model.communityAddress = this.model.communityAddress;
     this.model.communityFloor = this.model.communityFloor;
@@ -68,7 +68,7 @@ export class ClientCommunityComponent implements OnInit {
   }
 
   getClientcommunityRecord() {
-    debugger;
+   
     this.model = new ClientCommunityMaster();
     this.model.userId = this.ClientId;
     this.clientapi.getClientCommunityRecord(this.model).subscribe((Response: any) => {
@@ -77,7 +77,7 @@ export class ClientCommunityComponent implements OnInit {
     })
   }
   OnChangeCountry(e: any): void {
-    debugger;
+   
     this.comApi.getStateList(e.target.value).subscribe((response) => {
       this.stateData = response.data;
     });

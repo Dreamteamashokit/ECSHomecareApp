@@ -56,7 +56,7 @@ export class DiagnosisComponent implements OnInit {
   }
 
   saveModel() {
-    debugger;
+       
     this.model.isActive=1;
     this.model.dxId = Number(this.model.dxId);
     this.model.orderNo = Number(this.model.orderNo); 

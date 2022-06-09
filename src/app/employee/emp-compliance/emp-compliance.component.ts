@@ -8,6 +8,7 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
+import { MasterService } from 'src/app/services/master.service';
 @Component({
   selector: 'app-emp-compliance',
   templateUrl: './emp-compliance.component.html',
@@ -21,10 +22,14 @@ export class EmpComplianceComponent implements OnInit {
   modalRef?: BsModalRef;
   model = new ComplianceObj(0, 0, -1,  '', '','', '','', '');
   EmplList = Array<ItemsList>(); 
+  nurseList = Array<ItemsList>(); 
+  categoryList: any;
+  subCategoryList: any;
   currentUser:UserModel;
   complianceObjList: any;
   constructor(
     private comApi: CommonService,
+    private mstrApi: MasterService,
     private route:ActivatedRoute,
     private accountApi: AccountService,
     private modalService: BsModalService, private empApi: EmployeeapiService) {
@@ -33,11 +38,24 @@ export class EmpComplianceComponent implements OnInit {
    
     this.comApi.getEmpList().subscribe((response) => {
       if(response.result)
-      {
-        debugger;
+      {     
         this.EmplList = response.data;
       }
     });
+
+    this.comApi.getEmployees(5).subscribe((response) => {
+      if(response.result)
+      { 
+      this.nurseList = response.data;
+      }
+    });
+
+    this.mstrApi.GetCategoryList().subscribe((response) => {
+      if(response.result)
+      {       
+        this.categoryList = response.data;       
+      }
+  }); 
 
    }
 
@@ -53,12 +71,6 @@ export class EmpComplianceComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -69,7 +81,7 @@ export class EmpComplianceComponent implements OnInit {
   }
 
   saveCompliance() {
-    debugger;
+
     this.model.userId=Number(this.model.empId);
     this.model.createdBy=this.currentUser.userId;
     this.model.empId=Number(this.model.empId);
@@ -86,11 +98,15 @@ export class EmpComplianceComponent implements OnInit {
   getCompliance(empId : number) {
     this.empApi.geComplianceList(empId).subscribe((response) => {
       this.complianceObjList = response.data;
-
       console.log(response);
     });
   }
 
-
+  OnChangeCategory(e: any): void {
+   
+    this.mstrApi.GetSubCategoryList(e.target.value).subscribe((response) => {
+      this.subCategoryList = response.data;
+    });
+  }
 
 }

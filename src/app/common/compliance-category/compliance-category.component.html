@@ -1,0 +1,53 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+            <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Category</strong> </h4>
+        </div>
+        <div class="col-lg-6 col-xs-6 text-right">
+            <button type="button" class="btn btn-md btn-dark mbm mts " (click)="saveCategpryModel()">
+                <i class='fa fa-save'></i> Save Category
+            </button>
+        </div>
+    </div>
+    <div class="panel mbn">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">Category Name</label>
+                        <input required type="text" placeholder="Category Name" class="form-control" id="txtCategoryName" name="categoryName" #categoryName="ngModel" [(ngModel)]="model.categoryName">
+                    </div>                
+                    <div class="form-group mtm"><label class="control-label">Parent Category</label>
+                        <select class="form-control" id="ddlCategory" name="paretntCategory" [(ngModel)]="model.parentCategoryId">
+                          <option value="0">Please select</option>
+                          <option *ngFor="let obj of categoryList"
+                                  [value]="obj.categoryId">
+                              {{ obj.categoryName }}
+                          </option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mbm">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Category Name </th>
+                            <th>Parent Category Name</th>                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of masterCategoryList;">
+                            <td>{{item.categoryName}}</td>
+                            <td>{{item.parentCategoryName}}</td>                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

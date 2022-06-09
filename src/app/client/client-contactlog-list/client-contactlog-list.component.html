@@ -18,10 +18,32 @@
                         <span aria-hidden="true" class="visually-hidden">&times;</span>
                     </button>
                 </div>
+                <form name="frmclientcontactlog" #f="ngForm">
                 <div class="modal-body">
-                    <form name="frmclientcontactlog" #f="ngForm">
+            
+
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                               <label class="control-label">Date/Time:</label>
+                               <div class="input-group">
+                                <input class="form-control" type="text" id="txtEffectiveDate"name="RepotedDate" placeholder="Date"  [(ngModel)]="_reportedDate"
+                                  #RepotedDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                <div class="input-group-addon" (click)="RepotedDate.toggle()" [attr.aria-expanded]="RepotedDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                            </div>
+    
+    
+                            </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">                            
+                                    <timepicker id="txtstartTime" name="startTime"  [(ngModel)]="_time"  ></timepicker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
                                 <div class="form-group">
 
                                     <label class="control-label">Reason</label>
@@ -30,33 +52,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Call Date/Time</label>
-                                    
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" id="txtcallDateTime"name="callDateTime" placeholder="Date"  [(ngModel)]="model.callDateTime"
-                                          #callDateTime="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY, hh:mm a', containerClass: 'theme-red' }">
-                                        <div class="input-group-addon" (click)="callDateTime.toggle()" [attr.aria-expanded]="callDateTime.isOpen" ><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Schedule Date</label>
-                                    
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" id="txtscheduleDate"name="scheduleDate" placeholder="Date"  [(ngModel)]="model.scheduleDate"
-                                          #scheduleDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
-                                        <div class="input-group-addon" (click)="scheduleDate.toggle()" [attr.aria-expanded]="scheduleDate.isOpen" ><i class="fa fa-calendar"></i></div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Issue</label>
                                     <input type="text" #issueText="ngModel" id="txtissue" name="issue"
@@ -64,8 +60,46 @@
 
                                 </div>
                             </div>
+                         
+                        </div>
 
-                            <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">Schedule Date</label>
+                                    
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="txtscheduleDate"name="scheduleDate" placeholder="Schedule Date"  [(ngModel)]="model.scheduleDate"
+                                          #scheduleDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                        <div class="input-group-addon" (click)="scheduleDate.toggle()" [attr.aria-expanded]="scheduleDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label">FollowUp Date</label>
+                                    
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="txtfollowUpDate"name="followUpDate" placeholder="FollowUp Date"  [(ngModel)]="model.followUpDate"
+                                          #followUpDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                        <div class="input-group-addon" (click)="followUpDate.toggle()" [attr.aria-expanded]="followUpDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            
+                          
+                        </div>
+                  
+                        <div class="row">
+
+
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Employee</label>
                                     <select class="form-control" #ClientId="ngModel" id="ddlClientId" name="ClientId"
@@ -79,49 +113,15 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Follow Up Required </label>
-                                    <div>
-                                        <input type="checkbox" #isFollowUp="ngModel" id="txtisFollowUp"
-                                            name="isFollowUp" [(ngModel)]="model.isFollowUp">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Schedule Updated </label>
-                                    <div>
-                                        <input type="checkbox" #isSchedule="ngModel" id="txtisSchedule"
-                                            name="isSchedule" [(ngModel)]="model.isSchedule">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="control-label">Follow-up Date</label>
-                                    
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" id="txtfollowUpDate"name="followUpDate" placeholder="Date"  [(ngModel)]="model.followUpDate"
-                                          #followUpDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
-                                        <div class="input-group-addon" (click)="followUpDate.toggle()" [attr.aria-expanded]="followUpDate.isOpen" ><i class="fa fa-calendar"></i></div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
+                         
+                           
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label">Office User</label>
                                     <select class="form-control" #officeUserId="ngModel" id="ddlClientId"
                                         name="officeUserId" [(ngModel)]="model.officeUserId">
                                         <option value="-1" disabled>Select</option>
-                                        <option *ngFor="let usr of empList" [value]="usr.itemId">
+                                        <option *ngFor="let usr of OfficeUserList" [value]="usr.itemId">
                                             {{ usr.itemName }}
                                         </option>
                                     </select>
@@ -129,14 +129,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label">Notes</label>
                                     <textarea rows="2" #notes="ngModel" id="txtnotes" name="notes"
                                         [(ngModel)]="model.notes" class="form-control"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="control-label">Action Taken</label>
 
@@ -145,21 +145,64 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="isAddVisible" >
-                            <div class="col-lg-12 text-center">
-                                <button type="button" (click)="saveContactLog();" class="btn btn-md btn-dark">Add</button>                               
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group checkbox-box">
+                                    <input type="checkbox" class="mrm"  #isSchedule="ngModel" id="txtisSchedule"
+                                    name="isSchedule" [(ngModel)]="model.isSchedule">
+                                    <label class="control-label">Schedule Updated </label>
+                                
+                                </div>
+
+                             
+                            </div>
+                            <div class="col-lg-6">
+
+                                <div class="form-group checkbox-box">
+                                    <input type="checkbox" #isFollowUp="ngModel" id="txtisFollowUp"
+                                    name="isFollowUp" class="mrm" [(ngModel)]="model.isFollowUp">
+                                    <label class="control-label">Follow Up Required </label>
+                                
+                                </div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="isUpdateVisible" >
-                            <div class="col-lg-12 text-center">                               
-                                <button type="button" (click)="updateContactLog();" class="btn btn-md btn-dark">Update</button>
-                            </div>
-                        </div>
-                    </form>
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+
+            
                 </div>
+
+                <div class="modal-footer">  
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button *ngIf="isAddVisible" type="button" (click)="saveContactLog();" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save</button>                               
+                 
+                                                   
+                        <button *ngIf="isUpdateVisible" type="button" (click)="updateContactLog();" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save changes</button>
+                        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Close</button>
+                        </div>  
+                    
+                
+                    </div>
+       
+                 
+                  </div>
+                </form>
             </ng-template>
         </div>
-        <div class="row mbm">
+        <div class="row mbm" *ngIf="ClientContactLogObjList?.length>0">
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -169,7 +212,7 @@
                                 <th>Call Date/Time</th>
                                 <th>Schedue Date</th>
                                 <th>Issue</th>
-                                <th>Employee</th>
+                                <!-- <th>Employee</th> -->
                                 <th>Folloe-up Date</th>
                                 <th>Action Taken </th>
                             </tr>
@@ -177,11 +220,23 @@
                         <tbody>
                             <tr *ngFor="let item of ClientContactLogObjList;">                               
                                 <td>{{ item.reason }}</td>
-                                <td>{{ item.callDateTime }}</td>
-                                <td>{{ item.scheduleDate }}</td>
+                                <td>
+
+                                    {{item.callDateTime  | date: 'dd MMM YYYY, hh:mm a'}}
+
+                                </td>
+                                <td>
+
+                                    {{item.scheduleDate  | date: 'dd MMM YYYY'}}
+
+                                </td>
                                 <td>{{ item.issue }}</td>
-                                <td>{{ item.empId }}</td>
-                                <td>{{ item.followUpDate }}</td>
+                                <!-- <td>{{ item.empId }}</td> -->
+                                <td>
+
+                                    {{item.followUpDate  | date: 'dd MMM YYYY'}}
+
+                                </td>
                                 <td>{{ item.actionTaken }}</td>
                                 <td><i class="fa fa-edit text-red medium-txt pts" (click)="updateContactLogData(item.contactlogId)"></i></td>
                                 <td><i class="fa fa-trash-o text-red medium-txt pts" (click)="deleteDeleteContactLogData(item.contactlogId)"></i></td>

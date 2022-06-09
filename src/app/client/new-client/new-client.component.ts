@@ -92,7 +92,7 @@ export class NewClientComponent implements OnInit {
 
   saveChanges() {
 
-    debugger;
+      
     this.IsLoad = true;
     this.model.dob = this.datepipe.transform(this._dobDate, 'dd-MM-yyyy')||"";   
     this.model.isActive=Number(this.model.isActive);
@@ -106,9 +106,12 @@ export class NewClientComponent implements OnInit {
 
     
     this.cltApi.addClient(empObj).subscribe((response) => {
+
       this.IsLoad = false;
       console.log('Stock change Response: ', response);
       this.clear();
+      this.model.clientId=response.data
+      this.router.navigate(['/client/info/'+this.model.clientId+'/5']);
     });
   }
 

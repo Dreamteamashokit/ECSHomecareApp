@@ -34,7 +34,7 @@ export class ClientInfoComponent implements OnInit {
     this.route.params
     .subscribe(
       (params : Params) =>{
-        debugger;
+        
         this.clientId = params["clientId"];
         this.UserData={
           id:this.clientId,

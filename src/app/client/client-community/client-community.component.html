@@ -22,8 +22,8 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label">Community Name</label>
-                                    <input type="text" #communitNameText="ngModel" id="txtcommunitName"
+                                    <label class="control-label">Community Name *</label>
+                                    <input required type="text" #communitNameText="ngModel" id="txtcommunitName"
                                         name="communitName" [(ngModel)]="model.communityName" class="form-control">
 
                                 </div>
@@ -41,8 +41,8 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label class="control-label">Address</label>
-                                    <input type="text" #communitaddrText="ngModel" id="txtcommunitaddr"
+                                    <label class="control-label">Address *</label>
+                                    <input required type="text" #communitaddrText="ngModel" id="txtcommunitaddr"
                                         name="communitaddr" [(ngModel)]="model.communityAddress" class="form-control">
 
                                 </div>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 text-center">
-                                <button type="button" (click)="saveCommunity();" class="btn btn-md btn-dark">Add</button>
+                                <button type="button" [disabled]="f.invalid" (click)="saveCommunity();" class="btn btn-md btn-dark">Add</button>
                             </div>
                         </div>
 

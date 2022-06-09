@@ -1,90 +1,102 @@
-<div class="panel panel panel-orange">
-    <div class="panel-heading">Physician</div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">First Name</label>
-                    <input type="text" required #firstName="ngModel" id="txtfirstName" name="firstName" class="form-control" [(ngModel)]="model.firstName">
-                </div>
-            </div>
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">Last Name</label>
-                    <input type="text" required #lastName="ngModel" id="txtlastName" name="lastName" class="form-control" [(ngModel)]="model.lastName">
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label class="control-label">Title</label>
-                    <input type="text" #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="model.title">
-                </div>
-            </div>
-         
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">NPI Number</label>
-                    <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="model.nPINumber">
-                </div>
-            </div>
+<div class="row">
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">First Name<span class="star">*</span></label>
+            <input type="text" required #firstName="ngModel" id="txtfirstName" name="firstName" class="form-control" [(ngModel)]="proModel.firstName">
+        
+            <em *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" for="txtfirstName" class="invalid">This field is required</em>
+      
+        </div>
+    </div>
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Last Name<span class="star">*</span></label>
+            <input type="text" required #lastName="ngModel" id="txtlastName" name="lastName" class="form-control" [(ngModel)]="proModel.lastName">
+            <em *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" for="txtlastName" class="invalid">This field is required</em>
+      
+        
+        </div>
+    </div>
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Title<span class="star">*</span></label>
+            <input type="text" required #title="ngModel" id="txttitle" name="title" class="form-control" [(ngModel)]="proModel.title">
+    
+            <em *ngIf="title.invalid && (title.dirty || title.touched)" for="txttitle" class="invalid">This field is required</em>
 
-            <div class="col-lg-2">     <div class="form-group">
-                <label class="control-label">License</label>
-                <input type="text" #license="ngModel" id="txtlicense" name="license" class="form-control" [(ngModel)]="model.license">
-            </div></div>
-            <div class="col-lg-2">     <div class="form-group">
-                <label class="control-label">License Expires</label>
-                <input type="text" #licenseExpires="ngModel" id="txtlicenseExpires" name="licenseExpires"
-                       [(ngModel)]="model.licenseExpires" class="form-control" bsDatepicker>
-            </div> </div>
         
-        
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">Address</label>
-                    <input type="text" #address="ngModel" id="txtaddress" name="address" class="form-control" [(ngModel)]="model.address">
-                </div>
-            </div>
-                <div class="col-lg-2"> 
-                    <div class="form-group">
-                        <label class="control-label">City</label>
-                        <input type="text" #city="ngModel" id="txtcity" name="city" class="form-control" [(ngModel)]="model.city">
-                    </div>
-                </div>
-                <div class="col-lg-1"> 
-                    <div class="form-group">
-                        <label class="control-label">State</label>
-                        <input type="text" #state="ngModel" id="txtstate" name="state" class="form-control" [(ngModel)]="model.state">
-                    </div>
-                </div>          
-               
-        
-        
-            <div class="col-lg-1"> 
-                <div class="form-group">
-                    <label class="control-label">Zip</label>
-                    <input type="text" #zip="ngModel" id="txtzip" name="zip" class="form-control" [(ngModel)]="model.zip">
-                </div>
-            </div>
-          
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <input type="text" #email="ngModel" id="txtemail" name="email" class="form-control" [(ngModel)]="model.email">
-                </div>
-            </div>
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">Phone</label>
-                    <input type="text" #phone="ngModel" id="txtphone" name="phone" class="form-control" [(ngModel)]="model.phone">
-                </div>
-            </div>
-            <div class="col-lg-2"> 
-                <div class="form-group">
-                    <label class="control-label">Fax</label>
-                    <input type="text" #fax="ngModel" id="txtfax" name="fax" class="form-control" [(ngModel)]="model.fax">
-                </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+ 
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">NPI Number</label>
+            <input type="text" #nPINumber="ngModel" id="txtnPINumber" name="nPINumber" class="form-control" [(ngModel)]="proModel.npiNumber">
+        </div>
+    </div>
+
+    <div class="col-lg-4">      <div class="form-group">
+        <label class="control-label">License</label>
+        <input type="text" #license="ngModel" id="txtlicense" name="license" class="form-control" [(ngModel)]="proModel.license">
+    </div></div>
+    <div class="col-lg-4">      <div class="form-group">
+        <label class="control-label">License Expires</label>
+        <div class="input-group">                                    
+            <input required type="text"  id="txtlicenseExpires" name="licenseExpires"
+            placeholder="License Expires" #licenseExpires="ngModel" [(ngModel)]="proModel.dateExpires" class="form-control" #licenseExp="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+            <div class="input-group-addon" (click)="licenseExp.toggle()" [attr.aria-expanded]="licenseExp.isOpen" ><i class="fa fa-calendar"></i></div>
+        </div>
+
+    </div> </div>
+
+
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Address</label>
+            <input type="text" #address="ngModel" id="txtaddress" name="address" class="form-control" [(ngModel)]="proModel.address">
+        </div>
+    </div>
+    <div class="col-lg-4"> 
+            <div class="form-group">
+                <label class="control-label">City</label>
+                <input type="text" #city="ngModel" id="txtcity" name="city" class="form-control" [(ngModel)]="proModel.city">
             </div>
         </div>
+        <div class="col-lg-2"> 
+            <div class="form-group">
+                <label class="control-label">State</label>
+                <input type="text" #state="ngModel" id="txtstate" name="state" class="form-control" [(ngModel)]="proModel.state">
+            </div>
+        </div>          
+       
+
+
+    <div class="col-lg-2"> 
+        <div class="form-group">
+            <label class="control-label">Zip</label>
+            <input type="text" #zipCode="ngModel" id="txtzip" name="zipCode" class="form-control" [(ngModel)]="proModel.zipCode">
         </div>
+    </div>
+  
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Email</label>
+            <input type="text" #email="ngModel" id="txtemail" name="email" class="form-control" [(ngModel)]="proModel.email">
         </div>
+    </div>
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Phone</label>
+            <input type="text" #phone="ngModel" id="txtphone" name="phone" class="form-control" [(ngModel)]="proModel.phone">
+        </div>
+    </div>
+    <div class="col-lg-4"> 
+        <div class="form-group">
+            <label class="control-label">Fax</label>
+            <input type="text" #fax="ngModel" id="txtfax" name="fax" class="form-control" [(ngModel)]="proModel.fax">
+        </div>
+    </div>
+</div>

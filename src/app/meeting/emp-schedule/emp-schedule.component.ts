@@ -10,6 +10,8 @@ import { Router,ActivatedRoute, Params } from '@angular/router';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserType } from 'src/app/models/common';
+
+
 @Component({
   selector: 'app-emp-schedule',
   templateUrl: './emp-schedule.component.html',
@@ -29,6 +31,7 @@ export class EmpScheduleComponent implements OnInit {
   _toDate : Date=new Date();
   _meetingDate : Date=new Date();
   _startTime : Date=new Date();
+  _startMinTime : Date=new Date();
   _endTime : Date=new Date();
   currentUser: UserModel;
   isClient:boolean=false;
@@ -62,6 +65,8 @@ export class EmpScheduleComponent implements OnInit {
           this.model.empId = params["userId"];
         }
         this.model.meetingDate = params["fromDate"];
+
+        this.setInitailTime(params["fromDate"]);
       });
   }
 
@@ -88,11 +93,49 @@ onChange(e:any):void {
 
   if (e.target.checked) {
     this._fromDate = new Date(this.model.meetingDate);
-    this._toDate = new Date(this.model.meetingDate);
+    let tDate = new Date(this._fromDate);
+    tDate.setDate(tDate.getDate() + 1);
+    this._toDate=tDate;
     this.isRecurrence=true;
+  }
+  else
+  {
+
   }
   
   
+}
+
+setInitailTime(_from:string)
+{
+  debugger;
+  let from= new Date(_from);
+  let today= new Date();
+  from.setHours(today.getHours());
+  from.setMinutes(today.getMinutes());
+  from.setSeconds(today.getSeconds());
+  if(from.getTime() > today.getTime())
+  {
+    this._startTime=from;
+  }
+  else
+  {
+    from.setMinutes(from.getMinutes() + 15);
+    this._startTime=from;
+  }
+  today.setMinutes(today.getMinutes() + 15);
+  this._startMinTime=today;
+
+  // const sTime= new Date();
+  // sTime.setMinutes(sTime.getMinutes() + 15);
+  // this._startTime=sTime;
+  // this._startMinTime=sTime;  
+  // const eTime= this._endTime;
+  // eTime.setMinutes(eTime.getMinutes() + 30);
+  // this._endTime=eTime;
+  // let tDate = new Date();
+  // tDate.setDate(tDate.getDate() + 1);
+  // this._toDate=tDate;
 }
 
 

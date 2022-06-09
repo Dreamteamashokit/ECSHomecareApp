@@ -41,7 +41,7 @@ export class DeclinedEmpComponent implements OnInit {
       this.comApi.getEmpList().subscribe((response) => {
         if(response.result)
         {
-          debugger;
+        
           this.empList = response.data;
         }
       });
@@ -56,7 +56,7 @@ export class DeclinedEmpComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    debugger
+  
     this.route.params.subscribe(
       (params : Params) =>{
          this.model.userId = Number(params["clientId"]);

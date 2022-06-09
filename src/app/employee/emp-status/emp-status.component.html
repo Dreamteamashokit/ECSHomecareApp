@@ -24,80 +24,84 @@
                   </button>  
                 </div> 
                 <form name="frmStatus" #f="ngForm">
-                <div class="modal-body"> 
-
-
-
+                <div class="modal-body">
                   <div class="row">
-                    <div class="col-lg-4 col-xs-6">
+                    <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">Type/Status</label>
-                    <select
+                    <select required
                     class="form-control"
-                    #TypeStatusId="ngModel"                                   
-                    id="ddlTypeStatusId"
-                    name="TypeStatusId"                                   
+                    #typeStatusId="ngModel"                                   
+                    id="ddltypeStatusId"
+                    name="typeStatusId"                                   
                     [(ngModel)]="model.typeStatusId"                                       
                   > 
-                  <option value="" disabled>Select</option>
+                  <option [ngValue]="0" selected>Select</option>
                                 <option
                                   *ngFor="let obj of TypeStatusList"
-                                  [value]="obj.itemId"
+                                  [ngValue]="obj.itemId"
                                 >
                                   {{ obj.itemName }}
                                 </option>
                                                   
                         </select>
+                        <em *ngIf="(typeStatusId.invalid  && (typeStatusId.dirty || typeStatusId.touched))||(typeStatusId.value==0)" for="ddltypeStatusId" class="invalid">This field is required</em>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xs-6">
+                    <div class="col-lg-6">
                       <div class="form-group">
                     <label class="control-label">Reason</label>
-                    <input type="email"   #TypeStatusId="ngModel"                                   
-                    id="ddlTypeStatusId"
-                    name="TypeStatusId" class="form-control"  [(ngModel)]="model.reason"   >
+                    <input type="email"   #reason="ngModel"                                   
+                    id="txtreason"
+                    name="reason" class="form-control"  [(ngModel)]="model.reason"   >
+                    </div>
+                      </div>                 
+                    </div>                    
+                  <div class="row">
+                    <div class="col-lg-6 col-xs-6">
+                      <div class="form-group">
+                    <label class="control-label">Effective Date</label>
+                           <div class="input-group">
+                            <input class="form-control" type="text" id="txtEffectiveDate" name="EffectiveDate" placeholder="Effective Date" #EffectiveDate="ngModel"  [(ngModel)]="model.effectiveDateTime"
+                              #EffectDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                            <div class="input-group-addon" (click)="EffectDate.toggle()" [attr.aria-expanded]="EffectDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                        </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-6">
+                      <div class="form-group">
+                    <label class="control-label">Date of Return</label>
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="txtreturnDate" name="returnDate" placeholder="Return Date" #returnDate="ngModel"  [(ngModel)]="model.returnDateTime"
+                        #RetDate="bsDatepicker" bsDatepicker   [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                      <div class="input-group-addon" (click)="RetDate.toggle()" [attr.aria-expanded]="RetDate.isOpen" ><i class="fa fa-calendar"></i></div>
+                  </div>
+                  
                     </div>
                       </div>
-                    <div class="col-lg-4">
-                    <div class="row">
-                      
+                    </div>
+                    <div class="row">                      
                       <div class="col-lg-6 col-xs-6">
                       <div class="form-group">
                     <label class="control-label">Ok of Resume</label><br>
-                    <input type="checkbox" #Resume="ngModel" id="txtResume"name="Resume"
+                    <input type="checkbox" #Resume="ngModel" id="txtResume"name="Resume" checked="model.resume" 
                     [(ngModel)]="model.resume" >
+               
                     </div>
                       </div>
                       <div class="col-lg-6 col-xs-6">
                       <div class="form-group">
                     <label class="control-label">Will rehire</label><br>
                     <input type="checkbox" #Resume="ngModel" id="txtRehire"name="Rehire"
-                    [(ngModel)]="model.rehire" >
+                    [(ngModel)]="model.rehire" checked="model.rehire" >
                     </div>
                       </div>
-                      </div>
-                    </div>
-                    </div>
-                    
-                  <div class="row">
-                    <div class="col-lg-4 col-xs-6">
-                      <div class="form-group">
-                    <label class="control-label">Effective Date</label>
-                    <input type="text" #EffectiveDate="ngModel" id="txtEffectiveDate"name="EffectiveDate"
-                           [(ngModel)]="model.effectiveDate" class="form-control"  bsDatepicker  >
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-xs-6">
-                      <div class="form-group">
-                    <label class="control-label">Date of Return</label>
-                    <input type="text" #ReturnDate="ngModel" id="txtReturnDate"name="ReturnDate"
-                    [(ngModel)]="model.returnDate" class="form-control"  bsDatepicker  >
-                    </div>
-                      </div>
-                  <div class="col-lg-4">
+                      </div>                    
+                    <div class="row">
+                  <div class="col-lg-12">
                       <div class="form-group">
                     <label class="control-label">Note</label>
-                    <input type="textarea" #Note="ngModel" id="txtNote"name="Note"
+                    <input type="textarea" #note="ngModel" id="txtNote" name="Note"
                              [(ngModel)]="model.note" class="form-control">
                     </div>
                       </div>
@@ -117,7 +121,7 @@
                                 
                               <option value="" disabled>Select</option>
                                 <option
-                                  *ngFor="let obj of ScheduleLst"
+                                  *ngFor="let obj of scheduleList"
                                   [value]="obj.id"
                                 >
                                   {{ obj.text }}
@@ -127,7 +131,7 @@
                     </div>
                     <div class="col-lg-8">
                       <div class="form-group">
-                    <label class="control-label">Notify about Yolanda Acosta De Osorio's status change:</label>
+                    <label class="control-label">Notify :</label>
                         <div class="row">
                         <div class="col-lg-6 col-xs-6 ">
                           
@@ -141,7 +145,7 @@
                         > 
                         <option value="-1" disabled>Select</option>
                         <option
-                         *ngFor="let obj of EmplList"
+                         *ngFor="let obj of officeUserList"
                          [value]="obj.itemId"
                        >
                          {{ obj.itemName }}
@@ -150,11 +154,11 @@
                               </select>
                   </div>
                   <div class="col-lg-6 col-xs-6 ">
-                    <select class="form-control" #ClientId="ngModel"                                   
+                    <select class="form-control" #employeeId="ngModel"                                   
                     id="ddlEmployeeId" name="EmployeeId"                                   
                     [(ngModel)]="model.employeeId" > 
                   <option value="-1" disabled>Select</option>
-                  <option *ngFor="let obj of EmplList"
+                  <option *ngFor="let obj of empList"
                    [value]="obj.itemId">
                    {{ obj.itemName }}
                  </option></select>
@@ -163,58 +167,34 @@
                         </div>
                     </div>
                       </div>
-                  
-                 
                               <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="control-label mrm"><strong>Notify via:</strong></label> 
                         <label class="control-label mrs">Text</label>
-                        <input type="checkbox" class="mrm" #Note="ngModel" id="txtText"name="Text"
+                        <input type="checkbox" class="mrm" #text="ngModel" id="txtText"name="Text" checked="model.text"
                         [(ngModel)]="model.text" >
 
                         <label class="control-label mrs">Screen</label>
-                        <input type="checkbox" class="mrm" #Note="ngModel" id="txtScreen"name="Screen"
+                        <input type="checkbox" class="mrm" #screen="ngModel" id="txtScreen"name="Screen" checked="model.screen"
                         [(ngModel)]="model.screen" >
                         <label class="control-label mrs">Email</label>
-                        <input type="checkbox" class="mrm" #Note="ngModel" id="txtEmail"name="Email"
+                        <input type="checkbox" class="mrm" #email="ngModel" id="txtEmail"name="Email" checked="model.email"
                         [(ngModel)]="model.email" >
                       </div>
                         </div>
                           </div>
                     <div class="row">
                     <div class="col-lg-12 text-center">
-                      <button type="button" (click)="onClickSubmit()" class="btn btn-md btn-dark">Add Status Report</button>
+                      <button type="button" [disabled]="f.invalid || (typeStatusId.value==0)" (click)="onClickSubmit()" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save Changes</button>
                     </div>
                       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                   
-                        
-                      
-                </div>  
-              
+                </div>
                  </form>                
               </ng-template> 
 
         </div>
-        <div class="row mbm">
+        <div class="row mbm"  *ngIf="(empStatusList?.length || 0)>0" >
             <div class="col-sm-12">
                 <div class="table-responsive">
                     <div class="table-responsive">
@@ -227,19 +207,27 @@
                                    
                                     <th>OK to Resume</th>
                                     <th>Would Rehire	</th>
-                                    <th>Notes</th>
+                                    <th colspan="2">Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                
-                                    <tr *ngFor="let item of EmpStatusObjList">
-                                    <td> {{ item.statusType }}</td>
-                                    <td> {{ item.effectiveDate | date:'dd-MM-yyyy' }}</td>
-                                    <td>{{ item.returnDate | date:'dd-MM-yyyy' }}</td>
+                                    <tr *ngFor="let item of empStatusList">
+                                    <td> {{ item.statusType }}
+
+                        
+                                    </td>                    
+                                    <td> {{ item.effectiveDateTime | date:'dd MMM YYYY' }}</td>
+                                    <td>{{ item.returnDateTime | date:'dd MMM YYYY' }}</td>
                                   
                                     <td><input type="checkbox" [checked]="item.resume" /></td>
                                     <td><input type="checkbox" [checked]="item.rehire"/></td>
                                     <td>{{ item.note }}</td>
+                                    <td>
+                                      <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
+                                      <a (click)="delItem(item.entityId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
+                              
+                                  </td>
                                     </tr>
                                
 

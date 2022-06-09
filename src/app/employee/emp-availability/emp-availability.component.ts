@@ -32,13 +32,13 @@ export class EmpAvailabilityComponent implements OnInit {
         this.BindAvailability();
       }
     );
-    // this.BindAvailability()
+   
   }
 
   dataList = Array<ItemsList>();
 
   BindAvailability() {
-    // this.IsLoad = true;
+  
 
     this.empApi.getAvailabilityList().subscribe(response => {
       console.log(response.data);
@@ -51,7 +51,7 @@ export class EmpAvailabilityComponent implements OnInit {
     });
   }
   updateAvailablity() {
-    debugger;
+
     this.mappingList.forEach(element => {
       this.empApi.saveAvailabilityMapping(element).subscribe((response) => {
         console.log(response);
@@ -59,7 +59,7 @@ export class EmpAvailabilityComponent implements OnInit {
     });
   }
   onAvailabilityMappingChange(event: any, itmId: number) {
-    debugger;
+
     if (event.target.checked) {
       // do something here
       var mappingObj = new EmpAvailablityMappingModel();
