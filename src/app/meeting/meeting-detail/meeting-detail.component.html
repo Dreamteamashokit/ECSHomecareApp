@@ -6,14 +6,21 @@
     </button>
 </div>
 <div class="modal-body">
-
-
     <div class="panel panel-default" *ngIf="IsEdit">
         <div class="panel-body light-bg-grey">
 
-            <div class="row mtm">
+            <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group"><label class="control-label mbxl">Date of Service</label>
+                    <div class="form-group">
+                        <input type="checkbox" class="mrm" name="recurring" (change)="onRecurrence($event)"
+                            [(ngModel)]="isRecurrence">
+                        <label class="control-label"><strong>Recurrence</strong></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mtm" *ngIf="!isRecurrence">
+                <div class="col-xs-12">
+                    <div class="form-group"><label class="control-label">Date of Service</label>
                         <div class="input-group">
                             <input required type="text" id="txtMeetingDate" name="MeetingDate"
                                 placeholder="Date of Birth" #MeetingDate="ngModel" [(ngModel)]="_meetingDate"
@@ -26,17 +33,51 @@
                     </div>
                 </div>
             </div>
-                <div class="row mtm">
-                <div class="col-xs-6">
+            <!--  -->
+            <div class="row mtm" *ngIf="isRecurrence">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="control-label">From Date</label>
+                        <div class="input-group">
+                            <input required type="text" id="txtfromDate" name="fromDate" placeholder="From Date"
+                                #fromDate="ngModel" [(ngModel)]="_fromDate" class="form-control" #frmDate="bsDatepicker"
+                                bsDatepicker
+                                [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="frmDate.toggle()"
+                                [attr.aria-expanded]="frmDate.isOpen"><i class="fa fa-calendar text-orange"></i></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">To Date</label>
+                        <div class="input-group">
+                            <input required type="text" id="txttoDate" name="toDate" placeholder="From Date"
+                                #toDate="ngModel" [(ngModel)]="_toDate" class="form-control" #tDate="bsDatepicker"
+                                bsDatepicker
+                                [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                            <div class="input-group-addon" (click)="tDate.toggle()" [attr.aria-expanded]="tDate.isOpen">
+                                <i class="fa fa-calendar text-orange"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mtm">
+                <div class="col-sm-6 col-xs-12">
                     <div class="form-group"><label class="control-label">Time In</label>
-                        <timepicker #StartTime="ngModel" id="txtStartTime" name="StartTime" [showMeridian]="false"
-                            [showSpinners]="true" [(ngModel)]="_startTime"></timepicker>
+                        <timepicker #StartTime="ngModel" id="txtStartTime" name="StartTime" [showSpinners]="true"
+                            [(ngModel)]="_startTime"></timepicker>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-sm-6 col-xs-12">
                     <div class="form-group"><label class="control-label">Time Out</label>
-                        <timepicker #EndTime="ngModel" id="txtEndTime" name="EndTime" [showMeridian]="false"
-                            [showSpinners]="true" [(ngModel)]="_endTime"></timepicker>
+                        <timepicker #EndTime="ngModel" id="txtEndTime" name="EndTime" [showSpinners]="true"
+                            [(ngModel)]="_endTime"></timepicker>
                     </div>
                 </div>
             </div>
@@ -44,7 +85,7 @@
                 <div class="col-lg-12">
                     <div class="form-group">
                         <textarea placeholder="Notes" class="form-control" id="txtNotes" name="Notes"
-                            placeholder="Notes" [(ngModel)]="message"></textarea>
+                            placeholder="Notes" [(ngModel)]="_message"></textarea>
                     </div>
 
                 </div>
@@ -52,12 +93,12 @@
             <div class="row mtm">
                 <div class="col-lg-12 text-center">
                     <div class="form-group">
-                        <button class="btn btn-lg btn-dark" (click)="reScheduling()"><i class="fa fa-save mrm"></i>
-                            RESCHEDULE</button>
+                        <button class="btn btn-lg btn-dark mrm mbm" (click)="reScheduling(bsModalRef)">
+                            <i class="fa fa-save mrm"></i>RESCHEDULE</button>
+                        <button type="button" class="btn btn-lg btn-primary mrm mbm" (click)="cxlScheduling()">
+                            <i class="fa fa-times mrm"></i>CANCEL</button>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

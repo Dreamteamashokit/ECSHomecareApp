@@ -9,3 +9,4 @@ export const environment = {
   payinvoicebyidurl: "/api/Invoice/payinvoice",
   /* */
 };
+

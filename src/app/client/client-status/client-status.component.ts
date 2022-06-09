@@ -122,6 +122,8 @@ this.clientapi.getClientStatusList(this.ClientId).subscribe((response)=>{
   this.editObj.statusId=item.statusId;
   this.editObj.isEdit=item.isEdit;
   item.isEdit=true;
+  this.editObj.userId=item.userId;
+  
   item.effectiveDate=new Date(item.statusDate);
   item.activityId=this.ActivityLst.filter(x=>x.itemName===item.activityText)[0].itemId;
   item.referralCode=this.ReferralCodeLst.filter(x=>x.itemName===item.referralCodeText)[0].itemId;
@@ -142,6 +144,8 @@ updateStatus(item:ClientStatusLst) {
   reqObj.activityId=Number(item.activityId);
   reqObj.referralCode=Number(item.referralCode);
   reqObj.note=item.note;
+  reqObj.userId=Number(this.ClientId);
+
   reqObj.statusDate=this.datepipe.transform(item.effectiveDate, 'dd-MM-yyyy')||"";
   this.clientapi.updateClientStatus(reqObj).subscribe(response => {
     this.GetClientStatusLst();
@@ -149,7 +153,6 @@ updateStatus(item:ClientStatusLst) {
   });
 
 }
-
 
 delStatus(statusId: number) {
   let isOk = confirm("Are you sure to delete?");

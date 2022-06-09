@@ -40,6 +40,7 @@ export class ClientStatusLst{
     note:string;
     isEdit:boolean;
     effectiveDate:Date;
+    userId:number;
     constructor(_ActivityText:string, _Date:string,_ReferralCode:string,_Note:string)
     {
         this.activityText=_ActivityText;
