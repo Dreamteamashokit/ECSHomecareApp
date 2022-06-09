@@ -8,7 +8,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status';
 import { StatusEnum } from 'src/app/models/common';
-
+import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
 @Component({
   selector: 'app-meeting-detail',
   templateUrl: './meeting-detail.component.html',
@@ -192,8 +192,6 @@ export class MeetingDetailComponent implements OnInit {
 
 
   public delScheduling(item: BsModalRef,meetingId?: number) {
-
-
     this.IsLoad = true;
     this.model.isStatus = 0;
     this.model.meetingId = this.momObj?.meetingId != null ? this.momObj.meetingId : 0;
@@ -213,20 +211,113 @@ export class MeetingDetailComponent implements OnInit {
     window.location.reload();
    }
 
-
-   _meetingDate : Date=new Date();
-   _startTime : Date=new Date();
-   _endTime : Date=new Date();
+   _message : string;
+   _meetingDate : Date;
+   _startTime : Date;
+   _endTime : Date;
+   _fromDate : Date;
+   _toDate : Date;
+   isRecurrence : boolean;
    editMeeting() {
-    this.IsEdit=true;
+
+    if(this.momObj != null)
+    {
+      this.IsEdit=true;
+      let item=this.momObj;
+      this._meetingDate=new Date(item.meetingDate);
+      var _timeIn = item.meetingDate +' ' + item.startTime; 
+      this._startTime=new Date(_timeIn);
+      var _timeOut = item.meetingDate +' ' + item.endTime; 
+      this._endTime=new Date(_timeOut);
+    }
+
+   }
+
+   onRecurrence(e:any):void {
+    if (e.target.checked) 
+    {
+      if(this.momObj != null)
+      {
+        let item=this.momObj;
+        this._fromDate = new Date(item.meetingDate);
+        let tDate = new Date(this._fromDate);
+        tDate.setDate(tDate.getDate() + 1);
+        this._toDate=tDate;
+        this.isRecurrence=true;
+      }
+    }
+    else
+    {
+      this.isRecurrence=false;
+    }
+  }
+
+
+   reScheduling(panel: BsModalRef)
+   {
+     debugger;
+    if(this.momObj != null)
+    {    
+      let item=this.momObj;
+      this.IsLoad=true;
+      let modelItem:MeetingInfo = new MeetingInfo(0,[],-1,-1,'','','','');
+      if(this.isRecurrence)
+      {
+        modelItem.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
+        modelItem.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";
+      }
+      modelItem.meetingDate = this.datepipe.transform(this._meetingDate, 'dd-MM-yyyy')||"";
+      modelItem.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
+      modelItem.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
+      modelItem.userId = this.currentUser.userId;
+      modelItem.clientId=item.client.id;
+      modelItem.empId=item.employee.id;
+      modelItem.meetingNote=this._message;
+
+      this.momApi.updateMeeting(modelItem).subscribe({   
+        next: (response: any) => {  
+          if (response.result) 
+          {
+            this.IsLoad = false;
+            panel.hide();
+            this.reloadCurrentPage()
+          }
+          else
+          {
+            this.IsLoad=false;
+            alert("Some technical issue exist, Please contact to admin !");
+          } 
+         },
+         error: (err) => { 
+          this.IsLoad=false;
+          alert("Some technical issue exist, Please contact to admin !");
+         console.log(err);
+      
+        },   
+        complete: () => { 
+          this.IsLoad=false;
+        }
+    }); 
+      
+      
+
+
+    
+
+
+    }
+   
    }
 
 
-   reScheduling()
+
+
+
+
+   cxlScheduling()
    {
     this.IsEdit=false;
    }
-
 
 
 

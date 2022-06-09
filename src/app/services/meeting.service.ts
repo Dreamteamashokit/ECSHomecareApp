@@ -112,7 +112,16 @@ export class MeetingService {
   } 
 
 
-
+  updateMeeting(momObj : MeetingInfo)
+  { 
+    var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        };
+    return this._http.post(environment.domain + "/api/Meeting/updateMeeting", momObj,httpOptions);            
+  }
 
 
 
