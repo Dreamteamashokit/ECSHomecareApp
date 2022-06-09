@@ -46,7 +46,6 @@ export class ClientBillingComponent implements OnInit {
     this.initClientBill()
     this.getPayerList();
     this.getActiveBillAndExpiredBill();
-    //this.getServiceCodeByPayerId(3);
   }
   openModal(template: TemplateRef<any>) {
     this.isUpdateVisible = false;
