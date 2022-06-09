@@ -265,6 +265,11 @@ export class MeetingDetailComponent implements OnInit {
       {
         modelItem.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
         modelItem.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";
+        modelItem.meetingId=0;
+      }
+      else
+      {
+        modelItem.meetingId=item.meetingId;
       }
       modelItem.meetingDate = this.datepipe.transform(this._meetingDate, 'dd-MM-yyyy')||"";
       modelItem.startTime=this.datepipe.transform(this._startTime, 'h:mm a')||"";
@@ -273,6 +278,7 @@ export class MeetingDetailComponent implements OnInit {
       modelItem.clientId=item.client.id;
       modelItem.empId=item.employee.id;
       modelItem.meetingNote=this._message;
+   
 
       this.momApi.updateMeeting(modelItem).subscribe({   
         next: (response: any) => {  
