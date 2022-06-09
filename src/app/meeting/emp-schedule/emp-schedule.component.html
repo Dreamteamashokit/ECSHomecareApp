@@ -43,7 +43,7 @@
 
                     <label class="control-label">From Date</label>
                     <div class="input-group">                                    
-                      <input required type="text"  id="txtfromDate" name="fromDate"
+                      <input required type="text"  id="txtfromDate" name="fromDate"   (ngModelChange)='fromChanged($event)'
                       placeholder="From Date" #fromDate="ngModel" [(ngModel)]="_fromDate" 
                       class="form-control" #frmDate="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
                       <div class="input-group-addon" (click)="frmDate.toggle()" 
@@ -65,7 +65,7 @@
                   [attr.aria-expanded]="tDate.isOpen" ><i class="fa fa-calendar text-orange"></i></div>
               </div>
             </div>
-                <!-- {{_meetingDate}} -->
+           
             </div>
                   
        
@@ -80,9 +80,7 @@
                   (ngModelChange)="changed()" 
                     [(ngModel)]="_startTime" ></timepicker>
                 </div>
-
-                {{_endTime}}
-                <!-- {{_startTime}} -->
+      
             </div>        
                 <div class="col-sm-2 col-xs-12">
                     <div class="form-group"><label class="control-label">Time Out</label>
