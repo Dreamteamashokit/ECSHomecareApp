@@ -1,4 +1,4 @@
-import { ClientBilling } from './../../models/client/client-billling-model';
+import { ClientBilling, ServiceCode } from './../../models/client/client-billling-model';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemsList } from 'src/app/models/common';
@@ -26,6 +26,9 @@ export class ClientBillingComponent implements OnInit {
   activeClinetBills = Array<ClientBilling>();
   expiredClientBills = Array<ClientBilling>();
 
+  serviceCode = Array<ServiceCode>();
+  selectedPayerId : number;
+
 
 
   @ViewChild('frmclientbill') public addBillFrm: NgForm;
@@ -40,10 +43,14 @@ export class ClientBillingComponent implements OnInit {
 
  
   ngOnInit(): void {
+    this.initClientBill()
     this.getPayerList();
     this.getActiveBillAndExpiredBill();
+    //this.getServiceCodeByPayerId(3);
   }
   openModal(template: TemplateRef<any>) {
+    this.isUpdateVisible = false;
+    this.isAddVisible = true;
     this.modalRef = this.modalService.show(template);
   }
   decline(): void {
@@ -154,6 +161,8 @@ export class ClientBillingComponent implements OnInit {
     })
   }
   updateBilling(billingId:number,template: TemplateRef<any>) {
+    this.isUpdateVisible = true;
+    this.isAddVisible = false;
     //this.getClinetBillingById(billingId);
     this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
       if(res.result){
@@ -219,14 +228,14 @@ export class ClientBillingComponent implements OnInit {
       this.model.quantity_THU = Number(this.model.quantity_THU);
       this.model.quantity_FRI = Number(this.model.quantity_FRI);
       
-      this.model.periodEpisode_Notes = "";
+      this.model.periodEpisode_Notes = " ";
       this.model.serviceCode = 0;
-      this.model.hoursAuthorizedPerWeek = "",
-      this.model.hoursAuthorizedPerMonth= "",
-      this.model.hoursAuthorizedEntirePeriod ="",
-      this.model.occurencesAuthorizedPerWeek = "",
-      this.model.occurencesAuthorizedPerMonth ="",
-      this.model.occurencesAuthorizedEntirePeriod =""
+      this.model.hoursAuthorizedPerWeek = " ",
+      this.model.hoursAuthorizedPerMonth= " ",
+      this.model.hoursAuthorizedEntirePeriod =" ",
+      this.model.occurencesAuthorizedPerWeek = " ",
+      this.model.occurencesAuthorizedPerMonth =" ",
+      this.model.occurencesAuthorizedEntirePeriod =" "
 
     }else{
       this.model.brServiceCode_SAT = 0
@@ -244,7 +253,7 @@ export class ClientBillingComponent implements OnInit {
       this.model.quantity_THU = 0
       this.model.quantity_FRI = 0
       
-      this.model.daysOfWeekNotes = ""
+      this.model.daysOfWeekNotes = " "
     }
 
 
@@ -254,14 +263,24 @@ export class ClientBillingComponent implements OnInit {
 
       if(res?.result){
         this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
+        
         this.decline();
+        this.isUpdateVisible = false;
+        this.isAddVisible = true;
+        
       }else{
         this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
         this.decline();
+        this.isUpdateVisible = false;
+        this.isAddVisible = true;
       }
      
       console.log(res?.data);
     })
+  }
+
+  getNewServiceCode(){
+    this.getServiceCodeByPayerId(this.model.payerId);
   }
 
   isExpired(toDate:any,fromDate:any){
@@ -279,6 +298,43 @@ export class ClientBillingComponent implements OnInit {
       return false;
     }
 
+  }
+
+  getServiceCodeByPayerId(payerId: number) {
+    this.invoiceService.getServiceCodeByPayerId(payerId).subscribe(res => {
+      if(res.result){
+        this.serviceCode = res.data;
+        console.log("Service Code",this.serviceCode);
+      }
+    })
+  }
+
+  initClientBill(){
+      this.model.billingId = 0;
+      this.model.brServiceCode_SAT = 0
+      this.model.brServiceCode_SUN = 0
+      this.model.brServiceCode_MON = 0
+      this.model.brServiceCode_TUE = 0
+      this.model.brServiceCode_WED = 0
+      this.model.brServiceCode_THU = 0
+      this.model.brServiceCode_FRI = 0
+      this.model.quantity_SAT = 0
+      this.model.quantity_SUN = 0
+      this.model.quantity_MON = 0
+      this.model.quantity_TUE = 0
+      this.model.quantity_WED = 0
+      this.model.quantity_THU = 0
+      this.model.quantity_FRI = 0
+      this.model.daysOfWeekNotes = " "
+      this.model.periodEpisode_Notes = " ";
+      this.model.serviceCode = 0;
+      this.model.hoursAuthorizedPerWeek = " ",
+      this.model.hoursAuthorizedPerMonth= " ",
+      this.model.hoursAuthorizedEntirePeriod =" ",
+      this.model.occurencesAuthorizedPerWeek = " ",
+      this.model.occurencesAuthorizedPerMonth =" ",
+      this.model.occurencesAuthorizedEntirePeriod =" "
+      
   }
 
 }

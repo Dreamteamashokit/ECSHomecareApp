@@ -40,3 +40,9 @@ export class ClientBilling extends BaseModel {
   periodEpisode_Notes: string;
   createdBy: number;
 }
+
+export interface ServiceCode {
+  rateId: number
+  serviceCode: string
+  payerId: number
+}

@@ -140,7 +140,8 @@
 
 <ng-template #editBilling>
     <div class="modal-header">
-        <h4 class="modal-title pull-left text-orange">Edit Bill</h4>
+        <h4 *ngIf="isAddVisible" class="modal-title pull-left text-orange">Add Bill</h4>
+        <h4 *ngIf="isUpdateVisible" class="modal-title pull-left text-orange">Edit Bill</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="decline();">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
@@ -156,7 +157,9 @@
                                 class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }">
                         </div> -->
 
-                        <select class="form-control"  id="payer" name="payerid" #payer="ngModel" required  [(ngModel)]="model.payerId">
+                        <select class="form-control"  id="payer" name="payerid" #payer="ngModel" required  [(ngModel)]="model.payerId"
+                        (change)="getNewServiceCode()"
+                        >
                             <!-- <option value="-1" disabled>Select</option> -->
                             <!-- <option *ngFor="let note of noteTypeList" [value]="note.itemId">
                                     {{ note.itemName }}
@@ -174,7 +177,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label">Contract Client ID:</label>
-                        <input type="text" name="authorizationNumber" [(ngModel)]="model.contractClientId"
+                        <input type="text" name="contractClientId" [(ngModel)]="model.contractClientId"
                             class="form-control">
                     </div>
                 </div>
@@ -271,8 +274,8 @@
                                         </option> -->
                                             <!-- <option>Private Pay</option>
                                             <option>Well Care</option> -->
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -357,8 +360,8 @@
                                             </option> -->
                                             <!-- <option>Private Pay</option>
                                             <option>Well Care</option> -->
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -375,8 +378,8 @@
                                             </option> -->
                                             <!-- <option>Private Pay</option>
                                             <option>Well Care</option> -->
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -386,8 +389,8 @@
                                         name="brServiceCode_MON"
                                         [(ngModel)]="model.brServiceCode_MON">
                                             <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -397,8 +400,8 @@
                                         name="brServiceCode_TUE"
                                         [(ngModel)]="model.brServiceCode_TUE">
                                             <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -408,8 +411,8 @@
                                         name="brServiceCode_WED"
                                         [(ngModel)]="model.brServiceCode_WED">
                                             <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -419,8 +422,8 @@
                                         name="brServiceCode_THU"
                                         [(ngModel)]="model.brServiceCode_THU">
                                             <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
@@ -430,8 +433,8 @@
                                         name="brServiceCode_FRI"
                                         [(ngModel)]="model.brServiceCode_FRI">
                                             <option value="-1" disabled>Select</option>
-                                            <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
-                                                {{ payer.itemName }}
+                                            <option *ngFor="let service of serviceCode" [value]="service.rateId">
+                                                {{ service.serviceCode }}
                                             </option>
                                         </select>
                                     </td>
