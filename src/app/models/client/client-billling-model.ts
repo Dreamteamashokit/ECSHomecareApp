@@ -13,8 +13,8 @@ export class ClientBilling extends BaseModel {
   payerId: number;
   contractClientId: number;
   authorizationNumber: string;
-  fromDate: string;
-  toDate: string;
+  fromDate: string = "";
+  toDate: string =  "";
   hoursAuthorizedPerWeek: string;
   hoursAuthorizedPerMonth: string;
   hoursAuthorizedEntirePeriod: string;
