@@ -77,8 +77,8 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="form-group">       
-                        <label class="control-label">Category</label>                 
-                          <select class="form-control" id="ddlCategory" name="paretntCategory" [(ngModel)]="model.category" (change)="OnChangeCategory($event)">                            
+                        <label class="control-label">Category *</label>                 
+                          <select required class="form-control" id="ddlCategory" #category="ngModel" name="category" [(ngModel)]="model.category" (change)="OnChangeCategory($event)">                            
                             <option value="0">Please select</option>
                             <option *ngFor="let obj of categoryList"
                                     [value]="obj.categoryId">
@@ -89,8 +89,8 @@
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">       
-                        <label class="control-label">Code</label>                 
-                          <select class="form-control" id="ddlCode" name="code" [(ngModel)]="model.code">                            
+                        <label class="control-label">Code *</label>                 
+                          <select required class="form-control" id="ddlCode" #code="ngModel" name="code" [(ngModel)]="model.code">                            
                             <option *ngFor="let obj of subCategoryList"
                                     [value]="obj.categoryId">
                                 {{ obj.categoryName }}
@@ -128,12 +128,16 @@
                   
                     </div>
                             
-                    <div class="row">
+                    <div class="row"  *ngIf="isAddVisible">
                     <div class="col-lg-12 text-center">
                       <button type="button" (click)="saveCompliance()" class="btn btn-md btn-dark">Add</button>
                     </div>
                       </div>
-
+                      <div class="row"  *ngIf="isUpdateVisible">
+                        <div class="col-lg-12 text-center">
+                          <button type="button" (click)="updateComplianceData()" class="btn btn-md btn-dark">Update</button>
+                        </div>
+                          </div>
 
 
 
@@ -169,6 +173,10 @@
                                 <td> {{ item.category }}</td>
                                 <td> {{ item.code }}</td>
                                 <td> {{ item.notes }}</td>
+                                <td><i class="fa fa-edit text-red medium-txt pts"
+                                  (click)="updateCompliance(item.complianceId)"></i></td>
+                          <td><i class="fa fa-trash-o text-red medium-txt pts"
+                                  (click)="deleteCompliance(item.complianceId)"></i></td>
                             </tr>
                         </tbody>
                     </table>

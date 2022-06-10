@@ -180,11 +180,28 @@ export class EmployeeapiService {
 
   geComplianceList(empId : number)
   {
-
     return this._http.get<APIResponse<ComplianceObj[]>>(environment.domain + "/api/Employee/getComplianceList" + '/' + empId);
   } 
 
+  deleteCompliance(complianceId : number)
+  {
+    const reqPara = new HttpParams({
+    fromObject: {
+      'complianceId': complianceId
+    }
+  });
+  return this._http.delete(environment.domain + "/api/Employee/deleteCompliance", { params: reqPara });
+}
 
+updateComplianceData(_obj: ComplianceObj) {
+  var headers_object = new HttpHeaders();
+  headers_object.append('Content-Type', 'application/json');
+  var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+  const httpOptions = {
+    headers: headers_object
+  }; 
+  return this._http.post(environment.domain + "/api/Employee/updateCompliance", _obj, httpOptions);
+}
 
   SaveEmployeeRate(_obj : EmployeeRateModel){ 
     var headers_object = new HttpHeaders();
@@ -193,8 +210,12 @@ export class EmployeeapiService {
         const httpOptions = {
           headers: headers_object
         }; 
-    return this._http.post(environment.domain + "/api/Employee/addRate", _obj,httpOptions);   
-              
+    return this._http.post(environment.domain + "/api/Employee/addRate", _obj,httpOptions);                 
+  }
+
+  GetComplianceDetails(complianceId :number)
+  {
+    return this._http.get<APIResponse<ComplianceObj>>(environment.domain + "/api/Employee/getComplianceData"+ '/' + complianceId);
   }
 
   GetEmployeeRateLst(empId:number)
