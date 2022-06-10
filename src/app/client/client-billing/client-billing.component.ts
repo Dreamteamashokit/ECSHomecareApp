@@ -20,7 +20,6 @@ export class ClientBillingComponent implements OnInit {
   isUpdateVisible: Boolean = false;
   byDaysOfWeekToggle: boolean = false;
   payerItemList = Array<ItemsList>();
-  clientBills = Array<ClientBilling>();
   currentClinetBill:ClientBilling = new ClientBilling();
 
   activeClinetBills = Array<ClientBilling>();
@@ -45,52 +44,67 @@ export class ClientBillingComponent implements OnInit {
   ngOnInit(): void {
     this.initClientBill()
     this.getPayerList();
-    this.getActiveBillAndExpiredBill();
+    this.getActiveBill();
+    this.getExpiredBill();
   }
+
   openModal(template: TemplateRef<any>) {
     this.isUpdateVisible = false;
     this.isAddVisible = true;
     this.modalRef = this.modalService.show(template);
   }
+
   decline(): void {
     this.modalRef?.hide();
     this.model = new ClientBilling();
   }
+
+
   toggleForm(): void {
     this.byDaysOfWeekToggle = !this.byDaysOfWeekToggle;
   }
+
+
   getPayerList() {
     this.commonService.getPayers().subscribe(res => {
         this.payerItemList = res.data;
     });
   }
+
+
   getPayerNmaeFromId(id:number){
     let payerName = this.payerItemList.find(x => x.itemId == id);
     return payerName?.itemName
   }
 
-  getActiveBillAndExpiredBill(){
-    console.log("Calling....")
-    this.clientBills =  Array<ClientBilling>();
+
+  getActiveBill(){
     this.activeClinetBills = Array<ClientBilling>();
-    this.expiredClientBills = Array<ClientBilling>();
 
     this.invoiceService.GetActiveBillAndExpiredBill(true).subscribe(res => {
-      if(res?.result){
-        this.clientBills = res?.data;
-
-        this.clientBills.forEach(item => {
-          if(this.isExpired(item.toDate,item.fromDate)){
-            this.expiredClientBills.push(item);
-          }else{
+      if(res != null && res != undefined && res?.result){
+        res?.data.forEach(item => {
             this.activeClinetBills.push(item);
-          }
         })
       }
-      console.log(this.expiredClientBills,"Expired");
-      console.log(this.activeClinetBills,"Active");
+      console.log(this.activeClinetBills);
     });
   }
+
+
+  getExpiredBill(){
+    this.expiredClientBills = Array<ClientBilling>();
+
+    this.invoiceService.GetActiveBillAndExpiredBill(false).subscribe(res => {
+      if(res != null && res != undefined && res?.result){
+        res?.data.forEach(item => {
+          this.expiredClientBills.push(item);
+        }) 
+        console.log(this.expiredClientBills);
+      }
+    });
+  }
+
 
   onClickSubmit(){
     this.model.billingId = 0;
@@ -145,35 +159,33 @@ export class ClientBillingComponent implements OnInit {
     
     this.model.createdBy = 0;
 
-    console.log(this.model);
     this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
 
       if(res?.result){
         this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
-        this.getActiveBillAndExpiredBill();
+        this.getActiveBill();
+        this.getExpiredBill();
       }else{
         this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
       }
       this.decline();
-     
-
     })
   }
+
+
   updateBilling(billingId:number,template: TemplateRef<any>) {
     this.isUpdateVisible = true;
     this.isAddVisible = false;
-    //this.getClinetBillingById(billingId);
     this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
       if(res.result){
         this.currentClinetBill = res.data;
-        console.log(this.currentClinetBill);
-
+        
         this.model = this.currentClinetBill;
         let todate = new Date(this.currentClinetBill.toDate);
         let fromDate = new Date(this.currentClinetBill.fromDate);
         let totrasformDate = this.datepipe.transform(todate, 'MM-dd-yyyy')||""
         let fromtrasformDate = this.datepipe.transform(fromDate, 'MM-dd-yyyy')||""
-        console.log(totrasformDate,"DATE");
+        
         this.model.toDate = totrasformDate;
         this.model.fromDate = fromtrasformDate;
 
@@ -182,29 +194,31 @@ export class ClientBillingComponent implements OnInit {
         this.modalRef = this.modalService.show(template);
       }
     })
-
   }
 
+
   deleteBillingData(billingId : number) {
-    console.log(billingId + "Deleting..")
     this.invoiceService.deleteBilling(billingId).subscribe(res => {
       if(res.result){
         this.toastr.successToastr(JSON.stringify(res.data),'Success!');
-        this.getActiveBillAndExpiredBill();
+        this.getActiveBill();
+        this.getExpiredBill();
       }else{
         this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
       }
     })
   }
 
+
   getClinetBillingById(billingId: number) {
     this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
       if(res.result){
         this.currentClinetBill = res.data;
-        console.log(this.currentClinetBill);
       }
     })
   }
+
+
   onClickUpdate(){
     this.model.payerId = Number(this.model.payerId);
     this.model.contractClientId = Number(this.model.contractClientId);
@@ -273,8 +287,6 @@ export class ClientBillingComponent implements OnInit {
         this.isUpdateVisible = false;
         this.isAddVisible = true;
       }
-     
-      console.log(res?.data);
     })
   }
 
@@ -282,28 +294,11 @@ export class ClientBillingComponent implements OnInit {
     this.getServiceCodeByPayerId(this.model.payerId);
   }
 
-  isExpired(toDate:any,fromDate:any){
-    let toDatObejct = new Date(toDate).toISOString();
-    let fromDatObejct = new Date(fromDate).toISOString();
-    let currentDate = new Date().toISOString();
-    
-    console.log(toDate,"toDate");
-    console.log(currentDate,"currenTdate");
-
-
-    if(toDatObejct<currentDate){
-      return true;
-    }else{
-      return false;
-    }
-
-  }
 
   getServiceCodeByPayerId(payerId: number) {
     this.invoiceService.getServiceCodeByPayerId(payerId).subscribe(res => {
       if(res.result){
         this.serviceCode = res.data;
-        console.log("Service Code",this.serviceCode);
       }
     })
   }

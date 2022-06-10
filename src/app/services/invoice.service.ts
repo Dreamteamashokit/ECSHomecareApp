@@ -76,7 +76,7 @@ export class InvoiceService {
       headers: headers_object
     };
 
-    return this._http.post<APIResponse<ClientBilling[]>>(environment.domain +  "/api/Invoice/GetActiveBillAndExpiredBill/true", {}, httpOptions)
+    return this._http.post<APIResponse<ClientBilling[]>>(environment.domain + `/api/Invoice/GetActiveBillAndExpiredBill/${status}`, {}, httpOptions)
   }
 
   deleteBilling(billingId : number) {
