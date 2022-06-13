@@ -7,6 +7,7 @@ import { AddRateComponent } from './component/manage_payer_and_rate/add-rate/add
 import { GetinvoicesComponent } from '../dashboard/getinvoices/getinvoices.component';
 import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PayerrateComponent } from './payerrate/payerrate.component';
 
 
 
@@ -17,7 +18,8 @@ const routes: Routes = [
 
     {
         path: '', component: LayoutComponent, children: [
-            { path: '', component: GetinvoicesComponent },
+            { path: '', component: PayerrateComponent },
+            { path: 'pos', component: GetinvoicesComponent },
             { path: 'add-rate', component: AddRateComponent }
         ]
     }
@@ -26,7 +28,8 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         BillingComponent,
-        AddRateComponent
+        AddRateComponent,
+        PayerrateComponent
     ],
     imports: [
         CommonModule,
