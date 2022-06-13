@@ -25,10 +25,11 @@ export class ComplianceCategoryComponent implements OnInit {
 
   saveCategpryModel() {
     this.model.categoryName = this.model.categoryName;
-    this.model.parentCategoryId = this.model.parentCategoryId;
+    this.model.parentId = Number(this.model.parentId) || 0;
+    const reqObj: CategoryModel = this.model;
     this.mstrApi.addCMPLCategory(this.model).subscribe(responce => {      
       this.getCategoryList();
-      //this.getMasterCategoryGridList();
+      
       this.model.categoryName = "";
     })
    }
@@ -43,13 +44,31 @@ export class ComplianceCategoryComponent implements OnInit {
     }); 
   }
 
-  // getMasterCategoryGridList() {
-  //   const response: CategoryModel[] = [];
-  //   this.mstrApi.GetMasterCategoryList().subscribe((response) => {
-  //       if(response.result)
-  //       {       
-  //         this.masterCategoryList = response.data;       
-  //       }
-  //   });
-  // }
+
+
+
+  editItem(_item: CategoryModel) {
+
+    this.model.categoryId = _item.categoryId;
+    this.model.categoryName = _item.categoryName;
+    this.model.parentId = _item.parentId;   
+  }
+
+  delItem(categoryId: number) {
+    let isOk = confirm("Are you sure to delete?");
+    if (isOk) {
+      this.mstrApi.delCMPLCategory(categoryId).subscribe((response) => {
+        this.getCategoryList();
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
 }

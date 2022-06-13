@@ -54,12 +54,12 @@ export class EmpComplianceComponent implements OnInit {
       }
     });
 
-    this.mstrApi.GetCategoryList().subscribe((response) => {
-      if(response.result)
-      {       
-        this.categoryList = response.data;       
-      }
-  }); 
+  //   this.mstrApi.GetCategoryList().subscribe((response) => {
+  //     if(response.result)
+  //     {       
+  //       this.categoryList = response.data;       
+  //     }
+  // }); 
 
    }
 
@@ -109,9 +109,9 @@ export class EmpComplianceComponent implements OnInit {
 
   OnChangeCategory(e: any): void {
    
-    this.mstrApi.GetSubCategoryList(e.target.value).subscribe((response) => {
-      this.subCategoryList = response.data;
-    });
+    // this.mstrApi.GetSubCategoryList(e.target.value).subscribe((response) => {
+    //   this.subCategoryList = response.data;
+    // });
   }
 
   updateCompliance(clientComplianceId: number) {
