@@ -7,7 +7,7 @@ import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-payerrate',
   templateUrl: './payerrate.component.html',
-  styleUrls: ['./payerrate.component.scss']
+  styleUrls: ['./payerrate.component.scss','../../../assets/css/orange-blue.css']
 })
 export class PayerrateComponent implements OnInit {
   

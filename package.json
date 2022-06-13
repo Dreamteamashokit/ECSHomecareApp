@@ -45,6 +45,7 @@
     "ngx-pagination": "^5.1.1",
     "popper.js": "^1.16.1",
     "rxjs": "~7.4.0",
+    "signature_pad": "^4.0.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
