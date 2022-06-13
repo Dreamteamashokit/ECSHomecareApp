@@ -12,7 +12,7 @@ import { MasterService } from 'src/app/services/master.service';
 export class ComplianceCategoryComponent implements OnInit {
   model = new CategoryModel();
   categoryList: CategoryModel[];
-  masterCategoryList: CategoryModel[];
+  parentList: CategoryModel[];
   btSave:string="Save";
   constructor(
     private mstrApi: MasterService,
@@ -20,22 +20,22 @@ export class ComplianceCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategoryList();
-    this.getMasterCategoryGridList();
+    //this.getMasterCategoryGridList();
   }
 
   saveCategpryModel() {
     this.model.categoryName = this.model.categoryName;
     this.model.parentCategoryId = this.model.parentCategoryId;
-    this.mstrApi.SaveCategory(this.model).subscribe(Responce => {      
+    this.mstrApi.addCMPLCategory(this.model).subscribe(responce => {      
       this.getCategoryList();
-      this.getMasterCategoryGridList();
+      //this.getMasterCategoryGridList();
       this.model.categoryName = "";
     })
    }
 
   getCategoryList() {
     const response: CategoryModel[] = [];
-    this.mstrApi.GetCategoryList().subscribe((response) => {
+    this.mstrApi.getCMPLCategoryAllList().subscribe((response) => {
         if(response.result)
         {       
           this.categoryList = response.data;       
@@ -43,13 +43,13 @@ export class ComplianceCategoryComponent implements OnInit {
     }); 
   }
 
-  getMasterCategoryGridList() {
-    const response: CategoryModel[] = [];
-    this.mstrApi.GetMasterCategoryList().subscribe((response) => {
-        if(response.result)
-        {       
-          this.masterCategoryList = response.data;       
-        }
-    });
-  }
+  // getMasterCategoryGridList() {
+  //   const response: CategoryModel[] = [];
+  //   this.mstrApi.GetMasterCategoryList().subscribe((response) => {
+  //       if(response.result)
+  //       {       
+  //         this.masterCategoryList = response.data;       
+  //       }
+  //   });
+  // }
 }

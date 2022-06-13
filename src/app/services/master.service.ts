@@ -60,27 +60,37 @@ export class MasterService {
       return this._http.delete(environment.domain + "/api/Master/activeTask", { params: reqPara });
     }
 
-    SaveCategory(_req: CategoryModel) {
+    addCMPLCategory(_req: CategoryModel) {
       var headers_object = new HttpHeaders();
       headers_object.append('Content-Type', 'application/json');
       var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
       const httpOptions = {
         headers: headers_object
       };
-      return this._http.post(environment.domain + "/api/Master/addCategory", _req, httpOptions);
+      return this._http.post(environment.domain + "/api/Master/addCMPLCategory", _req, httpOptions);
     }
   
-    GetCategoryList(){
-      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getParentCategoryList");
+    getCMPLCategoryAllList(){
+      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getCMPLCategoryList");
     }
 
-    GetMasterCategoryList(){
-      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getMasterCategoryList");
+    getCMPLCategoryList(categoryId:number){
+      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getCMPLCategoryList"+"/"+categoryId);
     }
+
+    delCMPLCategory(categoryId: number) {
+      const reqPara = new HttpParams({
+        fromObject: {
+          'categoryId': categoryId
+        }
+      });
+      return this._http.delete(environment.domain + "/api/Master/delCMPLCategory", { params: reqPara });
+    }
+
+
   
-    GetSubCategoryList(categoryId:number){
-      return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getSubCategoryList"+"/"+categoryId);
-    }
+  
+    
 
 
 }
