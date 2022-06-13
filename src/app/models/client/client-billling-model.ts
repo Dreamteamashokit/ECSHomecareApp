@@ -46,3 +46,30 @@ export interface ServiceCode {
   serviceCode: string
   payerId: number
 }
+
+
+export interface RateViewModel{
+    rateId:number
+		payerId:number
+		payerName:string
+		serviceCode:string
+		billCode:string
+		revenueCode:string
+		validFrom:Date
+		validTo:Date
+		unit:string
+		rate:number 
+		hourly:number
+		visit:number
+		liveIn:number
+		type:number
+		MutualGroup:string
+		Modifiers1:string
+		Modifiers2:string
+		Modifiers3:string
+		Modifiers4:string
+		Notes:string
+		CreatedBy:string
+		CreatedOn:Date
+		IsActive:number
+}

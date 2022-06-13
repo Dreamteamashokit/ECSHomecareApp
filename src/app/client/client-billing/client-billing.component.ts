@@ -1,4 +1,4 @@
-import { ClientBilling, ServiceCode } from './../../models/client/client-billling-model';
+import { ClientBilling, ServiceCode,RateViewModel } from './../../models/client/client-billling-model';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemsList } from 'src/app/models/common';
@@ -24,7 +24,7 @@ export class ClientBillingComponent implements OnInit {
 
   activeClinetBills = Array<ClientBilling>();
   expiredClientBills = Array<ClientBilling>();
-
+  rateList = Array<RateViewModel>();
   serviceCode = Array<ServiceCode>();
   selectedPayerId : number;
 
@@ -100,7 +100,6 @@ export class ClientBillingComponent implements OnInit {
         res?.data.forEach(item => {
           this.expiredClientBills.push(item);
         }) 
-        console.log(this.expiredClientBills);
       }
     });
   }
@@ -176,8 +175,9 @@ export class ClientBillingComponent implements OnInit {
   updateBilling(billingId:number,template: TemplateRef<any>) {
     this.isUpdateVisible = true;
     this.isAddVisible = false;
+    
     this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
-      if(res.result){
+      if(res != null && res != undefined && res.result){
         this.currentClinetBill = res.data;
         
         this.model = this.currentClinetBill;
@@ -192,6 +192,7 @@ export class ClientBillingComponent implements OnInit {
         this.isAddVisible = false;
         this.isUpdateVisible = true;
         this.modalRef = this.modalService.show(template);
+
       }
     })
   }
@@ -269,18 +270,16 @@ export class ClientBillingComponent implements OnInit {
       this.model.daysOfWeekNotes = " "
     }
 
-
-    this.model.toDate = new Date(this.model.toDate).toISOString();
-    this.model.fromDate = new Date(this.model.fromDate).toISOString();
      this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
-
+      
       if(res?.result){
         this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
         
         this.decline();
         this.isUpdateVisible = false;
         this.isAddVisible = true;
-        
+        this.getActiveBill();
+        this.getExpiredBill();
       }else{
         this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
         this.decline();
