@@ -5,7 +5,9 @@ import { MasterService } from 'src/app/services/master.service';
 @Component({
   selector: 'app-compliance-category',
   templateUrl: './compliance-category.component.html',
-  styleUrls: ['./compliance-category.component.scss']
+  styleUrls: [
+    '../../../assets/css/orange-blue.css',
+    './compliance-category.component.scss']
 })
 export class ComplianceCategoryComponent implements OnInit {
   model = new CategoryModel();

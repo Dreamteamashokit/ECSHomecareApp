@@ -1,188 +1,167 @@
 <div class="row">
-    <div class="col-lg-12">
-        <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Absence</strong> </h4>
-        <!-- <input type="text"
+  <div class="col-lg-12">
+    <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Absence</strong> </h4>
+    <!-- <input type="text"
         placeholder="Datepicker"
         class="form-control"
         bsDatepicker #dp="bsDatepicker" > -->
-    </div>
   </div>
-  <div class="row">
-    <div class="col-lg-12">
-        <div class="row mbm">
-            <div class="col-sm-12 text-14">
-                <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i class="fa fa-plus-square text-orange"></i> Add Compliance</a>
-            </div>
-            <ng-template #template>
-              <div class="modal-header">
-                <h4 class="modal-title pull-left text-orange">Add Compliance</h4>
-  
-             
-  
-                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-                  <span aria-hidden="true" class="visually-hidden">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form name="frmIncident" #f="ngForm">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Due Date</label>
-                      <div class="input-icon right"><i class="fa fa-calendar"></i>
-                        <input type="text"
-                        #dueDate="ngModel"
-                        id="txtdueDate"
-                        name="dueDate"                     
-                        [(ngModel)]="model.dueDate"
-                        class="form-control"
-                        bsDatepicker  >
-                                                                </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Completed On</label>
-                      <div class="input-icon right"><i class="fa fa-calendar"></i>
-                        <input type="text"
-                        #completedOn="ngModel"
-                        id="txtcompletedOn"
-                        name="completedOn"                     
-                        [(ngModel)]="model.completedOn"
-                        class="form-control"
-                        bsDatepicker  >
-                                                                </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Nurse</label>
-                        <select
-                        class="form-control"
-                        #nurse="ngModel"
-                        id="ddlNurse"
-                        name="nurse"  
-                        [(ngModel)]="model.nurse"                                       
-                      ><option value="-1" disabled>Select</option>
-                         <option
-                          *ngFor="let obj of nurseList"
-                          [value]="obj.itemId"
-                        >
-                          {{ obj.itemName }}
-                        </option> 
-                      </select>
-                        </div>
-                    </div>
-                    </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group">       
-                        <label class="control-label">Category *</label>                 
-                          <select required class="form-control" id="ddlCategory" #category="ngModel" name="category" [(ngModel)]="model.category" (change)="OnChangeCategory($event)">                            
-                            <option value="0">Please select</option>
-                            <option *ngFor="let obj of categoryList"
-                                    [value]="obj.categoryId">
-                                {{ obj.categoryName }}
-                            </option>
-                        </select> 
-                    </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">       
-                        <label class="control-label">Code *</label>                 
-                          <select required class="form-control" id="ddlCode" #code="ngModel" name="code" [(ngModel)]="model.code">                            
-                            <option *ngFor="let obj of subCategoryList"
-                                    [value]="obj.categoryId">
-                                {{ obj.categoryName }}
-                            </option>
-                        </select> 
-                    </div>
-                      </div>
-                  <div class="col-lg-4">
-                      <div class="form-group">
-                    <label class="control-label">Result</label>
-                    <input type="text"
-                    #result="ngModel"
-                    id="txtresult"
-                    name="result"                     
-                    [(ngModel)]="model.result"
-                    class="form-control"
-           >
-                    </div>
-                      </div>
-                    </div>
-                    
-                           <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                    <label class="control-label">Notes</label>
-                      <textarea rows="3" placeholder="Notes"
-                      #notes="ngModel"
-                      id="txtnotes"
-                      name="notes"                     
-                      [(ngModel)]="model.notes"
-                      
-                      class="form-control"></textarea>
-                        </div>
-                    </div>				
-                  
-                    </div>
-                            
-                    <div class="row"  *ngIf="isAddVisible">
-                    <div class="col-lg-12 text-center">
-                      <button type="button" (click)="saveCompliance()" class="btn btn-md btn-dark">Add</button>
-                    </div>
-                      </div>
-                      <div class="row"  *ngIf="isUpdateVisible">
-                        <div class="col-lg-12 text-center">
-                          <button type="button" (click)="updateComplianceData()" class="btn btn-md btn-dark">Update</button>
-                        </div>
-                          </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="row mbm">
+      <div class="col-sm-12 text-14">
+        <a href="javascript:void(0)" (click)="openModal(template)" class="btn btn-md btn-default"><i
+            class="fa fa-plus-square text-orange"></i> Add Compliance</a>
+      </div>
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left text-orange">Add Compliance</h4>
 
 
 
-
-
-
-
-
-
-
-                </form>
-              </div>
-            </ng-template>
+          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
         </div>
-        <div class="row mbm">
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Due Date	</th>
-                                <th>Completed Date</th>
-                                <th>Category</th>
-                                <th>Code</th>
-                                <th>Notes</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of complianceObjList;">
-                                <td> {{ item.dueDate }}</td>
-                                <td> {{ item.completedOn }}</td>
-                                <td> {{ item.category }}</td>
-                                <td> {{ item.code }}</td>
-                                <td> {{ item.notes }}</td>
-                                <td><i class="fa fa-edit text-red medium-txt pts"
-                                  (click)="updateCompliance(item.complianceId)"></i></td>
-                          <td><i class="fa fa-trash-o text-red medium-txt pts"
-                                  (click)="deleteCompliance(item.complianceId)"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="modal-body">
+          <form name="frmIncident" #f="ngForm">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Due Date</label>
+                  <div class="input-group">
+                    <input required type="text" placeholder="Due Date" class="form-control" id="txtdueDate" name="dueDate"
+                      #dueDate="ngModel" [(ngModel)]="model.dueDate" #dDate="bsDatepicker" bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                    <div class="input-group-addon" (click)="dDate.toggle()" [attr.aria-expanded]="dDate.isOpen"><i
+                        class="fa fa-calendar"></i></div>
+                  </div>
+                  <em *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" for="txtdueDate" class="invalid">This field is required</em>
                 </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Completed On</label>
+                  <div class="input-group">
+                    <input required type="text" placeholder="Completed On" class="form-control" id="txtcompletedOn" name="completedOn"
+                      #completedOn="ngModel" [(ngModel)]="model.completedOn" #complTOn="bsDatepicker" bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                    <div class="input-group-addon" (click)="complTOn.toggle()" [attr.aria-expanded]="complTOn.isOpen"><i
+                        class="fa fa-calendar"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Nurse</label>
+                  <select class="form-control" #nurse="ngModel" id="ddlNurse" name="nurse" [(ngModel)]="model.nurse">
+                    <option value="-1" disabled>Select</option>
+                    <option *ngFor="let obj of nurseList" [value]="obj.itemId">
+                      {{ obj.itemName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Category *</label>
+                  <select required class="form-control" id="ddlCategory" #category="ngModel" name="category"
+                    [(ngModel)]="model.category" (change)="OnChangeCategory($event)">
+                    <option value="0">Please select</option>
+                    <option *ngFor="let obj of categoryList" [value]="obj.categoryId">
+                      {{ obj.categoryName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Code *</label>
+                  <select required class="form-control" id="ddlCode" #code="ngModel" name="code"
+                    [(ngModel)]="model.code">
+                    <option *ngFor="let obj of subCategoryList" [value]="obj.categoryId">
+                      {{ obj.categoryName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Result</label>
+                  <input type="text" #result="ngModel" id="txtresult" name="result" [(ngModel)]="model.result"
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="control-label">Notes</label>
+                  <textarea rows="3" placeholder="Notes" #notes="ngModel" id="txtnotes" name="notes"
+                    [(ngModel)]="model.notes" class="form-control"></textarea>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row" *ngIf="isAddVisible">
+              <div class="col-lg-12 text-center">
+                <button type="button" (click)="saveCompliance()" class="btn btn-md btn-dark">Add</button>
+              </div>
+            </div>
+            <div class="row" *ngIf="isUpdateVisible">
+              <div class="col-lg-12 text-center">
+                <button type="button" (click)="updateComplianceData()" class="btn btn-md btn-dark">Update</button>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+          </form>
         </div>
+      </ng-template>
+    </div>
+    <div class="row mbm">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Due Date </th>
+                <th>Completed Date</th>
+                <th>Category</th>
+                <th>Code</th>
+                <th>Notes</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of complianceObjList;">
+                <td> {{ item.dueDate }}</td>
+                <td> {{ item.completedOn }}</td>
+                <td> {{ item.category }}</td>
+                <td> {{ item.code }}</td>
+                <td> {{ item.notes }}</td>
+                <td><i class="fa fa-edit text-red medium-txt pts" (click)="updateCompliance(item.complianceId)"></i>
+                </td>
+                <td><i class="fa fa-trash-o text-red medium-txt pts" (click)="deleteCompliance(item.complianceId)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  
+</div>
