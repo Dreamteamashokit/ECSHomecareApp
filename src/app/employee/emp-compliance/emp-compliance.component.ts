@@ -18,7 +18,7 @@ import { MasterService } from 'src/app/services/master.service';
 })
 export class EmpComplianceComponent implements OnInit {
 
-
+  IsLoad:boolean;
   modalRef?: BsModalRef;
   model = new ComplianceModel();
   empList = Array<ItemsList>();
@@ -83,12 +83,13 @@ export class EmpComplianceComponent implements OnInit {
   }
 
   bindCodeList(catId: number) {
+
+    this.IsLoad=true;
     this.comApi.getCMPLCategoryList(catId).subscribe((response) => {
       if (response.result) {
         this.subCategoryList = response.data;
-       
+        this.IsLoad=false;
       }
-  
     });
   }
 
@@ -96,7 +97,7 @@ export class EmpComplianceComponent implements OnInit {
 
 
   saveCompliance() {
-    debugger;
+    this.IsLoad=true;
     this.model.userId = Number(this.model.userId);
     this.model.nurse = Number(this.model.nurse) | 0;
     this.model.categoryId = Number(this.model.categoryId);
@@ -107,7 +108,7 @@ export class EmpComplianceComponent implements OnInit {
     this.empApi.addCompliance(reqObj).subscribe((response) => {
       this.decline();
       this.getCompliance(reqObj.userId);
-
+      this.IsLoad=false;
       this.model.nurse = 0
       this.model.categoryId = 0;
       this.model.codeId = 0;
@@ -127,7 +128,9 @@ export class EmpComplianceComponent implements OnInit {
   }
 
   editItem(_item: ComplianceModel) {
+
     this.bindCodeList(_item.categoryId);
+
     this.model.complianceId = _item.complianceId;
     this.model.userId = _item.userId;
     this.model.nurse = _item.nurse;
