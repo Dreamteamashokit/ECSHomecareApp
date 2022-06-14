@@ -1,10 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Absence</strong> </h4>
-    <!-- <input type="text"
-        placeholder="Datepicker"
-        class="form-control"
-        bsDatepicker #dp="bsDatepicker" > -->
+    <h4 class="mtm mbm text-uppercase  text-orange"> <strong> Compliance</strong> </h4>
   </div>
 </div>
 <div class="row">
@@ -17,9 +13,6 @@
       <ng-template #template>
         <div class="modal-header">
           <h4 class="modal-title pull-left text-orange">Add Compliance</h4>
-
-
-
           <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
           </button>
@@ -29,24 +22,25 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
-                  <label class="control-label">Due Date</label>
+                  <label class="control-label">Due Date <span class="star">*</span></label>
                   <div class="input-group">
-                    <input required type="text" placeholder="Due Date" class="form-control" id="txtdueDate" name="dueDate"
-                      #dueDate="ngModel" [(ngModel)]="model.dueDate" #dDate="bsDatepicker" bsDatepicker
+                    <input required type="text" placeholder="Due Date" class="form-control" id="txtdueDate"
+                      name="dueDate" #dueDate="ngModel" [(ngModel)]="model.dueDate" #dDate="bsDatepicker" bsDatepicker
                       [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
                     <div class="input-group-addon" (click)="dDate.toggle()" [attr.aria-expanded]="dDate.isOpen"><i
                         class="fa fa-calendar"></i></div>
                   </div>
-                  <em *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" for="txtdueDate" class="invalid">This field is required</em>
+                  <em *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" for="txtdueDate"
+                    class="invalid">This field is required</em>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-group">
                   <label class="control-label">Completed On</label>
                   <div class="input-group">
-                    <input required type="text" placeholder="Completed On" class="form-control" id="txtcompletedOn" name="completedOn"
-                      #completedOn="ngModel" [(ngModel)]="model.completedOn" #complTOn="bsDatepicker" bsDatepicker
-                      [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                    <input type="text" placeholder="Completed On" class="form-control" id="txtcompletedOn"
+                      name="completedOn" #completedOn="ngModel" [(ngModel)]="model.completedOn" #complTOn="bsDatepicker"
+                      bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
                     <div class="input-group-addon" (click)="complTOn.toggle()" [attr.aria-expanded]="complTOn.isOpen"><i
                         class="fa fa-calendar"></i></div>
                   </div>
@@ -67,26 +61,31 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
-                  <label class="control-label">Category *</label>
+                  <label class="control-label">Category <span class="star">*</span></label>
                   <select required class="form-control" id="ddlCategory" #category="ngModel" name="category"
-                    [(ngModel)]="model.category" (change)="OnChangeCategory($event)">
+                    [(ngModel)]="model.categoryId" (change)="onSelectCategory($event)">
                     <option value="0">Please select</option>
-                    <option *ngFor="let obj of categoryList" [value]="obj.categoryId">
-                      {{ obj.categoryName }}
+                    <option *ngFor="let obj of categoryList" [value]="obj.itemId">
+                      {{ obj.itemName }}
                     </option>
                   </select>
                 </div>
+                <em *ngIf="category.invalid && (category.dirty || category.touched)" for="ddlCategory"
+                class="invalid">This field is required</em>
               </div>
               <div class="col-lg-4">
                 <div class="form-group">
-                  <label class="control-label">Code *</label>
+                  <label class="control-label">Code <span class="star">*</span></label>
                   <select required class="form-control" id="ddlCode" #code="ngModel" name="code"
-                    [(ngModel)]="model.code">
-                    <option *ngFor="let obj of subCategoryList" [value]="obj.categoryId">
-                      {{ obj.categoryName }}
+                    [(ngModel)]="model.codeId">
+                    <option *ngFor="let obj of subCategoryList" [value]="obj.itemId">
+                      {{ obj.itemName }}
                     </option>
                   </select>
                 </div>
+
+                <em *ngIf="code.invalid && (code.dirty || code.touched)" for="ddlCode"
+                class="invalid">This field is required</em>
               </div>
               <div class="col-lg-4">
                 <div class="form-group">
@@ -96,7 +95,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-lg-12">
                 <div class="form-group">
@@ -105,34 +103,22 @@
                     [(ngModel)]="model.notes" class="form-control"></textarea>
                 </div>
               </div>
-
             </div>
-
-            <div class="row" *ngIf="isAddVisible">
+            <div class="row">
               <div class="col-lg-12 text-center">
-                <button type="button" (click)="saveCompliance()" class="btn btn-md btn-dark">Add</button>
+                <button type="button" [disabled]="f.invalid" class="btn btn-md btn-dark mbm mts "
+                (click)="saveCompliance()">
+                <i class='fa fa-save'></i> Save Changes
+            </button>
+
               </div>
             </div>
-            <div class="row" *ngIf="isUpdateVisible">
-              <div class="col-lg-12 text-center">
-                <button type="button" (click)="updateComplianceData()" class="btn btn-md btn-dark">Update</button>
-              </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
+        
           </form>
         </div>
       </ng-template>
     </div>
-    <div class="row mbm">
+    <div class="row mbm" *ngIf="(complianceList?.length || 0)>0">
       <div class="col-sm-12">
         <div class="table-responsive">
           <table class="table table-bordered table-striped">
@@ -142,20 +128,22 @@
                 <th>Completed Date</th>
                 <th>Category</th>
                 <th>Code</th>
-                <th>Notes</th>
-
+                <th colspan="2">Notes</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of complianceObjList;">
-                <td> {{ item.dueDate }}</td>
-                <td> {{ item.completedOn }}</td>
+              <tr *ngFor="let item of complianceList;">
+  
+                <td> {{item.dueDate  | date: 'dd MMM YYYY'}}</td>
+                <td> {{item.completedOn  | date: 'dd MMM YYYY'}}</td>        
                 <td> {{ item.category }}</td>
                 <td> {{ item.code }}</td>
                 <td> {{ item.notes }}</td>
-                <td><i class="fa fa-edit text-red medium-txt pts" (click)="updateCompliance(item.complianceId)"></i>
-                </td>
-                <td><i class="fa fa-trash-o text-red medium-txt pts" (click)="deleteCompliance(item.complianceId)"></i>
+                <td>
+                  <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
+                      class="fa fa-edit medium-txt pts mrm"></i></a>
+                  <a (click)="delItem(item.complianceId)" title="Delete" href="javascript:;"><i
+                      class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>
                 </td>
               </tr>
             </tbody>
