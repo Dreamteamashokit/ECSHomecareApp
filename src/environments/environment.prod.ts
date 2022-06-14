@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  domain: "https://localhost:44359",
+  domain: "https://localhost:5001",
   //domain : "https://api.eshcs.com",
   /* Invoice API URL */
   generateinvoiceurl: "/api/Invoice/generateinvoice",
