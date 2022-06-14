@@ -14,6 +14,7 @@ import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientSearch } from 'src/app/models/client/client-search';
 import { DatePipe } from '@angular/common';
 import * as atlas from 'azure-maps-control';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-search-availbility',
@@ -59,6 +60,7 @@ export class SearchAvailbilityComponent implements OnInit {
     private empSrv: EmployeeapiService,
     private acontSrv: AccountService,
     private locSrv: LocationService,
+    private toastr: ToastrManager
     ) 
     {  
       this.IsLoad=true;
@@ -123,8 +125,9 @@ export class SearchAvailbilityComponent implements OnInit {
             }         
            },
            error: (err) => { 
-            console.log(err);    
-            alert("Some technical issue exist, Please contact to admin !");
+            console.log(err);   
+            this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!'); 
+            //alert("Some technical issue exist, Please contact to admin !");
             this.client.latitude =  this.currentUser.latitude;
             this.client.longitude = this.currentUser.longitude;
             this.IsLoad=false;
@@ -188,12 +191,14 @@ export class SearchAvailbilityComponent implements OnInit {
             this.loadMap(this.client,this.availbilityList);        
           }
           else{
-            alert("no record found for current criteria");
+            this.toastr.infoToastr("no record found for current criteria !", 'Info!'); 
+            //alert("no record found for current criteria");
           }         
          },
          error: (err) => { 
-          console.log(err);    
-          alert("Some technical issue exist, Please contact to admin !");
+          console.log(err);
+          this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');     
+         // alert("Some technical issue exist, Please contact to admin !");
           this.IsLoad=false;
 
         },   
@@ -297,8 +302,9 @@ export class SearchAvailbilityComponent implements OnInit {
           },
     });
     },
-    (e:ErrorEvent) => {  
-     alert(e.error);
+    (e:ErrorEvent) => { 
+     this.toastr.errorToastr(e.error,"Error!");  
+     //alert(e.error);
     });
   }
 

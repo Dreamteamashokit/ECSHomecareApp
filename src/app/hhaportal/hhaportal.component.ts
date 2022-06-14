@@ -6,6 +6,7 @@ import { LocationService } from '../services/location.service';
 import { ExternalUserModel } from 'src/app/models/account/login-model';
 import * as atlas from 'azure-maps-control';
 import { DatePipe } from '@angular/common'
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-hhaportal',                
@@ -21,7 +22,7 @@ export class HhaportalComponent implements OnInit {
   @ViewChild("graphDiv") graphDiv: ElementRef;
 
   constructor(private router:Router,private _employeeservice : EmployeeapiService,
-    private _accountService:AccountService,private _locationsrv:LocationService,
+    private _accountService:AccountService,private _locationsrv:LocationService, private toastr: ToastrManager,
     public datepipe: DatePipe) 
     { 
       // this.HHAModel.latitude = 33.740253;
@@ -61,7 +62,10 @@ export class HhaportalComponent implements OnInit {
       else
       {
         this.IsLoad=false;
-        alert('HHA/Employee does not have any clients.');
+       // alert('HHA/Employee does not have any clients.');
+        this.toastr.infoToastr("HHA/Employee does not have any clients. !", 'Info!');
+        
+        
       }
     })
   }

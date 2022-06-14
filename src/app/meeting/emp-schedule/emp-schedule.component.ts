@@ -10,6 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserType } from 'src/app/models/common';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 
 @Component({
@@ -48,7 +49,9 @@ export class EmpScheduleComponent implements OnInit {
     private clientapi: ClientApiService,
     private momApi: MeetingService,
     private accountApi: AccountService,
-    public datepipe: DatePipe,) {
+    public datepipe: DatePipe,
+    private toastr: ToastrManager
+    ) {
     this.currentUser = this.accountApi.getCurrentUser();
     this.BindMaster();
   }
@@ -164,12 +167,14 @@ export class EmpScheduleComponent implements OnInit {
             }
             else {
               this.IsLoad = false;
-              alert("Some technical issue exist, Please contact to admin !");
+              this.toastr.infoToastr("Some technical issue exist, Please contact to admin !!", 'Info!');
+              //alert("Some technical issue exist, Please contact to admin !");
             }
           },
           error: (err) => {
             this.IsLoad = false;
-            alert("Some technical issue exist, Please contact to admin !");
+            this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+           // alert("Some technical issue exist, Please contact to admin !");
             console.log(err);
 
           },
@@ -180,7 +185,8 @@ export class EmpScheduleComponent implements OnInit {
       }
       else {
         this.IsLoad = false;
-        alert("please add both meeting attendees");
+        this.toastr.infoToastr("please add both meeting attendee!", 'Info!');
+       // alert("please add both meeting attendees");
       }
     }
     else {
@@ -200,12 +206,14 @@ export class EmpScheduleComponent implements OnInit {
             }
             else {
               this.IsLoad = false;
-              alert("Some technical issue exist, Please contact to admin !");
+              this.toastr.infoToastr("Some technical issue exist, Please contact to admin!", 'Info!');
+              //alert("Some technical issue exist, Please contact to admin !");
             }
           },
           error: (err) => {
             this.IsLoad = false;
-            alert("Some technical issue exist, Please contact to admin !");
+            this.toastr.infoToastr("Some technical issue exist, Please contact to admin!", 'Info!');
+           // alert("Some technical issue exist, Please contact to admin !");
             console.log(err);
 
           },
@@ -216,7 +224,8 @@ export class EmpScheduleComponent implements OnInit {
       }
       else {
         this.IsLoad = false;
-        alert("please add both meeting attendees");
+        this.toastr.infoToastr("please add both meeting attendees!", 'Info!');
+       // alert("please add both meeting attendees");
       }
 
     }

@@ -7,6 +7,7 @@ import { SelectList} from 'src/app/models/common';
 import { UserModel } from 'src/app/models/account/login-model';
 import { Usertype } from 'src/app/commanHelper/usertype';
 import { DatePipe } from '@angular/common';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-create-user',
@@ -28,7 +29,9 @@ export class CreateUserComponent implements OnInit {
 
   constructor(private router:Router, 
     private comSrv: CommonService,
-    private accntSrv: AccountService) 
+    private accntSrv: AccountService,
+    private toastr: ToastrManager
+    ) 
     {
       this.currentUser=this.accntSrv.getCurrentUser();
       this.BindMaster();
@@ -70,7 +73,8 @@ export class CreateUserComponent implements OnInit {
     }
     else
     {
-      alert("Select Checkbox");
+      this.toastr.infoToastr("Select Checkbox!", 'Info!');
+      //alert("Select Checkbox");
     }
  
   

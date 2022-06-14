@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { Externalsign } from 'src/app/models/account/login-model';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-hhalogin',
@@ -12,7 +13,7 @@ export class HHALoginComponent implements OnInit {
   IsLoad: boolean = false;
   model = new Externalsign();
 
-  constructor(private router:Router,private accountApi : AccountService) { 
+  constructor(private router:Router,private accountApi : AccountService, private toastr: ToastrManager) { 
 
   }
 
@@ -35,7 +36,9 @@ export class HHALoginComponent implements OnInit {
       }
       else{
         this.IsLoad=false;
-        alert('Login credentials are not correct.');
+        //alert('Login credentials are not correct.');
+        this.toastr.infoToastr("Login credentials are not correct.", 'Info!');
+
       }
     });     
   }
