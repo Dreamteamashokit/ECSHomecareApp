@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryModel } from 'src/app/models/common/category';
 import { MasterService } from 'src/app/services/master.service';
-
+import { AccountService } from 'src/app/services/account.service';
+import { UserModel } from 'src/app/models/account/login-model';
 @Component({
   selector: 'app-compliance-category',
   templateUrl: './compliance-category.component.html',
@@ -13,26 +14,52 @@ export class ComplianceCategoryComponent implements OnInit {
   model = new CategoryModel();
   categoryList: CategoryModel[];
   parentList: CategoryModel[];
+  currentUser: UserModel;
   btSave:string="Save";
   constructor(
+    private accountApi: AccountService,
     private mstrApi: MasterService,
-  ) { }
+  ) { 
+
+    this.currentUser = this.accountApi.getCurrentUser();
+
+  }
 
   ngOnInit(): void {
     this.getCategoryList();
+    this.getParentList(0);
+    this.model.parentId =0;
     //this.getMasterCategoryGridList();
   }
 
   saveCategpryModel() {
+
+    debugger;
     this.model.categoryName = this.model.categoryName;
-    this.model.parentId = Number(this.model.parentId) || 0;
+    this.model.parentId =Number(this.model.parentId) |0;
+    this.model.createdBy = this.currentUser.userId;
     const reqObj: CategoryModel = this.model;
-    this.mstrApi.addCMPLCategory(this.model).subscribe(responce => {      
+    this.mstrApi.addCMPLCategory(reqObj).subscribe(response => {      
       this.getCategoryList();
-      
+      this.getParentList(0);
       this.model.categoryName = "";
     })
-   }
+
+}
+
+
+
+getParentList(categoryId: number) {
+
+  this.mstrApi.getCMPLCategoryList(categoryId).subscribe((response) => {
+      if(response.result)
+      {       
+        this.parentList = response.data;       
+      }
+  }); 
+}
+
+
 
   getCategoryList() {
     const response: CategoryModel[] = [];
@@ -44,14 +71,13 @@ export class ComplianceCategoryComponent implements OnInit {
     }); 
   }
 
-
-
-
   editItem(_item: CategoryModel) {
 
     this.model.categoryId = _item.categoryId;
     this.model.categoryName = _item.categoryName;
-    this.model.parentId = _item.parentId;   
+    this.model.parentId = _item.parentId;
+
+    // this.openModal(this.templatelog);
   }
 
   delItem(categoryId: number) {
@@ -59,16 +85,8 @@ export class ComplianceCategoryComponent implements OnInit {
     if (isOk) {
       this.mstrApi.delCMPLCategory(categoryId).subscribe((response) => {
         this.getCategoryList();
+        this.getParentList(0);
       });
     }
   }
-
-
-
-
-
-
-
-
-
 }

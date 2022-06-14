@@ -20,13 +20,15 @@
                                 id="txtCategoryName" name="categoryName" #categoryName="ngModel"
                                 [(ngModel)]="model.categoryName">
                         </div>
+                        <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em>
                     </div>
                     <div class="col-sm-3 col-xs-12">
                         <div class="form-group"><label class="control-label">Parent </label>
                             <select class="form-control" id="ddlCategory" name="paretntCategory"
                                 [(ngModel)]="model.parentId">
-                                <option value="0">Please select</option>
-                                <option *ngFor="let obj of categoryList" [value]="obj.categoryId">
+                                <option value="0">Root Category</option>
+                                <option *ngFor="let obj of parentList" [value]="obj.categoryId">
                                     {{ obj.categoryName }}
                                 </option>
                             </select>
@@ -34,40 +36,46 @@
                     </div>
                     <div class="col-sm-3 col-xs-12 mtm ">
                         <div class="form-group text-center">
-                            <button type="button" class="btn btn-md btn-dark mbm mts " (click)="saveCategpryModel()">
-                                <i class='fa fa-save'></i> Save Category
+                            <button type="button" [disabled]="categoryName.invalid" class="btn btn-md btn-dark mbm mts "
+                                (click)="saveCategpryModel()">
+                                <i class='fa fa-save'></i> Save Changes
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+                <div class="row mbm" *ngIf="(categoryList?.length || 0)>0">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category Name </th>
+                                        <th>Parent Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of categoryList;">
+                                        <td>{{item.categoryName}}</td>
+                                        <td>{{item.parentName}}</td>
+                                        <td>
+                                            <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
+                                                    class="fa fa-edit medium-txt pts mrm"></i></a>
+                                            <a (click)="delItem(item.categoryId)" title="Delete" href="javascript:;"><i
+                                                    class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mbm" *ngIf="categoryList.length>0">
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Category Name </th>
-                                <th>Parent Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of parentList;">
-                                <td>{{item.categoryName}}</td>
-                                <td>{{item.parentName}}</td>
 
-                                <td>
-                                    <a (click)="editItem(item)" title="Edit" href="javascript:;"><i class="fa fa-edit medium-txt pts mrm"></i></a>
-                                    <a (click)="delItem(item.categoryId)" title="Delete" href="javascript:;"><i class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>  
-                            
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>

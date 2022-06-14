@@ -90,13 +90,12 @@ export class CommonService {
   }
   getTaskList() {
     return this._http.get<APIResponse<TaskModel[]>>(environment.domain + "/api/Common/getTaskList");
-  } 
+  }
 
-  getDiagnosisList()
-  {
+  getDiagnosisList() {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getDiagnosisList");
   }
-  
+
   getNoteTypeList() {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getNoteTypeSelectList");
   }
@@ -107,27 +106,24 @@ export class CommonService {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getSubCategory");
   }
 
-  getProvisionList(type:number)
-  {
+  getProvisionList(type: number) {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getProvisionList" + '/' + type);
   }
-  
+
   getPayers() {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getPayers");
   }
 
-  getUsers(type: number) 
-  {
+  getUsers(type: number) {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getUsers" + '/' + type);
   }
 
-
-
-  getUsersGeoProvision(userId: number) 
-  {
+  getUsersGeoProvision(userId: number) {
     return this._http.get<APIResponse<ClientGeoProvisions>>(environment.domain + "/api/Common/getUsersGeoProvision" + '/' + userId);
   }
 
-
+  getCMPLCategoryList(categoryId: number) {
+    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getCMPLCategoryList" + '/' + categoryId);
+  }
 
 }
