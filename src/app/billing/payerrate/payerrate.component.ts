@@ -2,6 +2,7 @@ import { Component, OnInit,TemplateRef } from '@angular/core';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { RateViewModel }  from './../../models/client/client-billling-model';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,15 +10,18 @@ import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './payerrate.component.html',
   styleUrls: ['./payerrate.component.scss','../../../assets/css/orange-blue.css']
 })
+
 export class PayerrateComponent implements OnInit {
   
 
-  constructor(private invoiceService:InvoiceService,private router: Router, private modalService: BsModalService) { 
+  constructor(private invoiceService:InvoiceService,private router: Router, 
+              private modalService: BsModalService,public datepipe: DatePipe) { 
 
   }
 
   modalRef?: BsModalRef;
-  rateList = Array<RateViewModel>();
+  rateList:any;
+  rateDetails:any;
 
   ngOnInit(): void {
     this.GetPayerRateList();
@@ -27,7 +31,6 @@ export class PayerrateComponent implements OnInit {
   GetPayerRateList() {
   
     this.invoiceService.GetPayerRateList().subscribe(res => {
-     
       if(res != null && res != undefined && res.result){
         this.rateList = res.data;
       }
@@ -37,8 +40,9 @@ export class PayerrateComponent implements OnInit {
 
   GetPayerRateDetails(rateId:number) {
     this.invoiceService.GetPayerRateDetails(rateId).subscribe(res => {
-      if(res != null && res != undefined && res.result){
-        this.rateList = res.data;
+      if(res != null && res != undefined && res.result){  
+        
+        this.rateDetails = res.data;
       }
     })
   }
@@ -48,8 +52,12 @@ export class PayerrateComponent implements OnInit {
   }
 
   openModal(rateId:number,template: TemplateRef<any>) {
-    debugger;
-    this.modalRef = this.modalService.show(template);
+    this.GetPayerRateDetails(rateId);
+    
+    this.modalRef = this.modalService.show(template,{
+      class: 'modal-dialog-centered modal-md',
+      ignoreBackdropClick: true
+    });
   }
 
 }
