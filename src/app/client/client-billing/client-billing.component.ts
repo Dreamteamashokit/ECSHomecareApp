@@ -1,4 +1,4 @@
-import { ClientBilling, ServiceCode } from './../../models/client/client-billling-model';
+import { ClientBilling, ServiceCode,RateViewModel } from './../../models/client/client-billling-model';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemsList } from 'src/app/models/common';
@@ -24,7 +24,7 @@ export class ClientBillingComponent implements OnInit {
 
   activeClinetBills = Array<ClientBilling>();
   expiredClientBills = Array<ClientBilling>();
-
+  rateList:any;
   serviceCode = Array<ServiceCode>();
   selectedPayerId : number;
 
@@ -175,7 +175,7 @@ export class ClientBillingComponent implements OnInit {
   updateBilling(billingId:number,template: TemplateRef<any>) {
     this.isUpdateVisible = true;
     this.isAddVisible = false;
-    debugger;
+    
     this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
       if(res != null && res != undefined && res.result){
         this.currentClinetBill = res.data;
