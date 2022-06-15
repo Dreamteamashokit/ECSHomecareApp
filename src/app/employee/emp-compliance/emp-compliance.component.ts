@@ -90,6 +90,11 @@ export class EmpComplianceComponent implements OnInit {
         this.subCategoryList = response.data;
         this.IsLoad=false;
       }
+      else
+      {
+        this.IsLoad=false;
+        this.subCategoryList =[];
+      }
     });
   }
 
@@ -106,6 +111,7 @@ debugger;
       }
       else
       {
+        this.subCategoryList =[];
         this.model.codeId = 0;
         this.IsLoad=false;
       }
