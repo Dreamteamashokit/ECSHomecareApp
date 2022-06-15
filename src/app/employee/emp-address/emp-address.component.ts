@@ -14,6 +14,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SelectList} from 'src/app/models/common';
 
 import * as atlas from 'azure-maps-control';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-emp-address',
   templateUrl: './emp-address.component.html',
@@ -38,7 +39,8 @@ export class EmpAddressComponent implements OnInit {
     private accountApi: AccountService,
     private locSrv: LocationService,    
     private empApi: EmployeeapiService,
-    private comApi: CommonService) {
+    private comApi: CommonService,
+    private toastr: ToastrManager) {
     setTheme('bs3');
     this.model.isActive = 1;
     this.currentUser = this.accountApi.getCurrentUser();
@@ -141,8 +143,9 @@ export class EmpAddressComponent implements OnInit {
         this.decline();     
        },
        error: (err) => { 
-        console.log(err);  
-        alert("Some technical issue exist, Please contact to admin !");
+        console.log(err);
+        this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');  
+        //alert("Some technical issue exist, Please contact to admin !");
         this.IsLoad=false;
       },
       complete: () => {
