@@ -9,6 +9,7 @@ import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 import { Usertype } from 'src/app/commanHelper/usertype';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-client-note',
   templateUrl: './client-note.component.html',
@@ -32,7 +33,8 @@ export class ClientNoteComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private accountApi: AccountService,
-    private clientapi: ClientApiService
+    private clientapi: ClientApiService,
+    public toastr: ToastrManager,
   ) {
     this.model.isActive = 1;
     this.currentUser = this.accountApi.getCurrentUser();
@@ -94,6 +96,7 @@ export class ClientNoteComponent implements OnInit {
     this.model.userId = Number(this.ClientId);
    
     this.clientapi.SaveNotes(this.model).subscribe(Responce => {
+      this.toastr.successToastr("Note Saved!", 'Success!');
       this.decline();
       this.getClientNoteRecord();
     })
@@ -122,7 +125,7 @@ export class ClientNoteComponent implements OnInit {
     this.model.userId = Number(this.ClientId);
     this.model.notesId = this.noteId;
     this.clientapi.updateClientNotes(this.model).subscribe(Responce => {
- 
+      this.toastr.successToastr("Note Updated!", 'Success!');
       this.decline();
       this.getClientNoteRecord();
     })
@@ -160,6 +163,7 @@ export class ClientNoteComponent implements OnInit {
     this.noteId = clientnoteId;
     this.model.notesId = this.noteId;
     this.clientapi.deleteClientNote(this.model).subscribe((response) => {
+      this.toastr.successToastr("Note Deleted!", 'Success!');
       this.getClientNoteRecord();
       this.decline();
     });

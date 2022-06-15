@@ -10,6 +10,9 @@ import{ UploadFileFolder } from 'src/app/models/employee/upload-file-folder';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import{ FolderView } from 'src/app/models/employee/upload-file-folder';
+import { ToastrManager } from 'ng6-toastr-notifications';
+
+
 
 
 @Component({
@@ -40,7 +43,8 @@ export class EmpDocumentComponent implements OnInit {
     private http: HttpClient,
     private accountApi: AccountService,
     private empApi: EmployeeapiService,
-    private docSrv: DocumentService) {
+    private docSrv: DocumentService,
+    private toastr: ToastrManager) {
       this.currentUser=this.accountApi.getCurrentUser();
          }
 
@@ -66,7 +70,8 @@ export class EmpDocumentComponent implements OnInit {
 
   public uploadFile = (files:any) => {
     if (files.length === 0) {
-      alert("Please choose file");
+      this.toastr.infoToastr("Please choose file!", 'Info!');
+      //alert("Please choose file");
       return;
     }
     else
@@ -130,7 +135,8 @@ export class EmpDocumentComponent implements OnInit {
     }
     else
     {
-      alert("Please Input Folder Name");
+      this.toastr.infoToastr("Please Input Folder Name!", 'Info!');
+     // alert("Please Input Folder Name");
     }
 
     

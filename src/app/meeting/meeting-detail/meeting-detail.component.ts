@@ -9,6 +9,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status';
 import { StatusEnum } from 'src/app/models/common';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-meeting-detail',
   templateUrl: './meeting-detail.component.html',
@@ -41,7 +42,8 @@ export class MeetingDetailComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private modalService: BsModalService,
     public datepipe: DatePipe,
-    private momApi: MeetingService) {
+    private momApi: MeetingService,
+    private toastr: ToastrManager) {
     this.currentUser = this.accountSrv.getCurrentUser();
   }
 
@@ -291,12 +293,14 @@ export class MeetingDetailComponent implements OnInit {
           else
           {
             this.IsLoad=false;
-            alert("Some technical issue exist, Please contact to admin !");
+            this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+            //alert("Some technical issue exist, Please contact to admin !");
           } 
          },
          error: (err) => { 
           this.IsLoad=false;
-          alert("Some technical issue exist, Please contact to admin !");
+          this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+          //alert("Some technical issue exist, Please contact to admin !");
          console.log(err);
       
         },   

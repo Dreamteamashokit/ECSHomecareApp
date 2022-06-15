@@ -6,6 +6,7 @@ import { ClientApiService } from 'src/app/services/client-api.service';
 import { CommonService } from 'src/app/services/common.service';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { DatePipe } from '@angular/common';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-schedule',
@@ -27,7 +28,8 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
  
-    private comApi: CommonService,private empApi: EmployeeapiService, private clientapi : ClientApiService,private momApi:MeetingService,    public datepipe: DatePipe,)
+    private comApi: CommonService,private empApi: EmployeeapiService, private clientapi : ClientApiService,private momApi:MeetingService,    public datepipe: DatePipe,
+    private toastr: ToastrManager)
    {
      this.BindMaster();
    }
@@ -76,7 +78,8 @@ OnScheduling()
     const reqObj: MeetingInfo = this.model;
     console.log('Search', reqObj);    
     this.momApi.createMeeting(reqObj).subscribe((response) => {    
-     alert("saved");
+      this.toastr.successToastr("Saved !", 'Succss!');
+     //alert("saved");
     });
   }
    
