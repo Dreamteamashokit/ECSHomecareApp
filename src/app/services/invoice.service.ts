@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { Invoice } from '../models/invoice';
 import { RateModel } from '../billing/component/manage_payer_and_rate/model/rate.model';
-import { ClientBilling, ServiceCode } from '../models/client/client-billling-model';
+import { ClientBilling, ServiceCode,RateViewModel } from '../models/client/client-billling-model';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +103,25 @@ export class InvoiceService {
     return this._http.post<APIResponse<ServiceCode[]>>(environment.domain +  `/api/Invoice/GetServiceCodeByPayerId/${payerId}`, {}, httpOptions);
   }
 
+  GetPayerRateList(){
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.get<APIResponse<RateViewModel[]>>(environment.domain +  `/api/Invoice/GetPayerRateList/`, {});
+  }
+
+
+  GetPayerRateDetails(rateId:number){
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.post<APIResponse<RateViewModel[]>>(environment.domain +  `/api/Invoice/GetPayerRateDetails/${rateId}`, {}, httpOptions);
+  }
 
 }

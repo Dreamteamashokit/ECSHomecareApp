@@ -90,10 +90,33 @@ export class EmpComplianceComponent implements OnInit {
         this.subCategoryList = response.data;
         this.IsLoad=false;
       }
+      else
+      {
+        this.IsLoad=false;
+        this.subCategoryList =[];
+      }
     });
   }
 
+  bindCode(catId: number,selCatId: number) {
 
+    this.IsLoad=true;
+    this.comApi.getCMPLCategoryList(catId).subscribe((response) => {
+      if (response.result) {
+        this.subCategoryList = response.data;
+debugger;
+        let item=this.subCategoryList.filter(x=>x.itemId===selCatId)[0];
+        this.model.codeId = item.itemId;
+        this.IsLoad=false;
+      }
+      else
+      {
+        this.subCategoryList =[];
+        this.model.codeId = 0;
+        this.IsLoad=false;
+      }
+    });
+  }
 
 
   saveCompliance() {
@@ -129,13 +152,12 @@ export class EmpComplianceComponent implements OnInit {
 
   editItem(_item: ComplianceModel) {
 
-    this.bindCodeList(_item.categoryId);
-
+    this.bindCode(_item.categoryId,_item.codeId);
     this.model.complianceId = _item.complianceId;
     this.model.userId = _item.userId;
     this.model.nurse = _item.nurse;
     this.model.categoryId = _item.categoryId;
-    this.model.codeId = _item.codeId;
+    //this.model.codeId = _item.codeId;
     this.model.dueDate = new Date(_item.dueDate);
     this.model.completedOn = _item.completedOn != null ? new Date(_item.completedOn) : undefined;
     this.model.notes = _item.notes;
