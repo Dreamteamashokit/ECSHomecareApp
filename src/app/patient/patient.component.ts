@@ -5,7 +5,8 @@ import { DatePipe } from '@angular/common'
 import { HHAClockout } from '../models/account/login-model';
 import { SignaturePad } from 'angular2-signaturepad';
 import { NgForm } from '@angular/forms';
-
+import { Router } from '@angular/router';
+//import * as $ from 'jquery';
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -39,7 +40,8 @@ export class PatientComponent implements OnInit {
   };
 
   constructor(private _employeeService:EmployeeapiService,private _accountService:AccountService,
-    public datepipe: DatePipe) { }
+    public datepipe: DatePipe,
+    private router:Router) { }
 
     ngAfterViewInit() {
       this.signaturePad.set('minWidth', 2); 
@@ -139,15 +141,20 @@ export class PatientComponent implements OnInit {
             
             this._accountService.HHAClockout(this.model).subscribe((response) => {
               this.IsShowMessage = true;
-              this.Message  = "HHA User clock out successfull."
+             // this.Message  = "HHA User clock out successfull."
               var that = this;
-              setTimeout(function(){
-                that.IsShowMessage = false;
-              },10000);
-    
-              this.clockoutForm.resetForm();
+              // setTimeout(function(){
+              //   that.IsShowMessage = false;
+              // },10000);
+           
+              ///this.clockoutForm.resetForm();
+             // document.getElementById('submitbutton').style.display='none';
+              //$("#submitbutton").hide();
+              var btinid=document.getElementById('submitbutton');
+              btinid?.remove();
               this.clearHHASignature();
               this.clearSignature();
+              this.router.navigate(['/hhaportal']);
             });
           }
           else{
@@ -169,12 +176,13 @@ export class PatientComponent implements OnInit {
         }
     }
     else{
-      this.IsShowMessage = true;
-            this.Message  = "HHA User already clock out."
-            var that = this;
-            setTimeout(function(){
-              that.IsShowMessage = false;
-            },5000);
+      this.router.navigate(['/hhaportal']);
+      // this.IsShowMessage = true;
+      //       this.Message  = "HHA User already clock out."
+      //       var that = this;
+      //       setTimeout(function(){
+      //         that.IsShowMessage = false;
+      //       },5000);
     }
 
     }, 2000);
