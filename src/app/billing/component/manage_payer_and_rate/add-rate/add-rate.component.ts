@@ -8,6 +8,7 @@ import { UserModel } from '../../../../models/account/login-model';
 import { EmployeeapiService } from '../../../../services/employeeapi.service';
 import { RateModel } from '../model/rate.model';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-rate',
@@ -28,7 +29,8 @@ export class AddRateComponent implements OnInit {
         private empApi: EmployeeapiService,
         private commonService: CommonService,
         private invoiceService:InvoiceService,
-        public toastr: ToastrManager
+        public toastr: ToastrManager,
+        private router: Router
         
     ) {
       
@@ -48,18 +50,25 @@ export class AddRateComponent implements OnInit {
         this.model.visit = 0;
         this.model.createdBy = 0;
         const rateObj: RateModel = this.model;
-        console.log(this.model);
 
         this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
-            this.toastr.successToastr('Rate Added', 'Success!');
-            //console.log(res);
+
+            if(res != null && res != undefined){
+                this.toastr.successToastr('Rate Added', 'Success!');
+                this.router.navigateByUrl('/billing');
+            }
+            else{
+                this.toastr.successToastr('Rate Added', 'Something wrong while add rate!');
+            }
         })
         
     }
 
     getPayerList() {
         this.commonService.getPayers().subscribe(res => {
-            this.payerItemList = res.data;
+            if(res != null && res != undefined){
+                this.payerItemList = res.data;
+            }
         });
     }
 
