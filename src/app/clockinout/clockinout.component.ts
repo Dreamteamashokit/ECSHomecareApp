@@ -49,6 +49,7 @@ export class ClockinoutComponent implements OnInit {
     
     this.model.Type = Type;
     this.model.ClockInTime = new Date();
+    this.model.MeetingId =this.SelectedClient.meetingId;
     if(Type ==1)
     {
       this._accountService.HHAClockIn(this.model).subscribe((response) => {
