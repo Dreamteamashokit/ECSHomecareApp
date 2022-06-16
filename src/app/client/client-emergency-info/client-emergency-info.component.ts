@@ -7,6 +7,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import {  ProviderModel } from 'src/app/models/client/contact-model';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-client-emergency-info',
@@ -32,6 +33,7 @@ export class ClientEmergencyInfoComponent implements OnInit {
     private acontSrv: AccountService,
     private clntSrv: ClientApiService,
     public dtPipe: DatePipe,
+    public toastr: ToastrManager
     ) 
     {
       setTheme('bs3');
@@ -129,7 +131,8 @@ if(itemList.filter(x=>x.contactType===4).length>0)
 }
 else
 {
-  alert("Please First Name & Last Name!");
+  this.toastr.infoToastr("Please First Name & Last Name!", 'Info!');
+  //alert("Please First Name & Last Name!");
 }
 
  }

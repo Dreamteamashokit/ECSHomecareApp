@@ -6,6 +6,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-emergency-contact',
   templateUrl: './emergency-contact.component.html',
@@ -23,7 +24,8 @@ export class EmergencyContactComponent implements OnInit {
     private route: ActivatedRoute,
     private comSrv: CommonService,  
     private acontSrv: AccountService,
-    private clntSrv: ClientApiService
+    private clntSrv: ClientApiService,
+    private toastr: ToastrManager
 
   ) {
     this.currentUser=this.acontSrv.getCurrentUser();
@@ -47,7 +49,8 @@ if(_item.name)
 }
 else
 {
-  alert("Please Input Name..!");
+  this.toastr.infoToastr("Please Input Name..!", 'Info!');
+  //alert("Please Input Name..!");
 }
 
 

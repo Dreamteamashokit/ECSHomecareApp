@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import{ AppSettings,Location } from 'src/app/common/appSettings';
+import { ToastrManager } from 'ng6-toastr-notifications';
+
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -15,7 +18,7 @@ export class SignInComponent implements OnInit {
   IsLoad: boolean = false;
   model = new LoginModel();
   authObj=new UserModel();
-  constructor(private router:Router, private accountApi : AccountService) {
+  constructor(private router:Router, private accountApi : AccountService,public toastr: ToastrManager,) {
 
     this.authObj.latitude=Location.latitude;
     this.authObj.longitude= Location.longitude;
@@ -65,13 +68,14 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       }
       else{
-
-        alert('Login credentials are not correct.');
+        this.toastr.infoToastr("Login credentials are not correct. !", 'Info!');
+        //alert('Login credentials are not correct.');
       }
 
      },
      error: (err) => {     
-      alert("Some technical issue exist, Please contact to admin !");
+      //alert("Some technical issue exist, Please contact to admin !");
+      this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
       this.IsLoad=false;
      console.log(err);
     },   

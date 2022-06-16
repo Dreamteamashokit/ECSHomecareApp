@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList, MasterType, SelectList } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-client-community',
   templateUrl: './client-community.component.html',
@@ -29,7 +30,8 @@ export class ClientCommunityComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private accountApi: AccountService,
-    private clientapi: ClientApiService
+    private clientapi: ClientApiService,
+    public toastr: ToastrManager,
   ) {     
     this.currentUser = this.accountApi.getCurrentUser();
     this.comApi.getCountryList().subscribe((response) => {
@@ -62,6 +64,7 @@ export class ClientCommunityComponent implements OnInit {
     this.model.createdBy = this.currentUser.userId;
     this.model.userId = Number(this.model.userId);
     this.clientapi.SaveClientCommunity(this.model).subscribe(Responce => {
+      this.toastr.successToastr("Community Saved !", 'Success!');
       this.decline();
       this.getClientcommunityRecord();
     })

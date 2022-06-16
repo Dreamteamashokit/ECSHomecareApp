@@ -10,6 +10,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 
 import{Usertype} from 'src/app/commanHelper/usertype'
 import { DatePipe } from '@angular/common';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 
 
@@ -39,7 +40,8 @@ export class NewEmployeeComponent implements OnInit {
     private accountApi: AccountService,
     public datepipe: DatePipe,
     private empApi : EmployeeapiService,
-    private comApi: CommonService) {
+    private comApi: CommonService,
+    private toastr: ToastrManager) {
       this.currentUser=this.accountApi.getCurrentUser();
       this.BindMaster();
 
@@ -115,7 +117,9 @@ export class NewEmployeeComponent implements OnInit {
       complete: () => {   this.IsLoad = false;     }, // completeHandler
       error: (err) => { 
         console.log(err);
-      alert("Some technical issue exist, Please contact to admin !");
+        this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+ 
+      //alert("Some technical issue exist, Please contact to admin !");
       this.IsLoad = false; },    // errorHandler 
       next: (response) => {  
         console.log("Employee Saved :"+response);

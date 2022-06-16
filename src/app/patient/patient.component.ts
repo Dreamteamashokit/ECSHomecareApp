@@ -5,8 +5,10 @@ import { DatePipe } from '@angular/common'
 import { HHAClockout } from '../models/account/login-model';
 import { SignaturePad } from 'angular2-signaturepad';
 import { NgForm } from '@angular/forms';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
 //import * as $ from 'jquery';
+
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -40,8 +42,7 @@ export class PatientComponent implements OnInit {
   };
 
   constructor(private _employeeService:EmployeeapiService,private _accountService:AccountService,
-    public datepipe: DatePipe,
-    private router:Router) { }
+    public datepipe: DatePipe,private toastr: ToastrManager,private router:Router) { }
 
     ngAfterViewInit() {
       this.signaturePad.set('minWidth', 2); 
@@ -108,7 +109,8 @@ export class PatientComponent implements OnInit {
       else
       {
         this.IsLoad=false;
-        alert('HHA/Employee does not have any clients.');
+        this.toastr.infoToastr("HHA/Employee does not have any clients!", 'Info!');
+        //alert('HHA/Employee does not have any clients.');
       }
     })
   }

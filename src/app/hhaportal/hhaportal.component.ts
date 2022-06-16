@@ -6,6 +6,7 @@ import { LocationService } from '../services/location.service';
 import { ExternalUserModel } from 'src/app/models/account/login-model';
 import * as atlas from 'azure-maps-control';
 import { DatePipe } from '@angular/common'
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
 selector: 'app-hhaportal',                
@@ -13,58 +14,70 @@ templateUrl: './hhaportal.component.html',
 styleUrls: ['./hhaportal.component.scss']
 })
 export class HhaportalComponent implements OnInit {
-IsLoad: boolean = false;
-empId:number;
-ClientList:any;
-HHAUserName:string;
-HHAModel = new ExternalUserModel();
-@ViewChild("graphDiv") graphDiv: ElementRef;
 
-constructor(private router:Router,private _employeeservice : EmployeeapiService,
-  private _accountService:AccountService,private _locationsrv:LocationService,
-  public datepipe: DatePipe) 
-  { 
-    // this.HHAModel.latitude = 33.740253;
-    // this.HHAModel.longitude =-82.745857;
-  }
+  IsLoad: boolean = false;
+  empId:number;
+  ClientList:any;
+  HHAUserName:string;
+  HHAModel = new ExternalUserModel();
+  @ViewChild("graphDiv") graphDiv: ElementRef;
 
-ngOnInit(): void {
-  this.IsLoad=true;
-  var objUser = this._accountService.GetCurrentHHAUser();
-  
-  if(objUser != null && objUser != undefined){
-    this.HHAModel.email = objUser.email;
-    this.HHAModel.firstName = objUser.firstName;
-    this.HHAModel.lastName = objUser.lastName;
-    this.HHAModel.middleName = objUser.middleName;
-    this.HHAModel.userName = objUser.userName;
-    this.HHAModel.latitude = objUser.latitude;
-    this.HHAModel.longitude = objUser.longitude;
-
-    this.empId = objUser.userId;
-    this.HHAUserName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName; 
-    this.GetClientListByempId(this.empId);
-  }
-  this.IsLoad=false;
-}
-
-GetClientListByempId(empId:number){
-  this._employeeservice.GetClientListByempId(empId).subscribe((response) =>{
-    if(response.result)
-    {
-      this.ClientList = response.data;
-        if(this.ClientList != null && this.ClientList != undefined){
-          this.loadMap(this.ClientList);
-        }
-        this.IsLoad=false;
+  constructor(private router:Router,private _employeeservice : EmployeeapiService,
+    private _accountService:AccountService,private _locationsrv:LocationService, private toastr: ToastrManager,
+    public datepipe: DatePipe) 
+    { 
+      // this.HHAModel.latitude = 33.740253;
+      // this.HHAModel.longitude =-82.745857;
     }
-    else
-    {
+
+
+    ngOnInit(): void {
+      this.IsLoad=true;
+      var objUser = this._accountService.GetCurrentHHAUser();
+      
+      if(objUser != null && objUser != undefined){
+        this.HHAModel.email = objUser.email;
+        this.HHAModel.firstName = objUser.firstName;
+        this.HHAModel.lastName = objUser.lastName;
+        this.HHAModel.middleName = objUser.middleName;
+        this.HHAModel.userName = objUser.userName;
+        this.HHAModel.latitude = objUser.latitude;
+        this.HHAModel.longitude = objUser.longitude;
+    
+        this.empId = objUser.userId;
+        this.HHAUserName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName; 
+        this.GetClientListByempId(this.empId);
+    
+      }
       this.IsLoad=false;
-      alert('HHA/Employee does not have any clients.');
     }
-  })
-}
+    
+
+
+
+  GetClientListByempId(empId:number){
+    this._employeeservice.GetClientListByempId(empId).subscribe((response) =>{
+      if(response.result)
+      {
+        this.ClientList = response.data;
+          if(this.ClientList != null && this.ClientList != undefined){
+            this.loadMap(this.ClientList);
+          }
+          this.IsLoad=false;
+      }
+      else
+      {
+        this.IsLoad=false;
+       // alert('HHA/Employee does not have any clients.');
+        this.toastr.infoToastr("HHA/Employee does not have any clients. !", 'Info!');
+        
+        
+      }
+    })
+  }
+
+
+
 
 loadMap(ClientList:any) {
   var latitude = this.HHAModel.latitude;
