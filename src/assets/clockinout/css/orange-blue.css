@@ -9984,7 +9984,15 @@ width:100%;
   height: 300px !important;
 }
 
+.modal-dialog-width /deep/ .modal-dialog {
+  width: 70%
+}
 
+@media(min-width:992px){
+  .modal-dialog-lg {
+    width: 70% !important;
+  }
+}
 
 
 

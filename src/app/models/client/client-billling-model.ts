@@ -11,7 +11,7 @@ export class ClientBilling extends BaseModel {
 
   billingId: number;
   payerId: number;
-  contractClientId: number;
+  contractClientId: string;
   authorizationNumber: string;
   fromDate: string;
   toDate: string;
