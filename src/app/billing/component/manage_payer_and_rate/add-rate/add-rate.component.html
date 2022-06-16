@@ -11,17 +11,15 @@
     <!--END TITLE & BREADCRUMB PAGE-->
     <!--BEGIN CONTENT-->
     <div class="page-content">
-        <form #addRateForm="ngForm">
+        <form #addRateForm="ngForm" (ngSubmit)="onClickSubmit(addRateForm)" novalidate>
             <div class="panel">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group ptx">
                                 <label>Payer</label>
-
                                 <select class="form-control mtm mt-0-mobile" 
                                 id="payer" name="payerid" #payer="ngModel" [(ngModel)]="model.payerid">
-                                    <option value="-1" disabled>Select Payer</option>
                                     <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
                                         {{ payer.itemName }}
                                     </option>
@@ -29,28 +27,33 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="form-group">
+                            <div class="form-group" [class.state-error]="servicecode.invalid && (servicecode.touched || addRateForm.submitted)"
+                            [class.state-success]="servicecode.valid">
                                 <label>
                                     Service Code
                                     <p class="small-txt mbn mtn text-black">For your refernce</p>
                                 </label>
                                 <input type="text" placeholder="" class="form-control"  id="txtServiceCode" 
-                                name="serviceCode" #servicecode="ngModel" [(ngModel)]="model.serviceCode">
-
+                                name="serviceCode" #servicecode="ngModel" [(ngModel)]="model.serviceCode" required>
+                                <em *ngIf="servicecode.invalid && (servicecode.touched || addRateForm.submitted)"
+                                for="servicecode" class="invalid error">
+                                <label> Please enter Service Code Service Code is used in Client Billing and Authorizations for your own reference</label></em>
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="form-group">
+                            <div class="form-group" [class.state-error]="type.invalid && (type.touched || addRateForm.submitted)"
+                            [class.state-success]="type.valid" required>
                                 <label>Type</label>
                                 <select class="form-control mtm mt-0-mobile"
-                                id="txtType" 
-                                name="type" #type="ngModel" [(ngModel)]="model.type"
-                                >
+                                id="txtType" name="type" #type="ngModel" [(ngModel)]="model.type" required>
                                     <option [value]="1">Hourly</option>
                                     <option [value]="2">Daily</option>
                                     <option [value]="3">Visit</option>
                                     <option [value]="4">Travel</option>
                                 </select>
+                                <em *ngIf="type.invalid && (type.touched || addRateForm.submitted)"
+                            for="type" class="invalid error">
+                            <label>Please select type</label></em>
                             </div>
                         </div>
 
@@ -59,18 +62,15 @@
 
                     <div class="row">
                         <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>
-                                    Bill Code
-                                    <p class="small-txt mbn mtn text-black">Appears on invoices</p>
-                                </label>
+                            <div class="form-group" [class.state-error]="billCode.invalid && (billCode.touched || addRateForm.submitted)"
+                            [class.state-success]="billCode.valid">
+                                <label>Bill Code<p class="small-txt mbn mtn text-black">Appears on invoices</p></label>
                                 <input type="text" placeholder="" class="form-control"
-                                id="txtBillCode"
-                                name="billCode" 
-                                #billCode="ngModel" 
-                                [(ngModel)]="model.billCode"
-                                >
-
+                                id="txtBillCode" name="billCode" #billCode="ngModel" 
+                                [(ngModel)]="model.billCode" required>
+                                <em *ngIf="billCode.invalid && (billCode.touched || addRateForm.submitted)"
+                                for="billCode" class="invalid error">
+                                <label> enter Bill Code. Bill Code is used in invoices</label></em>
                             </div>
                         </div>
 
@@ -79,7 +79,8 @@
                                 <label>Unit</label>
                                 <div class="row mtm pts mt-0-mobile">
                                     <div class="col-lg-4 col-xs-4">
-                                        <select class="form-control">
+                                        <select class="form-control" id="unit" name="unit" #unit="ngModel" 
+                                        [(ngModel)]="model.unit">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -90,56 +91,43 @@
                                     <div class="col-lg-5 col-xs-5">
                                         <select class="form-control" 
                                         id="hourly" name="hourly" #hourly="ngModel" 
-                                        [(ngModel)]="model.hourly"
-                                        >
-                                            <option [value]="1">Hour</option>
-                                            <option [value]="1">Day</option>
-                                            <option [value]="2">Visit</option>
-                                            <option [value]="3">Mile</option>
-                                            <option [value]="4">Each</option>
+                                        [(ngModel)]="model.hourly">
+                                            <option value="Hour">Hour</option>
+                                            <option value="Day">Day</option>
+                                            <option value="Visit">Visit</option>
+                                            <option value="Mile">Mile</option>
+                                            <option value="Each">Each</option>
                                         </select>
+                                        <em *ngIf="hourly.invalid && (hourly.touched || addRateForm.submitted)"
+                                            for="hourly" class="invalid error">
+                                            <label> Please select unit.</label></em>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>
-                                    Modifiers
-                                    <p class="small-txt mbn mtn text-black">Appears on invoices</p>
-                                </label>
+                                <label>Modifiers<p class="small-txt mbn mtn text-black">Appears on invoices</p></label>
                                 <div class="row">
                                     <div class="col-lg-3 col-xs-3">
                                         <input type="text" placeholder="" class="form-control"
-                                        id="txtModifiler1"
-                                        name="modifiers1" 
-                                        #modifers1="ngModel" 
-                                        [(ngModel)]="model.modifiers1"
-                                        >
+                                        id="txtModifiler1" name="modifiers1" 
+                                        #modifers1="ngModel"  [(ngModel)]="model.modifiers1">
                                     </div>
                                     <div class="col-lg-3 col-xs-3">
                                         <input type="text" placeholder="" class="form-control"
-                                        id="txtModifiler2"
-                                        name="modifiers2" 
-                                        #modifers2="ngModel" 
-                                        [(ngModel)]="model.modifiers2"
-                                        >
+                                        id="txtModifiler2" name="modifiers2" 
+                                        #modifers2="ngModel" [(ngModel)]="model.modifiers2">
                                     </div>
                                     <div class="col-lg-3 col-xs-3">
                                         <input type="text" placeholder="" class="form-control"
-                                        id="txtModifiler3"
-                                        name="modifiers3" 
-                                        #modifers3="ngModel" 
-                                        [(ngModel)]="model.modifiers3"
-                                        >
+                                        id="txtModifiler3" name="modifiers3" 
+                                        #modifers3="ngModel" [(ngModel)]="model.modifiers3">
                                     </div>
                                     <div class="col-lg-3 col-xs-3">
                                         <input type="text" placeholder="" class="form-control"
-                                        id="txtModifiler4"
-                                        name="modifiers4" 
-                                        #modifers4="ngModel" 
-                                        [(ngModel)]="model.modifiers4"
-                                        >
+                                        id="txtModifiler4" name="modifiers4" #modifers4="ngModel" 
+                                        [(ngModel)]="model.modifiers4">
                                     </div>
                                 </div>
 
@@ -150,108 +138,73 @@
                     </div>
 
                     <div class="row">
-                        <!-- <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Rate</label>
-                                <input type="text" placeholder="" class="form-control"
-                                >
-                            </div>
-                        </div> -->
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Effective Dates</label>
                                 <div class="row">
-
                                     <div class="col-lg-6 mbm">
-                                        <div class="input-icon right">
+                                        <div class="input-icon right" [class.state-error]="validFrom.invalid && (validFrom.touched || addRateForm.submitted)"
+                                        [class.state-success]="validFrom.valid">
                                             <i class="fa fa-calendar" (click)="fromDate.toggle()"></i>
                                             <input type="text" placeholder=""
-                                                class="form-control"
-                                                #fromDate="bsDatepicker"
+                                                class="form-control" #fromDate="bsDatepicker"
                                                 bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"         
-                                                id="txtvalidFrom"
-                                                name="validFrom" 
-                                                #validFrom="ngModel" 
-                                                [(ngModel)]="model.validFrom"
-                                            >
+                                                id="txtvalidFrom" name="validFrom" 
+                                                #validFrom="ngModel" [(ngModel)]="model.validFrom" required>
+                                                <em *ngIf="validFrom.invalid && (validFrom.touched || addRateForm.submitted)"
+                                                for="validFrom" class="invalid error">
+                                                <label> enter valid From date.</label></em>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mbm">
                                         <div class="input-icon right">
-                                            <i class="fa fa-calendar"(click)="toDate.toggle()"></i><input type="text" placeholder=""
-                                            class="form-control"
-                                            bsDatepicker 
-                                            #toDate="bsDatepicker"
+                                            <i class="fa fa-calendar"(click)="toDate.toggle()"></i>
+                                            <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
                                             [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
-                                            id="txtvalidTo"
-                                            name="validTo" 
-                                            #validFrom="ngModel" 
-                                            [(ngModel)]="model.validTo"
-                                           >
+                                            id="txtvalidTo" name="validTo" 
+                                            #validFrom="ngModel"  [(ngModel)]="model.validTo">
                                         </div>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label><strong>Revenue Code</strong></label>
                                 <input type="text" placeholder="" class="form-control"
-                                id="txtRevenueCode"
-                                name="revenueCode" 
-                                #revenueCode="ngModel" 
-                                [(ngModel)]="model.revenueCode"
-                                >
-
+                                id="txtRevenueCode" name="revenueCode" 
+                                #revenueCode="ngModel" [(ngModel)]="model.revenueCode">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>
-                                    Tax Rate
-                                    <p class="small-txt mbn mtn text-black">Percentage Points </p>
-                                </label>
+                                <label> Tax Rate <p class="small-txt mbn mtn text-black">Percentage Points </p> </label>
                                 <input type="text" placeholder="" class="form-control"
-                                id="taxRate"
-                                name="taxRate" 
-                                #taxRate="ngModel" 
-                                [(ngModel)]="model.taxRate"
-                                >
-
+                                id="taxRate" name="taxRate" #taxRate="ngModel" [(ngModel)]="model.taxRate">
                             </div>
                         </div>
 
                         <div class="col-lg-4">
-                            <div class="form-group ptx">
+                            <div class="form-group ptx" [class.state-error]="placeofService.invalid && (placeofService.touched || addRateForm.submitted)"
+                            [class.state-success]="placeofService.valid" required>
                                 <label>Place of Service</label>
                                 <input type="text" placeholder="" class="form-control mtm mt-0-mobile"
-                                id="placeofService"
-                                name="placeofService" 
-                                #placeofService="ngModel" 
-                                [(ngModel)]="model.placeOfService"
-                                >
+                                id="placeofService" name="placeofService" 
+                                #placeofService="ngModel" [(ngModel)]="model.placeOfService" required>
+                                <em *ngIf="placeofService.invalid && (placeofService.touched || addRateForm.submitted)"
+                                for="placeofService" class="invalid error">
+                                <label> enter a digit value for the "Place of Service" field.</label></em>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>Mutual/Group</label>
-                                <br>
-                                <input type="checkbox" class="mtm mt-0-mobile" 
-                                id="mutualGroup"
-                                name="mutualGroup" 
-                                #mutualGroup="ngModel" 
-                                [(ngModel)]="model.mutualGroup"
-                                >
-
+                                <label>Mutual/Group</label><br>
+                                <input type="checkbox" class="mtm mt-0-mobile" id="mutualGroup" name="mutualGroup" 
+                                #mutualGroup="ngModel"  [(ngModel)]="model.mutualGroup">
                             </div>
                         </div>
-
-
                     </div>
 
 
@@ -260,11 +213,7 @@
                             <div class="form-group">
                                 <label>Notes</label>
                                 <textarea rows="3" placeholder="Notes" class="form-control"
-                                id="txtNotes"
-                                name="Notes" 
-                                #Notes="ngModel" 
-                                [(ngModel)]="model.notes"
-                                ></textarea>
+                                id="txtNotes" name="Notes" #Notes="ngModel" [(ngModel)]="model.notes"></textarea>
                             </div>
                         </div>
 
@@ -272,7 +221,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <button type="button" class="btn btn-md btn-dark" (click)="onClickSubmit()">Save New Rates</button>
+                            <button type="submit" class="btn btn-md btn-dark">Save New Rates</button>
                         </div>
                     </div>
 
