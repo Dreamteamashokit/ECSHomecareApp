@@ -42,12 +42,7 @@ export class PatientComponent implements OnInit {
   };
 
   constructor(private _employeeService:EmployeeapiService,private _accountService:AccountService,
-    public datepipe: DatePipe,
-
-    private toastr: ToastrManager
-    ) { }
-
-    private router:Router) { }
+    public datepipe: DatePipe,private toastr: ToastrManager,private router:Router) { }
 
     ngAfterViewInit() {
       this.signaturePad.set('minWidth', 2); 

@@ -31,13 +31,28 @@ export class HhaportalComponent implements OnInit {
     }
 
 
-constructor(private router:Router,private _employeeservice : EmployeeapiService,
-  private _accountService:AccountService,private _locationsrv:LocationService,
-  public datepipe: DatePipe) 
-  { 
-    // this.HHAModel.latitude = 33.740253;
-    // this.HHAModel.longitude =-82.745857;
-  }
+    ngOnInit(): void {
+      this.IsLoad=true;
+      var objUser = this._accountService.GetCurrentHHAUser();
+      
+      if(objUser != null && objUser != undefined){
+        this.HHAModel.email = objUser.email;
+        this.HHAModel.firstName = objUser.firstName;
+        this.HHAModel.lastName = objUser.lastName;
+        this.HHAModel.middleName = objUser.middleName;
+        this.HHAModel.userName = objUser.userName;
+        this.HHAModel.latitude = objUser.latitude;
+        this.HHAModel.longitude = objUser.longitude;
+    
+        this.empId = objUser.userId;
+        this.HHAUserName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName; 
+        this.GetClientListByempId(this.empId);
+    
+      }
+      this.IsLoad=false;
+    }
+    
+
 
 
   GetClientListByempId(empId:number){
@@ -59,27 +74,8 @@ constructor(private router:Router,private _employeeservice : EmployeeapiService,
         
       }
     })
-
-ngOnInit(): void {
-  this.IsLoad=true;
-  var objUser = this._accountService.GetCurrentHHAUser();
-  
-  if(objUser != null && objUser != undefined){
-    this.HHAModel.email = objUser.email;
-    this.HHAModel.firstName = objUser.firstName;
-    this.HHAModel.lastName = objUser.lastName;
-    this.HHAModel.middleName = objUser.middleName;
-    this.HHAModel.userName = objUser.userName;
-    this.HHAModel.latitude = objUser.latitude;
-    this.HHAModel.longitude = objUser.longitude;
-
-    this.empId = objUser.userId;
-    this.HHAUserName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName; 
-    this.GetClientListByempId(this.empId);
-
   }
-  this.IsLoad=false;
-}
+
 
 
 
