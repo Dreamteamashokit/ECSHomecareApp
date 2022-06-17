@@ -132,7 +132,12 @@ export class ClientBillingComponent implements OnInit {
         this.model.payerId = Number(this.model.payerId);
         this.model.contractClientId = this.model.contractClientId;
         this.model.serviceCode = Number(this.model.serviceCode);
-    
+        debugger;
+        let totrasformDate = this.datepipe.transform(this.model.toDate, 'MM-dd-yyyy')||""
+        let fromtrasformDate = this.datepipe.transform(this.model.fromDate, 'MM-dd-yyyy')||""
+        this.model.toDate = totrasformDate;
+        this.model.fromDate = fromtrasformDate;
+
         if(!this.byDaysOfWeekToggle){
           
           if(this.model.brServiceCode_SAT != null && this.model.brServiceCode_SAT != undefined && !isNaN(this.model.brServiceCode_SAT)){
@@ -200,7 +205,8 @@ export class ClientBillingComponent implements OnInit {
           this.model.occurencesAuthorizedPerMonth ="";
           this.model.occurencesAuthorizedEntirePeriod ="";
     
-        }else{
+        }
+        else{
           if(this.model.brServiceCode_SAT != null && this.model.brServiceCode_SAT != undefined && !isNaN(this.model.brServiceCode_SAT)){
             this.model.brServiceCode_SAT = Number(this.model.brServiceCode_SAT);
           }else{this.model.brServiceCode_SAT = 0;}
