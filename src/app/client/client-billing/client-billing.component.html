@@ -27,7 +27,7 @@
                             <td>{{item?.toDate | date}}</td>
                             <td>{{getPayerNmaeFromId(item.payerId )}}</td>
                             <td colspan="2">
-                                <button class="btn btn-primary" (click)="updateBilling(item.billingId,editBilling)">Edit</button>
+                                <button class="btn btn-primary" (click)="updateBilling(item.billingId,item.payerId,editBilling)">Edit</button>
                             </td>
                             <td><i class="fa fa-trash-o text-red medium-txt pts"
                                 (click)="deleteBillingData(item.billingId)"></i></td>
@@ -58,7 +58,7 @@
                             <td>{{item?.toDate | date}}</td>
                             <td>{{getPayerNmaeFromId(item.payerId )}}</td>
                             <td colspan="2">
-                                <button class="btn btn-primary" (click)="updateBilling(item.billingId,editBilling)">Edit</button>
+                                <button class="btn btn-primary" (click)="updateBilling(item.billingId,item.payerId,editBilling)">Edit</button>
                             </td>
                             <td><i class="fa fa-trash-o text-red medium-txt pts"
                                 (click)="deleteBillingData(item.billingId)"></i></td>
@@ -87,7 +87,7 @@
                         <label class="control-label">Bill To:</label>
                         <select class="form-control"  id="payer" name="payerid" #payer="ngModel" [(ngModel)]="model.payerId"
                         (change)="getNewServiceCode()" required>
-                            <option value="-1" disabled>Select Payer</option>
+                            <option value="0">Select Payer</option>
                             <option *ngFor="let payer of payerItemList" [value]="payer.itemId">
                                 {{ payer.itemName }}
                             </option>
@@ -123,22 +123,31 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label class="control-label">From Date:</label>
-                        <div class="input-icon right">
+                        <div class="input-icon right" [class.state-error]="validFrom.invalid && (validFrom.touched || f.submitted)"
+                        [class.state-success]="validFrom.valid">
                             <i class="fa fa-calendar" (click)="fromDate.toggle()"></i>
                             <input type="text" id="txtFromDateTime" name="fromDate" [(ngModel)]="model.fromDate"
                                 class="form-control" style="background-color: white;" 
-                                #fromDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" [readonly]="true">
+                                #fromDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" 
+                                [readonly]="true" #validFrom="ngModel" [(ngModel)]="model.fromDate" required>
+
+                                <em *ngIf="validFrom.invalid && (validFrom.touched || f.submitted)"
+                                    for="validFrom" class="invalid error"><label>Please enter From date.</label></em>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="form-group">
+                    <div class="form-group" [class.state-error]="validTo.invalid && (validTo.touched || f.submitted)"
+                    [class.state-success]="validTo.valid">
                         <label class="control-label">To Date:</label>
                         <div class="input-icon right"><i class="fa fa-calendar" (click)="toDate.toggle()"></i>
                             <input type="text" id="txtToDateTime" name="toDate" [(ngModel)]="model.toDate"
                                 class="form-control" style="background-color: white;" 
                                 #toDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" 
-                                [readonly]="true">
+                                [readonly]="true" #validTo="ngModel"  [(ngModel)]="model.toDate" required>
+
+                                <em *ngIf="validTo.invalid && (validTo.touched || f.submitted)"
+                                    for="validTo" class="invalid error"><label>Please enter To date.</label></em>
                         </div>
                     </div>
                 </div>
@@ -191,7 +200,7 @@
                                             id="serviceCode" 
                                             name="serviceCode"
                                             [(ngModel)]="model.serviceCode">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -246,6 +255,7 @@
                                 <tr>
                                     <td nowrap="nowrap"></td>
                                     <td class="control-label">Sat</td>
+                                    <td></td>
                                     <td class="control-label">Sun</td>
                                     <td class="control-label">Mon</td>
                                     <td class="control-label">Tue</td>
@@ -261,7 +271,7 @@
                                             id="brServiceCode_SAT" 
                                             name="brServiceCode_SAT" #brServiceCode_SAT="ngModel"
                                             [(ngModel)]="model.brServiceCode_SAT" required>
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -269,12 +279,13 @@
                                         <em *ngIf="brServiceCode_SAT.invalid && (brServiceCode_SAT.touched || f.submitted)"
                                         for="brServiceCode_SAT" class="invalid error">Please select billing rates</em>
                                     </td>
+                                    <td></td>
                                     <td>
                                         <select class="form-control"
                                             id="brServiceCode_SUN" 
                                             name="brServiceCode_SUN"
                                             [(ngModel)]="model.brServiceCode_SUN">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -285,7 +296,7 @@
                                         id="brServiceCode_MON" 
                                         name="brServiceCode_MON"
                                         [(ngModel)]="model.brServiceCode_MON">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -296,7 +307,7 @@
                                         id="brServiceCode_TUE" 
                                         name="brServiceCode_TUE"
                                         [(ngModel)]="model.brServiceCode_TUE">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -307,7 +318,7 @@
                                         id="brServiceCode_WED" 
                                         name="brServiceCode_WED"
                                         [(ngModel)]="model.brServiceCode_WED">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -318,7 +329,7 @@
                                         id="brServiceCode_THU" 
                                         name="brServiceCode_THU"
                                         [(ngModel)]="model.brServiceCode_THU">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -329,7 +340,7 @@
                                         id="brServiceCode_FRI" 
                                         name="brServiceCode_FRI"
                                         [(ngModel)]="model.brServiceCode_FRI">
-                                            <option value="-1" disabled>Select</option>
+                                            <option value="-1">Select</option>
                                             <option *ngFor="let service of serviceCode" [value]="service.rateId">
                                                 {{ service.serviceCode }}
                                             </option>
@@ -340,6 +351,7 @@
                                 <tr>
                                     <td nowrap="nowrap"></td>
                                     <td class="control-label" style="text-align: center;">H</td>
+                                    <td></td>
                                     <td class="control-label" style="text-align: center;">H</td>
                                     <td class="control-label" style="text-align: center;">H</td>
                                     <td class="control-label" style="text-align: center;">H</td>
@@ -359,10 +371,11 @@
                                         <em *ngIf="quantity_SAT.invalid && (quantity_SAT.touched || f.submitted)"
                                         for="quantity_SAT" class="invalid error">Please select billing rates</em>
                                     </td>
+                                    <td><a href="javascript:void(0)" (click)="copyQuantity()">
+                                        <i class="fa fa-solid fa-copy"></i>Copy over
+                                    </a></td>
                                     <td>
-                                        <a href="javascript:void(0)" (click)="copyQuantity()" >
-                                            <i class="fa fa-solid fa-copy"></i>
-                                        </a>
+                                        
                                         <input type="text"  
                                         class="form-control qty"
                                         style="text-align: center;"

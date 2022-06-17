@@ -281,31 +281,33 @@ export class ClientBillingComponent implements OnInit {
   }
 
 
-  updateBilling(billingId:number,template: TemplateRef<any>) {
+  updateBilling(billingId:number,payerId:number,template: TemplateRef<any>) {
+    this.getServiceCodeByPayerId(payerId);
     this.isUpdateVisible = true;
     this.isAddVisible = false;
-    
-    this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
-      if(res != null && res != undefined && res.result){
-        this.currentClinetBill = res.data;
-        
-        this.model = this.currentClinetBill;
-        let todate = new Date(this.currentClinetBill.toDate);
-        let fromDate = new Date(this.currentClinetBill.fromDate);
-        let totrasformDate = this.datepipe.transform(todate, 'MM-dd-yyyy')||""
-        let fromtrasformDate = this.datepipe.transform(fromDate, 'MM-dd-yyyy')||""
-        this.model.toDate = totrasformDate;
-        this.model.fromDate = fromtrasformDate;
-        this.isAddVisible = false;
-        this.isUpdateVisible = true;
-        this.getServiceCodeByPayerId(this.model.payerId);
-        this.modalRef = this.modalService.show(template);
-        var el = document.querySelector('.modal-dialog');
-        if(el != null && el != undefined){
-          el.className += ' modal-dialog-lg';
+    setTimeout(() => {
+      
+      this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
+        if(res != null && res != undefined && res.result){
+          this.currentClinetBill = res.data;
+          this.model = this.currentClinetBill;
+          let todate = new Date(this.currentClinetBill.toDate);
+          let fromDate = new Date(this.currentClinetBill.fromDate);
+          let totrasformDate = this.datepipe.transform(todate, 'MM-dd-yyyy')||""
+          let fromtrasformDate = this.datepipe.transform(fromDate, 'MM-dd-yyyy')||""
+          this.model.toDate = totrasformDate;
+          this.model.fromDate = fromtrasformDate;
+          this.isAddVisible = false;
+          this.isUpdateVisible = true;
+          this.modalRef = this.modalService.show(template);
+          var el = document.querySelector('.modal-dialog');
+          if(el != null && el != undefined){
+            el.className += ' modal-dialog-lg';
+          }
         }
-      }
-    })
+      })
+
+    }, 1000);
   }
 
 

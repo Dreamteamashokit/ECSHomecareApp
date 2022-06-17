@@ -153,16 +153,20 @@
                                                 #validFrom="ngModel" [(ngModel)]="model.validFrom" required>
                                                 <em *ngIf="validFrom.invalid && (validFrom.touched || addRateForm.submitted)"
                                                 for="validFrom" class="invalid error">
-                                                <label> enter valid From date.</label></em>
+                                                <label>Please enter From date.</label></em>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mbm">
-                                        <div class="input-icon right">
+                                        <div class="input-icon right" [class.state-error]="validTo.invalid && (validTo.touched || addRateForm.submitted)"
+                                        [class.state-success]="validTo.valid">
                                             <i class="fa fa-calendar"(click)="toDate.toggle()"></i>
                                             <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
                                             [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
                                             id="txtvalidTo" name="validTo" 
-                                            #validFrom="ngModel"  [(ngModel)]="model.validTo">
+                                            #validTo="ngModel"  [(ngModel)]="model.validTo" required>
+                                            <em *ngIf="validTo.invalid && (validTo.touched || addRateForm.submitted)"
+                                                for="validTo" class="invalid error">
+                                                <label>Please enter To date.</label></em>
                                         </div>
                                     </div>
                                 </div>
