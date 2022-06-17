@@ -129,7 +129,7 @@
                             <input type="text" id="txtFromDateTime" name="fromDate" [(ngModel)]="model.fromDate"
                                 class="form-control" style="background-color: white;" 
                                 #fromDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" 
-                                [readonly]="true" #validFrom="ngModel" [(ngModel)]="model.fromDate" required>
+                                [readonly]="true" #validFrom="ngModel" [(ngModel)]="model.fromDate" triggers="keydown:click" required>
 
                                 <em *ngIf="validFrom.invalid && (validFrom.touched || f.submitted)"
                                     for="validFrom" class="invalid error"><label>Please enter From date.</label></em>
@@ -144,7 +144,7 @@
                             <input type="text" id="txtToDateTime" name="toDate" [(ngModel)]="model.toDate"
                                 class="form-control" style="background-color: white;" 
                                 #toDate="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" 
-                                [readonly]="true" #validTo="ngModel"  [(ngModel)]="model.toDate" required>
+                                [readonly]="true" #validTo="ngModel" triggers="keydown:click" [(ngModel)]="model.toDate" required>
 
                                 <em *ngIf="validTo.invalid && (validTo.touched || f.submitted)"
                                     for="validTo" class="invalid error"><label>Please enter To date.</label></em>
