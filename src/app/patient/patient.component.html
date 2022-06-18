@@ -9,7 +9,7 @@
         <div class="page-content text-left">
             <div class="row">
                 <div class="col-lg-12 text-center" *ngIf="clockinDetails != null && clockinDetails != undefined">
-                    <h1>{{CurrentDate | date: 'hh:mm:ss'}}</h1>
+                    <h1>{{clockInTime | date: 'hh:mm:ss'}}</h1>
                     <br/>
                     <b><span>Clock In Time : </span></b>
                     <b> {{clockinDetails.clockInTime | date: 'hh:mm a dd/MM/yyyy'}}</b>

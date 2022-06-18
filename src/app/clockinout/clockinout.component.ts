@@ -50,7 +50,7 @@ export class ClockinoutComponent implements OnInit {
     this.model.Type = Type;
     this.model.ClockInTime = new Date();
     this.model.MeetingId =this.SelectedClient.meetingId;
-    let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
+    let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
     this.model.DateString=dateString||'';
     if(Type ==1)
     {
