@@ -3,7 +3,7 @@ import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { HHAClockInMode } from '../models/account/login-model';
 import { EmployeeapiService } from  '../services/employeeapi.service';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-clockinout',
@@ -50,6 +50,8 @@ export class ClockinoutComponent implements OnInit {
     this.model.Type = Type;
     this.model.ClockInTime = new Date();
     this.model.MeetingId =this.SelectedClient.meetingId;
+    let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
+    this.model.DateString=dateString||'';
     if(Type ==1)
     {
       this._accountService.HHAClockIn(this.model).subscribe((response) => {

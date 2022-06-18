@@ -131,7 +131,10 @@ export class PatientComponent implements OnInit {
           this.model.Type = 2;
           this.model.ClockOutTime = new Date();
           this.model.ClockInTime = new Date();
-          
+          this.model.MeetingId =0;
+          let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
+          this.model.DateString=dateString||'';
+
           if(!this.signaturePad.isEmpty() && !this.HHAsignaturePad.isEmpty()){
             if(this.HHAsignaturePad.toDataURL() != null && this.HHAsignaturePad.toDataURL() != undefined){
               this.model.HHAUserSignature = this.HHAsignaturePad.toDataURL();
