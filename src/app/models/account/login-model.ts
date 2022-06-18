@@ -41,6 +41,7 @@ export class HHAClockInMode{
     Type:number;
     ClockInTime:Date;
     MeetingId:number;
+    DateString:string;
 }
 
 export class HHAClockout{
@@ -55,5 +56,7 @@ export class HHAClockout{
     HHAUserSignature:string;
     ClockOutTime:Date;
     ClockInTime:Date;
+    DateString:string;
+    MeetingId:number;
     
 }
