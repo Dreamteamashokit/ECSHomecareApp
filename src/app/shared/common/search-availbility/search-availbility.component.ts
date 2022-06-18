@@ -170,6 +170,8 @@ export class SearchAvailbilityComponent implements OnInit {
     debugger;
     this.IsLoad=true;    
     this.client.clientId=Number(this.searchModel.caseId);    
+    this.searchModel.payTypeId=Number(this.searchModel.payTypeId);  
+
     this.searchModel.provisionsList=this.provisionsTypeList.filter(x=>x.IsChecked==true).map(y=>Number(y.itemId));
     this.searchModel.fromDate = this.datepipe.transform(this._fromDate, 'dd-MM-yyyy')||"";   
     this.searchModel.toDate = this.datepipe.transform(this._toDate, 'dd-MM-yyyy')||"";  
