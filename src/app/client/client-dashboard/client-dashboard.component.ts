@@ -97,7 +97,7 @@ this.getAddress(this.model.clientId);
 
 
       BindMap(current:LocationView) {
-        debugger;
+        
            this.locMapId.nativeElement.innerHTML = "";
           var azureMap = new atlas.Map('locMapId', {
               center: [current.longitude , current.latitude],

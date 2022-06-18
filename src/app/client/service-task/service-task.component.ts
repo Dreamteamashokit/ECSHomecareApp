@@ -5,7 +5,7 @@ import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { ClientApiService } from 'src/app/services/client-api.service';
 
 import { Router,ActivatedRoute, Params } from '@angular/router';
-import { ClientStatusModel } from 'src/app/models/client/status-model';
+import { ClientStatusModel } from 'src/app/models/client/Status-model';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { ItemsList,MasterType} from 'src/app/models/common';

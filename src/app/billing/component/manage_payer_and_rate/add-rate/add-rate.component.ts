@@ -40,28 +40,47 @@ export class AddRateComponent implements OnInit {
         this.getPayerList()
     }
 
-    onClickSubmit() {
-        this.model.rateid = 0;
-        this.model.payerid = Number(this.model.payerid);
-        this.model.taxRate = Number(this.model.taxRate); 
-        this.model.hourly = Number(this.model.hourly);
-        this.model.type = Number(this.model.type);
-        this.model.livein = 0;
-        this.model.visit = 0;
-        this.model.createdBy = 0;
-        const rateObj: RateModel = this.model;
-
-        this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
-
-            if(res != null && res != undefined){
-                this.toastr.successToastr('Rate Added', 'Success!');
-                this.router.navigateByUrl('/billing');
+    onClickSubmit(addRateForm:NgForm) {
+        debugger;
+        if(addRateForm.valid){
+            this.model.rateid = 0;
+            this.model.payerid = Number(this.model.payerid);
+            if(!isNaN(this.model.taxRate)){
+                this.model.taxRate = Number(this.model.taxRate); 
             }
             else{
-                this.toastr.successToastr('Rate Added', 'Something wrong while add rate!');
+                this.model.taxRate = 0; 
+            } 
+            if(this.model.unit != null && this.model.unit != undefined &&  this.model.hourly !=null && this.model.hourly != undefined)
+            {
+                this.model.unit = this.model.unit + " " + this.model.hourly;
             }
-        })
-        
+            else if(this.model.unit != null && this.model.unit != undefined &&  (this.model.hourly == null || this.model.hourly == undefined))
+            {
+                this.model.unit = this.model.unit;
+            }
+            else if(this.model.unit == null && this.model.unit == undefined &&  (this.model.hourly != null && this.model.hourly != undefined)){
+                this.model.unit = this.model.hourly.toString();
+            }
+            
+            this.model.hourly = 0;
+            this.model.type = Number(this.model.type);
+            this.model.livein = 0;
+            this.model.visit = 0;
+            this.model.createdBy = 0;
+            const rateObj: RateModel = this.model;
+    
+            this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
+    
+                if(res != null && res != undefined){
+                    this.toastr.successToastr('Rate Added', 'Success!');
+                    this.router.navigateByUrl('/billing');
+                }
+                else{
+                    this.toastr.successToastr('Rate Added', 'Something wrong while add rate!');
+                }
+            })
+        }
     }
 
     getPayerList() {

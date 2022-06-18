@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { APIResponse } from '../models/api-response';
 import { ClientModel } from 'src/app/models/client/client-model';
-import { ClientStatusModel,ClientStatusLst } from 'src/app/models/client/status-model';
+import { ClientStatusModel,ClientStatusLst } from 'src/app/models/client/Status-model';
 import { Medicationcs } from '../models/client/medicationcs-model';
 import { ClientEmrgencyInfo } from 'src/app/models/client/EmergencyInfo';
 import { ServiceTaskView, ServiceTaskModel } from 'src/app/models/client/service-task-model';
@@ -25,7 +25,7 @@ export class ClientApiService {
   constructor(private _http: HttpClient) { }
 
   addClient(clObj: ClientModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -114,7 +114,7 @@ export class ClientApiService {
 
 
   getServiceTaskList(userId: number) {
-    debugger;
+    
     return this._http.get<APIResponse<ServiceTaskView[]>>(environment.domain + "/api/Client/getServiceTaskList" + '/' + userId);
   }
 
@@ -145,7 +145,7 @@ export class ClientApiService {
 
 
   createEmpDeclined(model: EmployeeDecline) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -158,7 +158,7 @@ export class ClientApiService {
 
 
   getEmpDeclined(userId: number) {
-    debugger;
+    
     return this._http.get<APIResponse<EmployeeDeclineView[]>>(environment.domain + "/api/Client/getEmpDeclined" + '/' + userId);
   }
 
@@ -203,7 +203,7 @@ export class ClientApiService {
   } 
 
   SaveClientContactLog(_obj: ClientContactLog) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -291,7 +291,7 @@ export class ClientApiService {
 
 
   addDiagnosis(_obj: DiagnosisModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -302,7 +302,7 @@ export class ClientApiService {
   }
 
   updateDiagnosis(_obj: DiagnosisModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -327,7 +327,7 @@ export class ClientApiService {
 
 
   addOtherInfo(reqObj: OtherInfoModel) {
-    debugger;
+  
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -339,7 +339,7 @@ export class ClientApiService {
 
   
   updateOtherInfo(reqObj: OtherInfoModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -354,7 +354,7 @@ export class ClientApiService {
   }
     
   SaveClientCommunity(_obj: ClientCommunityMaster) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -445,7 +445,7 @@ export class ClientApiService {
 
 
   addEmergContact(_obj: ContactModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -456,7 +456,7 @@ export class ClientApiService {
   }
 
   addEmergProvider(_obj: ProviderModel) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");

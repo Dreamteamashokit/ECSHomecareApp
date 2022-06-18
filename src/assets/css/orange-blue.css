@@ -9937,3 +9937,12 @@ width:100%;
   background: #e74c3c;
   color: #fff !important;
 }
+
+.modal-dialog-width /deep/ .modal-dialog {
+  width: 70%
+}
+@media(min-width:992px){
+  .modal-dialog-lg {
+    width: 70%
+  }
+}
