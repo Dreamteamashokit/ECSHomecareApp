@@ -3,8 +3,7 @@ import { HttpClient,HttpHeaders ,HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { ItemsList,SelectList } from 'src/app/models/common';
-import { ItemModel } from 'src/app/admin/model/item-model';
+import { FolderModel } from '../models/common/folder-model';
 import { FolderData } from '../models/employee/document';
 import { DeleteItem } from '../models/employee/deleteFolder'
 import{ FolderView } from 'src/app/models/employee/upload-file-folder';
@@ -14,25 +13,45 @@ import{ FolderView } from 'src/app/models/employee/upload-file-folder';
 export class DocumentService {
 
   constructor(private _http : HttpClient) { }
-
   
-  
-  folderCreate(data:FolderData){
+  addFolder(data:FolderModel){
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
     const httpOptions = {
       headers: headers_object
     }; 
-  return this._http.post(environment.domain + "/api/Document/SaveFolder", data,httpOptions);      
+  return this._http.post(environment.domain + "/api/Document/addFolder", data,httpOptions);      
   }
 
 
 
-  GetFolderList(empId:number){
-   debugger;
-    return this._http.get<APIResponse<FolderView[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + empId);
+  getDocumentlist(userId:number){
+
+    return this._http.get<APIResponse<FolderView[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + userId);
   }
+
+
+  deleteFolder(folderId:number,userId:number){   
+
+    debugger;
+    var headers_object = new HttpHeaders();
+    const Req_param=new HttpParams({
+      fromObject:{
+        'folderId':folderId,
+        'userId':userId,
+      }
+    });
+  return this._http.delete<APIResponse<string>>(environment.domain + "/api/Document/deleteFolder"+ '/' + folderId + '/' + userId);
+  }
+
+
+
+
+
+
+
+
   
   DownloadFile(documentName:string,foldername:string){ 
     const Req_param=new HttpParams().set('foldername',foldername);
@@ -51,7 +70,7 @@ export class DocumentService {
     const httpOptions = {
       headers: headers_object
     }; 
-    return this._http.post(environment.domain + "/api/Document/UploadFile", formData,{reportProgress: true, observe: 'events'},);  
+    return this._http.post(environment.domain + "/api/Document/addDocument", formData,{reportProgress: true, observe: 'events'},);  
   
   }
 
@@ -64,22 +83,14 @@ export class DocumentService {
         'FileName':obj.fileName,
         'FolderId':Number(obj.folderId),
         'FolderName':obj.folderName,
-        'empid':Number(obj.empId)
+        'UserId':Number(obj.userId)
       }
     });
   return this._http.delete(environment.domain + "/api/Document/DeletetDocumentFromS3",{params:Req_param});
   }
 
 
-  deleteFolder(folderId:number){   
-    var headers_object = new HttpHeaders();
-    const Req_param=new HttpParams({
-      fromObject:{
-        'folderId':folderId
-      }
-    });
-  return this._http.delete<APIResponse<string>>(environment.domain + "/api/Document/deleteFolder",{params:Req_param});
-  }
+
 
   
 

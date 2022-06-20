@@ -9,12 +9,12 @@ export class UploadFileFolder extends BaseModel
    public fileName:string;
    public folderName:string;
     
-    constructor(_Title:string,_Search:string,_folderid:number,_Description:string,_filename:string,_Foldername:string)
+    constructor(_Title:string,_Search:string,_folderId:number,_Description:string,_filename:string,_Foldername:string)
     {
         super();
         this.title=_Title;
         this.search=_Search;
-        this.folderId=_folderid;
+        this.folderId=_folderId;
         this.description=_Description;
         this.fileName=_filename;
         this.folderName=_filename;

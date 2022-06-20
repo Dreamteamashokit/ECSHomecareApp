@@ -74,9 +74,9 @@ export class ClientComplianceComponent implements OnInit {
   }
   GetFolderList(empid: number) {
      
-    this.DocApi.GetFolderList(empid).subscribe(Response => {
-      this.folders = Response.data;
-    });
+    // this.DocApi.GetFolderList(empid).subscribe(Response => {
+    //   this.folders = Response.data;
+    // });
   }
   GetCategoryList() {
     this.comApi.getCategoryList().subscribe(Response => {
