@@ -127,11 +127,11 @@ export class EmpDocumentComponent implements OnInit {
       this.IsLoad=true;
       var data=new FolderData(this.UserId,foldername);
       data.createdBy=this.currentUser.userId;
-       this.docSrv.folderCreate(data).subscribe(Response=>{ 
-            this.GetFolderList(this.UserId);
-            this.folderName="";
-            this.IsLoad=false;
-       });
+      //  this.docSrv.folderCreate(data).subscribe(Response=>{ 
+      //       this.GetFolderList(this.UserId);
+      //       this.folderName="";
+      //       this.IsLoad=false;
+      //  });
     }
     else
     {
@@ -144,11 +144,11 @@ export class EmpDocumentComponent implements OnInit {
 
 
   GetFolderList(UserId:number){
-    this.docSrv.GetFolderList(UserId).subscribe(response=>{     
-     this.FolderList=response.data;
-     console.log("file");
-     console.log(response.data);
-  });
+  //   this.docSrv.GetFolderList(UserId).subscribe(response=>{     
+  //    this.FolderList=response.data;
+  //    console.log("file");
+  //    console.log(response.data);
+  // });
 }
 
 cleanobj(){
@@ -177,14 +177,14 @@ DeleteFolder(folderId:number){
     if(isOk)
     {
       this.IsLoad=true;
-  this.docSrv.deleteFolder(folderId).subscribe(response=>{
+  // this.docSrv.deleteFolder(folderId).subscribe(response=>{
 
-    if(response.result)
-    {
-      this.GetFolderList(this.UserId);
-    }
-    this.IsLoad=false;
-  });
+  //   if(response.result)
+  //   {
+  //     this.GetFolderList(this.UserId);
+  //   }
+  //   this.IsLoad=false;
+  // });
 }
 }
 
@@ -192,7 +192,7 @@ DeleteFile(obj:any,foldername:string,folderid:number){
   this.Deletemodel.documentId=Number(obj.documentId);
   this.Deletemodel.folderId=0;
   this.Deletemodel.folderName=obj.foldername;
-  this.Deletemodel.empId=this.UserId;
+  this.Deletemodel.userId=this.UserId;
   this.Deletemodel.requestType=2;
   this.Deletemodel.fileName=obj.fileName;
 

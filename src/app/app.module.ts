@@ -88,6 +88,7 @@ import { UserDetailComponent } from './shared/user-detail/user-detail.component'
 import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
+import { DocumentComponent } from './common/document/document.component';
 
 
 @NgModule({
@@ -163,7 +164,7 @@ import { ComplianceCategoryComponent } from './common/compliance-category/compli
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent, ComplianceCategoryComponent,  
+    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent,  
   ],
   imports: [
     BrowserModule,
