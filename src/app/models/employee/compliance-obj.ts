@@ -11,4 +11,5 @@ export class ComplianceModel extends BaseModel {
     result: string;
     notes: string;
     isCompleted: boolean;
+    documentId:number;
 }

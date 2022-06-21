@@ -9,6 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { MasterService } from 'src/app/services/master.service';
+import { FolderView } from 'src/app/models/employee/upload-file-folder';
+
+import { DocumentService } from 'src/app/services/document.service';
+
 @Component({
   selector: 'app-emp-compliance',
   templateUrl: './emp-compliance.component.html',
@@ -29,13 +33,19 @@ export class EmpComplianceComponent implements OnInit {
   complianceList: ComplianceModel[] = [];
   isAddVisible: Boolean = true;
   isUpdateVisible: Boolean = false;
+  userFileList: FolderView[] = [];
+  
+
+
 
   @ViewChild("template") templateCategory: TemplateRef<any>;
   constructor(
     private comApi: CommonService,
+    private docSrv: DocumentService,
     private route: ActivatedRoute,
     private accountApi: AccountService,
-    private modalService: BsModalService, private empApi: EmployeeapiService) {
+    private modalService: BsModalService,
+     private empApi: EmployeeapiService) {
     setTheme('bs3');
     this.currentUser = this.accountApi.getCurrentUser();
     this.comApi.getEmpList().subscribe((response) => {
@@ -61,6 +71,7 @@ export class EmpComplianceComponent implements OnInit {
       (params: Params) => {
         this.model.userId = Number(params["empId"]);
         this.getCompliance(this.model.userId);
+        this.getDocList(this.model.userId); 
       }
     );
   }
@@ -126,6 +137,10 @@ debugger;
     this.model.categoryId = Number(this.model.categoryId);
     this.model.codeId = Number(this.model.codeId);
     this.model.createdBy = this.currentUser.userId;
+
+    this.model.documentId = Number(this.model.documentId);
+
+
     const reqObj: ComplianceModel = this.model;
     console.log('Search', reqObj);
     this.empApi.addCompliance(reqObj).subscribe((response) => {
@@ -157,6 +172,8 @@ debugger;
     this.model.userId = _item.userId;
     this.model.nurse = _item.nurse;
     this.model.categoryId = _item.categoryId;
+    this.model.documentId = _item.documentId;
+    
     //this.model.codeId = _item.codeId;
     this.model.dueDate = new Date(_item.dueDate);
     this.model.completedOn = _item.completedOn != null ? new Date(_item.completedOn) : undefined;
@@ -172,6 +189,22 @@ debugger;
       });
     }
   }
+
+
+  getDocList(userId: number) {
+    this.docSrv.getDocumentlist(userId).subscribe(response => {
+      if(response.result)
+      {
+        this.userFileList = response.data.filter(x=>x.documentList.length>0);  
+      }
+    });
+  }
+
+
+
+
+
+
 
 
 

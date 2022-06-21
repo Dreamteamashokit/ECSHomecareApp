@@ -40,5 +40,5 @@ export class DocumentView {
     fileName: string;
     filePath: string;
     createdByName: string;
-    createdOn: string;
+    createdOn: Date;
 }
