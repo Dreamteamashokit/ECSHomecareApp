@@ -21,7 +21,7 @@
         <div class="modal-body">
           <form name="frmIncident" #f="ngForm">
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label class="control-label">Due Date <span class="star">*</span></label>
                   <div class="input-group">
@@ -29,13 +29,13 @@
                       name="dueDate" #dueDate="ngModel" [(ngModel)]="model.dueDate" #dDate="bsDatepicker" bsDatepicker
                       [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
                     <div class="input-group-addon" (click)="dDate.toggle()" [attr.aria-expanded]="dDate.isOpen"><i
-                        class="fa fa-calendar"></i></div>
+                        class="fa fa-calendar text-orange"></i></div>
                   </div>
                   <em *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" for="txtdueDate"
                     class="invalid">This field is required</em>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label class="control-label">Completed On</label>
                   <div class="input-group">
@@ -43,24 +43,14 @@
                       name="completedOn" #completedOn="ngModel" [(ngModel)]="model.completedOn" #complTOn="bsDatepicker"
                       bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
                     <div class="input-group-addon" (click)="complTOn.toggle()" [attr.aria-expanded]="complTOn.isOpen"><i
-                        class="fa fa-calendar"></i></div>
+                        class="fa fa-calendar text-orange"></i></div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label class="control-label">Nurse</label>
-                  <select class="form-control" #nurse="ngModel" id="ddlNurse" name="nurse" [(ngModel)]="model.nurse">
-                    <option value="-1" disabled>Select</option>
-                    <option *ngFor="let obj of nurseList" [value]="obj.itemId">
-                      {{ obj.itemName }}
-                    </option>
-                  </select>
-                </div>
-              </div>
+
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div [class.col-lg-6]="IsCategory" [class.col-lg-12]="!IsCategory">
                 <div class="form-group">
                   <label class="control-label">Category <span class="star">*</span></label>
                   <select required class="form-control" id="ddlCategory" #category="ngModel" name="category"
@@ -74,9 +64,9 @@
                 <em *ngIf="category.invalid && (category.dirty || category.touched)" for="ddlCategory"
                   class="invalid">This field is required</em>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" *ngIf="IsCategory">
                 <div class="form-group">
-                  <label class="control-label">Code <span class="star">*</span></label>
+                  <label class="control-label">{{lblCategory}} <span class="star">*</span></label>
                   <select required class="form-control" id="ddlCode" #code="ngModel" name="code"
                     [(ngModel)]="model.codeId">
                     <option *ngFor="let obj of subCategoryList" [value]="obj.itemId">
@@ -89,36 +79,104 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <!-- <div class="col-lg-6">
                 <div class="form-group">
                   <label class="control-label">Result</label>
                   <input type="text" #result="ngModel" id="txtresult" name="result" [(ngModel)]="model.result"
                     class="form-control">
                 </div>
-              </div>
+              </div> -->
+
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="control-label">Attach Document</label>
-                  <select class="form-control" id="ddldocumentId" name="documentId" #documentId="ngModel"
-                    [(ngModel)]="model.documentId">
-                    <optgroup *ngFor="let tag of userFileList" [label]="tag.folderName">
-                      <option *ngFor="let item of tag.documentList" [value]="item.documentId">
-                        {{ item.fileName }}
-                      </option>
-                    </optgroup>
+                  <div class="input-group">
+                    <select class="form-control" id="ddldocumentId" name="documentId" #documentId="ngModel"
+                      [(ngModel)]="model.documentId">
+                      <optgroup *ngFor="let tag of userFileList" [label]="tag.folderName">
+                        <option *ngFor="let item of tag.documentList" [value]="item.documentId">
+                          {{ item.fileName }}
+                        </option>
+                      </optgroup>
+                    </select>
+                    <div class="input-group-addon">
+                      <a href="javascript:void(0)" (click)="addFile(userTypeId)">
+                        <i class="fa fa-plus-square text-orange"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="userTypeId===8">
+                <div class="form-group">
+                  <label class="control-label">Nurse</label>
+                  <select class="form-control" #nurse="ngModel" id="ddlNurse" name="nurse" [(ngModel)]="model.nurseId">
+                    <option value="-1" disabled>Select</option>
+                    <option *ngFor="let obj of nurseList" [value]="obj.itemId">
+                      {{ obj.itemName }}
+                    </option>
                   </select>
                 </div>
               </div>
+              <div class="col-lg-6" *ngIf="userTypeId!==8">
+                <div class="form-group">
+                  <label class="control-label">Status</label>
+                  <select class="form-control" #isStatus="ngModel" id="ddlisStatus" name="isStatus" [(ngModel)]="model.isStatus">
+                    <option *ngFor="let obj of statusList" [value]="obj.itemId">
+                      {{ obj.itemName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="form-group">
-                  <label class="control-label">Notes</label>
+                  <label class="control-label">Notes/Result</label>
                   <textarea rows="3" placeholder="Notes" #notes="ngModel" id="txtnotes" name="notes"
                     [(ngModel)]="model.notes" class="form-control"></textarea>
                 </div>
               </div>
             </div>
+
+            <div class="row" *ngIf="userTypeId===9">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="control-label">Office User</label>
+                  <select class="form-control">
+                    <option value="-1" disabled>Select Office User</option>
+                    <option *ngFor="let obj of officeUserList" [value]="obj.itemId">
+                      {{ obj.itemName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="control-label">Employee</label>
+                  <select class="form-control">
+                    <option value="-1" disabled>Select Employee</option>
+                    <option *ngFor="let obj of empList" [value]="obj.itemId">
+                      {{ obj.itemName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="row">
               <div class="col-lg-12 text-center">
                 <button type="button" [disabled]="f.invalid" class="btn btn-md btn-dark mbm mts "
@@ -142,7 +200,8 @@
                 <th>Due Date </th>
                 <th>Completed Date</th>
                 <th>Category</th>
-                <th>Code</th>
+                <th>{{lblCategory}}</th>
+                <th *ngIf="userTypeId!==8">Status</th>
                 <th colspan="2">Notes</th>
               </tr>
             </thead>
@@ -154,6 +213,9 @@
                 <td> {{ item.category }}</td>
                 <td> {{ item.code }}</td>
                 <td> {{ item.notes }}</td>
+
+                <td *ngIf="userTypeId!==8"> {{ item.statusName }}</td>
+                
                 <td>
                   <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
                       class="fa fa-edit medium-txt pts mrm"></i></a>

@@ -3,7 +3,7 @@ export class ComplianceModel extends BaseModel {
     complianceId: number;
     dueDate: Date;
     completedOn?: Date;
-    nurse: number;
+    nurseId: number;
     categoryId: number;
     codeId: number;
     category: string;
@@ -11,5 +11,7 @@ export class ComplianceModel extends BaseModel {
     result: string;
     notes: string;
     isCompleted: boolean;
+    isStatus: number;
     documentId:number;
+    statusName: string;
 }

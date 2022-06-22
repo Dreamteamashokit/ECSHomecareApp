@@ -73,8 +73,8 @@ export class MasterService {
     return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getCMPLUserCategoryList" + "/" + userTypeId);
   }
 
-  getCMPLCategoryList(categoryId: number) {
-    return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getCMPLCategoryList" + "/" + categoryId);
+  getCMPLCategoryList(categoryId: number,userTypeId: number) {
+    return this._http.get<APIResponse<CategoryModel[]>>(environment.domain + "/api/Master/getCMPLCategoryList" + "/" + categoryId+ "/" + userTypeId);
   }
 
   delCMPLCategory(categoryId: number) {

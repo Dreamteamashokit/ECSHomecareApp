@@ -23,55 +23,72 @@
                     <li class="dropdown ">
                         <div class="dropdown" dropdown>
                             <button dropdownToggle class="btn btn-dark dropdown-toggle" type="button"
-                                    data-toggle="dropdown">
+                                data-toggle="dropdown">
                                 <span>Employee</span>&nbsp;<span class="caret"></span>
                             </button>
                             <ul *dropdownMenu class="dropdown-menu">
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(0)" class="dropdown-toggle">Dashboard</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(0)"
+                                        class="dropdown-toggle">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(1)" class="dropdown-toggle">Schedule</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(1)"
+                                        class="dropdown-toggle">Schedule</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(2)" class="dropdown-toggle">Search Availablility</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(2)" class="dropdown-toggle">Search
+                                        Availablility</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(3)" class="dropdown-toggle">General</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(3)"
+                                        class="dropdown-toggle">General</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(4)" class="dropdown-toggle">Status</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(4)"
+                                        class="dropdown-toggle">Status</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(5)" class="dropdown-toggle">Address</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(5)"
+                                        class="dropdown-toggle">Address</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(6)" class="dropdown-toggle">Service Task</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(6)" class="dropdown-toggle">Service
+                                        Task</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(7)" class="dropdown-toggle">Medications</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(7)"
+                                        class="dropdown-toggle">Medications</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(8)" class="dropdown-toggle">Declined Employees</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(8)" class="dropdown-toggle">Declined
+                                        Employees</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(9)" class="dropdown-toggle">Contact Log</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(9)" class="dropdown-toggle">Contact
+                                        Log</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(10)" class="dropdown-toggle">Other</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(10)"
+                                        class="dropdown-toggle">Other</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(11)" class="dropdown-toggle">Diagnosis</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(11)"
+                                        class="dropdown-toggle">Diagnosis</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="selectTab(12)" class="dropdown-toggle">Note</a>
+                                    <a href="javascript:void(0)" (click)="selectTab(12)"
+                                        class="dropdown-toggle">Note</a>
                                 </li>
 
-                                <li><a href="javascript:void(0)" (click)="selectTab(13)" class="dropdown-toggle">Group Info
-                                </a></li>
-                                <li><a href="javascript:void(0)" (click)="selectTab(14)" class="dropdown-toggle">Provision</a></li>
-                                <li><a href="javascript:void(0)" (click)="selectTab(15)" class="dropdown-toggle">Compliance</a></li>
-                                <li><a href="javascript:void(0)" (click)="selectTab(16)" class="dropdown-toggle">Billing</a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(13)" class="dropdown-toggle">Group
+                                        Info
+                                    </a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(14)"
+                                        class="dropdown-toggle">Provision</a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(15)"
+                                        class="dropdown-toggle">Compliance</a></li>
+                                <li><a href="javascript:void(0)" (click)="selectTab(16)"
+                                        class="dropdown-toggle">Billing</a></li>
                             </ul>
                         </div>
                     </li>
@@ -130,14 +147,16 @@
                     <tab heading="Provision">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Provisions</strong> </h4>      
-                              
+                                <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Provisions</strong> </h4>
+
                             </div>
-                          </div>
+                        </div>
                         <app-client-provisions></app-client-provisions>
                     </tab>
                     <tab heading="Compliance">
-                        <app-client-compliance></app-client-compliance>
+                        <!-- <app-client-compliance></app-client-compliance> -->
+
+                        <app-emp-compliance></app-emp-compliance>
                     </tab>
                     <tab heading="Billing">
                         <app-client-billing></app-client-billing>

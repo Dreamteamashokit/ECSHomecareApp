@@ -122,8 +122,8 @@ export class CommonService {
     return this._http.get<APIResponse<ClientGeoProvisions>>(environment.domain + "/api/Common/getUsersGeoProvision" + '/' + userId);
   }
 
-  getCMPLCategoryList(categoryId: number) {
-    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getCMPLCategoryList" + '/' + categoryId);
+  getCMPLCategoryList(categoryId: number,userTypeId: number) {
+    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getCMPLCategoryList" + '/' + categoryId+ '/' + userTypeId);
   }
 
 }

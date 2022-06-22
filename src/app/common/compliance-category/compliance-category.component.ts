@@ -32,9 +32,9 @@ export class ComplianceCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getParentList(0);
     this.model.parentId =0;
     this.model.userTypeId=8;
+    this.getParentList(0,this.model.userTypeId);
     this.getCategoryList(this.model.userTypeId);
   }
 
@@ -47,7 +47,7 @@ export class ComplianceCategoryComponent implements OnInit {
     const reqObj: CategoryModel = this.model;
     this.mstrApi.addCMPLCategory(reqObj).subscribe(response => {      
       this.getCategoryList(this.model.userTypeId);
-      this.getParentList(0);
+      this.getParentList(0,this.model.userTypeId);
       this.model.categoryName = "";
     })
 
@@ -55,9 +55,9 @@ export class ComplianceCategoryComponent implements OnInit {
 
 
 
-getParentList(categoryId: number) {
+getParentList(categoryId: number,userTypeId:number) {
 
-  this.mstrApi.getCMPLCategoryList(categoryId).subscribe((response) => {
+  this.mstrApi.getCMPLCategoryList(categoryId,userTypeId).subscribe((response) => {
       if(response.result)
       {       
         this.parentList = response.data;       
@@ -95,7 +95,7 @@ getParentList(categoryId: number) {
     if (isOk) {
       this.mstrApi.delCMPLCategory(categoryId).subscribe((response) => {
         this.getCategoryList(this.model.userTypeId);
-        this.getParentList(0);
+        this.getParentList(0,this.model.userTypeId);
       });
     }
   }
@@ -115,6 +115,7 @@ getParentList(categoryId: number) {
     this.model.userTypeId=id;
     if (id != 0) {
       this.getCategoryList(this.model.userTypeId);
+      this.getParentList(0,this.model.userTypeId);
     }
   }
 
