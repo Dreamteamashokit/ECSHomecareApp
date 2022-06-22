@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
 })
 export class AddRateComponent implements OnInit {
 
-    //model: RateModel = Object.create({});
     model: RateModel = new RateModel()
     currentUser: UserModel;
     payerItemList = Array<ItemsList>();

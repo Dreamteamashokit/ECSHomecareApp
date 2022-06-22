@@ -463,6 +463,6 @@ export class ClientBillingComponent implements OnInit {
       this.model.quantity_FRI = this.Quantity;
       this.model.quantity_SUN = this.Quantity;
     }
-    }
+  }
   
 }
