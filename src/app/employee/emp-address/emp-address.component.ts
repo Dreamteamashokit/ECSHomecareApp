@@ -163,7 +163,7 @@ export class EmpAddressComponent implements OnInit {
   getAddress(empId: number) {
 
  
-console.log(this.currentUser);
+
     var loc = new LocationView();  
     this.IsLoad=true;
     this.empApi.geAddress(empId).subscribe({ 
@@ -174,18 +174,22 @@ console.log(this.currentUser);
           this.model.userId=empId;
           loc.Location=this.model.address;
           loc.latitude=this.model.latitude;
-          loc.longitude=this.model.longitude;      
+          loc.longitude=this.model.longitude;    
+          loc.owner=this.model.owner; 
+          //console.log(this.model); 
         }
         else
         {
           loc.latitude=this.currentUser.latitude;
           loc.longitude=this.currentUser.longitude;  
+          loc.owner=this.currentUser.userName;
         }       
        },
        error: (err) => { 
         console.log(err);     
         loc.latitude=this.currentUser.latitude;
         loc.longitude=this.currentUser.longitude;   
+        loc.owner=this.currentUser.userName;
         this.IsLoad = false;
         this.BindMap(loc);
       },
@@ -199,65 +203,128 @@ console.log(this.currentUser);
   
   }
 
-  BindMap(current:LocationView) {
+  BindMap(current: LocationView) {
 
-       this.addressMapId.nativeElement.innerHTML = "";
+    this.addressMapId.nativeElement.innerHTML = "";
 
-       
-      var azureMap = new atlas.Map('addressMapId', {
-          center: [current.longitude , current.latitude],
-          zoom: 12,
-          language: 'en-US',
-          authOptions: {
-              authType: atlas.AuthenticationType.subscriptionKey,
-              subscriptionKey: 'MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE'
-          },
-          enableAccessibility: false,
-      });
-      azureMap.events.add('ready', function () {
+    var popup = new atlas.Popup({
+      pixelOffset: [0, -18],
+      closeButton: false,
+    });
+
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name">{name}</div></div>';
+
+
+    var azureMap = new atlas.Map("addressMapId", {
+      center: [current.longitude, current.latitude],
+      zoom: 12,
+      language: "en-US",
+      authOptions: {
+        authType: atlas.AuthenticationType.subscriptionKey,
+        subscriptionKey: "MN84wEo1nrqpatQkVsnYlG1svQ9ZEw4IG6qU_6P82gE",
+      },
+      enableAccessibility: false,
+    });
+    azureMap.events.add("ready", function () {
+      /* Construct a zoom control*/
+      var zoomControl = new atlas.control.ZoomControl();
+
+      var zoomOption = {
+        position: atlas.ControlPosition.TopLeft,
+      };
+      /* Add the zoom control to the map*/
+      azureMap.controls.add(zoomControl, zoomOption);
+
       //Load the custom image icon into the map resources.
-      azureMap.imageSprite.add('my-custom-icon', 'https://img.icons8.com/material-two-tone/2x/home--v2.png').then(function () {
+      azureMap.imageSprite
+        .add(
+          "my-custom-icon",
+          "https://img.icons8.com/material-two-tone/2x/home--v2.png"
+        )
+        .then(function () {
+          //Create a data source and add it to the map.
+          var datasource = new atlas.source.DataSource();
+          azureMap.sources.add(datasource);
 
-    //Create a data source and add it to the map.
-    var datasource = new atlas.source.DataSource();
-    azureMap.sources.add(datasource);
-    //Create a point feature and add it to the data source.
-    datasource.add(new atlas.data.Feature(new atlas.data.Point([Number(current.longitude), Number(current.latitude)])));
+          //Create a point feature and add it to the data source.
+          // datasource.add(
+          //   new atlas.data.Feature(
+          //     new atlas.data.Point([
+          //       Number(current.longitude),
+          //       Number(current.latitude),
+          //     ])
+          //   )
+          // );
 
-    //Add a layer for rendering point data as symbols.
-    azureMap.layers.add(new atlas.layer.SymbolLayer(datasource, "", {
-      iconOptions: {
-        image: 'my-custom-icon',
-        size: 0.5
-      }
-    }));
-  });
-          /*Create a data source and add it to the map*/
-          var dataSource = new atlas.source.DataSource();
-          azureMap.sources.add(dataSource);
-          var points: any[]=[];
-          var cpoint = new atlas.Shape(new atlas.data.Point([Number(current.longitude), Number(current.latitude)])); 
-          points.push(cpoint);    
-          //Add the symbol to the data source.
-          dataSource.add(points);
-          //Create a symbol layer using the data source and add it to the map
-          azureMap.layers.add(new atlas.layer.SymbolLayer(dataSource, ""));
-      });
+             //Create a point feature and add it to the data source.
+             datasource.add(
+              new atlas.data.Feature(
+                new atlas.data.Point([Number(current.longitude), Number(current.latitude)]),
+                { name: current.owner }
+              ));
+
+              var masterSymbolLayer=new atlas.layer.SymbolLayer(datasource, "", {
+                iconOptions: {
+                  image: 'my-custom-icon',
+                  size: 0.5
+                }
+              });
+          //Add a layer for rendering point data as symbols.
+          azureMap.layers.add(masterSymbolLayer);
+
+          
+          //Add a hover event to the symbol layer.
+          azureMap.events.add("mouseover", masterSymbolLayer, function (e) {
+            //Make sure that the point exists.
+            if (e.shapes && e.shapes.length > 0) {
+              var content, coordinate;
+              var shape = (<any>e.shapes)[0].data;
+              var clientNameMap = shape.properties.name;
+              content = popupTemplate.replace(/{name}/g, clientNameMap);
+              coordinate = e.position;
+              popup.setOptions({ content: content, position: coordinate });
+              popup.open(azureMap);
+            }
+          });
+
+        });
+      // /*Create a data source and add it to the map*/
+      // var dataSource = new atlas.source.DataSource();
+      // azureMap.sources.add(dataSource);
+      // var points: any[] = [];
+      // var cpoint = new atlas.Shape(
+      //   new atlas.data.Point([
+      //     Number(current.longitude),
+      //     Number(current.latitude),
+      //   ])
+      // );
+      // points.push(cpoint);
+      // //Add the symbol to the data source.
+      // dataSource.add(points);
+      // //Create a symbol layer using the data source and add it to the map
+      // var AllSymbolLayerPoint=new atlas.layer.SymbolLayer(dataSource, "");
+      // azureMap.layers.add(AllSymbolLayerPoint);
+
+      
+    });
+  }
+  
+  ngAfterContentInit() {
+    setTimeout(this.HidemyFunction, 2000);
+  }
+
+  HidemyFunction() {
+    let maptooltiptext = document.getElementsByClassName("tooltiptext");
+    console.log(maptooltiptext);
+    var i = 0;
+    for (i = 0; i < maptooltiptext.length; i++) {
+      maptooltiptext[i].innerHTML = "";
     }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+    document.getElementsByClassName(
+      "azure-map-copyright-context"
+    )[0].innerHTML = "";
+  }
   
   }
   
