@@ -215,7 +215,7 @@ export class EmpAddressComponent implements OnInit {
     var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name">{name}</div></div>';
 
 
-    var azureMap = new atlas.Map("addressMapId", {
+    var newAzureMap = new atlas.Map("addressMapId", {
       center: [current.longitude, current.latitude],
       zoom: 12,
       language: "en-US",
@@ -225,7 +225,7 @@ export class EmpAddressComponent implements OnInit {
       },
       enableAccessibility: false,
     });
-    azureMap.events.add("ready", function () {
+    newAzureMap.events.add("ready", function () {
       /* Construct a zoom control*/
       var zoomControl = new atlas.control.ZoomControl();
 
@@ -233,10 +233,10 @@ export class EmpAddressComponent implements OnInit {
         position: atlas.ControlPosition.TopLeft,
       };
       /* Add the zoom control to the map*/
-      azureMap.controls.add(zoomControl, zoomOption);
+      newAzureMap.controls.add(zoomControl, zoomOption);
 
       //Load the custom image icon into the map resources.
-      azureMap.imageSprite
+      newAzureMap.imageSprite
         .add(
           "my-custom-icon",
           "https://img.icons8.com/material-two-tone/2x/home--v2.png"
@@ -244,7 +244,7 @@ export class EmpAddressComponent implements OnInit {
         .then(function () {
           //Create a data source and add it to the map.
           var datasource = new atlas.source.DataSource();
-          azureMap.sources.add(datasource);
+          newAzureMap.sources.add(datasource);
 
           //Create a point feature and add it to the data source.
           // datasource.add(
@@ -270,11 +270,11 @@ export class EmpAddressComponent implements OnInit {
                 }
               });
           //Add a layer for rendering point data as symbols.
-          azureMap.layers.add(masterSymbolLayer);
+          newAzureMap.layers.add(masterSymbolLayer);
 
           
           //Add a hover event to the symbol layer.
-          azureMap.events.add("mouseover", masterSymbolLayer, function (e) {
+          newAzureMap.events.add("mouseover", masterSymbolLayer, function (e) {
             //Make sure that the point exists.
             if (e.shapes && e.shapes.length > 0) {
               var content, coordinate;
@@ -283,7 +283,7 @@ export class EmpAddressComponent implements OnInit {
               content = popupTemplate.replace(/{name}/g, clientNameMap);
               coordinate = e.position;
               popup.setOptions({ content: content, position: coordinate });
-              popup.open(azureMap);
+              popup.open(newAzureMap);
             }
           });
 
