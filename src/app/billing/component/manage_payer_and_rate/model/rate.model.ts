@@ -35,6 +35,7 @@ export class RateModel extends BaseModel {
     livein: number;
     visit: number;
     unit: string;
+    per:string;
     modifiers1: string;
     modifiers2: string;
     modifiers3: string;
@@ -43,6 +44,7 @@ export class RateModel extends BaseModel {
     mutualGroup: boolean;
     notes: string;
     createdBy: number;
+    taxratepercentage:number;
 }
 
 
