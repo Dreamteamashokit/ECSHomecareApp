@@ -217,15 +217,15 @@
                     <label class="control-label">Payer</label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" *ngIf="rateDetails.payerName != null && rateDetails.payerName != undefined">
-                        <label class="control-label text-orange">{{rateDetails.payerName}}</label>          
+                    <div class="form-group" *ngIf="rateReadDetails.payerName != null && rateReadDetails.payerName != undefined">
+                        <label class="control-label text-orange">{{rateReadDetails.payerName}}</label>          
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-2 col-sm-2">
                         <label class="control-label">Service Code </label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    &nbsp;&nbsp;<b *ngIf="rateDetails.serviceCode != null && rateDetails.serviceCode != undefined">{{rateDetails.serviceCode}}</b>
+                    &nbsp;&nbsp;<b *ngIf="rateReadDetails.serviceCode != null && rateReadDetails.serviceCode != undefined">{{rateReadDetails.serviceCode}}</b>
                 </div>
             </div>
 
@@ -240,8 +240,8 @@
                     <label class="control-label">Bill Code</label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" *ngIf="rateDetails.billCode != null && rateDetails.billCode != undefined">
-                        <b>{{rateDetails.billCode}}</b>
+                    <div class="form-group" *ngIf="rateReadDetails.billCode != null && rateReadDetails.billCode != undefined">
+                        <b>{{rateReadDetails.billCode}}</b>
                     </div>
                 </div>
             </div>
@@ -260,10 +260,10 @@
                     <label class="control-label">Modifiers</label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <b *ngIf="rateDetails.Modifiers1 != null && rateDetails.Modifiers1 != undefined">{{rateDetails.Modifiers1}}</b>
-                    <b *ngIf="rateDetails.Modifiers2 != null && rateDetails.Modifiers2 != undefined">{{rateDetails.Modifiers2}}</b>
-                    <b *ngIf="rateDetails.Modifiers3 != null && rateDetails.Modifiers3 != undefined">{{rateDetails.Modifiers3}}</b>
-                    <b *ngIf="rateDetails.Modifiers4 != null && rateDetails.Modifiers4 != undefined">{{rateDetails.Modifiers4}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers1 != null && rateReadDetails.Modifiers1 != undefined">{{rateReadDetails.Modifiers1}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers2 != null && rateReadDetails.Modifiers2 != undefined">{{rateReadDetails.Modifiers2}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers3 != null && rateReadDetails.Modifiers3 != undefined">{{rateReadDetails.Modifiers3}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers4 != null && rateReadDetails.Modifiers4 != undefined">{{rateReadDetails.Modifiers4}}</b>
                 </div>
             </div>
 
@@ -272,18 +272,18 @@
                     <label class="control-label">Rate</label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" *ngIf="rateDetails.taxRate != null && rateDetails.taxRate != undefined">
-                        <b >$ {{rateDetails.taxRate}}</b>
+                    <div class="form-group" *ngIf="rateReadDetails.taxRate != null && rateReadDetails.taxRate != undefined">
+                        <b >$ {{rateReadDetails.taxRate}}</b>
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-2 col-sm-2">
                     <label class="control-label">Effective Dates </label>
-                    &nbsp;&nbsp;<b>{{rateDetails.validFrom |  date:'dd-MM-yyyy'}} -</b>
+                    &nbsp;&nbsp;<b>{{rateReadDetails.validFrom |  date:'dd-MM-yyyy'}} -</b>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
                     <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
                         [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" id="txtvalidTo" name="validToDate" 
-                        #validToDate="ngModel"  [(ngModel)]="rateDetails.validTo" disabled="disabled">
+                        #validToDate="ngModel"  [(ngModel)]="rateReadDetails.validTo" disabled="disabled">
                 </div>
             </div>
 
@@ -293,8 +293,8 @@
                     <label class="control-label">Revenue Code</label>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" *ngIf="rateDetails.revenueCode != null && rateDetails.revenueCode != undefined">
-                        <b>{{rateDetails.revenueCode}}</b>
+                    <div class="form-group" *ngIf="rateReadDetails.revenueCode != null && rateReadDetails.revenueCode != undefined">
+                        <b>{{rateReadDetails.revenueCode}}</b>
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-2 col-sm-2">
@@ -312,22 +312,23 @@
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
                     <div class="form-group">
-                        <div *ngIf='rateDetails.mutualGroup == "Un-Mutual"'>
-                            <input type="checkbox" name="mutual-group">
+                        
+                        <div *ngIf='rateReadDetails.mutualGroup == false'>
+                            <input type="checkbox" name="mutual-groupread">
                         </div>
-                        <div *ngIf='rateDetails.mutualGroup == "Mutual"'>
-                            <input type="checkbox" class="checkbox" name="mutual-group" checked="checked">
+                        <div *ngIf='rateReadDetails.mutualGroup == true'>
+                            <input type="checkbox" class="checkbox" name="mutual-groupread" checked="checked">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-lg-2 col-sm-2">
                     <div class="form-group">
-                        <label class="control-label">Notes </label>
+                        <label class="control-label">Notes</label>
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-4">
-                    <div class="form-group" *ngIf="rateDetails.notes != null && rateDetails.notes != undefined">
-                        <textarea class="form-control" value="{{rateDetails.notes}}" disabled="disabled"></textarea>
+                    <div class="form-group" *ngIf="rateReadDetails.notes != null && rateReadDetails.notes != undefined">
+                        <textarea class="form-control" value="{{rateReadDetails.notes}}" disabled="disabled"></textarea>
                     </div>
                 </div>
             </div>
@@ -340,8 +341,8 @@
                     </div>
                 </div>
                 <div class="col-md-10 col-lg-10 col-sm-10">
-                    <div class="form-group" *ngIf="rateDetails.placeOfService != null && rateDetails.placeOfService != undefined">
-                        {{rateDetails.placeOfService}}
+                    <div class="form-group" *ngIf="rateReadDetails.placeOfService != null && rateReadDetails.placeOfService != undefined">
+                        {{rateReadDetails.placeOfService}}
                     </div>
                 </div>
             </div>
@@ -524,7 +525,6 @@
                             #revenueCode="ngModel"  [(ngModel)]="rateDetails.revenueCode">
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="col-md-12 col-lg-12 col-sm-12">

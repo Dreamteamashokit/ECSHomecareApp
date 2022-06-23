@@ -26,8 +26,11 @@ export class PayerrateComponent implements OnInit {
   modalRef?: BsModalRef;
   rateList:any;
   rateDetails:any;
+  rateReadDetails:any;
   unitstr:string;
   typestr:string;
+  mutualGroup:boolean;
+  
   ngOnInit(): void {
     this.GetPayerRateList();
   }
@@ -79,7 +82,7 @@ export class PayerrateComponent implements OnInit {
 
   editModal(rate:any,template: TemplateRef<any>){
     this.model = rate;
-    
+    this.rateReadDetails = rate;
     this.typestr = rate.type;
     if(rate != null && rate != undefined && rate.type == 'Hourly')
     {
@@ -109,11 +112,7 @@ export class PayerrateComponent implements OnInit {
     {
       this.model.mutualGroup = false;  
     }
-    else
-    {
-      this.model.mutualGroup = false;  
-    }
-    if(rate != null && rate != undefined && rate.mutualGroup != undefined && rate.mutualGroup == 'Mutual')
+    else if(rate != null && rate != undefined && rate.mutualGroup != undefined && rate.mutualGroup == 'Mutual')
     {
       this.model.mutualGroup = true;  
     }
@@ -157,10 +156,10 @@ export class PayerrateComponent implements OnInit {
           this.model.notes = editRateForm.value.Notes;
           this.model.revenueCode = editRateForm.value.revenueCode;
           this.model.taxRate = editRateForm.value.taxRate;
-
-          if(this.model.mutualGroup != null && this.model.mutualGroup != undefined){
-            this.model.mutualGroup = false;
-          }
+          
+          // if(this.model.mutualGroup != null && this.model.mutualGroup != undefined){
+          //   this.model.mutualGroup = false;
+          // }
           if(editRateForm.value.validFrom != null && editRateForm.value.validFrom != undefined)
           {
             this.model.validFrom = editRateForm.value.validFrom;
@@ -184,16 +183,16 @@ export class PayerrateComponent implements OnInit {
         else{
             this.model.taxRate = 0; 
         } 
-        if(this.model.unit != null && this.model.unit != undefined &&  this.model.hourly !=null && this.model.hourly != undefined)
+        if(this.model.unit != null && this.model.unit != undefined &&  this.model.per !=null && this.model.per != undefined)
         {
-            this.model.unit = this.model.unit + " " + this.model.hourly;
+            this.model.unit = this.model.unit + " " + this.model.per;
         }
-        else if(this.model.unit != null && this.model.unit != undefined &&  (this.model.hourly == null || this.model.hourly == undefined))
+        else if(this.model.unit != null && this.model.unit != undefined &&  (this.model.per == null || this.model.per == undefined))
         {
             this.model.unit = this.model.unit;
         }
-        else if(this.model.unit == null && this.model.unit == undefined &&  (this.model.hourly != null && this.model.hourly != undefined)){
-            this.model.unit = this.model.hourly.toString();
+        else if(this.model.unit == null && this.model.unit == undefined &&  (this.model.per != null && this.model.per != undefined)){
+            this.model.unit = this.model.per.toString();
         }
         
         this.model.hourly = 0;
@@ -206,6 +205,7 @@ export class PayerrateComponent implements OnInit {
 
             if(res != null && res != undefined){
                 this.toastr.successToastr('Rate Updated', 'Success!');
+                this.GetPayerRateList();
                 this.modalRef?.hide();
             }
             else{
