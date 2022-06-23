@@ -164,19 +164,6 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="row">
               <div class="col-lg-12 text-center">
                 <button type="button" [disabled]="f.invalid" class="btn btn-md btn-dark mbm mts "
@@ -212,10 +199,8 @@
                 <td> {{item.completedOn | date: 'dd MMM YYYY'}}</td>
                 <td> {{ item.category }}</td>
                 <td> {{ item.code }}</td>
-                <td> {{ item.notes }}</td>
-
                 <td *ngIf="userTypeId!==8"> {{ item.statusName }}</td>
-                
+                <td> {{ item.notes }}</td>
                 <td>
                   <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
                       class="fa fa-edit medium-txt pts mrm"></i></a>
