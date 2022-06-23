@@ -58,17 +58,28 @@ export class DocumentComponent implements OnInit {
         if (params["empId"] != null) {
           this.fModel.userId = Number(params["empId"]);
           this.IsClient = false;
+          this.GetFolderList(this.fModel.userId);
         }
         else {
           this.fModel.userId = Number(params["clientId"]);
 
           this.IsClient = true;
+          this.GetFolderList(this.fModel.userId);
         }
-        this.GetFolderList(this.fModel.userId);
+
       }
     );
 
   }
+
+
+
+
+
+
+
+
+
 
 
   CreateFolder(foldername: string) { 

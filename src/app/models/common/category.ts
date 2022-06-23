@@ -5,6 +5,8 @@ export class CategoryModel extends BaseModel {
     public categoryName: string;    
     public parentId?: number;
     public parentName: string;
+    public userTypeId: number;
+    
 }
 
 

@@ -6381,12 +6381,12 @@ a.list-group-item.active > .badge,
   border-color: #4b5d67 !important;
 }
 .panel.panel-dark {
-  border-color: #594857;
+  border-color: #323131;
 }
 .panel.panel-dark > .panel-heading {
   color: #FFFFFF;
-  background: #594857;
-  border-color: #594857 !important;
+  background: #323131;
+  border-color: #323131 !important;
 }
 .panel.panel-dark > .panel-heading .subtitle {
   color: #FFFFFF;
@@ -9945,4 +9945,10 @@ width:100%;
   .modal-dialog-lg {
     width: 70%
   }
+}
+.link-white:link{
+  color:#fff
+}
+.link-white:hover{
+  color:#e67273
 }

@@ -144,7 +144,7 @@ export class PatientComponent implements OnInit {
           this.model.MeetingId = 0;
           let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
           this.model.DateString = dateString || "";
-
+          console.log(this.model);
           if (!this.signaturePad.isEmpty() && !this.HHAsignaturePad.isEmpty()) {
             if (
               this.HHAsignaturePad.toDataURL() != null &&

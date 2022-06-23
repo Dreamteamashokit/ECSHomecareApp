@@ -90,6 +90,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
 import { DocumentComponent } from './common/document/document.component';
 
+import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
+
 
 @NgModule({
   declarations: [
@@ -164,7 +166,7 @@ import { DocumentComponent } from './common/document/document.component';
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent,  
+    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe,  
   ],
   imports: [
     BrowserModule,

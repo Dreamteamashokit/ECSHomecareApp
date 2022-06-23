@@ -52,6 +52,7 @@ export class ClockinoutComponent implements OnInit {
     this.model.MeetingId =this.SelectedClient.meetingId;
     let dateString=this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
     this.model.DateString=dateString||'';
+    console.log(this.model);
     if(Type ==1)
     {
       this._accountService.HHAClockIn(this.model).subscribe((response) => {

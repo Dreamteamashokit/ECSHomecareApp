@@ -51,7 +51,8 @@ export enum MasterType {
     ClientStatusActivity,
     ClientStatusReferralCode,
     CaseType,
-    AbsenceActivity
+    AbsenceActivity,
+    ComplianceStatus
   }
 
 
