@@ -28,6 +28,7 @@
                                         <th width="5%">Mutual</th>  
                                         <th width="5%">NTS</th>  
                                         <th width="5%">Details</th>  
+                                        <th width="5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="rateList != null && rateList != undefined">
@@ -64,6 +65,14 @@
                                         <td> 
                                             <a (click)="openModal(rate.rateId,template)" href="javascript:void(0)">
                                                 <i class="glyphicon glyphicon-list-alt"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <!-- <a onClick="return confirm('Are you absolutely sure you want to delete Rate?')" ng-click='DeleteRate(rate.rateId)'>
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a> -->
+                                            <a (click)="DeleteRate(rate.rateId)" href="javascript:void(0)">
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </a>
                                         </td>
                                     </tr>

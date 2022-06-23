@@ -217,4 +217,16 @@ export class PayerrateComponent implements OnInit {
       this.toastr.warningToastr('Rate Updated', 'Please fill required field!');
     }
   }
+
+
+  DeleteRate(rateId:number){
+    debugger;
+    this.invoiceService.DeleteRate(rateId).subscribe(res => {
+      if(res != null && res != undefined && res.result){
+        this.GetPayerRateList();
+      }
+    })
+  }
+
+  
 }
