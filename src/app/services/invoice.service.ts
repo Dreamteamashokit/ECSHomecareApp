@@ -83,6 +83,10 @@ export class InvoiceService {
     return this._http.delete<APIResponse<Object>>(environment.domain + `/api/Invoice/DeleteBillng?billingId=${billingId}`)
   }
   
+  DeleteRate(rateId:number){
+    return this._http.delete<APIResponse<Object>>(environment.domain + `/api/Invoice/DeleteRate?rateId=${rateId}`)
+  }
+
   getBillingDetailsByBillingId(billingId: number) {
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
