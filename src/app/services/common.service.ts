@@ -99,12 +99,6 @@ export class CommonService {
   getNoteTypeList() {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getNoteTypeSelectList");
   }
-  getCategoryList() {
-    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getCategory");
-  }
-  getSubCategoryList() {
-    return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getSubCategory");
-  }
 
   getProvisionList(type: number) {
     return this._http.get<APIResponse<ItemsList[]>>(environment.domain + "/api/Common/getProvisionList" + '/' + type);

@@ -72,7 +72,6 @@ import { ClientNoteComponent } from './client/client-note/client-note.component'
 import { ClientCommunityComponent } from './client/client-community/client-community.component';
 import { AddLocationComponent } from './admin/add-location/add-location.component'
 import { ClientProvisionsComponent } from './client/client-provisions/client-provisions.component';
-import { ClientComplianceComponent } from './client/client-compliance/client-compliance.component';
 import { AvailabilitySearchComponent } from 'src/app/common/availability-search/availability-search.component';
 import { ClientBillingComponent } from './client/client-billing/client-billing.component';
 import { LocationMapComponent } from './shared/common/location-map/location-map.component';
@@ -152,7 +151,6 @@ import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
     ClientContactlogListComponent, 
     ClientNoteComponent, 
     ClientCommunityComponent, 
-    ClientComplianceComponent,
     ClientBillingComponent, 
     AvailabilitySearchComponent, 
     LocationMapComponent, 
