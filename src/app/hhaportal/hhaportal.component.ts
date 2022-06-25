@@ -174,8 +174,7 @@ export class HhaportalComponent implements OnInit {
               Number(ClientList[i].latitude),
             ]),
             { name: clientName }
-          )
-        );
+          ));
       }
 
       var symbolLayer = new atlas.layer.SymbolLayer(dataSource, "", {
@@ -224,7 +223,7 @@ export class HhaportalComponent implements OnInit {
 
   HidemyFunction() {
     let maptooltiptext = document.getElementsByClassName("tooltiptext");
-    console.log(maptooltiptext);
+    //console.log(maptooltiptext);
     var i = 0;
     for (i = 0; i < maptooltiptext.length; i++) {
       maptooltiptext[i].innerHTML = "";
