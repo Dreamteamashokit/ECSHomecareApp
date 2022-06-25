@@ -111,8 +111,8 @@ export class SearchAvailbilityComponent implements OnInit {
             {
               this.client.latitude =  response.data.latitude;
               this.client.longitude =  response.data.longitude;  
-              
-              
+              this.client.clientName = response.data.userName;  
+             
               this.provisionsTypeList = this.provisionsTypeList.map(
                 (elem) =>{ elem.IsChecked = response.data.provisions.indexOf(elem.itemId) != -1 ? true : false;
               return elem});
@@ -122,6 +122,7 @@ export class SearchAvailbilityComponent implements OnInit {
             else{
               this.client.latitude =  this.currentUser.latitude;
               this.client.longitude = this.currentUser.longitude;
+              this.client.clientName =  this.currentUser.firstName + " " + this.currentUser.middleName + " " + this.currentUser.lastName;
             }         
            },
            error: (err) => { 
@@ -167,7 +168,7 @@ export class SearchAvailbilityComponent implements OnInit {
 
   search()
   {
-    debugger;
+    //debugger;
     this.IsLoad=true;    
     this.client.clientId=Number(this.searchModel.caseId);    
     this.searchModel.payTypeId=Number(this.searchModel.payTypeId);  
@@ -180,14 +181,14 @@ export class SearchAvailbilityComponent implements OnInit {
     this.searchModel.caseId=Number(this.searchModel.caseId);
     this.searchModel.empTypeId=Number(this.searchModel.empTypeId);
     const reqObj: AvailbilityRequest = this.searchModel;
-    console.log('Search', reqObj);
+   
     this.locSrv.searchAvailbility(reqObj).
     subscribe({  
         next: (response) => {  
           if(response.result)
           {
-            debugger;
-            console.log( response.data);
+           // debugger;
+           
             this.availbilityList = response.data;
             this.findRadius(this.client);
             this.loadMap(this.client,this.availbilityList);        
@@ -363,10 +364,16 @@ i++;
 
 loadMap(client:ClientSearch,itemList:AvailbilityReponse[]) {
   this.graphDiv.nativeElement.innerHTML = "";
-  console.log(itemList);
+  var popup = new atlas.Popup({
+    pixelOffset: [0, -18],
+    closeButton: false,
+  });
+var popupTemplate =
+  '<div style="padding: 6px;" class="customInfobox"><div class="name">{name}</div></div>';
+
   var azureMap = new atlas.Map('myMap', {
       center: [client.longitude , client.latitude],
-      zoom: 12,
+      zoom: 10,
       language: 'en-US',
       authOptions: {
           authType: atlas.AuthenticationType.subscriptionKey,
@@ -375,23 +382,94 @@ loadMap(client:ClientSearch,itemList:AvailbilityReponse[]) {
       enableAccessibility: false,
   });
   azureMap.events.add('ready', function () {
+
+
+    
+	    /* Construct a zoom control*/
+      var zoomControl = new atlas.control.ZoomControl();
+
+      var zoomOption = {
+        position: atlas.ControlPosition.TopLeft,
+      };
+      /* Add the zoom control to the map*/
+      azureMap.controls.add(zoomControl, zoomOption);
+		
+
       /*Create a data source and add it to the map*/
       var dataSource = new atlas.source.DataSource();
       azureMap.sources.add(dataSource);
-      var points: any[]=[];
-      var cpoint = new atlas.Shape(new atlas.data.Point([client.longitude, client.latitude])); 
-      points.push(cpoint);
+      // var points: any[]=[];
+
+      // var cpoint = new atlas.Shape(
+      //   new atlas.data.Point([client.longitude, client.latitude]),
+      // { name: client.clientName }
+      
+      // ); 
+      // points.push(cpoint);
+     
+      dataSource.add(
+        new atlas.data.Feature(
+          new atlas.data.Point([
+            Number(client.longitude),
+            Number(client.latitude),
+          ]),
+          { name: client.clientName }
+        ));
+
       itemList.forEach((Item: AvailbilityReponse) => {
-        debugger;
-        var point = new atlas.Shape(new atlas.data.Point([Number(Item.longitude), Number(Item.latitude)])); 
-        points.push(point);
+        // debugger;
+        // var point = new atlas.Shape(new atlas.data.Point([Number(Item.longitude), Number(Item.latitude)])); 
+        // points.push(point);
+        let clientName =Item.empName;
+
+        dataSource.add(
+          new atlas.data.Feature(
+            new atlas.data.Point([
+              Number(Item.longitude),
+              Number(Item.latitude),
+            ]),
+            { name: clientName }
+          ));
+      
       });
-      //Add the symbol to the data source.
-      dataSource.add(points);
-      //Create a symbol layer using the data source and add it to the map
-      azureMap.layers.add(new atlas.layer.SymbolLayer(dataSource, ""));
+      
+      //dataSource.add(points);
+      var symbolLayer =new atlas.layer.SymbolLayer(dataSource, "");
+      azureMap.layers.add(symbolLayer);
+         //Add a hover event to the symbol layer.
+         azureMap.events.add("mouseover", symbolLayer, function (e) {
+          //Make sure that the point exists.
+          if (e.shapes && e.shapes.length > 0) {
+            var content, coordinate;
+            var shape = (<any>e.shapes)[0].data;
+            var clientNameMap = shape.properties.name;
+            content = popupTemplate.replace(/{name}/g, clientNameMap);
+            coordinate = e.position;
+            popup.setOptions({ content: content, position: coordinate });
+            popup.open(azureMap);
+          }
+        });
+      
   });
+
+  setTimeout(this.HidemyFunction, 2500);
+  
 }
+
+
+HidemyFunction() {
+  let maptooltiptext = document.getElementsByClassName("tooltiptext");
+ 
+  var i = 0;
+  for (i = 0; i < maptooltiptext.length; i++) {
+    maptooltiptext[i].innerHTML = "";
+  }
+
+  document.getElementsByClassName(
+    "azure-map-copyright-context"
+  )[0].innerHTML = "";
+}
+
 
 
 
