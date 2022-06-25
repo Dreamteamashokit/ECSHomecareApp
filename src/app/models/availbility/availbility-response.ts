@@ -27,4 +27,5 @@ export class ClientGeoProvisions {
     latitude: number;
     longitude: number;
     provisions: number[];
+    userName: string;
 }

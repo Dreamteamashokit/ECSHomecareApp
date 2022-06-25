@@ -30,6 +30,7 @@ export class ClientDashboardComponent implements OnInit {
     private accountSrv: AccountService
   ) {
     this.currentUser = this.accountSrv.getCurrentUser();
+    this.currentUser.userName =this.currentUser.firstName + " " + this.currentUser.middleName + " " + this.currentUser.lastName;
   }
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class ClientDashboardComponent implements OnInit {
       this.clientSrv
         .getClientDetail(this.model.clientId)
         .subscribe((responce) => {
-          console.log(responce.data);
+         
           this.model = responce.data;
           //  DD MMM YYYY
           this.model.dob =
@@ -53,6 +54,7 @@ export class ClientDashboardComponent implements OnInit {
     this.empSrv.geAddress(userId).subscribe({
       next: (response: any) => {
         if (response.result) {
+          
           this.geoObj.latitude = response.data.latitude;
           this.geoObj.longitude = response.data.longitude;
           this.geoObj.Location = response.data.address;
