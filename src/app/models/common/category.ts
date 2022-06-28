@@ -1,12 +1,24 @@
 import { BaseModel } from "../common";
 
 export class CategoryModel extends BaseModel {
-    public categoryId: number;
-    public categoryName: string;    
-    public parentId?: number;
-    public parentName: string;
-    public userTypeId: number;
+    categoryId: number;
+    userTypeId: number;
+    categoryName: string;
+    parentId: number | null;
+    parentName: string;
+    isRecurring: boolean;
+    recurrType: number;
+    recurrValue: number;
+    recurrSrcType: number;
+    recurrNotifyDays: number;
+    recurrDate: Date;
     
 }
+
+
+
+
+
+
 
 

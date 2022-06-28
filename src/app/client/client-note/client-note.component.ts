@@ -8,7 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList, MasterType } from 'src/app/models/common';
 import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
 import { ToastrManager } from 'ng6-toastr-notifications';
 @Component({
   selector: 'app-client-note',
@@ -49,7 +49,7 @@ export class ClientNoteComponent implements OnInit {
       }
     });
 
-    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+    this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
       this.OfficeUserList = response.data;
     });
   }

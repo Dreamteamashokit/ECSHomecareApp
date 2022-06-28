@@ -14,6 +14,16 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-3 col-xs-12">
+                        <div class="form-group"><label class="control-label">User Type </label>
+                            <select required class="form-control" id="ddluserTypeId" name="userTypeId"
+                                [(ngModel)]="model.userTypeId" (change)="onSelectUserType($event)">
+                                <option *ngFor="let item of userTypeList" [value]="item.id">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Category Name</label>
                             <input required type="text" placeholder="Category Name" class="form-control"
@@ -35,16 +45,91 @@
                         </div>
                     </div>
                     <div class="col-sm-3 col-xs-12">
-                        <div class="form-group"><label class="control-label">User Type </label>
-                            <select required class="form-control" id="ddluserTypeId" name="userTypeId"
-                                [(ngModel)]="model.userTypeId" (change)="onSelectUserType($event)" >
-                                <option *ngFor="let item of userTypeList"  [value]="item.id">
+                        <div class="form-group mtm">
+
+                            <input type="checkbox" name="isRecurring" class="mrm" [(ngModel)]="model.isRecurring">
+                            Recurring
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" *ngIf="model.isRecurring">
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Recurring Type</label>
+
+                            <select required class="form-control" id="ddlrecurrType" name="recurrType"
+                                [(ngModel)]="model.recurrType">
+                                <option *ngFor="let item of recurrTypeList" [value]="item.id">
+                                    {{item.name}}
+                                </option>
+                            </select>
+
+
+                        </div>
+                        <!-- <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em>  -->
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Recurring Value</label>
+                            <input required type="number" class="form-control" id="txtrecurrValue" name="recurrValue"
+                                #recurrValue="ngModel" [(ngModel)]="model.recurrValue">
+                        </div>
+                        <!-- <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em> -->
+                    </div>
+
+
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Source Date</label>
+
+                            <select required class="form-control" id="ddlrecurrSrcType" name="recurrSrcType"
+                                [(ngModel)]="model.recurrSrcType">
+                                <option *ngFor="let item of srcDateList" [value]="item.id">
                                     {{item.name}}
                                 </option>
                             </select>
                         </div>
+                        <!-- <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em> -->
                     </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">New Due Date</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="txtrecurrDate" name="date"
+                                    placeholder="Date" [(ngModel)]="model.recurrDate" #recurrDate="bsDatepicker"
+                                    bsDatepicker
+                                    [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">
+                                <div class="input-group-addon" (click)="recurrDate.toggle()"
+                                    [attr.aria-expanded]="recurrDate.isOpen"><i class="fa fa-calendar"></i></div>
+                            </div>
+
+                        </div>
+                        <!-- <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em> -->
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Start Notify</label>
+                            <input required type="text" placeholder="No of Days" class="form-control"
+                                id="txtrecurrNotifyDays" name="recurrNotifyDays" #recurrNotifyDays="ngModel"
+                                [(ngModel)]="model.recurrNotifyDays">
+                        </div>
+                        <!-- <em *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)"
+                            for="txtCategoryName" class="invalid">This field is required</em> -->
+                    </div>
+
                 </div>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group text-center">
@@ -71,7 +156,18 @@
                                 <tbody>
                                     <tr *ngFor="let item of categoryList;">
                                         <td>{{item.categoryName}}</td>
-                                        <td>{{item.parentName}}</td>
+                                        <td>{{item.parentName}}
+
+                                            <span *ngIf="item.isRecurring">
+                                                {{item.recurrType}}| {{item.recurrValue}}| {{item.recurrSrcType}}|
+                                                {{item.recurrDate}}
+
+                                                | {{item.recurrNotifyDays}}
+
+                                            </span>
+
+
+                                        </td>
                                         <td>
                                             <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
                                                     class="fa fa-edit medium-txt pts mrm"></i></a>

@@ -4,7 +4,7 @@ import { MasterService } from 'src/app/services/master.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { EnumToArrayPipe } from 'src/app/pipe/enum-to-array.pipe';
-import { ItemsList, UserType } from 'src/app/models/common';
+import { UserType,RecurrTypeEnum,RecurrSrcDateEnum } from 'src/app/models/common';
 
 @Component({
   selector: 'app-compliance-category',
@@ -20,6 +20,8 @@ export class ComplianceCategoryComponent implements OnInit {
   currentUser: UserModel;
   btSave:string="Save";
   userTypeList:any;
+  recurrTypeList:any;
+  srcDateList:any;
   constructor(
     private accountApi: AccountService,
     private mstrApi: MasterService,
@@ -27,6 +29,9 @@ export class ComplianceCategoryComponent implements OnInit {
 
     this.currentUser = this.accountApi.getCurrentUser();  
     this.getUserType();
+
+    this.getRecurrType();
+    this.getRecurrSrcDate();
 
   }
 
@@ -36,6 +41,8 @@ export class ComplianceCategoryComponent implements OnInit {
     this.model.userTypeId=8;
     this.getParentList(0,this.model.userTypeId);
     this.getCategoryList(this.model.userTypeId);
+    this.model.recurrType=1;
+    this.model.recurrSrcType=1;
   }
 
   saveCategpryModel() {
@@ -44,6 +51,21 @@ export class ComplianceCategoryComponent implements OnInit {
     this.model.categoryName = this.model.categoryName;
     this.model.parentId =Number(this.model.parentId) |0;
     this.model.createdBy = this.currentUser.userId;
+
+if(this.model.isRecurring)
+{
+  this.model.recurrType =Number(this.model.recurrType) |0;
+  this.model.recurrValue =Number(this.model.recurrValue) |0;
+  this.model.recurrSrcType =Number(this.model.recurrSrcType) |0;
+  this.model.recurrNotifyDays =Number(this.model.recurrNotifyDays) |0;
+  this.model.recurrDate =new Date(this.model.recurrDate);
+  
+
+}
+
+
+
+
     const reqObj: CategoryModel = this.model;
     this.mstrApi.addCMPLCategory(reqObj).subscribe(response => {      
       this.getCategoryList(this.model.userTypeId);
@@ -120,6 +142,22 @@ getParentList(categoryId: number,userTypeId:number) {
   }
 
 
+
+  getRecurrType() {
+    this.recurrTypeList= Object.entries(RecurrTypeEnum).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+ 
+ 
+   }
+
+
+
+   getRecurrSrcDate() {
+    this.srcDateList= Object.entries(RecurrSrcDateEnum).filter(e => !isNaN(e[0]as any)).map(e => ({ name: e[1], id: e[0] }));
+ 
+ 
+   }
+
+  
 }
 
 

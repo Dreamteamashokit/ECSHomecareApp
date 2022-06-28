@@ -8,7 +8,7 @@ import { ItemsList,MasterType ,SelectList} from 'src/app/models/common';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 
-import{Usertype} from 'src/app/commanHelper/usertype'
+import { UserType } from 'src/app/models/common';
 import { DatePipe } from '@angular/common';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
@@ -82,7 +82,7 @@ export class NewEmployeeComponent implements OnInit {
       this.empTypeList = response.data;
     });
   
-    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+    this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
       this.empList = response.data;
     });
 
@@ -109,7 +109,7 @@ export class NewEmployeeComponent implements OnInit {
     this.model.gender=Number(this.model.gender);
     this.model.maritalStatus=Number(this.model.maritalStatus);
     this.model.supervisorId=Number(this.model.supervisorId);
-    this.model.userType=Number(Usertype.Employee);   
+    this.model.userType=Number(UserType.Employee);   
     const empObj: EmployeeModel = this.model;
 
 

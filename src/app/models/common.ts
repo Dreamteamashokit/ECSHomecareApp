@@ -100,4 +100,31 @@ export enum UserType {
 }
 
 
+
+
+
+
+export enum RecurrTypeEnum
+{
+  Days = 1,
+  Weeks = 2,
+  Months = 3,
+  Years = 4,
+
+}
+
+export enum RecurrSrcDateEnum
+{
+  CompletionDate = 1,
+  DateofHire = 2,
+  DueDate = 3,
+}
+
+
+
+
+
+
+
+
  

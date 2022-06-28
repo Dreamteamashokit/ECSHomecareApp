@@ -10,7 +10,10 @@ import { LoginModel, UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
 
 import { DatePipe } from '@angular/common';
-import { Usertype } from 'src/app/commanHelper/usertype';
+
+import { UserType } from 'src/app/models/common';
+
+
 @Component({
   selector: 'app-client-contactlog-list',
   templateUrl: './client-contactlog-list.component.html',
@@ -50,7 +53,7 @@ export class ClientContactlogListComponent implements OnInit {
         this.empList = response.data;
       }
     });
-    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+    this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
       if (response.result) {
         this.OfficeUserList = response.data;
       }

@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType} from 'src/app/models/common';
 import { UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
 @Component({
   selector: 'app-client-status',
   templateUrl: './client-status.component.html',
@@ -56,7 +56,7 @@ export class ClientStatusComponent implements OnInit {
         this.ReferralCodeLst = response.data;
       });
 
-      this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+      this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
         this.OfficeUserList = response.data;
       });
       this.model.officeUserId=-1;

@@ -9,7 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ItemsList,MasterType} from 'src/app/models/common';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-emp-status',
@@ -47,7 +47,7 @@ export class EmpStatusComponent implements OnInit {
       {      
         this.TypeStatusList = response.data;
       }});
-    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {  
+    this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {  
       if(response.result)
       {      
         this.officeUserList = response.data;

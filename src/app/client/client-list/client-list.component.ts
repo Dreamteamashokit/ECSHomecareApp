@@ -16,7 +16,9 @@ import { noop, Observable, Observer, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { APIResponse } from 'src/app/models/api-response';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
+
+
 
 @Component({
   selector: 'app-client-list',
@@ -179,7 +181,7 @@ IsLoad: boolean = false;
     });
 
 
-  this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+  this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
       this.managerList = response.data;
     });
 

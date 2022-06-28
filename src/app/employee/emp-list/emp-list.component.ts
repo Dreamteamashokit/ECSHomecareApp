@@ -9,7 +9,7 @@ import { EmployeeList } from 'src/app/models/employee/employee-model';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { ClientFilter,ClientResult} from 'src/app/models/meeting/client-meeting';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
 @Component({
   selector: 'app-emp-list',
   templateUrl: './emp-list.component.html',
@@ -77,7 +77,7 @@ export class EmpListComponent implements OnInit {
 	 this.comApi.getEmpTypeList().subscribe((response) => {
       this.empTypeList = response.data;
     });
-    this.comApi.getUsers(Usertype.Coordinators).subscribe((response) => {
+    this.comApi.getUsers(UserType.Coordinators).subscribe((response) => {
       this.managerList = response.data;
     });
 

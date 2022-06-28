@@ -5,7 +5,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { SelectList} from 'src/app/models/common';
 import { UserModel } from 'src/app/models/account/login-model';
-import { Usertype } from 'src/app/commanHelper/usertype';
+import { UserType } from 'src/app/models/common';
 import { DatePipe } from '@angular/common';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
