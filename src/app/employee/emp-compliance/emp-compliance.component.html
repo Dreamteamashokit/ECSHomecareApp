@@ -181,7 +181,7 @@
     <div class="row mbm" *ngIf="(complianceList?.length || 0)>0">
       <div class="col-sm-12">
         <div class="table-responsive">
-          <table class="table table-bordered table-striped">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>Due Date </th>
@@ -193,7 +193,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of complianceList;">
+              <tr *ngFor="let item of complianceList;" [ngClass]="item.isCompleted==false?'make-green':'make-red'">
 
                 <td> {{item.dueDate | date: 'dd MMM YYYY'}}</td>
                 <td> {{item.completedOn | date: 'dd MMM YYYY'}}</td>
