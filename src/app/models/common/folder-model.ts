@@ -5,4 +5,6 @@ export class FolderModel {
     isActive: number;
     createdBy: number;
     createdOn: string;
+    parentFolderId: number;
+    parentFolderName: string;
 }
