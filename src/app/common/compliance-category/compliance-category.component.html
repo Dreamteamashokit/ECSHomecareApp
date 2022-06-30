@@ -151,6 +151,8 @@
                                     <tr>
                                         <th>Category Name </th>
                                         <th>Parent Name</th>
+                                        <th colspan="2">Recurrence Setting</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -158,15 +160,37 @@
                                         <td>{{item.categoryName}}</td>
                                         <td>{{item.parentName}}
 
-                                            <span *ngIf="item.isRecurring">
-                                                {{item.recurrType}}| {{item.recurrValue}}| {{item.recurrSrcType}}|
-                                                {{item.recurrDate}}
 
-                                                | {{item.recurrNotifyDays}}
+
+
+                                        </td>
+                                        <td>
+                                            <span *ngIf="item.isRecurring">
+
+                                                <ul>
+                                                    <li>
+                                                        {{item.recurrType}}
+
+                                                    </li>
+                                                    <li>
+                                                        {{item.recurrValue}}
+
+                                                    </li>
+                                                    <li>
+                                                        {{item.recurrSrcType}}
+
+                                                    </li>
+                                                    <li>
+                                                 
+                                                        {{ item.recurrDate | date: 'dd MMM YYYY' }}
+                                                    </li>
+                                                    <li>
+                                                        {{item.recurrNotifyDays}}
+
+                                                    </li>
+                                                </ul>
 
                                             </span>
-
-
                                         </td>
                                         <td>
                                             <a (click)="editItem(item)" title="Edit" href="javascript:;"><i
