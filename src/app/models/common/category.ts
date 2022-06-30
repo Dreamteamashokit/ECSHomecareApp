@@ -6,12 +6,14 @@ export class CategoryModel extends BaseModel {
     categoryName: string;
     parentId: number | null;
     parentName: string;
+    initialType: number;
     isRecurring: boolean;
     recurrType: number;
     recurrValue: number;
     recurrSrcType: number;
     recurrNotifyDays: number;
     recurrDate: Date;
+
     
 }
 

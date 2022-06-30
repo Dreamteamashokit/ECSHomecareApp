@@ -4,7 +4,7 @@ import { MasterService } from 'src/app/services/master.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { EnumToArrayPipe } from 'src/app/pipe/enum-to-array.pipe';
-import { UserType, RecurrTypeEnum, RecurrSrcDateEnum } from 'src/app/models/common';
+import { UserType, RecurrTypeEnum, RecurrSrcDateEnum, InitialTypeEnum } from 'src/app/models/common';
 
 @Component({
   selector: 'app-compliance-category',
@@ -22,25 +22,34 @@ export class ComplianceCategoryComponent implements OnInit {
   userTypeList: any;
   recurrTypeList: any;
   srcDateList: any;
+  initialTypeList: any;
+
+
   constructor(
     private accountApi: AccountService,
     private mstrApi: MasterService,
   ) {
 
     this.currentUser = this.accountApi.getCurrentUser();
-    this.getUserType();
 
-    this.getRecurrType();
-    this.getRecurrSrcDate();
+    this.userTypeList = this.getEnumToList(UserType);
+    this.recurrTypeList = this.getEnumToList(RecurrTypeEnum);
+    this.srcDateList = this.getEnumToList(RecurrSrcDateEnum);
 
+    this.initialTypeList = this.getEnumToList(InitialTypeEnum);
   }
 
   ngOnInit(): void {
 
     this.model.parentId = 0;
     this.model.userTypeId = 8;
+    this.model.initialType = 3;
     this.getParentList(0, this.model.userTypeId);
     this.getCategoryList(this.model.userTypeId);
+
+
+
+
     this.model.recurrType = 1;
     this.model.recurrSrcType = 1;
     this.model.recurrDate = new Date();
@@ -53,6 +62,7 @@ export class ComplianceCategoryComponent implements OnInit {
     this.model.categoryName = this.model.categoryName;
     this.model.parentId = Number(this.model.parentId) | 0;
     this.model.createdBy = this.currentUser.userId;
+    this.model.initialType = Number(this.model.initialType) | 0;
 
     if (this.model.isRecurring) {
       this.model.recurrType = Number(this.model.recurrType) | 0;
@@ -107,6 +117,7 @@ export class ComplianceCategoryComponent implements OnInit {
     this.model.categoryName = _item.categoryName;
     this.model.parentId = _item.parentId;
     this.model.isRecurring = _item.isRecurring;
+    this.model.initialType = Number(_item.initialType) | 0;
     if (_item.isRecurring) {
 
       this.model.recurrType = _item.recurrType;
@@ -162,6 +173,11 @@ export class ComplianceCategoryComponent implements OnInit {
     this.srcDateList = Object.entries(RecurrSrcDateEnum).filter(e => !isNaN(e[0] as any)).map(e => ({ name: e[1], id: e[0] }));
 
 
+  }
+
+
+  getEnumToList(eumType: any) {
+    return Object.entries(eumType).filter(e => !isNaN(e[0] as any)).map(e => ({ name: e[1], id: e[0] }));
   }
 
 

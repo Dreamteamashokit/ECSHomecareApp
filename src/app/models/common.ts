@@ -60,18 +60,14 @@ export enum MasterType {
     Deleted = 0,
     Active,
     Cancelled,
-    CancelledByClient,
-    
+    CancelledByClient,    
   }
 
 
   export enum AddressType {
     Permanent = 1,
     Communication,
-
   }
-
-
 
   export class CheckBoxList {
     public itemId: number;
@@ -82,8 +78,7 @@ export enum MasterType {
         this.itemId = itemId;
         this.itemName = itemName;
         this.IsChecked = IsChecked;
-    }
-    
+    }    
 }
 
 
@@ -99,18 +94,12 @@ export enum UserType {
   Client = 9
 }
 
-
-
-
-
-
 export enum RecurrTypeEnum
 {
   Days = 1,
   Weeks = 2,
   Months = 3,
   Years = 4,
-
 }
 
 export enum RecurrSrcDateEnum
@@ -121,6 +110,13 @@ export enum RecurrSrcDateEnum
 }
 
 
+export enum InitialTypeEnum
+{
+  FirstShift = 1,
+  DateofHire = 2,
+  Manual = 3,
+
+}
 
 
 
