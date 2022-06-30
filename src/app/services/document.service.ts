@@ -6,7 +6,7 @@ import { APIResponse } from '../models/api-response';
 import { FolderModel } from '../models/common/folder-model';
 import { FolderData } from '../models/employee/document';
 import { DeleteItem } from '../models/employee/deleteFolder'
-import{ FolderView } from 'src/app/models/employee/upload-file-folder';
+import{ FolderView, NewFolderView } from 'src/app/models/employee/upload-file-folder';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +31,10 @@ export class DocumentService {
     return this._http.get<APIResponse<FolderView[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + userId);
   }
 
+  gettreeDocumentlist(userId:number,forType:string=''){
+
+    return this._http.get<APIResponse<NewFolderView[]>>(environment.domain + "/api/Document/getDocumentlist" + '/' + userId+'?forType='+forType);
+  }
 
   deleteFolder(folderId:number,userId:number){   
 
