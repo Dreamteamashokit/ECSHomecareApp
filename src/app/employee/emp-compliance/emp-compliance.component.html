@@ -193,10 +193,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of complianceList;" [ngClass]="item.isCompleted==false?'make-green':'make-red'">
+              <tr *ngFor="let item of complianceList;" >
 
-                <td> {{item.dueDate | date: 'dd MMM YYYY'}}</td>
-                <td> {{item.completedOn | date: 'dd MMM YYYY'}}</td>
+                <td> 
+                
+                
+                <p [ngClass]="item.isCompleted==false?'make-green':'make-red'"> {{item.dueDate | date: 'dd MMM YYYY'}}
+                </p> 
+                
+                </td>
+                <td> {{item.completedOn | date: 'dd MMM YYYY'}}
+
+
+                </td>
                 <td> {{ item.category }}</td>
                 <td> {{ item.code }}</td>
                 <td *ngIf="userTypeId!==8"> {{ item.statusName }}</td>
