@@ -16,4 +16,5 @@ export class EmployeeJson extends AccountJson {
     zipCode: string;
     municipality: string;
     notes: string;
+  isEdit: boolean;
 }
