@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { CategoryModel } from 'src/app/models/common/category';
 import { MasterService } from 'src/app/services/master.service';
 import { AccountService } from 'src/app/services/account.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { EnumToArrayPipe } from 'src/app/pipe/enum-to-array.pipe';
 import { UserType, RecurrTypeEnum, RecurrSrcDateEnum, InitialTypeEnum } from 'src/app/models/common';
+import { DateHelper } from 'src/app/commanHelper/usertype';
+
+
+
 
 @Component({
   selector: 'app-compliance-category',
@@ -28,6 +33,7 @@ export class ComplianceCategoryComponent implements OnInit {
   constructor(
     private accountApi: AccountService,
     private mstrApi: MasterService,
+    private datePipe: DatePipe
   ) {
 
     this.currentUser = this.accountApi.getCurrentUser();
@@ -69,7 +75,14 @@ export class ComplianceCategoryComponent implements OnInit {
       this.model.recurrValue = Number(this.model.recurrValue) | 0;
       this.model.recurrSrcType = Number(this.model.recurrSrcType) | 0;
       this.model.recurrNotifyDays = Number(this.model.recurrNotifyDays) | 0;
-      this.model.recurrDate = new Date(this.model.recurrDate);
+
+
+      this.model.recurrDate = DateHelper.getItemDate(this.model.recurrDate);
+
+
+
+
+
 
 
     }
@@ -124,7 +137,10 @@ export class ComplianceCategoryComponent implements OnInit {
       this.model.recurrValue = _item.recurrValue;
       this.model.recurrSrcType = _item.recurrSrcType;
       this.model.recurrNotifyDays = _item.recurrNotifyDays;
-      this.model.recurrDate = new Date(_item.recurrDate);
+      this.model.recurrDate = _item.recurrDate != null ? new Date(_item.recurrDate) : new Date();
+
+
+
 
     }
 

@@ -12,6 +12,7 @@ import { MasterService } from 'src/app/services/master.service';
 import { FolderView } from 'src/app/models/employee/upload-file-folder';
 import { DocumentService } from 'src/app/services/document.service';
 import { UserType ,MasterType} from 'src/app/models/common';
+import { DateHelper } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-emp-compliance',
   templateUrl: './emp-compliance.component.html',
@@ -187,6 +188,9 @@ export class EmpComplianceComponent implements OnInit {
     this.model.codeId = Number(this.model.codeId) | 0;
     this.model.createdBy = this.currentUser.userId;
     this.model.documentId = Number(this.model.documentId) | 0;
+    this.model.dueDate = DateHelper.getItemDate(this.model.dueDate);
+    this.model.completedOn =this.model.completedOn != null ? DateHelper.getItemDate(this.model.completedOn) : undefined;
+    
 
     const reqObj: ComplianceModel = this.model;
     console.log('Search', reqObj);

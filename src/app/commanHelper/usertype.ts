@@ -52,7 +52,18 @@ export class DateHelper {
     return date;
   }
 
+  static getItemDate(item:Date)  {
 
+    let year = item.getFullYear();
+    let month = item.getMonth();
+    let day = item.getDate();
+
+   var itemDate= new Date();
+   itemDate.setFullYear(year);
+   itemDate.setMonth(month);
+   itemDate.setDate(day);
+   return itemDate;
+  }
 
 
 }
