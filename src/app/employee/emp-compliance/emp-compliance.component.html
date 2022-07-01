@@ -198,7 +198,7 @@
                 <td> 
                 
                 
-                <p [ngClass]="item.isCompleted==false?'make-green':'make-red'"> {{item.dueDate | date: 'dd MMM YYYY'}}
+                <p [ngClass]="item.isCompleted==true?'make-green':'make-red'"> {{item.dueDate | date: 'dd MMM YYYY'}}
                 </p> 
                 
                 </td>
