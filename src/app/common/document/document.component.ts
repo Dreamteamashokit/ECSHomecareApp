@@ -6,7 +6,7 @@ import {
 } from "@angular/common/http";
 import { EmployeeapiService } from "src/app/services/employeeapi.service";
 import { DocumentService } from "src/app/services/document.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params,Router } from "@angular/router";
 import { saveAs } from "file-saver";
 import { DeleteItem } from "src/app/models/employee/deleteFolder";
 import { FolderData } from "src/app/models/employee/document";
@@ -58,12 +58,14 @@ export class DocumentComponent implements OnInit {
     private accountApi: AccountService,
     private empApi: EmployeeapiService,
     private docSrv: DocumentService,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
+    private router: Router,
   ) {
     this.currentUser = this.accountApi.getCurrentUser();
   }
 
   ngOnInit(): void {
+    //alert("document");
     this.route.params.subscribe((params: Params) => {
       if (params["empId"] != null) {
         this.fModel.userId = Number(params["empId"]);
@@ -201,16 +203,32 @@ export class DocumentComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           // this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event.type === HttpEventType.ResponseHeader) {
-          this.IsLoad = false;
-          this.message = "Upload success.";
-          this.cleanobj();
-          this.GetFolderList(this.fModel.userId);
+          // this.IsLoad = false;
+          // this.message = "Upload success.";
+          // this.cleanobj();
+         // this.GetFolderList(this.fModel.userId);
+
+         let currentUrl = '';
+         if (this.IsClient) {
+            currentUrl = '/client/info/' + this.model.userId + '/11';
+         }
+         else {
+           currentUrl = '/employee/info/' + this.model.userId + '/11';
+ 
+         }
+ 
+         this.reloadCurrentRoute(currentUrl);
         }
       });
     }
   };
 
- 
+  reloadCurrentRoute(currentUrl:string) {
+     
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
 
   DownloadFile(documentName: string, foldername: string) {
     this.IsLoad = true;

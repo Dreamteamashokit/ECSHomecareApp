@@ -45,7 +45,7 @@ export class EmpComplianceComponent implements OnInit {
   // officeUserId:number;
   userTypeId: number = 8;
   lblCategory: string = 'Code';
-
+  IsClient: boolean = false;
   @ViewChild("template") templateCategory: TemplateRef<any>;
   constructor(
     private router: Router,
@@ -101,24 +101,24 @@ export class EmpComplianceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //alert("compl");
     this.route.params.subscribe(
       (params: Params) => {
 
         if (params["empId"] != null) {
           this.model.userId = Number(params["empId"]);
           this.userTypeId = 8;
+          this.IsClient=false;
         }
         else {
           this.model.userId = Number(params["clientId"]);
           this.userTypeId = 9;
+          this.IsClient=true;
 
           this.lblCategory='SubCategory/Stage';
         }
         this.getCompliance(this.model.userId);
         this.getDocList(this.model.userId);
-
-
-  
 
 
         this.pageLoad();
@@ -180,7 +180,7 @@ export class EmpComplianceComponent implements OnInit {
 
   saveCompliance() {
 
-    debugger;
+    //debugger;
     this.IsLoad = true;
     this.model.userId = Number(this.model.userId);
     this.model.nurseId = Number(this.model.nurseId) | 0;
@@ -193,17 +193,28 @@ export class EmpComplianceComponent implements OnInit {
     
 
     const reqObj: ComplianceModel = this.model;
-    console.log('Search', reqObj);
+    //console.log('Search', reqObj);
     this.empApi.addCompliance(reqObj).subscribe((response) => {
-      this.decline();
-      this.getCompliance(reqObj.userId);
-      this.IsLoad = false;
+       this.decline();
+      // this.getCompliance(reqObj.userId);
+       this.IsLoad = false;
       this.model.nurseId = 0
       this.model.categoryId = 0;
       this.model.codeId = 0;
       this.model.completedOn = undefined;
       this.model.notes = '';
       this.model.result = '';
+      let currentUrl = '';
+        if (this.IsClient) {
+           currentUrl = '/client/info/' + this.model.userId + '/10';
+        }
+        else {
+          currentUrl = '/employee/info/' + this.model.userId + '/10';
+
+        }
+
+        this.reloadCurrentRoute(currentUrl);
+
     });
   }
 
@@ -238,7 +249,17 @@ export class EmpComplianceComponent implements OnInit {
     let isOk = confirm("Are you sure to delete?");
     if (isOk) {
       this.empApi.deleteCompliance(complianceId).subscribe((response) => {
-        this.getCompliance(this.model.userId);
+        //this.getCompliance(this.model.userId);
+        let currentUrl = '';
+        if (this.IsClient) {
+           currentUrl = '/client/info/' + this.model.userId + '/10';
+        }
+        else {
+          currentUrl = '/employee/info/' + this.model.userId + '/10';
+
+        }
+
+        this.reloadCurrentRoute(currentUrl);
       });
     }
   }
@@ -281,10 +302,17 @@ export class EmpComplianceComponent implements OnInit {
   }
 
 
-
-
-
-
+  reloadComponent(currentUrl:string) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+}
+reloadCurrentRoute(currentUrl:string) {
+ 
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+  });
+}
 
 
 
