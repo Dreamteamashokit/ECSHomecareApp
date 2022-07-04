@@ -105,8 +105,8 @@ export enum RecurrTypeEnum
 export enum RecurrSrcDateEnum
 {
   CompletionDate = 1,
-  DateofHire = 2,
-  DueDate = 3,
+  DueDate = 2,
+  SpecificDate = 3,
 }
 
 
