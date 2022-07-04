@@ -283,8 +283,6 @@ export class EmpComplianceComponent implements OnInit {
       this.decline();
     }
   }
-
-
   reloadComponent(currentUrl: string) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
