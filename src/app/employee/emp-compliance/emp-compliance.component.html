@@ -193,13 +193,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of complianceList;" >
+              <tr *ngFor="let item of complianceList;"  [ngClass]="item.isCompleted==true?'make-green':'make-red'">
 
                 <td> 
                 
                 
-                <p [ngClass]="item.isCompleted==true?'make-green':'make-red'"> {{item.dueDate | date: 'dd MMM YYYY'}}
-                </p> 
+  {{item.dueDate | date: 'dd MMM YYYY'}}
+             
                 
                 </td>
                 <td> {{item.completedOn | date: 'dd MMM YYYY'}}

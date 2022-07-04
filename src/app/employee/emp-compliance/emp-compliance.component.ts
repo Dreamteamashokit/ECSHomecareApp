@@ -11,7 +11,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 import { MasterService } from 'src/app/services/master.service';
 import { FolderView } from 'src/app/models/employee/upload-file-folder';
 import { DocumentService } from 'src/app/services/document.service';
-import { UserType ,MasterType} from 'src/app/models/common';
+import { UserType, MasterType } from 'src/app/models/common';
 import { DateHelper } from 'src/app/commanHelper/usertype';
 @Component({
   selector: 'app-emp-compliance',
@@ -90,9 +90,9 @@ export class EmpComplianceComponent implements OnInit {
 
 
     this.comApi.getMaster(MasterType.ComplianceStatus).subscribe((response) => {
-        
+
       this.statusList = response.data;
-      this.model.isStatus=68;
+      this.model.isStatus = 68;
     });
 
     this.empId = -1;
@@ -108,14 +108,14 @@ export class EmpComplianceComponent implements OnInit {
         if (params["empId"] != null) {
           this.model.userId = Number(params["empId"]);
           this.userTypeId = 8;
-          this.IsClient=false;
+          this.IsClient = false;
         }
         else {
           this.model.userId = Number(params["clientId"]);
           this.userTypeId = 9;
-          this.IsClient=true;
+          this.IsClient = true;
 
-          this.lblCategory='SubCategory/Stage';
+          this.lblCategory = 'SubCategory/Stage';
         }
         this.getCompliance(this.model.userId);
         this.getDocList(this.model.userId);
@@ -189,15 +189,15 @@ export class EmpComplianceComponent implements OnInit {
     this.model.createdBy = this.currentUser.userId;
     this.model.documentId = Number(this.model.documentId) | 0;
     this.model.dueDate = DateHelper.getItemDate(this.model.dueDate);
-    this.model.completedOn =this.model.completedOn != null ? DateHelper.getItemDate(this.model.completedOn) : undefined;
-    
+    this.model.completedOn = this.model.completedOn != null ? DateHelper.getItemDate(this.model.completedOn) : undefined;
+
 
     const reqObj: ComplianceModel = this.model;
     //console.log('Search', reqObj);
     this.empApi.addCompliance(reqObj).subscribe((response) => {
-       this.decline();
+      this.decline();
       // this.getCompliance(reqObj.userId);
-       this.IsLoad = false;
+      this.IsLoad = false;
       this.model.nurseId = 0
       this.model.categoryId = 0;
       this.model.codeId = 0;
@@ -205,15 +205,15 @@ export class EmpComplianceComponent implements OnInit {
       this.model.notes = '';
       this.model.result = '';
       let currentUrl = '';
-        if (this.IsClient) {
-           currentUrl = '/client/info/' + this.model.userId + '/10';
-        }
-        else {
-          currentUrl = '/employee/info/' + this.model.userId + '/10';
+      if (this.IsClient) {
+        currentUrl = '/client/info/' + this.model.userId + '/10';
+      }
+      else {
+        currentUrl = '/employee/info/' + this.model.userId + '/10';
 
-        }
+      }
 
-        this.reloadCurrentRoute(currentUrl);
+      this.reloadCurrentRoute(currentUrl);
 
     });
   }
@@ -236,7 +236,7 @@ export class EmpComplianceComponent implements OnInit {
     this.model.categoryId = _item.categoryId;
     this.model.documentId = _item.documentId;
     this.model.isStatus = _item.isStatus;
-    
+
 
     //this.model.codeId = _item.codeId;
     this.model.dueDate = new Date(_item.dueDate);
@@ -248,22 +248,24 @@ export class EmpComplianceComponent implements OnInit {
   delItem(complianceId: number) {
     let isOk = confirm("Are you sure to delete?");
     if (isOk) {
+      this.IsLoad=true;
       this.empApi.deleteCompliance(complianceId).subscribe((response) => {
         //this.getCompliance(this.model.userId);
-        let currentUrl = '';
-        if (this.IsClient) {
-           currentUrl = '/client/info/' + this.model.userId + '/10';
+        // let currentUrl = '';
+        // if (this.IsClient) {
+        //   currentUrl = '/client/info/' + this.model.userId + '/10';
+        // }
+        // else {
+        //   currentUrl = '/employee/info/' + this.model.userId + '/10';
+        // }
+        // this.reloadCurrentRoute(currentUrl);
+        if (response.result) {
+          this.complianceList = this.complianceList.filter(obj => obj.complianceId !== complianceId);
+          this.IsLoad=false;
         }
-        else {
-          currentUrl = '/employee/info/' + this.model.userId + '/10';
-
-        }
-
-        this.reloadCurrentRoute(currentUrl);
       });
     }
   }
-
 
   getDocList(userId: number) {
     this.docSrv.getDocumentlist(userId).subscribe(response => {
@@ -273,46 +275,36 @@ export class EmpComplianceComponent implements OnInit {
     });
   }
 
-
   addFile(userTypeId: number) {
-
     debugger;
-
     if (userTypeId == 8) {
       let currentUrl = '/employee/info/' + this.model.userId + '/11';
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([currentUrl]);
       });
       this.decline();
-
     }
     else {
-
       let currentUrl = '/client/info/' + this.model.userId + '/10';
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([currentUrl]);
       });
       this.decline();
-
     }
-
-
-
-
   }
 
 
-  reloadComponent(currentUrl:string) {
+  reloadComponent(currentUrl: string) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
-}
-reloadCurrentRoute(currentUrl:string) {
- 
-  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+  }
+  reloadCurrentRoute(currentUrl: string) {
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
-  });
-}
+    });
+  }
 
 
 

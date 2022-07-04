@@ -178,7 +178,21 @@ export class EmployeeapiService {
         'complianceId': complianceId
       }
     });
-    return this._http.delete(environment.domain + "/api/Employee/deleteCompliance", { params: reqPara });
+    //return this._http.delete(environment.domain + "/api/Employee/deleteCompliance", { params: reqPara });
+ 
+    return this._http.delete<APIResponse<string>>(environment.domain + "/api/Employee/deleteCompliance", { params: reqPara });
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   }
 
 
