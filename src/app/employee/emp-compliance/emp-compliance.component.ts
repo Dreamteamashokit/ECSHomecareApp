@@ -249,16 +249,7 @@ export class EmpComplianceComponent implements OnInit {
     let isOk = confirm("Are you sure to delete?");
     if (isOk) {
       this.IsLoad=true;
-      this.empApi.deleteCompliance(complianceId).subscribe((response) => {
-        //this.getCompliance(this.model.userId);
-        // let currentUrl = '';
-        // if (this.IsClient) {
-        //   currentUrl = '/client/info/' + this.model.userId + '/10';
-        // }
-        // else {
-        //   currentUrl = '/employee/info/' + this.model.userId + '/10';
-        // }
-        // this.reloadCurrentRoute(currentUrl);
+      this.empApi.deleteCompliance(complianceId).subscribe((response) => {        
         if (response.result) {
           this.complianceList = this.complianceList.filter(obj => obj.complianceId !== complianceId);
           this.IsLoad=false;
