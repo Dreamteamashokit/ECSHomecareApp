@@ -16,5 +16,6 @@ export class LocationView {
     latitude: number;
     longitude: number;
     owner:string;
+    userId:number;
 
 }

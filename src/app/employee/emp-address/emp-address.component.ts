@@ -166,8 +166,10 @@ export class EmpAddressComponent implements OnInit {
 
     var loc = new LocationView();  
     this.IsLoad=true;
+     loc.userId=empId;
     this.empApi.geAddress(empId).subscribe({ 
       next: (response:any) => {  
+
         if (response.result) {
           this.model = response.data;
           this.model.empId=empId;
@@ -206,13 +208,13 @@ export class EmpAddressComponent implements OnInit {
   BindMap(current: LocationView) {
 
     this.addressMapId.nativeElement.innerHTML = "";
-
+ let isClient=this.isClient;
     var popup = new atlas.Popup({
       pixelOffset: [0, -18],
       closeButton: false,
     });
 
-    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name">{name}</div></div>';
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a></div></div>';
 
 
     var newAzureMap = new atlas.Map("addressMapId", {
@@ -255,12 +257,28 @@ export class EmpAddressComponent implements OnInit {
           //     ])
           //   )
           // );
-
+          let currentUrl = '';
+          if (isClient) {
+             //window.location.replace('#/client/info/' + current.userId + '/5');
+             var fullUrl = window.location.href.toLowerCase();     // Returns full URL (https://example.com/path/example.html)
+             var domainUrl = window.location.origin;   // Returns base URL (https://example.com)
+             var pageFor = window.location.pathname; // Returns path only (/path/example.html)
+             var obj = { Page: pageFor, Url: (domainUrl + "/" + '#/client/info/' + current.userId + '/5') };
+             history.pushState(obj, obj.Page, obj.Url);
+             currentUrl = "/" + '#/client/info/' + current.userId + '/0';
+          }
+          else {
+            currentUrl = '#/employee/info/' + current.userId + '/0';
+  
+          }
              //Create a point feature and add it to the data source.
              datasource.add(
               new atlas.data.Feature(
                 new atlas.data.Point([Number(current.longitude), Number(current.latitude)]),
-                { name: current.owner }
+                { 
+                  name: current.owner,
+                  url:currentUrl  
+                }
               ));
 
               var masterSymbolLayer=new atlas.layer.SymbolLayer(datasource, "", {
@@ -280,7 +298,10 @@ export class EmpAddressComponent implements OnInit {
               var content, coordinate;
               var shape = (<any>e.shapes)[0].data;
               var clientNameMap = shape.properties.name;
+              var clientUrl = shape.properties.url;
+
               content = popupTemplate.replace(/{name}/g, clientNameMap);
+              content = content.replace(/{url}/g, window.location.origin+'/'+clientUrl);
               coordinate = e.position;
               popup.setOptions({ content: content, position: coordinate });
               popup.open(newAzureMap);
@@ -309,6 +330,12 @@ export class EmpAddressComponent implements OnInit {
     });
   }
   
+//   reloadCurrentRoute(currentUrl:string) {
+     
+//     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+//         this.router.navigate([currentUrl]);
+//     });
+// }
   ngAfterContentInit() {
     setTimeout(this.HidemyFunction, 2000);
   }

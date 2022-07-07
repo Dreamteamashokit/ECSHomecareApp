@@ -210,7 +210,7 @@ export class DocumentComponent implements OnInit {
 
          let currentUrl = '';
          if (this.IsClient) {
-            currentUrl = '/client/info/' + this.model.userId + '/11';
+            currentUrl = '/client/info/' + this.model.userId + '/10';
          }
          else {
            currentUrl = '/employee/info/' + this.model.userId + '/11';
