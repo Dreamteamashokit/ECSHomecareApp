@@ -51,8 +51,10 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   getAddress(userId: number) {
+    this.geoObj.userId=userId;
     this.empSrv.geAddress(userId).subscribe({
       next: (response: any) => {
+    
         if (response.result) {
           
           this.geoObj.latitude = response.data.latitude;
@@ -86,7 +88,7 @@ export class ClientDashboardComponent implements OnInit {
       closeButton: false,
     });
 
-    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name">{name}</div></div>';
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a></div></div>';
 
 
     var azureMap = new atlas.Map("locMapId", {
@@ -131,10 +133,14 @@ export class ClientDashboardComponent implements OnInit {
           // );
 
              //Create a point feature and add it to the data source.
+             console.log(current);
              datasource.add(
               new atlas.data.Feature(
                 new atlas.data.Point([Number(current.longitude), Number(current.latitude)]),
-                { name: current.owner }
+                { name: current.owner,
+                  url:('#/client/info/' + current.userId + '/0') 
+                
+                }
               )
             );
 
@@ -155,7 +161,11 @@ export class ClientDashboardComponent implements OnInit {
               var content, coordinate;
               var shape = (<any>e.shapes)[0].data;
               var clientNameMap = shape.properties.name;
+              var clientUrl = shape.properties.url;
+            //  alert(clientUrl)
               content = popupTemplate.replace(/{name}/g, clientNameMap);
+              content = content.replace(/{url}/g, clientUrl);
+
               coordinate = e.position;
               popup.setOptions({ content: content, position: coordinate });
               popup.open(azureMap);
