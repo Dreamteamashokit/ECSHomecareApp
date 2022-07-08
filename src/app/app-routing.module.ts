@@ -23,6 +23,7 @@ import { PatientComponent } from './patient/patient.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
+import { PayersComponent } from './payers/payers.component';
 
 const routes: Routes = [
   { path: 'login', component: SignInComponent },
@@ -109,6 +110,11 @@ const routes: Routes = [
   {
     path:'hhapatinet',component:LayoutComponent,
     children:[{path:'',component:PatientComponent}]
+  },
+  {
+    path: 'payers', component: LayoutComponent,
+    children: [{ path: '', component: PayersComponent }]
+
   },
   {
     path: 'user/create', component: LayoutComponent,

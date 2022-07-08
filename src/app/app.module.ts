@@ -90,6 +90,7 @@ import { ComplianceCategoryComponent } from './common/compliance-category/compli
 import { DocumentComponent } from './common/document/document.component';
 
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
+import { PayersComponent } from './payers/payers.component';
 
 
 @NgModule({
@@ -164,7 +165,7 @@ import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe,  
+    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe, PayersComponent,  
   ],
   imports: [
     BrowserModule,
