@@ -206,7 +206,7 @@ export class EmpComplianceComponent implements OnInit {
       this.model.result = '';
       let currentUrl = '';
       if (this.IsClient) {
-        currentUrl = '/client/info/' + this.model.userId + '/10';
+        currentUrl = '/client/info/' + this.model.userId + '/17';
       }
       else {
         currentUrl = '/employee/info/' + this.model.userId + '/10';
