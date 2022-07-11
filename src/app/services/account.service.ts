@@ -3,8 +3,9 @@ import { HttpClient,HttpHeaders ,HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode, HHAClockout, Payer } from 'src/app/models/account/login-model';
+import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode, HHAClockout } from 'src/app/models/account/login-model';
 import { AccountUserModel } from 'src/app/models/account/account-model';
+import { PayerModel } from 'src/app/models/account/payer-model';
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -120,26 +121,13 @@ export class AccountService {
       return this._http.post<APIResponse<UserModel>>(environment.domain + "/api/Account/addUser", _Obj,httpOptions);            
     }
 
-    addPayer(_Obj: Payer){ 
-      
-      var headers_object = new HttpHeaders();
-          headers_object.append('Content-Type', 'application/json');
-          var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
-          const httpOptions = {
-            headers: headers_object
-          }; 
-      return this._http.post<APIResponse<Payer>>(environment.domain + "/api", _Obj,httpOptions);            
-    }
-  
+    
   
     getUserList(userType: number) {
       
       return this._http.get<APIResponse<AccountUserModel[]>>(environment.domain + "/api/Account/getUser" + '/' + userType);
     }
-    getPayerList(PayerId : number){
-      return this._http.get<APIResponse<Payer[]>>(environment.domain + "/api" + '/' + PayerId);
-
-    }
+    
 
 
     HHAClockIn(_obj:HHAClockInMode){

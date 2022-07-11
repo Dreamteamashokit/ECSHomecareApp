@@ -23,7 +23,7 @@ import { PatientComponent } from './patient/patient.component';
 import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
-import { PayersComponent } from './payers/payers.component';
+import { PayersComponent } from './common/payers/payers.component';
 
 const routes: Routes = [
   { path: 'login', component: SignInComponent },

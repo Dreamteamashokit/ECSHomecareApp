@@ -90,7 +90,7 @@ import { ComplianceCategoryComponent } from './common/compliance-category/compli
 import { DocumentComponent } from './common/document/document.component';
 
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
-import { PayersComponent } from './payers/payers.component';
+import { PayersComponent } from './common/payers/payers.component';
 
 
 @NgModule({

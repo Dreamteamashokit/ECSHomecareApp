@@ -297,16 +297,16 @@
   
                   <tbody>
                
-                    <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>wellcare</td>
-                      <td>arizona</td>  
-                      <td>24</td>
-                      <td>2</td>
-                      <td><a  title="Edit" href="javascript:;"><i
+                    <tr *ngFor="let item of payerList;">
+                      <td>{{item.PayerId}}</td>
+                      <td>{{item.isActive}}</td>
+                      <td>{{item.PayerName}}</td>
+                      <td>{{item.Address}</td>  
+                      <td>6</td>
+                      <td>6</td>
+                      <td><a  (click)="editItem(item)" title="Edit" href="javascript:;"><i
                         class="fa fa-edit medium-txt pts mrm"></i></a>
-                    <a title="Delete" href="javascript:;"><i
+                    <a (click)="delItem(item.PayerId)" title="Delete" href="javascript:;"><i
                         class="fa fa-trash-o text-red medium-txt pts mrm"></i></a></td>                
                     </tr>
                   </tbody>
@@ -317,7 +317,7 @@
                   <tr> <td colspan="12">No results found ! </td></tr> 
                   </tbody>
                 </ng-template>
-                <button class="btn btn-sm btn-dark">Add Payer</button>
+                <!-- <button class="btn btn-sm btn-dark">Add Payer</button> -->
               </div>
             </div>
             </div>
