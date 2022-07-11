@@ -221,6 +221,7 @@ export class ClientDashboardComponent implements OnInit {
   GetLatestThreeOverdueComplianceList(userId:number){
     this.empSrv.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
       if(response.result){
+        
         this.completedCompliance = response.data.objThreeLatestCompletedCompliance;
         this.pendingCompliance = response.data.objThreeLatestPendingCompliance;
       }

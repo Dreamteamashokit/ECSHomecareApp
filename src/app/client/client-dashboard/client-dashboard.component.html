@@ -70,75 +70,75 @@
 </div>
 <div class="row">
 
-  <div class="col-md-5">
-  <div class="row">
-       <div class="col-md-12">
-            <div class="panel panel-orange">
-            <div class="panel-header panel-primary">
-               <h4 class="mtm mbn plm text-uppercase  text-orange"> <i style="font-size: 17px; margin-top: 2px;"
-                                                       class="fa fa-list-alt text-grey"></i><strong> Billing Summary/Activate Authorization</strong>
-                </h4>
-            </div>					
-        
-            <div class="panel-body">
-                <div class="row">
-             <div class="col-sm-6"><p>Vaccn: Hourly&nbsp;&nbsp;Expires:11-02-2022</p></div>
-                <div class="col-sm-6 text-right small-txt">Authorized signature</div>
-                    </div>
-                <div class="row">
-                     <div class="col-sm-12"><p class="text-orange"><strong>Status</strong></p></div>
-                    </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                      <p><strong>Address</strong>:<br>
-                        60 chiga abc, USA
-
-                        </p></div>
-                    
-                    <div class="col-sm-6 text-right small-txt">Authorized signature</div>
-                    </div>
-            </div>
-        </div>
-      </div>				  
-      
-      </div>
+    <div class="col-md-5">
         <div class="row">
-       <div class="col-md-12">
-           <div class="panel panel-orange">
-            <div class="panel-header panel-primary">
-               <h4 class="mtm mbn plm text-uppercase  text-orange"> 
-                <i style="font-size: 17px; margin-top: 2px;" class="fa fa-list-alt text-grey"></i>
-                <strong> Most recent complication completed</strong>
-                </h4>
-                <div class="panel-body">
-                    <div class="row" *ngIf="completedCompliance != null">
-                        <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
-                                Completed Compliance Notes :<h5 class="mtn"><strong>{{completeditem.notes}}</strong></h5>
-                                Due Date : <span>{{completeditem.dueDate | date}}</span>
-                                <hr>
+            <div class="col-md-12">
+                <div class="panel panel-orange">
+                    <div class="panel-header panel-primary">
+                        <h4 class="mtm mbn plm text-uppercase  text-orange"> <i style="font-size: 17px; margin-top: 2px;"
+                            class="fa fa-list-alt text-grey"></i><strong> Billing Summary/Activate Authorization</strong>
+                        </h4>
+                    </div>					
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6"><p>Vaccn: Hourly&nbsp;&nbsp;Expires:11-02-2022</p></div>
+                            <div class="col-sm-6 text-right small-txt">Authorized signature</div>
                         </div>
-                    </div>            
-                    <div class="row" *ngIf="pendingCompliance != null">
-                        <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
-                            Pending Compliance Notes :<h5 class="mtn"><strong>{{pendingitem.notes}}</strong></h5>
-                            Due Date : <span>{{pendingitem.dueDate | date}}</span>
-                            <hr>
+                        <div class="row">
+                            <div class="col-sm-12"><p class="text-orange"><strong>Status</strong></p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p><strong>Address</strong>:<br>60 chiga abc, USA</p>
+                            </div>
+                            <div class="col-sm-6 text-right small-txt">Authorized signature</div>
                         </div>
                     </div>
                 </div>
-            </div>					
-           
-            <!-- <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-12 text-right small-txt">Authorized signature</div>
-                </div>
-            </div> -->
+            </div>				        
         </div>
-      </div>				  
-      
-      </div>
-       
-  </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-green">
+                    <div class="panel-header panel-primary">
+                        <h4 class="mtm mbn plm text-uppercase  text-orange"> 
+                            <i style="font-size: 17px; margin-top: 2px;" class="fa fa-list-alt text-grey"></i>
+                                <strong> Most recent Compliance completed</strong>
+                        </h4>
+                        <div class="panel-body">
+                            <div class="row" *ngIf="completedCompliance != null">
+                                <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
+                                    <p>Compliance Name : &nbsp;&nbsp;<strong class="text-green">{{completeditem.complianceName}}</strong></p>
+                                    <p>Due Date : <strong class="text-green">{{completeditem.dueDate | date}}</strong></p>
+                                </div>
+                            </div>            
+                        </div>
+                    </div>					
+                </div>
+            </div>				  
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-orange">
+                    <div class="panel-header panel-primary">
+                        <h4 class="mtm mbn plm text-uppercase  text-orange"> 
+                            <i style="font-size: 17px; margin-top: 2px;" class="fa fa-list-alt text-grey"></i>
+                                <strong> Most recent Compliance Pending</strong>
+                        </h4>
+                        <div class="panel-body">
+                            <div class="row" *ngIf="pendingCompliance != null">
+                                <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
+                                    <p>Compliance Name : &nbsp;&nbsp;<strong class="text-red">{{pendingitem.complianceName}}</strong></p> 
+                                    <p>Due Date : <strong class="text-red">{{pendingitem.dueDate | date}}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>					
+                </div>
+            </div>				  
+        </div>
+    </div>
     <div class="col-md-7">
       <app-upcomming [userId]="model.clientId"></app-upcomming>
     </div>

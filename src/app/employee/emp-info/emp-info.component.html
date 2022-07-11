@@ -214,7 +214,7 @@
                                 <div class="panel-body">
                                     <div class="row" *ngIf="completedCompliance != null">
                                         <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
-                                                Completed Compliance Notes :<h5 class="mtn"><strong>{{completeditem.notes}}</strong></h5>
+                                                Compliance Name :<h5 class="mtn"><strong>{{completeditem.complianceName}}</strong></h5>
                                                 Due Date : <span>{{completeditem.dueDate | date}}</span>
                                                 <hr>
                                         </div>
@@ -227,7 +227,7 @@
                                     </div>            
                                     <div class="row" *ngIf="pendingCompliance != null">
                                         <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
-                                            Pending Compliance Notes :<h5 class="mtn"><strong>{{pendingitem.notes}}</strong></h5>
+                                            Compliance Name :<h5 class="mtn"><strong>{{pendingitem.complianceName}}</strong></h5>
                                             Due Date : <span>{{pendingitem.dueDate | date}}</span>
                                             <hr>
                                         </div>
