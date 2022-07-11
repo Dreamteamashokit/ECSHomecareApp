@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { LoginModel,UserModel,Externalsign,ExternalUserModel, HHAClockInMode, HHAClockout } from 'src/app/models/account/login-model';
 import { AccountUserModel } from 'src/app/models/account/account-model';
+import { PayerModel } from 'src/app/models/account/payer-model';
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -119,12 +120,14 @@ export class AccountService {
           }; 
       return this._http.post<APIResponse<UserModel>>(environment.domain + "/api/Account/addUser", _Obj,httpOptions);            
     }
-  
+
+    
   
     getUserList(userType: number) {
       
       return this._http.get<APIResponse<AccountUserModel[]>>(environment.domain + "/api/Account/getUser" + '/' + userType);
     }
+    
 
 
     HHAClockIn(_obj:HHAClockInMode){
