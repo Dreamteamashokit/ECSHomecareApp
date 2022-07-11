@@ -7,7 +7,7 @@ import { Incident } from 'src/app/models/employee/incident';
 import { Attendance } from 'src/app/models/employee/attendance';
 import { Empstatus } from '../models/employee/empstatus';
 import { AddressObj } from 'src/app/models/employee/address';
-import { ComplianceModel } from 'src/app/models/employee/compliance-obj';
+import { ComplianceModel,ComplianceListModel } from 'src/app/models/employee/compliance-obj';
 import { EmpRate, EmployeeRateModel } from 'src/app/models/employee/emp-rate'
 import { EmpDeclinedCase } from 'src/app/models/employee/save-emp-declined-case';
 import { EmpDeclineCaseList } from 'src/app/models/employee/emp-decline-case-list';
@@ -289,4 +289,9 @@ export class EmployeeapiService {
   GetClockinDetailsByUserId(userId: number) {
     return this._http.get<APIResponse<ClockinViewModel>>(environment.domain + "/api/Employee/GetClockinDetails" + "/" + userId);
   }
+
+  GetLatestThreeOverdueComplianceList(userId:number){
+    return this._http.get<APIResponse<ComplianceListModel>>(environment.domain + "/api/Employee/GetLatestThreeOverdueComplianceList" + '/' + userId);
+  }
+
 }

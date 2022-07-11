@@ -1,15 +1,18 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { StatusEnum,ItemsList } from 'src/app/models/common';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { UserModel } from 'src/app/models/account/login-model';
+import { CommonService } from 'src/app/services/common.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MeetingService } from 'src/app/services/meeting.service';
-import { MeetingView, MeetingLog } from 'src/app/models/meeting/meeting-view';
-import { UserModel } from 'src/app/models/account/login-model';
 import { AccountService } from 'src/app/services/account.service';
-import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status';
-import { StatusEnum } from 'src/app/models/common';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
-import { ToastrManager } from 'ng6-toastr-notifications';
+import { EmployeeapiService } from 'src/app/services/employeeapi.service';
+import { MeetingView, MeetingLog } from 'src/app/models/meeting/meeting-view';
+import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status';
+
 @Component({
   selector: 'app-meeting-detail',
   templateUrl: './meeting-detail.component.html',
@@ -17,6 +20,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
     '../../../assets/css/orange-blue.css',
     './meeting-detail.component.scss']
 })
+
 export class MeetingDetailComponent implements OnInit {
   IsLoad: boolean = false;
   IsEdit: boolean = false;
@@ -32,39 +36,41 @@ export class MeetingDetailComponent implements OnInit {
   mlogList: MeetingLog[] = [];
   message?: string;
   currentUser: UserModel;
-
+  ClientList = Array<ItemsList>();
   modalRef?: BsModalRef;
-
+  LatestThreeCompliance:any;
 
   constructor(
     private router: Router,
-    private accountSrv: AccountService,
-    public bsModalRef: BsModalRef,
-    private modalService: BsModalService,
     public datepipe: DatePipe,
     private momApi: MeetingService,
-    private toastr: ToastrManager) {
+    private toastr: ToastrManager,
+    private comApi: CommonService,
+    public bsModalRef: BsModalRef,
+    private accountSrv: AccountService,
+    private empserv:EmployeeapiService,
+    private modalService: BsModalService) {
     this.currentUser = this.accountSrv.getCurrentUser();
   }
 
   ngOnInit(): void {
+    this.bindClient();
     this.BindMeeting();
     this.getMeetingLog(this.meetingId);
+    this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
   }
 
   BindMeeting() {
-    debugger;
+    
     this.momApi.getMeetingDetail(this.meetingId).subscribe((response) => {
       if (response.result) {
+        debugger;
         this.momObj = response.data;
         this.mNoteList = response.data.notes;
-        console.log(this.momObj);
-        debugger;
         if (this.momObj.isStatus == StatusEnum.Cancelled || this.momObj.isStatus == StatusEnum.CancelledByClient) {
           this.IsCancel = false;
         }
         else {
-
           this.IsCancel = true;
         }
       }
@@ -72,8 +78,6 @@ export class MeetingDetailComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>, _status: number) {
-
-
     switch (_status) {
       case 2:
         this.title = "Cancel Appointment";
@@ -83,9 +87,6 @@ export class MeetingDetailComponent implements OnInit {
         break;
     }
 
-
-
-
     this.model.meetingId = this.momObj?.meetingId != null ? this.momObj.meetingId : 0;
     this.model.isStatus = _status;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm', });
@@ -93,12 +94,15 @@ export class MeetingDetailComponent implements OnInit {
 
 
   confirmNote: string;
+  cancelReason:string;
   confirm(_status: number,): void {
 
     this.IsLoad = true;
     this.model.isStatus = _status;
     this.model.meetingId = this.momObj?.meetingId != null ? this.momObj.meetingId : 0;
+    this.model.meetingCanceledReason = this.cancelReason;
     const reqObj: MeetingStatus = this.model;
+    
     this.momApi.changeStatus(reqObj).subscribe((response) => {
       this.addConfirmNote(this.confirmNote, this.model.meetingId);
       this.modalRef?.hide();
@@ -219,6 +223,7 @@ export class MeetingDetailComponent implements OnInit {
    _endTime : Date;
    _fromDate : Date;
    _toDate : Date;
+   _clientId:number;
    isRecurrence : boolean;
    editMeeting() {
 
@@ -231,6 +236,7 @@ export class MeetingDetailComponent implements OnInit {
       this._startTime=new Date(_timeIn);
       var _timeOut = item.meetingDate +' ' + item.endTime; 
       this._endTime=new Date(_timeOut);
+      this._clientId = Number(item?.employee?.id);
     }
 
    }
@@ -257,7 +263,6 @@ export class MeetingDetailComponent implements OnInit {
 
    reScheduling(panel: BsModalRef)
    {
-     debugger;
     if(this.momObj != null)
     {    
       let item=this.momObj;
@@ -278,7 +283,7 @@ export class MeetingDetailComponent implements OnInit {
       modelItem.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
       modelItem.userId = this.currentUser.userId;
       modelItem.clientId=item.client.id;
-      modelItem.empId=item.employee.id;
+      modelItem.empId= Number(this._clientId);//item.employee.id;
       modelItem.meetingNote=this._message;
    
 
@@ -308,20 +313,26 @@ export class MeetingDetailComponent implements OnInit {
           this.IsLoad=false;
         }
     }); 
-      
-      
-
-
-    
-
-
     }
-   
    }
 
+   bindClient(){
+    this.comApi.getClientList().subscribe((response) => {
+      if(response.result)
+      {
+        this.ClientList = response.data;
+      }
+    });
+   }
 
-
-
+   GetLatestThreeOverdueComplianceList(userId:number){
+    this.empserv.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
+      if(response.result){
+        debugger;
+        this.LatestThreeCompliance = response.data;
+      }
+    })
+   }
 
 
    cxlScheduling()
