@@ -15,3 +15,8 @@ export class ComplianceModel extends BaseModel {
     documentId:number;
     statusName: string;
 }
+
+export class ComplianceListModel {
+    objThreeLatestCompletedCompliance:ComplianceModel[];
+    objThreeLatestPendingCompliance:ComplianceModel[];
+}

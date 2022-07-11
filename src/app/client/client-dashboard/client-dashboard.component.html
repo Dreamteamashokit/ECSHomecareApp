@@ -106,18 +106,33 @@
        <div class="col-md-12">
            <div class="panel panel-orange">
             <div class="panel-header panel-primary">
-               <h4 class="mtm mbn plm text-uppercase  text-orange"> <i style="font-size: 17px; margin-top: 2px;"
-                                                       class="fa fa-list-alt text-grey"></i><strong> Most recent complication completed</strong>
+               <h4 class="mtm mbn plm text-uppercase  text-orange"> 
+                <i style="font-size: 17px; margin-top: 2px;" class="fa fa-list-alt text-grey"></i>
+                <strong> Most recent complication completed</strong>
                 </h4>
+                <div class="panel-body">
+                    <div class="row" *ngIf="completedCompliance != null">
+                        <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
+                                Completed Compliance Notes :<h5 class="mtn"><strong>{{completeditem.notes}}</strong></h5>
+                                Due Date : <span>{{completeditem.dueDate | date}}</span>
+                                <hr>
+                        </div>
+                    </div>            
+                    <div class="row" *ngIf="pendingCompliance != null">
+                        <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
+                            Pending Compliance Notes :<h5 class="mtn"><strong>{{pendingitem.notes}}</strong></h5>
+                            Due Date : <span>{{pendingitem.dueDate | date}}</span>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
             </div>					
            
-            <div class="panel-body">
+            <!-- <div class="panel-body">
                 <div class="row">
-           
-                <div class="col-sm-12 text-right small-txt">Authorized signature</div>
-                    </div>
-            
-            </div>
+                    <div class="col-sm-12 text-right small-txt">Authorized signature</div>
+                </div>
+            </div> -->
         </div>
       </div>				  
       

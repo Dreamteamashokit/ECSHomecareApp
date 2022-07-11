@@ -23,7 +23,8 @@ import { UserModel } from 'src/app/models/account/login-model';
 export class EmpInfoComponent implements OnInit {
   modalRef?: BsModalRef;
   currentUser:UserModel; 
-
+  completedCompliance:any;
+  pendingCompliance:any;
   empId : number = -1;
   empInfo = new EmployeeJson();
   UserData:any;
@@ -58,6 +59,7 @@ export class EmpInfoComponent implements OnInit {
           id:this.empId,
           type:this.empInfo.empType
         };
+        this.GetLatestThreeOverdueComplianceList(this.empId);
       }
     );  
   }
@@ -100,10 +102,13 @@ export class EmpInfoComponent implements OnInit {
   }
 
 
-
-
-
-
-
+  GetLatestThreeOverdueComplianceList(userId:number){
+    this.empapi.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
+      if(response.result){
+        this.completedCompliance = response.data.objThreeLatestCompletedCompliance;
+        this.pendingCompliance = response.data.objThreeLatestPendingCompliance;
+      }
+    })
+  }
 
 }

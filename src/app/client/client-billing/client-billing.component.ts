@@ -132,7 +132,7 @@ export class ClientBillingComponent implements OnInit {
         this.model.payerId = Number(this.model.payerId);
         this.model.contractClientId = this.model.contractClientId;
         this.model.serviceCode = Number(this.model.serviceCode);
-        debugger;
+        
         let totrasformDate = this.datepipe.transform(this.model.toDate, 'MM-dd-yyyy')||""
         let fromtrasformDate = this.datepipe.transform(this.model.fromDate, 'MM-dd-yyyy')||""
         this.model.toDate = totrasformDate;

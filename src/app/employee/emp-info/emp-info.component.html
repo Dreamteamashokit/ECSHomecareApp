@@ -212,16 +212,26 @@
                                 </div>	
                                
                                 <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12">
-                                   <h5 class="mtn"><strong>InService Classes</strong></h5>
-                                   <p>Inservice classes</p>
-                                     <p>Taken 6 hours</p>
-                                     <p><i class="fa fa-plus-square-o"></i> Add Compliance</p>
-                                        
-                                      </div>								
+                                    <div class="row" *ngIf="completedCompliance != null">
+                                        <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
+                                                Completed Compliance Notes :<h5 class="mtn"><strong>{{completeditem.notes}}</strong></h5>
+                                                Due Date : <span>{{completeditem.dueDate | date}}</span>
+                                                <hr>
                                         </div>
-                                                
+                                        <!-- <div class="col-sm-12">
+                                            <h5 class="mtn"><strong>InService Classes</strong></h5>
+                                            <p>Inservice classes</p>
+                                            <p>Taken 6 hours</p>
+                                            <p><i class="fa fa-plus-square-o"></i> Add Compliance</p>
+                                        </div>-->
+                                    </div>            
+                                    <div class="row" *ngIf="pendingCompliance != null">
+                                        <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
+                                            Pending Compliance Notes :<h5 class="mtn"><strong>{{pendingitem.notes}}</strong></h5>
+                                            Due Date : <span>{{pendingitem.dueDate | date}}</span>
+                                            <hr>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                           </div>				  
