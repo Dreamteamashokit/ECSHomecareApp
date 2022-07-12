@@ -45,10 +45,7 @@
                                                        class="fa fa-location-arrow text-grey"></i><strong> Location</strong>
                 </h4>
             </div>					   
-            <div class="panel-body mbxxl">             
-
-               
-
+            <div class="panel-body mbxxl">
                   <div class="row mbm">
                     <div class="col-sm-12 text-14 text-orange"><strong><i class="fa fa-map-marker"></i> {{geoObj.Location}}</strong>
                     </div>
@@ -57,12 +54,7 @@
                 <div class="col-sm-12">
                     <div #locMapId id="locMapId" style="width:100%;min-width:290px;max-width:100%;height:220px;"></div>
                 </div>
-                
                 </div>
-                
-              
-            
-           
             <div class="portlet-footer"></div>
         </div>
     </div>
@@ -107,9 +99,9 @@
                         </h4>
                         <div class="panel-body">
                             <div class="row" *ngIf="completedCompliance != null">
-                                <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
-                                    <p>Compliance Name : &nbsp;&nbsp;<strong class="text-green">{{completeditem.complianceName}}</strong></p>
-                                    <p>Due Date : <strong class="text-green">{{completeditem.dueDate | date}}</strong></p>
+                                <div class="col-sm-12" *ngFor="let completeditem of completedCompliance">
+                                    <p><strong class="text-green">{{completeditem.complianceName}}</strong></p>
+                                    <p class="text-green">Due Date : <span>{{completeditem.dueDate | date}}</span></p>
                                 </div>
                             </div>            
                         </div>
@@ -120,7 +112,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-orange">
+                <div class="panel panel-red">
                     <div class="panel-header panel-primary">
                         <h4 class="mtm mbn plm text-uppercase  text-orange"> 
                             <i style="font-size: 17px; margin-top: 2px;" class="fa fa-list-alt text-grey"></i>
@@ -129,8 +121,8 @@
                         <div class="panel-body">
                             <div class="row" *ngIf="pendingCompliance != null">
                                 <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
-                                    <p>Compliance Name : &nbsp;&nbsp;<strong class="text-red">{{pendingitem.complianceName}}</strong></p> 
-                                    <p>Due Date : <strong class="text-red">{{pendingitem.dueDate | date}}</strong></p>
+                                    <p><strong class="text-red">{{pendingitem.complianceName}}</strong></p> 
+                                    <p class="text-red">Due Date : <strong>{{pendingitem.dueDate | date}}</strong></p>
                                 </div>
                             </div>
                         </div>

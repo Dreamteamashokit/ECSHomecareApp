@@ -177,35 +177,29 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="panel panel-orange">
+                                        <div class="panel panel-green">
                                             <div class="panel-header panel-primary">
                                                 <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>Completed Compliance</strong> </h4>
                                             </div>	
                                             <div class="panel-body">
                                                 <div class="row" *ngIf="completedCompliance != null">
                                                     <div class="col-sm-12" *ngFor="let completeditem of completedCompliance">
-                                                        <p>Compliance Name : &nbsp;&nbsp;<strong class="text-orange">{{completeditem.complianceName}}</strong></p> 
-                                                        <p>Due Date : <span class="text-orange">{{completeditem.dueDate | date}}</span></p>
+                                                        <p><strong class="text-green">{{completeditem.complianceName}}</strong></p> 
+                                                        <p class="text-green">Due Date : <span>{{completeditem.dueDate | date}}</span></p>
                                                     </div>
-                                                    <!-- <div class="col-sm-12">
-                                                        <h5 class="mtn"><strong>InService Classes</strong></h5>
-                                                        <p>Inservice classes</p>
-                                                        <p>Taken 6 hours</p>
-                                                        <p><i class="fa fa-plus-square-o"></i> Add Compliance</p>
-                                                    </div>-->
                                                 </div>            
                                             </div>
                                         </div>
 
-                                        <div class="panel panel-orange">
+                                        <div class="panel panel-red">
                                             <div class="panel-header panel-primary">
                                                 <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>Pending Compliance</strong> </h4>
                                             </div>
                                             <div class="panel-body">
                                                 <div class="row" *ngIf="pendingCompliance != null">
                                                     <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
-                                                        <p>Compliance Name : &nbsp;&nbsp;<strong class="text-green">{{pendingitem.complianceName}}</strong></p>
-                                                        <p>Due Date : <strong class="text-green">{{pendingitem.dueDate | date}}</strong></p>
+                                                        <p><strong class="text-red">{{pendingitem.complianceName}}</strong></p>
+                                                        <p class="text-red">Due Date : <span>{{pendingitem.dueDate | date}}</span></p>
                                                     </div>
                                                 </div>            
                                             </div>
