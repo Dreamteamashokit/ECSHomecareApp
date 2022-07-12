@@ -6,274 +6,246 @@
          <div class="page-header pull-right">
             <div class="page-title"></div>
         </div>
-      
-     
         <div class="clearfix"></div>
     </div>
     <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
     <div class="page-content">
-
-
         <div class="row">
             <div class="col-lg-12">
                 <ul class="nav navbar navbar-top-links navbar-right mbn hidden-lg hidden-md">      
-                  
                    <li class="dropdown ">
-                   <div class="dropdown" dropdown>
- <button dropdownToggle  class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
+                        <div class="dropdown" dropdown>
+                        <button dropdownToggle  class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">
                            <span>Employee</span>&nbsp;<span
                            class="caret"></span>                        
                         </button>
- <ul *dropdownMenu  class="dropdown-menu">
-   <li><a href="javascript:void(0)" (click)="selectTab(0)"  class="dropdown-toggle">Dashboard</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(1)"  class="dropdown-toggle">Schedule</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(2)"  class="dropdown-toggle">Personal-info</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(3)"  class="dropdown-toggle">Status</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(4)"  class="dropdown-toggle">Address</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(5)"  class="dropdown-toggle">Availability</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(6)"  class="dropdown-toggle">Absence</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(7)"  class="dropdown-toggle">Rates</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(8)"  class="dropdown-toggle">Declined-Cases</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(9)"  class="dropdown-toggle">Incidents</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(10)"  class="dropdown-toggle">Compliance</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(11)"  class="dropdown-toggle">Documents</a></li>
-
-   <!-- <li><a href="javascript:void(0)" (click)="selectTab(13)"  class="dropdown-toggle">Hiring</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(14)"  class="dropdown-toggle">Contact-Log-Notes</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(15)"  class="dropdown-toggle">Documents-Files</a></li>
-   <li><a href="javascript:void(0)" (click)="selectTab(16)"  class="dropdown-toggle">Mobile-App</a></li>    -->
- </ul>
-</div>
-               </li>
+                        <ul *dropdownMenu  class="dropdown-menu">
+                          <li><a href="javascript:void(0)" (click)="selectTab(0)"  class="dropdown-toggle">Dashboard</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(1)"  class="dropdown-toggle">Schedule</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(2)"  class="dropdown-toggle">Personal-info</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(3)"  class="dropdown-toggle">Status</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(4)"  class="dropdown-toggle">Address</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(5)"  class="dropdown-toggle">Availability</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(6)"  class="dropdown-toggle">Absence</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(7)"  class="dropdown-toggle">Rates</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(8)"  class="dropdown-toggle">Declined-Cases</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(9)"  class="dropdown-toggle">Incidents</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(10)"  class="dropdown-toggle">Compliance</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(11)"  class="dropdown-toggle">Documents</a></li>
+                        
+                          <!-- <li><a href="javascript:void(0)" (click)="selectTab(13)"  class="dropdown-toggle">Hiring</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(14)"  class="dropdown-toggle">Contact-Log-Notes</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(15)"  class="dropdown-toggle">Documents-Files</a></li>
+                          <li><a href="javascript:void(0)" (click)="selectTab(16)"  class="dropdown-toggle">Mobile-App</a></li>    -->
+                        </ul>
+                        </div>
+                    </li>
                </ul>
             </div>
             <div class="col-lg-12">         
-          
-            <tabset class="rakeshClasss" #staticTabs>
-                <tab heading="Dashboard">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                     <div class="panel panel-orange">
-                                <div class="panel-body pan bg-grey text-white">
-                                    <div class="profile">
-                                        <div class="user-info">
-                                            <div style="margin-bottom: 15px" class="row">
-                                                <div class="col-xs-7 col-sm-7">
-                                                    <h3 class="mtn text-light-orange">Personal Data</h3>
-                                              <h4>  {{ this?.getName(this.empInfo) }} | {{ this.empInfo.empType }}</h4> 
-                    
-                    
-                    
-                                                    <p>
-                                                        <strong><span class="text-light-orange"><i class="fa fa-calendar"></i> Date Of Birth:</span> </strong><br>
-                                                   <strong>{{empInfo.dob}}</strong>
-                                                    </p>
-                    
-                                                    <p>
-                                                        <strong class="mrs"><span class="text-light-orange"><i class="fa fa-phone"></i> Cell Phone:</span> </strong><br>
-                                                       <strong>{{empInfo.cellPhone}}</strong> 
-                                                    </p>
-                    
-                    
-                    
-                                                </div>
-                    
-                    
-                                                <div class="col-xs-5 col-sm-5 text-center">
-                    
-                                                    <img src="../../assets/images/profile-img-big.jpg"
-                                                         class="img-responsive-mobile img-round" alt="" />
-                    
-                    
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <p>
-                                                        <strong class="mrs"><span class="text-orange">Coordinator:</span></strong>
-                                                   <!-- <strong>{{empInfo.hRSupervisor}}</strong> -->
-                                                    </p>
-                                                    <p class="mtm">
-                                                        <span class="text-orange text-14"><i class="fa fa-calendar"></i></span> Send Email message to John Deo
-                                                    </p>
-                                                </div>
-                                            </div>
-                    
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                                </div>
-                            </div>
-                             <div class="row">
-                           <div class="col-md-12">
-                              <div class="panel panel-orange">
-                                <div class="panel-header panel-primary">
-                                   <h4 class="mtm mbn plm text-uppercase  text-orange"> <i style="font-size: 17px; margin-top: 2px;"
-                                                                           class="fa fa-envelope"></i> <strong>Send Email message to John Deo</strong>
-                                    </h4>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12"><p>Send Via&nbsp;&nbsp;<input type="checkbox"> Email&nbsp;&nbsp;<input type="checkbox"> SMS text</p></div>								
-                                        </div>
-                                    <div class="row">
-                                         <div class="col-sm-12">
-                                             <div class="email-box">
-                                             <p class=""><strong>Hello John DEO</strong></p>
-                                             <p class="">Michele Deo</p>
-                                        </div>
-                                        
-                                        </div>
-                                        </div>							
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
-                            <div class="row">
-                           <div class="col-md-12">
-                              <div class="panel panel-orange">
-                                   <div class="panel-header panel-primary">
-                                   <h4 class="mtm mbn plm text-uppercase  text-orange"> <strong>Current Assignments</strong> </h4>
-                                </div>							  
-                               
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12"><p><i class="fa fa-plus-square-o"></i> View Full Schedule</p></div>								
-                                        </div>
-                                                
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
-                                <div class="row">
-                           <div class="col-md-12">
-                               <div class="panel panel-orange">
-                                   <div class="panel-header panel-primary">
-                                   <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>John Deo Signature on file</strong> </h4>
-                                </div>			
-                               
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12"><p>Signature</p>
-                                        <p>john deo &nbsp;&nbsp;12-02-2022&nbsp;&nbsp;3:20</p>
-                                        
-                                        </div>								
-                                        </div>
-                                                
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
-                        </div>
-                    <div class="col-md-6">
-                            
-                             <div class="row">
-                           <div class="col-md-12">
-                              <div class="panel panel-orange">                               
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12"><p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
-                                        <p><a href=""><i class="fa fa-plus-square"></i> Add Completed</a></p>
-                                        </div>								
-                                        </div>
-                                                            
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
-                           <div class="row">
-                           <div class="col-md-12">
-                              <div class="panel panel-orange">                               
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12"><p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
-                                        <p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
-                                        </div>								
-                                        </div>
-                                        
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
-                            <div class="row">
-                           <div class="col-md-12">
-                               <div class="panel panel-orange">
-                                   <div class="panel-header panel-primary">
-                                   <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>Compliance</strong> </h4>
-                                </div>	
-                               
-                                <div class="panel-body">
-                                    <div class="row" *ngIf="completedCompliance != null">
-                                        <div class="col-sm-12" *ngFor="let completeditem of completedCompliance" style="color: Light Green;">
-                                                Compliance Name :<h5 class="mtn"><strong>{{completeditem.complianceName}}</strong></h5>
-                                                Due Date : <span>{{completeditem.dueDate | date}}</span>
-                                                <hr>
-                                        </div>
-                                        <!-- <div class="col-sm-12">
-                                            <h5 class="mtn"><strong>InService Classes</strong></h5>
-                                            <p>Inservice classes</p>
-                                            <p>Taken 6 hours</p>
-                                            <p><i class="fa fa-plus-square-o"></i> Add Compliance</p>
-                                        </div>-->
-                                    </div>            
-                                    <div class="row" *ngIf="pendingCompliance != null">
-                                        <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
-                                            Compliance Name :<h5 class="mtn"><strong>{{pendingitem.complianceName}}</strong></h5>
-                                            Due Date : <span>{{pendingitem.dueDate | date}}</span>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>				  
-                          
-                          </div>
+                <tabset class="rakeshClasss" #staticTabs>
+                    <tab heading="Dashboard">
                         <div class="row">
-                           <div class="col-md-12">
-                               <div class="panel panel-orange">
-                                   <div class="panel-header panel-primary">
-                                   <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>HR</strong> </h4>
-                                </div>							   
-                             
-                                <div class="panel-body">
-                                    <div class="row">
-                                 <div class="col-sm-12">
-                                    <p><strong>HHA</strong></p>
-                                     <p>Start Date: 16-03-2022</p>
-                                     <p>Certficate: HHA</p>
-                                         <p>Validation Date: 16-03-2022</p>
-                                          <p><i class="fa fa-plus-square-o"></i> More All</p>
-                                      </div>								
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-body pan bg-grey text-white">
+                                                <div class="profile">
+                                                    <div class="user-info">
+                                                        <div style="margin-bottom: 15px" class="row">
+                                                            <div class="col-xs-7 col-sm-7">
+                                                                <h3 class="mtn text-light-orange">Personal Data</h3>
+                                                                <h4>  {{ this?.getName(this.empInfo) }} | {{ this.empInfo.empType }}</h4>
+                                                                <p>
+                                                                    <strong><span class="text-light-orange"><i class="fa fa-calendar"></i> Date Of Birth:</span> </strong><br><strong>{{empInfo.dob}}</strong>
+                                                                </p>
+                                                                <p>
+                                                                    <strong class="mrs"><span class="text-light-orange"><i class="fa fa-phone"></i> Cell Phone:</span> </strong><br>
+                                                                    <strong>{{empInfo.cellPhone}}</strong> 
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-xs-5 col-sm-5 text-center">
+                                                                <img src="../../assets/images/profile-img-big.jpg" class="img-responsive-mobile img-round" alt="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <p>
+                                                                    <strong class="mrs"><span class="text-orange">Coordinator:</span></strong>
+                                                                    <!-- <strong>{{empInfo.hRSupervisor}}</strong> -->
+                                                                </p>
+                                                                <p class="mtm">
+                                                                    <span class="text-orange text-14"><i class="fa fa-calendar"></i></span> Send Email message to John Deo
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                                
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange"> 
+                                                    <i style="font-size: 17px; margin-top: 2px;" class="fa fa-envelope"></i> 
+                                                    <strong>Send Email message to John Deo</strong>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12"><p>Send Via&nbsp;&nbsp;<input type="checkbox"> Email&nbsp;&nbsp;<input type="checkbox"> SMS text</p></div>								
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="email-box">
+                                                            <p class=""><strong>Hello John DEO</strong></p>
+                                                            <p class="">Michele Deo</p>
+                                                        </div>
+                                                    </div>
+                                                </div>							
+                                            </div>
+                                        </div>
+                                    </div>				  
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange"> <strong>Current Assignments</strong> </h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p><i class="fa fa-plus-square-o"></i> View Full Schedule</p>
+                                                    </div>								
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>				  
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange">
+                                                    <strong>John Deo Signature on file</strong> 
+                                                </h4>
+                                            </div>			
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12"><p>Signature</p>
+                                                        <p>john deo &nbsp;&nbsp;12-02-2022&nbsp;&nbsp;3:20</p>
+                                                    </div>								
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>				  
                                 </div>
                             </div>
-                          </div>				  
-                          
-                          </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">                               
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
+                                                        <p><a href=""><i class="fa fa-plus-square"></i> Add Completed</a></p>
+                                                    </div>								
+                                                </div>            
+                                            </div>
+                                        </div>
+                                    </div>				  
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">                               
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
+                                                        <p><i class="fa fa-dot-circle-o text-orange"></i> Alao completed six hours of Inservice classes</p>
+                                                    </div>								
+                                                </div>                                        
+                                            </div>
+                                        </div>
+                                    </div>				  
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>Completed Compliance</strong> </h4>
+                                            </div>	
+                                            <div class="panel-body">
+                                                <div class="row" *ngIf="completedCompliance != null">
+                                                    <div class="col-sm-12" *ngFor="let completeditem of completedCompliance">
+                                                        <p>Compliance Name : &nbsp;&nbsp;<strong class="text-orange">{{completeditem.complianceName}}</strong></p> 
+                                                        <p>Due Date : <span class="text-orange">{{completeditem.dueDate | date}}</span></p>
+                                                    </div>
+                                                    <!-- <div class="col-sm-12">
+                                                        <h5 class="mtn"><strong>InService Classes</strong></h5>
+                                                        <p>Inservice classes</p>
+                                                        <p>Taken 6 hours</p>
+                                                        <p><i class="fa fa-plus-square-o"></i> Add Compliance</p>
+                                                    </div>-->
+                                                </div>            
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>Pending Compliance</strong> </h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row" *ngIf="pendingCompliance != null">
+                                                    <div class="col-sm-12" *ngFor="let pendingitem of pendingCompliance">
+                                                        <p>Compliance Name : &nbsp;&nbsp;<strong class="text-green">{{pendingitem.complianceName}}</strong></p>
+                                                        <p>Due Date : <strong class="text-green">{{pendingitem.dueDate | date}}</strong></p>
+                                                    </div>
+                                                </div>            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-orange">
+                                            <div class="panel-header panel-primary">
+                                                <h4 class="mtm mbn plm text-uppercase  text-orange"><strong>HR</strong> </h4>
+                                            </div>                             
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p><strong>HHA</strong></p>
+                                                        <p>Start Date: 16-03-2022</p>
+                                                        <p>Certficate: HHA</p>
+                                                        <p>Validation Date: 16-03-2022</p>
+                                                        <p><i class="fa fa-plus-square-o"></i> More All</p>
+                                                    </div>								
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                          
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </tab>
-                <tab heading="Schedule">
+                    </tab>
+                    <tab heading="Schedule">
                      <app-user-schedule></app-user-schedule> 
-                </tab>                
-                <tab heading="Personal-info">                
-                 <div class="row">
-                        <div class="col-lg-12">
-                            <h4 class="mtm mbm text-uppercase  text-orange"> <strong>PERSONAL INFO</strong> </h4>
-                        </div>
+                    </tab>                
+                    <tab heading="Personal-info">                
+                    <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="mtm mbm text-uppercase  text-orange"> <strong>PERSONAL INFO</strong> </h4>
+                    </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                    <div class="col-lg-6">
                             <div class="panel">
                                 <div class="panel-body ptn pbn">
                                     <div class="row">
@@ -376,8 +348,8 @@
                                     </div>                
                                 </div>                
                             </div>                
-                        </div>
-                        <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
                             <div class="panel">
                                 <div class="panel-body ptn pbn">
                                     <div class="row">
@@ -492,84 +464,47 @@
                 
                             </div>
                 
-                        </div>
-                    </div> 
-                
-                </tab>
-                
-                <tab heading="Status">
-                        
-               <app-emp-status></app-emp-status>  
-                
-                </tab>
-                
-                <tab heading="Address">
-                
-                 <app-emp-address></app-emp-address> 
-                
-                
-                
-                </tab>
-                <tab heading="Availability">
+                    </div>
+                    </div>
+                    </tab>
+
+                    <tab heading="Status">    
+                    <app-emp-status></app-emp-status>  
+                    </tab>
+
+                    <tab heading="Address">
+                    <app-emp-address></app-emp-address> 
+                    </tab>
+                    <tab heading="Availability">
                     <div class="row">
                         <div class="col-lg-12">
                             <h4 class="mtm mbm text-uppercase  text-orange"> <strong>Availability</strong> </h4>
                         </div>
                     </div>
-                <!-- <app-emp-availability></app-emp-availability> -->
-                <app-client-provisions></app-client-provisions>
-                
-                </tab>
-                
-                
-                
-                <tab heading="Absence">
-                
-                    
-          <app-emp-attendance></app-emp-attendance> 
-                    
-                </tab>
-                <tab heading="Rates">
-                
-              <app-emp-rate></app-emp-rate> 
-                
-                    
-                </tab>
-                <tab heading="Declined-Cases">                
-                    <app-emp-declined-cases></app-emp-declined-cases> 
-                                    
-                </tab>
-                <tab heading="Incidents">                   
-                       
+                    <!-- <app-emp-availability></app-emp-availability> -->
+                    <app-client-provisions></app-client-provisions>
+                    </tab>
+                    <tab heading="Absence">
+                    <app-emp-attendance></app-emp-attendance>
+                    </tab>
+                    <tab heading="Rates">                
+                    <app-emp-rate></app-emp-rate> 
+                    </tab>
+                    <tab heading="Declined-Cases">                
+                    <app-emp-declined-cases></app-emp-declined-cases>            
+                    </tab>
+                    <tab heading="Incidents">                          
                   <app-emp-incidents></app-emp-incidents>
-                </tab>                
-                
-                <tab heading="Compliance">               
-                    
-            <app-emp-compliance></app-emp-compliance> 
-                                    
-                </tab>
-                
-                <tab heading="Documents">
+                    </tab>                
+                    <tab heading="Compliance">               
+                    <app-emp-compliance></app-emp-compliance>               
+                    </tab>
+                    <tab heading="Documents">
                     <!-- <app-emp-document [data]="this.UserData"></app-emp-document> -->
-
                     <app-document></app-document>
-                </tab>
-                
-        
-        </tabset>
-         
-        </div>
-
- 
-
-
-
-
-        
+                    </tab>
+                </tabset>
+            </div>
     </div>
-    <!--END CONTENT--></div>
-
-
-
-  
+    <!--END CONTENT-->
+</div>
