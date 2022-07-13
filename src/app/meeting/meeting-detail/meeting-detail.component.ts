@@ -64,7 +64,7 @@ export class MeetingDetailComponent implements OnInit {
     
     this.momApi.getMeetingDetail(this.meetingId).subscribe((response) => {
       if (response.result) {
-        debugger;
+        
         this.momObj = response.data;
         this.mNoteList = response.data.notes;
         if (this.momObj.isStatus == StatusEnum.Cancelled || this.momObj.isStatus == StatusEnum.CancelledByClient) {
@@ -78,6 +78,7 @@ export class MeetingDetailComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>, _status: number) {
+    
     switch (_status) {
       case 2:
         this.title = "Cancel Appointment";
@@ -147,6 +148,7 @@ export class MeetingDetailComponent implements OnInit {
   }
 
   onChange(_status: number, _meetingId?: number) {
+    
     this.IsLoad = true;
     this.model.isStatus = _status;
     this.model.meetingId = this.momObj?.meetingId != null ? this.momObj.meetingId : 0;
@@ -328,7 +330,7 @@ export class MeetingDetailComponent implements OnInit {
    GetLatestThreeOverdueComplianceList(userId:number){
     this.empserv.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
       if(response.result){
-        debugger;
+        
         this.LatestThreeCompliance = response.data;
       }
     })
