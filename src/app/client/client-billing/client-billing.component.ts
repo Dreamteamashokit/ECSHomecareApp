@@ -415,7 +415,8 @@ export class ClientBillingComponent implements OnInit {
     else{
        this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
         
-        if(res?.result){
+        if(res?.result)
+        {
           this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
           
           this.decline();
