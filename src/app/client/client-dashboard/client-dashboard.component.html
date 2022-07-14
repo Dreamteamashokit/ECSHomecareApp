@@ -73,17 +73,25 @@
                     </div>					
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6"><p>Vaccn: Hourly&nbsp;&nbsp;Expires:11-02-2022</p></div>
-                            <div class="col-sm-6 text-right small-txt">Authorized signature</div>
+                            <div class="col-sm-6"><p>{{billingSummary?.billToName}} {{billingSummary?.Type}}&nbsp;&nbsp;Expires:{{billingSummary?.dueDate}}</p></div>
+                            <div class="col-sm-6 text-right small-txt">
+                                <a href="javascript:void(0)" class="dropdown-toggle" (click)="selectTab(5)">{{model?.firstName}} Billing</a> 
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12"><p class="text-orange"><strong>Status</strong></p></div>
+                            <div class="col-sm-12">
+                                <p class="text-orange">
+                                    <strong>
+                                        <a href="javascript:void(0)" class="dropdown-toggle">{{model?.firstName}} Status</a> 
+                                    </strong>
+                                </p>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <p><strong>Address</strong>:<br>60 chiga abc, USA</p>
+                                <p><strong>{{clientStatus?.activityText}}</strong><br>{{clientStatus?.referralCodeText}} as of {{clientStatus?.statusDate | date}}</p>
                             </div>
-                            <div class="col-sm-6 text-right small-txt">Authorized signature</div>
+                            <div class="col-sm-6 text-right small-txt">{{model.firstName}} Status</div>
                         </div>
                     </div>
                 </div>
@@ -101,7 +109,7 @@
                             <div class="row" *ngIf="completedCompliance != null">
                                 <div class="col-sm-12" *ngFor="let completeditem of completedCompliance">
                                     <p><strong class="text-green">{{completeditem.complianceName}}</strong></p>
-                                    <p class="text-green">Due Date : <span>{{completeditem.dueDate | date}}</span></p>
+                                    <p class="text-green">Completed Date : <span>{{completeditem.completedOn | date}}</span></p>
                                 </div>
                             </div>            
                         </div>

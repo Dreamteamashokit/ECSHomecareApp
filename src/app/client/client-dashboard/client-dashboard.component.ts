@@ -7,7 +7,11 @@ import { LocationView } from "src/app/models/common/address-view";
 import { EmployeeapiService } from "src/app/services/employeeapi.service";
 import { UserModel } from "src/app/models/account/login-model";
 import { AccountService } from "src/app/services/account.service";
+import { InvoiceService } from "../../services/invoice.service";
 import * as atlas from "azure-maps-control";
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { billingInfo } from "src/app/models/billing/billingInfo-model";
+import {ClientStatusModel,ClientStatusLst} from 'src/app/models/client/Status-model';
 
 @Component({
   selector: "app-client-dashboard",
@@ -25,18 +29,22 @@ export class ClientDashboardComponent implements OnInit {
   geoObj = new LocationView();
   completedCompliance:any;
   pendingCompliance:any;
+  billingSummary = new billingInfo();
+  clientStatus :any;
   @ViewChild("locMapId") locMapId: ElementRef;
-
+  @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
 
   constructor(
     public route: ActivatedRoute,
     public datepipe: DatePipe,
     public clientSrv: ClientApiService,
     public empSrv: EmployeeapiService,
-    private accountSrv: AccountService
+    private accountSrv: AccountService,
+    private invoiceSrv:InvoiceService
   ) {
     this.currentUser = this.accountSrv.getCurrentUser();
     this.currentUser.userName =this.currentUser.firstName + " " + this.currentUser.middleName + " " + this.currentUser.lastName;
+    
   }
 
   ngOnInit(): void {
@@ -54,9 +62,18 @@ export class ClientDashboardComponent implements OnInit {
 
       this.getAddress(this.model.clientId);
       this.GetLatestThreeOverdueComplianceList(this.model.clientId);
+      this.GetBillingSummaryInfo(this.model.clientId);
+      this.GetClientStatusList(this.model.clientId);
     });
   }
 
+  selectTab(tabId: number) {
+    
+    if (this.staticTabs?.tabs[tabId]) {
+      this.staticTabs.tabs[tabId].active = true;
+    }
+  }
+  
   getAddress(userId: number) {
     this.geoObj.userId=userId;
     this.empSrv.geAddress(userId).subscribe({
@@ -212,20 +229,39 @@ export class ClientDashboardComponent implements OnInit {
     for (i = 0; i < maptooltiptext.length; i++) {
       maptooltiptext[i].innerHTML = "";
     }
-
-    document.getElementsByClassName(
-      "azure-map-copyright-context"
-    )[0].innerHTML = "";
+      
+    if(document.getElementsByClassName("azure-map-copyright-context")[0] != null && document.getElementsByClassName("azure-map-copyright-context")[0] != undefined){
+      document.getElementsByClassName(
+        "azure-map-copyright-context"
+      )[0].innerHTML = "";
+    }
   }
 
   GetLatestThreeOverdueComplianceList(userId:number){
     this.empSrv.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
       if(response.result){
-        
         this.completedCompliance = response.data.objThreeLatestCompletedCompliance;
         this.pendingCompliance = response.data.objThreeLatestPendingCompliance;
       }
     })
   }
 
+  GetBillingSummaryInfo(userId:number){
+    
+      this.invoiceSrv.GetBillingSummaryInfo(userId).subscribe((response)=>{
+        if(response.result){
+            this.billingSummary = response.data;
+        }
+      });
+  }
+
+  GetClientStatusList(clientId:number)
+  {
+    this.clientSrv.getClientStatusList(clientId).subscribe((response)=>{
+      if(response.data != null && response.data != undefined)
+      {
+        this.clientStatus = response.data[0];
+      }
+    })  
+  }
 }
