@@ -36,9 +36,15 @@ export class MeetingDetailComponent implements OnInit {
   mlogList: MeetingLog[] = [];
   message?: string;
   currentUser: UserModel;
+
+  isClient:boolean;
+  modalRef?: BsModalRef;
+  userId:number;
+
   ClientList = Array<ItemsList>();
   modalRef?: BsModalRef;
   LatestThreeCompliance:any;
+
 
   constructor(
     private router: Router,
@@ -54,19 +60,24 @@ export class MeetingDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //alert(this.userId)
+
     this.bindClient();
+
     this.BindMeeting();
     this.getMeetingLog(this.meetingId);
     this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
   }
 
   BindMeeting() {
-    
+
     this.momApi.getMeetingDetail(this.meetingId).subscribe((response) => {
       if (response.result) {
         
         this.momObj = response.data;
         this.mNoteList = response.data.notes;
+
         if (this.momObj.isStatus == StatusEnum.Cancelled || this.momObj.isStatus == StatusEnum.CancelledByClient) {
           this.IsCancel = false;
         }
@@ -205,9 +216,18 @@ export class MeetingDetailComponent implements OnInit {
     this.model.meetingId = this.momObj?.meetingId != null ? this.momObj.meetingId : 0;
     const reqObj: MeetingStatus = this.model;
     this.momApi.changeStatus(reqObj).subscribe((response) => {
+      // this.IsLoad = false;
+      // item.hide();
+      // this.reloadCurrentPage()
       this.IsLoad = false;
       item.hide();
-      this.reloadCurrentPage()
+      
+      if (this.isClient) {
+        this.router.navigate(['/client/info/' + this.userId + '/1']);
+      }
+      else {
+        this.router.navigate(['/employee/info/' +this.momObj?.employee?.id + '/1']);
+      }
     });  
   }
 

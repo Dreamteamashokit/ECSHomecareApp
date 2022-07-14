@@ -10,6 +10,7 @@ export class AvailbilityReponse {
     zipCode: string;
     distance:number;
     meetingList: EmpAppointment[];
+    flatNo: string;
 }
 
 export class EmpAppointment {
@@ -28,4 +29,11 @@ export class ClientGeoProvisions {
     longitude: number;
     provisions: number[];
     userName: string;
+    flatNo: string;
+    address: string;
+    country: string;
+    state: string;
+    city: string;
+    zipCode: string;
+    fullAddress:string;
 }

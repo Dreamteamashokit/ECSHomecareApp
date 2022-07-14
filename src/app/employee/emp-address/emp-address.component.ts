@@ -185,7 +185,31 @@ export class EmpAddressComponent implements OnInit {
           loc.latitude=this.currentUser.latitude;
           loc.longitude=this.currentUser.longitude;  
           loc.owner=this.currentUser.userName;
-        }       
+        }  
+        try{
+          if (response.result) {
+          loc.flatNo=response.data.flatNo??"";
+          loc.address=response.data.address??"";
+          loc.country=response.data.country??"";
+          loc.state=response.data.state??"";
+          loc.city=response.data.city??"";
+          loc.zipCode=response.data.zipCode??"";
+        
+          loc.fullAddress=loc.flatNo!=""?loc.fullAddress+", "+loc.flatNo:loc.fullAddress;
+          loc.fullAddress=loc.address!=""?loc.fullAddress+", "+loc.address:loc.fullAddress;
+          loc.fullAddress=loc.city!=""?loc.fullAddress+", "+loc.city:loc.fullAddress;
+          loc.fullAddress=loc.state!=""?loc.fullAddress+", "+loc.state:loc.fullAddress;
+          loc.fullAddress=loc.country!=""?loc.fullAddress+", "+loc.country:loc.fullAddress;
+          }
+          else{
+            loc.fullAddress="";
+          }
+         // loc.fullAddress==loc.fullAddress.replace("undefined,","");
+          
+        }
+        catch(ex){
+
+        }     
        },
        error: (err) => { 
         console.log(err);     
@@ -214,7 +238,8 @@ export class EmpAddressComponent implements OnInit {
       closeButton: false,
     });
 
-    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a></div></div>';
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a><br/><div>{address}</div></div></div>';
+
 
 
     var newAzureMap = new atlas.Map("addressMapId", {
@@ -277,7 +302,8 @@ export class EmpAddressComponent implements OnInit {
                 new atlas.data.Point([Number(current.longitude), Number(current.latitude)]),
                 { 
                   name: current.owner,
-                  url:currentUrl  
+                  url:currentUrl ,
+                  address :current.fullAddress 
                 }
               ));
 
@@ -297,11 +323,15 @@ export class EmpAddressComponent implements OnInit {
             if (e.shapes && e.shapes.length > 0) {
               var content, coordinate;
               var shape = (<any>e.shapes)[0].data;
-              var clientNameMap = shape.properties.name;
-              var clientUrl = shape.properties.url;
+              let clientNameMap = shape.properties.name;
+              let clientUrl = shape.properties.url;
+              let fullAddress = shape.properties.address;
+              fullAddress=fullAddress.replace("undefined,","");
+              
+			        content = popupTemplate.replace(/{name}/g, clientNameMap);
+              content = content.replace(/{url}/g, clientUrl);
+              content = content.replace(/{address}/g, fullAddress);
 
-              content = popupTemplate.replace(/{name}/g, clientNameMap);
-              content = content.replace(/{url}/g, window.location.origin+'/'+clientUrl);
               coordinate = e.position;
               popup.setOptions({ content: content, position: coordinate });
               popup.open(newAzureMap);

@@ -17,5 +17,12 @@ export class LocationView {
     longitude: number;
     owner:string;
     userId:number;
+     flatNo: string;
+     address: string;
+     country: string;
+     state: string;
+     city: string;
+     zipCode: string;
+     fullAddress:string;
 
 }
