@@ -227,7 +227,7 @@ export class MeetingDetailComponent implements OnInit {
       // }
       // else {
       //   this.router.navigate(['/employee/info/' +this.momObj?.employee?.id + '/1']);
-      // }
+      // }s
 
       let currentUrl = '';
       if (this.isClient) {
