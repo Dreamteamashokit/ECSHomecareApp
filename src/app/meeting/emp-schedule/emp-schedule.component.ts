@@ -57,7 +57,6 @@ export class EmpScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     this.route.params.subscribe(
       (params: Params) => {
         this.isClient = UserType.Client === Number(params["typeId"]) ? true : false;
@@ -76,13 +75,11 @@ export class EmpScheduleComponent implements OnInit {
   BindMaster() {
     this.comApi.getEmpList().subscribe((response) => {
       if (response.result) {
-        debugger;
         this.EmplList = response.data;
       }
     });
     this.comApi.getClientList().subscribe((response) => {
       if (response.result) {
-        debugger;
         this.ClientList = response.data;
       }
     });
@@ -103,7 +100,7 @@ export class EmpScheduleComponent implements OnInit {
   }
 
   setInitailTime(_from: string) {
-    debugger;
+    
     let today = new Date();
     let from = new Date(_from);
     from.setHours(today.getHours());
@@ -138,7 +135,7 @@ export class EmpScheduleComponent implements OnInit {
 
 
   OnScheduling() {
-    debugger;
+    
     this.IsLoad = true;
     this.model.clientId = Number(this.model.clientId);
     this.model.empId = Number(this.model.empId);

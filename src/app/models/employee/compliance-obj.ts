@@ -14,4 +14,10 @@ export class ComplianceModel extends BaseModel {
     isStatus: number;
     documentId:number;
     statusName: string;
+    ComplianceName:string;
+}
+
+export class ComplianceListModel {
+    objThreeLatestCompletedCompliance:ComplianceModel[];
+    objThreeLatestPendingCompliance:ComplianceModel[];
 }

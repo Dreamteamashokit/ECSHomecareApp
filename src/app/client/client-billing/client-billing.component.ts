@@ -132,7 +132,7 @@ export class ClientBillingComponent implements OnInit {
         this.model.payerId = Number(this.model.payerId);
         this.model.contractClientId = this.model.contractClientId;
         this.model.serviceCode = Number(this.model.serviceCode);
-        debugger;
+        
         let totrasformDate = this.datepipe.transform(this.model.toDate, 'MM-dd-yyyy')||""
         let fromtrasformDate = this.datepipe.transform(this.model.fromDate, 'MM-dd-yyyy')||""
         this.model.toDate = totrasformDate;
@@ -294,6 +294,7 @@ export class ClientBillingComponent implements OnInit {
     setTimeout(() => {
       
       this.invoiceService.getBillingDetailsByBillingId(billingId).subscribe(res => {
+        
         if(res != null && res != undefined && res.result){
           this.currentClinetBill = res.data;
           this.model = this.currentClinetBill;
@@ -340,77 +341,97 @@ export class ClientBillingComponent implements OnInit {
 
 
   onClickUpdate(){
+
     this.model.payerId = Number(this.model.payerId);
     this.model.contractClientId = this.model.contractClientId;
     this.model.serviceCode = Number(this.model.serviceCode);
-
-    if(!this.byDaysOfWeekToggle){
-      this.model.brServiceCode_SAT = Number(this.model.brServiceCode_SAT);
-      this.model.brServiceCode_SUN = Number(this.model.brServiceCode_SUN);
-      this.model.brServiceCode_MON = Number(this.model.brServiceCode_MON);
-      this.model.brServiceCode_TUE = Number(this.model.brServiceCode_TUE);
-      this.model.brServiceCode_WED = Number(this.model.brServiceCode_WED);
-      this.model.brServiceCode_THU = Number(this.model.brServiceCode_THU);
-      this.model.brServiceCode_FRI = Number(this.model.brServiceCode_FRI);
-  
-      this.model.quantity_SAT = Number(this.model.quantity_SAT);
-      this.model.quantity_SUN = Number(this.model.quantity_SUN);
-      this.model.quantity_MON = Number(this.model.quantity_MON);
-      this.model.quantity_TUE = Number(this.model.quantity_TUE);
-      this.model.quantity_WED = Number(this.model.quantity_WED);
-      this.model.quantity_THU = Number(this.model.quantity_THU);
-      this.model.quantity_FRI = Number(this.model.quantity_FRI);
-      
-      this.model.periodEpisode_Notes = " ";
-      this.model.serviceCode = 0;
-      this.model.hoursAuthorizedPerWeek = "";
-      this.model.hoursAuthorizedPerMonth= "";
-      this.model.hoursAuthorizedEntirePeriod ="";
-      this.model.occurencesAuthorizedPerWeek = "";
-      this.model.occurencesAuthorizedPerMonth ="";
-      this.model.occurencesAuthorizedEntirePeriod ="";
-
-      let totrasformDate = this.datepipe.transform(this.model.toDate, 'MM-dd-yyyy')||""
-      let fromtrasformDate = this.datepipe.transform(this.model.fromDate, 'MM-dd-yyyy')||""
-      this.model.fromDate = fromtrasformDate;
-      this.model.toDate = totrasformDate;
-    }else{
-      this.model.brServiceCode_SAT = 0;
-      this.model.brServiceCode_SUN = 0;
-      this.model.brServiceCode_MON = 0;
-      this.model.brServiceCode_TUE = 0;
-      this.model.brServiceCode_WED = 0;
-      this.model.brServiceCode_THU = 0;
-      this.model.brServiceCode_FRI = 0;
-      this.model.quantity_SAT = 0;
-      this.model.quantity_SUN = 0;
-      this.model.quantity_MON = 0;
-      this.model.quantity_TUE = 0;
-      this.model.quantity_WED = 0;
-      this.model.quantity_THU = 0;
-      this.model.quantity_FRI = 0;
-      this.model.fromDate = this.model.fromDate;
-      this.model.toDate = this.model.toDate;
-      this.model.daysOfWeekNotes = "";
-    }
-
-     this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
-      
-      if(res?.result){
-        this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
+    
+    
+      if(!this.byDaysOfWeekToggle){
+        this.model.brServiceCode_SAT = Number(this.model.brServiceCode_SAT);
+        this.model.brServiceCode_SUN = Number(this.model.brServiceCode_SUN);
+        this.model.brServiceCode_MON = Number(this.model.brServiceCode_MON);
+        this.model.brServiceCode_TUE = Number(this.model.brServiceCode_TUE);
+        this.model.brServiceCode_WED = Number(this.model.brServiceCode_WED);
+        this.model.brServiceCode_THU = Number(this.model.brServiceCode_THU);
+        this.model.brServiceCode_FRI = Number(this.model.brServiceCode_FRI);
+    
+        this.model.quantity_SAT = Number(this.model.quantity_SAT);
+        this.model.quantity_SUN = Number(this.model.quantity_SUN);
+        this.model.quantity_MON = Number(this.model.quantity_MON);
+        this.model.quantity_TUE = Number(this.model.quantity_TUE);
+        this.model.quantity_WED = Number(this.model.quantity_WED);
+        this.model.quantity_THU = Number(this.model.quantity_THU);
+        this.model.quantity_FRI = Number(this.model.quantity_FRI);
         
-        this.decline();
-        this.isUpdateVisible = false;
-        this.isAddVisible = true;
-        this.getActiveBill();
-        this.getExpiredBill();
+        this.model.periodEpisode_Notes = " ";
+        this.model.serviceCode = 0;
+        this.model.hoursAuthorizedPerWeek = "";
+        this.model.hoursAuthorizedPerMonth= "";
+        this.model.hoursAuthorizedEntirePeriod ="";
+        this.model.occurencesAuthorizedPerWeek = "";
+        this.model.occurencesAuthorizedPerMonth ="";
+        this.model.occurencesAuthorizedEntirePeriod ="";
+  
+        let totrasformDate = this.datepipe.transform(this.model.toDate, 'MM-dd-yyyy')||""
+        let fromtrasformDate = this.datepipe.transform(this.model.fromDate, 'MM-dd-yyyy')||""
+        this.model.fromDate = fromtrasformDate;
+        this.model.toDate = totrasformDate;
       }else{
-        this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
-        this.decline();
-        this.isUpdateVisible = false;
-        this.isAddVisible = true;
+        this.model.brServiceCode_SAT = 0;
+        this.model.brServiceCode_SUN = 0;
+        this.model.brServiceCode_MON = 0;
+        this.model.brServiceCode_TUE = 0;
+        this.model.brServiceCode_WED = 0;
+        this.model.brServiceCode_THU = 0;
+        this.model.brServiceCode_FRI = 0;
+        this.model.quantity_SAT = 0;
+        this.model.quantity_SUN = 0;
+        this.model.quantity_MON = 0;
+        this.model.quantity_TUE = 0;
+        this.model.quantity_WED = 0;
+        this.model.quantity_THU = 0;
+        this.model.quantity_FRI = 0;
+        this.model.fromDate = this.model.fromDate;
+        this.model.toDate = this.model.toDate;
+        this.model.daysOfWeekNotes = "";
       }
-    })
+  
+      if((this.model.brServiceCode_SAT == 0) && (this.model.brServiceCode_SUN) == 0 && (this.model.brServiceCode_MON) == 0 
+      && (this.model.brServiceCode_TUE == 0) && (this.model.brServiceCode_WED) == 0 && (this.model.brServiceCode_THU) == 0
+      && (this.model.brServiceCode_FRI == 0))
+    {
+      this.toastr.errorToastr("Please select billing rates", 'Failed!');
+    }
+    else if(this.model.quantity_SAT == 0 &&
+      this.model.quantity_SUN == 0 &&
+      this.model.quantity_MON == 0 &&
+      this.model.quantity_TUE == 0 &&
+      this.model.quantity_WED == 0 &&
+      this.model.quantity_THU == 0 &&
+      this.model.quantity_FRI == 0){
+        this.toastr.errorToastr("All units authorized have zero value", 'Failed!');
+    }
+    else{
+       this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
+        
+        if(res?.result)
+        {
+          this.toastr.successToastr(JSON.stringify(res?.data), 'Success!');
+          
+          this.decline();
+          this.isUpdateVisible = false;
+          this.isAddVisible = true;
+          this.getActiveBill();
+          this.getExpiredBill();
+        }else{
+          this.toastr.errorToastr(JSON.stringify(res?.data), 'Failed!');
+          this.decline();
+          this.isUpdateVisible = false;
+          this.isAddVisible = true;
+        }
+      })
+    }
   }
 
   getNewServiceCode(){

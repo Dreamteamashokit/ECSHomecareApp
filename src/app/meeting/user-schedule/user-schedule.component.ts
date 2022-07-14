@@ -41,7 +41,7 @@ export class UserScheduleComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-       // debugger;
+
         if (params["empId"] != null) {
           this.userId = Number(params["empId"]);
 
@@ -84,8 +84,10 @@ export class UserScheduleComponent implements OnInit {
     for (var i = 0; i < 42; i++) {      
       let _cdate=new Date(dateToAdd);
       let dateObj=this.datepipe.transform(dateToAdd,"yyyy-MM-dd");
+      
       let _meeting = this.meetingList.filter((x: Empmeeting) =>
-      (this.datepipe.transform(x.meetingDate,"yyyy-MM-dd")===dateObj));      
+      (this.datepipe.transform(x.meetingDate,"yyyy-MM-dd")===dateObj));
+      
       this.calendar.push(new CalendarDay(_cdate,_meeting));
       dateToAdd = new Date(dateToAdd.setDate(dateToAdd.getDate() + 1));
     }

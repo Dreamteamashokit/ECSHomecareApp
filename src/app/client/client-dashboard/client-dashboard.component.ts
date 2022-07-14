@@ -8,6 +8,7 @@ import { EmployeeapiService } from "src/app/services/employeeapi.service";
 import { UserModel } from "src/app/models/account/login-model";
 import { AccountService } from "src/app/services/account.service";
 import * as atlas from "azure-maps-control";
+
 @Component({
   selector: "app-client-dashboard",
   templateUrl: "./client-dashboard.component.html",
@@ -17,11 +18,16 @@ import * as atlas from "azure-maps-control";
     "./client-dashboard.component.scss",
   ],
 })
+
 export class ClientDashboardComponent implements OnInit {
   model = new ClientModel();
   currentUser: UserModel;
   geoObj = new LocationView();
+  completedCompliance:any;
+  pendingCompliance:any;
   @ViewChild("locMapId") locMapId: ElementRef;
+
+
   constructor(
     public route: ActivatedRoute,
     public datepipe: DatePipe,
@@ -47,6 +53,7 @@ export class ClientDashboardComponent implements OnInit {
         });
 
       this.getAddress(this.model.clientId);
+      this.GetLatestThreeOverdueComplianceList(this.model.clientId);
     });
   }
 
@@ -238,4 +245,15 @@ export class ClientDashboardComponent implements OnInit {
       "azure-map-copyright-context"
     )[0].innerHTML = "";
   }
+
+  GetLatestThreeOverdueComplianceList(userId:number){
+    this.empSrv.GetLatestThreeOverdueComplianceList(userId).subscribe((response)=>{
+      if(response.result){
+        
+        this.completedCompliance = response.data.objThreeLatestCompletedCompliance;
+        this.pendingCompliance = response.data.objThreeLatestPendingCompliance;
+      }
+    })
+  }
+
 }

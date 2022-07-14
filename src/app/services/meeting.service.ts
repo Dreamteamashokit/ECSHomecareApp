@@ -62,7 +62,6 @@ export class MeetingService {
 
   getMeetingDetail(meetingId : number)
   {
-    debugger;
     return this._http.get<APIResponse<MeetingView>>(environment.domain + "/api/Meeting/getMeetingDetail" + '/' + meetingId);
   } 
  

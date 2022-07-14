@@ -5,3 +5,9 @@
 .error {
     color: red;
 }
+
+@media only screen and (max-width: 600px) {
+    .clscontainer {
+        text-align: right;
+    }
+  }
