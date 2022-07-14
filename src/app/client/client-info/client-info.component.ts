@@ -1,7 +1,5 @@
 import { Component, OnInit,ViewChild  } from '@angular/core';
-
 import { Router,ActivatedRoute, Params } from '@angular/router';
-
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { setTheme } from 'ngx-bootstrap/utils';
