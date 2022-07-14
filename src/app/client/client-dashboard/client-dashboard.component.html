@@ -75,14 +75,14 @@
                         <div class="row">
                             <div class="col-sm-6"><p>{{billingSummary?.billToName}} {{billingSummary?.Type}}&nbsp;&nbsp;Expires:{{billingSummary?.dueDate}}</p></div>
                             <div class="col-sm-6 text-right small-txt">
-                                <a href="javascript:void(0)" class="dropdown-toggle" (click)="selectTab(5)">{{model?.firstName}} Billing</a> 
+                                <a href="javascript:void(0)" class="dropdown-toggle" [routerLink]="'/client/info/' + model?.userId +'/18'">{{model?.firstName}} Billing</a> 
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <p class="text-orange">
                                     <strong>
-                                        <a href="javascript:void(0)" class="dropdown-toggle">{{model?.firstName}} Status</a> 
+                                        Status 
                                     </strong>
                                 </p>
                             </div>
@@ -91,7 +91,10 @@
                             <div class="col-sm-6">
                                 <p><strong>{{clientStatus?.activityText}}</strong><br>{{clientStatus?.referralCodeText}} as of {{clientStatus?.statusDate | date}}</p>
                             </div>
-                            <div class="col-sm-6 text-right small-txt">{{model.firstName}} Status</div>
+                            <div class="col-sm-6 text-right small-txt">
+                                <a href="javascript:void(0)" class="dropdown-toggle" [routerLink]="'/client/info/' + model?.userId +'/4'">{{model?.firstName}} Status</a>
+                                <!-- {{model.firstName}} Status -->
+                            </div>
                         </div>
                     </div>
                 </div>

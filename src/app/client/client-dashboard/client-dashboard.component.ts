@@ -31,6 +31,7 @@ export class ClientDashboardComponent implements OnInit {
   pendingCompliance:any;
   billingSummary = new billingInfo();
   clientStatus :any;
+  objclient:any;
   @ViewChild("locMapId") locMapId: ElementRef;
   @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
 
@@ -50,6 +51,10 @@ export class ClientDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.model.clientId = Number(params["clientId"]);
+      this.objclient = {
+        "clientId": this.model.clientId
+      };
+
       this.clientSrv
         .getClientDetail(this.model.clientId)
         .subscribe((responce) => {
@@ -64,6 +69,7 @@ export class ClientDashboardComponent implements OnInit {
       this.GetLatestThreeOverdueComplianceList(this.model.clientId);
       this.GetBillingSummaryInfo(this.model.clientId);
       this.GetClientStatusList(this.model.clientId);
+      
     });
   }
 
