@@ -55,6 +55,7 @@ export class SearchAvailbilityComponent implements OnInit {
     "Nov",
     "Dec",
   ];
+  azureMapTemp:any
   currentYear: number;
   currentMonthIndex: number;
   currentDay: number;
@@ -143,6 +144,27 @@ export class SearchAvailbilityComponent implements OnInit {
               " " +
               this.currentUser.lastName;
           }
+
+          try{
+
+            this.client.flatNo=response.data.flatNo??"";
+            this.client.address=response.data.address??"";
+            this.client.country=response.data.country??"";
+            this.client.state=response.data.state??"";
+            this.client.city=response.data.city??"";
+            this.client.zipCode=response.data.zipCode??"";
+  
+            this.client.fullAddress=this.client.flatNo!=""?this.client.fullAddress+", "+this.client.flatNo:this.client.fullAddress;
+            this.client.fullAddress=this.client.address!=""?this.client.fullAddress+", "+this.client.address:this.client.fullAddress;
+            this.client.fullAddress=this.client.city!=""?this.client.fullAddress+", "+this.client.city:this.client.fullAddress;
+            this.client.fullAddress=this.client.state!=""?this.client.fullAddress+", "+this.client.state:this.client.fullAddress;
+            this.client.fullAddress=this.client.country!=""?this.client.fullAddress+", "+this.client.country:this.client.fullAddress;
+            this.client.fullAddress==this.client.fullAddress.replace("undefined,","");
+          }
+          catch(ex){
+  
+          }
+          
         },
         error: (err) => {
           console.log(err);
@@ -382,7 +404,8 @@ export class SearchAvailbilityComponent implements OnInit {
       pixelOffset: [0, -18],
       closeButton: false,
     });
-    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a></div></div>';
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a><br/><div>{address}</div></div></div>';
+
 
 
     var azureMap = new atlas.Map("myMap", {
@@ -423,7 +446,7 @@ export class SearchAvailbilityComponent implements OnInit {
             Number(client.longitude),
             Number(client.latitude),
           ]),
-          { name: client.clientName,url:('#/client/info/' + client.clientId + '/0')   }
+          { name: client.clientName,url:('#/client/info/' + client.clientId + '/0'), address :client.fullAddress   }
         )
       );
 
@@ -432,14 +455,34 @@ export class SearchAvailbilityComponent implements OnInit {
         // var point = new atlas.Shape(new atlas.data.Point([Number(Item.longitude), Number(Item.latitude)]));
         // points.push(point);
         let clientName = Item.empName;
+        let fullAddress ="";
+        try{
 
+          Item.flatNo=Item.flatNo??"";
+          Item.address=Item.address??"";
+          Item.country=Item.country??"";
+          Item.state=Item.state??"";
+          Item.city=Item.city??"";
+          Item.zipCode=Item.zipCode??"";
+
+          fullAddress=Item.flatNo!=""?fullAddress+", "+Item.flatNo:fullAddress;
+          fullAddress=Item.address!=""?fullAddress+", "+Item.address:fullAddress;
+          fullAddress=Item.city!=""?fullAddress+", "+Item.city:fullAddress;
+          fullAddress=Item.state!=""?fullAddress+", "+Item.state:fullAddress;
+          fullAddress=Item.country!=""?fullAddress+", "+Item.country:fullAddress;
+          fullAddress==fullAddress.replace("undefined,","");
+
+        }
+        catch(ex){
+              fullAddress="";               
+        }
         dataSource.add(
           new atlas.data.Feature(
             new atlas.data.Point([
               Number(Item.longitude),
               Number(Item.latitude),
             ]),
-            { name: clientName, url:('#/employee/info/' + Item.empId + '/0')}
+            { name: clientName, url:('#/employee/info/' + Item.empId + '/0'), address :fullAddress}
           )
         );
       });
@@ -455,17 +498,23 @@ export class SearchAvailbilityComponent implements OnInit {
           var shape = (<any>e.shapes)[0].data;
           var clientNameMap = shape.properties.name;
           var clientUrl = shape.properties.url;
+          let fullAddress = shape.properties.address;
+          fullAddress=fullAddress.replace("undefined,","");
 
           content = popupTemplate.replace(/{name}/g, clientNameMap);
           content = content.replace(/{url}/g, window.location.origin+'/'+clientUrl);
+          content = content.replace(/{address}/g, fullAddress);
 
           coordinate = e.position;
           popup.setOptions({ content: content, position: coordinate });
           popup.open(azureMap);
         }
       });
+
+     
     });
 
+    this.azureMapTemp=azureMap;
     setTimeout(this.HidemyFunction, 2500);
   }
 
@@ -481,4 +530,8 @@ export class SearchAvailbilityComponent implements OnInit {
       "azure-map-copyright-context"
     )[0].innerHTML = "";
   }
+
+  highlightMarker(empType:any) {
+    this.azureMapTemp.setCamera({ center: [empType.longitude, empType.latitude], type: 'fly' })
+}
 }

@@ -41,7 +41,7 @@ export class UserScheduleComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-        debugger;
+       // debugger;
         if (params["empId"] != null) {
           this.userId = Number(params["empId"]);
 
@@ -140,7 +140,9 @@ export class UserScheduleComponent implements OnInit {
           '...'
         ],
         title: 'Modal with component',
-        meetingId:_meetingId
+        meetingId:_meetingId,
+        isClient:this.IsClient,
+        userId:this.userId
       }
     };
   
