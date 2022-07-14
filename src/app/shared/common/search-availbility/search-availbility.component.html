@@ -189,7 +189,7 @@
                                                     <ul>
                                                     <li>
                                                       <div class="row">
-                                                      <div class="col-sm-5 col-xs-5"> 
+                                                      <div class="col-sm-5 col-xs-5" (mouseenter)="highlightMarker(item)"> 
                                                         <a  [routerLink]="'/employee/info/' + item.empId +'/0'">
                                                             {{item.empName}}
                                                           </a> 

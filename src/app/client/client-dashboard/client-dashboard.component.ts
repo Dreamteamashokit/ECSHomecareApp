@@ -89,6 +89,28 @@ export class ClientDashboardComponent implements OnInit {
           this.geoObj.latitude = this.currentUser.latitude;
           this.geoObj.longitude = this.currentUser.longitude;
           this.geoObj.owner=response.data.owner;
+
+          
+
+        }
+        try{
+
+          this.geoObj.flatNo=response.data.flatNo??"";
+          this.geoObj.address=response.data.address??"";
+          this.geoObj.country=response.data.country??"";
+          this.geoObj.state=response.data.state??"";
+          this.geoObj.city=response.data.city??"";
+          this.geoObj.zipCode=response.data.zipCode??"";
+
+          this.geoObj.fullAddress=this.geoObj.flatNo!=""?this.geoObj.fullAddress+", "+this.geoObj.flatNo:this.geoObj.fullAddress;
+          this.geoObj.fullAddress=this.geoObj.address!=""?this.geoObj.fullAddress+", "+this.geoObj.address:this.geoObj.fullAddress;
+          this.geoObj.fullAddress=this.geoObj.city!=""?this.geoObj.fullAddress+", "+this.geoObj.city:this.geoObj.fullAddress;
+          this.geoObj.fullAddress=this.geoObj.state!=""?this.geoObj.fullAddress+", "+this.geoObj.state:this.geoObj.fullAddress;
+          this.geoObj.fullAddress=this.geoObj.country!=""?this.geoObj.fullAddress+", "+this.geoObj.country:this.geoObj.fullAddress;
+          this.geoObj.fullAddress==this.geoObj.fullAddress.replace("undefined,","");
+        }
+        catch(ex){
+
         }
       },
       error: (err) => {
@@ -112,7 +134,7 @@ export class ClientDashboardComponent implements OnInit {
       closeButton: false,
     });
 
-    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a></div></div>';
+    var popupTemplate ='<div style="padding: 6px;" class="customInfobox"><div class="name"><a href="{url}">{name}</a><br/><div>{address}</div></div></div>';
 
 
     var azureMap = new atlas.Map("locMapId", {
@@ -157,12 +179,13 @@ export class ClientDashboardComponent implements OnInit {
           // );
 
              //Create a point feature and add it to the data source.
-             console.log(current);
+            
              datasource.add(
               new atlas.data.Feature(
                 new atlas.data.Point([Number(current.longitude), Number(current.latitude)]),
                 { name: current.owner,
-                  url:('#/client/info/' + current.userId + '/0') 
+                  url:('#/client/info/' + current.userId + '/0'),
+                  address :current.fullAddress
                 
                 }
               )
@@ -184,11 +207,16 @@ export class ClientDashboardComponent implements OnInit {
             if (e.shapes && e.shapes.length > 0) {
               var content, coordinate;
               var shape = (<any>e.shapes)[0].data;
-              var clientNameMap = shape.properties.name;
-              var clientUrl = shape.properties.url;
+              let clientNameMap = shape.properties.name;
+              let clientUrl = shape.properties.url;
+              let fullAddress = shape.properties.address;
+              fullAddress=fullAddress.replace("undefined,","");
+
             //  alert(clientUrl)
               content = popupTemplate.replace(/{name}/g, clientNameMap);
               content = content.replace(/{url}/g, clientUrl);
+              content = content.replace(/{address}/g, fullAddress);
+             
 
               coordinate = e.position;
               popup.setOptions({ content: content, position: coordinate });

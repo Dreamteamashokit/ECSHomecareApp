@@ -75,7 +75,6 @@
                     #StartTime="ngModel"
                   id="txtStartTime"
                   name="StartTime"
-                  [min]="_startMinTime"
                   [showSpinners]="true"
                   (ngModelChange)="changed()" 
                     [(ngModel)]="_startTime" ></timepicker>
@@ -89,6 +88,7 @@
                   id="txtEndTime"
                   name="EndTime"
                   [showSpinners]="true"
+               
                         [(ngModel)]="_endTime"  
                         (ngModelChange)="changed()" 
                         ></timepicker>
