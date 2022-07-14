@@ -42,6 +42,7 @@ export class MeetingDetailComponent implements OnInit {
   userId:number;
 
   ClientList = Array<ItemsList>();
+
   LatestThreeCompliance:any;
 
 
@@ -221,16 +222,33 @@ export class MeetingDetailComponent implements OnInit {
       this.IsLoad = false;
       item.hide();
       
+      // if (this.isClient) {
+      //   this.router.navigate(['/client/info/' + this.userId + '/1']);
+      // }
+      // else {
+      //   this.router.navigate(['/employee/info/' +this.momObj?.employee?.id + '/1']);
+      // }
+
+      let currentUrl = '';
       if (this.isClient) {
-        this.router.navigate(['/client/info/' + this.userId + '/1']);
+        currentUrl = '/client/info/' + this.userId  + '/1';
+        this.reloadCurrentRoute(currentUrl);
       }
       else {
         this.router.navigate(['/employee/info/' +this.momObj?.employee?.id + '/1']);
+        //currentUrl = '/employee/info/' + this.momObj?.employee?.id + '/1';
+
       }
+      
     });  
   }
 
-  
+  reloadCurrentRoute(currentUrl: string) {
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 
 
 
