@@ -45,6 +45,16 @@ export class EmployeeapiService {
     return this._http.post<APIResponse<number>>(environment.domain + "/api/Employee/addEmployee", empObj, httpOptions);
   }
 
+  updateEmployee(_obj: EmployeeJson){
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.put(environment.domain + "/api/Employee/updateEmployee", _obj, httpOptions);
+  }
+
 
   getEmployeeListObj(userId: number) {
     return this._http.get<APIResponse<EmployeeList[]>>(environment.domain + "/api/Employee/getEmployeeListObj/" + userId);
