@@ -42,7 +42,6 @@ export class MeetingDetailComponent implements OnInit {
   userId:number;
 
   ClientList = Array<ItemsList>();
-  modalRef?: BsModalRef;
   LatestThreeCompliance:any;
 
 
