@@ -1,0 +1,40 @@
+.billingbox{
+    width: 600px;
+    min-height: 340px;
+    float: left;
+}
+.billingbox2{
+    width: 580px;
+    min-height: 340px;
+    float: left;
+
+}
+.shaded{
+    border: 1px solid #C0C0C0;
+    padding: 16px 16px 20px 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 6px #c0c0c0;
+    -moz-box-shadow: 0 1px 6px #C0C0C0;
+    -ms-box-shadow: 0 1px 6px #C0C0C0;
+    -o-box-shadow: 0 1px 6px #C0C0C0;
+    box-shadow: 0 1px 10px #c0c0c0;
+    background-color: #fff;
+}
+
+.billingbox p {
+    margin-left: 30px;
+    color: black;
+}
+h4 {
+    color: #333333;
+    font-size: 16px;
+    font-family: 'Franklin', Asap, Helvetica, Arial, Verdana, sans-serif;
+    margin: 12px 0 10px 0;
+    padding: 0;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #ffffff;
+}

@@ -24,6 +24,8 @@ import { MeetingDetailComponent } from './meeting/meeting-detail/meeting-detail.
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
 import { PayersComponent } from './common/payers/payers.component';
+import { BillComponent } from './bill/bill.component';
+import { GenerateInvoicesComponent } from './bill/generate-invoices/generate-invoices.component';
 
 const routes: Routes = [
   { path: 'login', component: SignInComponent },
@@ -62,6 +64,15 @@ const routes: Routes = [
   {
     path: 'client/list', component: LayoutComponent,
     children: [{ path: '', component: ClientListComponent }]
+  },
+  {
+    path:'bill', component: LayoutComponent,
+    children:[{path:'',component: BillComponent}]
+  },
+  {
+    path:'billing/generate-invoice', component: LayoutComponent,
+    children:[{path:'',component: GenerateInvoicesComponent}]
+
   },
   // {
   //   path: 'client/schedule/:clientId/:fromDate', component: LayoutComponent,

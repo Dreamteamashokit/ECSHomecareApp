@@ -91,6 +91,8 @@ import { DocumentComponent } from './common/document/document.component';
 
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 import { PayersComponent } from './common/payers/payers.component';
+import { BillComponent } from './bill/bill.component';
+import { GenerateInvoicesComponent } from './bill/generate-invoices/generate-invoices.component';
 
 
 @NgModule({
@@ -165,7 +167,7 @@ import { PayersComponent } from './common/payers/payers.component';
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe, PayersComponent,  
+    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe, PayersComponent, BillComponent, GenerateInvoicesComponent,  
   ],
   imports: [
     BrowserModule,
