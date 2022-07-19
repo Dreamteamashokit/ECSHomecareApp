@@ -97,16 +97,207 @@
                         <textarea placeholder="Notes" class="form-control" id="txtNotes" name="Notes"
                             placeholder="Notes" [(ngModel)]="_message"></textarea>
                     </div>
-
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="panel panel-default" *ngIf="IsEdit">
+        <div class="panel-body light-bg-grey">
+            <div class = "panel-heading">
+                <div class="col-xs-6">BILLING</div>
+                <div class="col-xs-6">PAYROLL</div>
+            </div>
             <div class="row mtm">
-                <div class="col-lg-12 text-center">
+                <div class="col-xs-12">
+                    <div [ngClass]="[ IsBillingOption ? 'col-xs-3' : 'col-xs-12']">
+                        <div class="form-group">
+                            <label class="control-label">Billing Code</label>&nbsp;&nbsp;
+                            <div class="input-group">
+                                <label>{{MeetingRate.billingCode}}</label>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div *ngIf="IsBillingOption" [ngClass]="[ IsBillingOption == true ? 'col-xs-3' : 'col-xs-offset-3 col-xs-6']">
+                        <div class="form-group">
+                            <label class="control-label">Travel Time</label>
+                            <div class="input-group">
+                                <input type="text" id="txtTravelTime" name="TravelTime" placeholder="Billing Travel Time" 
+                                class="form-control" #MeetingRate.billingTravelTime="ngModel" [(ngModel)]="MeetingRate.billingTravelTime">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
                     <div class="form-group">
-                        <button class="btn btn-lg btn-dark mrm mbm" (click)="reScheduling(bsModalRef)">
-                            <i class="fa fa-save mrm"></i>RESCHEDULE</button>
-                        <button type="button" class="btn btn-lg btn-primary mrm mbm" (click)="cxlScheduling()">
-                            <i class="fa fa-times mrm"></i>CANCEL</button>
+                        <label class="control-label">Billing Units</label>
+                        <div class="input-group">
+                            <input type="text" id="txtBillingUnits" name="BillingUnits"
+                                placeholder="Billing Units" class="form-control width115" #MeetingRate.billingUnits="ngModel"
+                                [(ngModel)]="MeetingRate.billingUnits">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">Unit Paid</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPayrollUnitPaid" name="PayrollUnitPaid"
+                                placeholder="Payroll Unit Paid" class="form-control width115" #MeetingRate.payrollUnitsPaid="ngModel"
+                                [(ngModel)]="MeetingRate.payrollUnitsPaid">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="IsPayrollOption" [ngClass]="[ IsPayrollOption == true ? 'col-xs-3' : 'col-xs-6']">
+                    <div class="form-group">
+                        <label class="control-label">Mileage</label>
+                        <div class="input-group">
+                            <input type="text" id="txtMileage" name="PayrollMileage"
+                                placeholder="Payroll Mileage" class="form-control width115" #MeetingRate.payrollMileage="ngModel"
+                                [(ngModel)]="MeetingRate.payrollMileage">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">Billing Rate</label>
+                        <div class="input-group">
+                            <input type="text" id="txtBillingRate" name="BillingRate"
+                                placeholder="Billing Rate" class="form-control width115" #MeetingRate.billingRate="ngModel"
+                                [(ngModel)]="MeetingRate.billingRate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">Pay Rate</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPayrollPayRate" name="PayrollPayRate"
+                                placeholder="Payroll Pay Rate" class="form-control width115" #MeetingRate.payrollPayRate="ngModel"
+                                [(ngModel)]="MeetingRate.payrollPayRate">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="IsPayrollOption" [ngClass]="[ IsPayrollOption == true ? 'col-xs-3' : 'col-xs-6']">
+                    <div class="form-group">
+                        <label class="control-label">Public Trans</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPayrollPublicTrans" name="PayrollPublicTrans"
+                                placeholder="Payroll Public Trans" class="form-control width115" #MeetingRate.payrollPublicTrans="ngModel"
+                                [(ngModel)]="MeetingRate.payrollPublicTrans">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">Billing Total</label>
+                        <div class="input-group">
+                            <input type="text" id="txtBillingTotal" name="BillingTotal" placeholder="Billing Total" 
+                            class="form-control width115" #MeetingRate.billingTotal="ngModel" [(ngModel)]="MeetingRate.billingTotal">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">Pay Total</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPayrollPayTotal" name="PayrollPayTotal" placeholder="Payroll Pay Total" 
+                            class="form-control" #MeetingRate.payrollPayTotal="ngModel" [(ngModel)]="MeetingRate.payrollPayTotal">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="IsPayrollOption" [ngClass]="[ IsPayrollOption == true ? 'col-xs-3' : 'col-xs-6']">
+                    <div class="form-group">
+                        <label class="control-label">Misc</label>
+                        <div class="input-group">
+                            <input type="text" id="txtMisc" name="PayrollMisc" placeholder="Misc" 
+                            class="form-control" #MeetingRate.payrollMisc="ngModel" [(ngModel)]="MeetingRate.payrollMisc">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label">Billing Status</label>
+                        <div class="input-group">
+                            <select class="form-control" id="billingStatus" name="billingStatus"
+                                #MeetingRate.billingStatus="ngModel" [(ngModel)]="MeetingRate.billingStatus">
+                                <option *ngFor="let billstatus of BillingStatus" [value]="billstatus.billingStatusId">
+                                    {{billstatus.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label class="control-label">Pay Status</label>
+                        <div class="input-group">
+                            <select class="form-control" id="ddlpayrollStatusId" name="payrollStatusId"
+                            #MeetingRate.payrollPayStatus="ngModel" [(ngModel)]="MeetingRate.payrollPayStatus">
+                                <option *ngFor="let paystatus of PayrollStatus" [value]="paystatus.payrollStatusId">{{paystatus.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="IsPayrollOption" [ngClass]="[ IsPayrollOption == true ? 'col-xs-3' : 'col-xs-6']">
+                    <div class="form-group">
+                        <label class="control-label">Do not pay</label>
+                            <input type="checkbox" id="txtDonotpay" name="PayrollDonotpay" placeholder="Donotpay" 
+                            #MeetingRate.payrollDoNotPay="ngModel" [(ngModel)]="MeetingRate.payrollDoNotPay">
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group" (click)="showBillingFields()">
+                        <span><i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;
+                        <label class="control-label">BILLING OPTIONS</label>
+                        <div class="input-group">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group" (click)="showPayrollFields()">
+                        <span><i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;
+                        <label class="control-label">PAYROLL OPTIONS</label>
+                        <div class="input-group">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">Sent to Payroll</label>
+                        <div class="input-group">
+                            <input type="text" id="txtSenttoPayroll" name="sentPayrollDate" 
+                                #MeetingRate.sentPayrollDate="ngModel" [(ngModel)]="MeetingRate.sentPayrollDate" class="form-control" 
+                                #sentPayrollDates="bsDatepicker" bsDatepicker 
+                                [bsConfig]="{  dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-red' }">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mtm">
+                    <div class="col-lg-12 text-center">
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-dark mrm mbm" (click)="reScheduling(bsModalRef)">
+                                <i class="fa fa-save mrm"></i>RESCHEDULE</button>
+                            <button type="button" class="btn btn-lg btn-primary mrm mbm" (click)="cxlScheduling()">
+                                <i class="fa fa-times mrm"></i>CANCEL</button>
+                        </div>
                     </div>
                 </div>
             </div>

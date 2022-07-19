@@ -7,8 +7,9 @@ import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
 import { Empmeeting } from 'src/app/models/meeting/empmeeting';
 import { ClientMeeting,ClientFilter } from 'src/app/models/meeting/client-meeting';
 import { MeetingView,MeetingLog } from 'src/app/models/meeting/meeting-view';
-
 import { MeetingStatus ,NotesModel} from 'src/app/models/meeting/meeting-status';
+import { MeetingRate } from '../models/meeting/MeetingRate';
+
 const httpOptionsObj = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -123,5 +124,22 @@ export class MeetingService {
   }
 
 
+  addupdateMeetingRate(meetingRateObj : MeetingRate)
+  { 
+    var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        };
+
+    return this._http.post(environment.domain + "/api/Meeting/AddUpdateMeetingRate", meetingRateObj,httpOptions);            
+  }
+
+
+  GetMeetingRateByMeetingId(meetingId : number)
+  {
+    return this._http.get<APIResponse<MeetingRate>>(environment.domain + "/api/Meeting/GetMeetingRateByMeetingId" + '/' + meetingId);
+  } 
 
 }
