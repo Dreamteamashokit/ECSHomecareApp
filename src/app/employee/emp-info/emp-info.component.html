@@ -185,7 +185,7 @@
                                                 <div class="row" *ngIf="completedCompliance != null">
                                                     <div class="col-sm-12" *ngFor="let completeditem of completedCompliance">
                                                         <p><strong class="text-green">{{completeditem.complianceName}}</strong></p> 
-                                                        <p class="text-green">Due Date : <span>{{completeditem.dueDate | date}}</span></p>
+                                                        <p class="text-green">Completed Date : <span>{{completeditem.completedOn | date}}</span></p>
                                                     </div>
                                                 </div>            
                                             </div>
