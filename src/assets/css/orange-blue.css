@@ -9952,3 +9952,125 @@ width:100%;
 .link-white:hover{
   color:#e67273
 }
+
+
+
+
+
+
+
+
+
+.card-item {
+  margin-bottom: 15px;
+  margin-left: 10px;
+  position: relative;
+}
+ .card-item .card-inner {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px;
+  position: relative;
+}
+
+
+.card-item .card-head {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.card-item .card-head .user-detail h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+	
+}
+.card-item .card-inner p{
+  font-size: 13px;
+    font-weight: normal;
+}
+.card-item.green .qa-message-content {
+   font-size: 13px;
+    font-weight: normal;
+	color:#488c6c
+}
+.card-item.grey .qa-message-content {
+   font-size: 13px;
+    font-weight: normal;
+	color:#767171
+}
+.card-item.green .card-inner {
+    border-color: #488c6c;
+}
+.card-item.green .card-inner:before {
+    border-right-color: #488c6c;
+}
+.card-item.grey .card-inner {
+    border-color: #b1b1b1;
+}
+.card-item.grey .card-inner:before {
+    border-right-color: #b1b1b1;
+}
+
+.card-item .card-inner .green-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+   left: 2%;
+    top: 15px;
+    background-color: #0AA412;
+    z-index: 1;
+}
+.card-item .card-inner .grey-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+   left: 2%;
+    top: 15px;
+    background-color: #767171;
+    z-index: 1;
+}
+
+
+.green-small-box{
+	width:15px;
+	height: 15px;
+	background-color: #95F0A5;
+	border: solid 1px #057E07;
+	float: left;
+}
+.greenverified-small-box{
+	width:15px;
+	height: 15px;
+	background-color: #057E07;
+	border: solid 1px #000;
+	float: left;
+}
+.yellow-small-box{
+	width:15px;
+	height: 15px;
+	background-color: #F0F788;
+border: solid 1px #ABB04C;
+	float: left;
+}
+.grey-small-box{
+	width:15px;
+	height: 15px;
+	background-color: #eee;
+	border: solid 1px #ccc;
+	float: left;
+}
+.box-text{
+float: left;
+	font-size: 14px;
+	margin-left: 10px;
+	width: 85%
+}
+.color-boxes{
+	width:100%;
+	float: left
+}
+

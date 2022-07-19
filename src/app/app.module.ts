@@ -92,6 +92,8 @@ import { DocumentComponent } from './common/document/document.component';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
