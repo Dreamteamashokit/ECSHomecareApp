@@ -9,9 +9,13 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { AccountService } from 'src/app/services/account.service';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
+import { InvoiceService } from '../../services/invoice.service';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
 import { MeetingView, MeetingLog } from 'src/app/models/meeting/meeting-view';
 import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status';
+import { billingStatus } from '../../models/billing/billing-status';
+import { payrollStatus } from '../../models/billing/Payroll-status';
+import { MeetingRate } from '../../models/meeting/MeetingRate';
 
 @Component({
   selector: 'app-meeting-detail',
@@ -24,6 +28,8 @@ import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status
 export class MeetingDetailComponent implements OnInit {
   IsLoad: boolean = false;
   IsEdit: boolean = false;
+  IsBillingOption: boolean = false;
+  IsPayrollOption: boolean = false;
   title?: string;
   closeBtnName?: string;
   momObj?: MeetingView;
@@ -42,7 +48,9 @@ export class MeetingDetailComponent implements OnInit {
   userId:number;
 
   ClientList = Array<ItemsList>();
-
+  BillingStatus = Array<billingStatus>();
+  PayrollStatus = Array<payrollStatus>();
+  MeetingRate = new MeetingRate();
   LatestThreeCompliance:any;
 
 
@@ -55,7 +63,8 @@ export class MeetingDetailComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private accountSrv: AccountService,
     private empserv:EmployeeapiService,
-    private modalService: BsModalService) {
+    private modalService: BsModalService,
+    private InvService: InvoiceService) {
     this.currentUser = this.accountSrv.getCurrentUser();
   }
 
@@ -68,6 +77,11 @@ export class MeetingDetailComponent implements OnInit {
     this.BindMeeting();
     this.getMeetingLog(this.meetingId);
     this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
+    this.GetBillingStatus();
+    this.GetPayrollStatus();
+    this.GetMeetingRateByMeetingId(2);
+    this.IsBillingOption = false;
+    this.IsPayrollOption = false;
   }
 
   BindMeeting() {
@@ -331,8 +345,10 @@ export class MeetingDetailComponent implements OnInit {
           if (response.result) 
           {
             this.IsLoad = false;
-            panel.hide();
-            this.reloadCurrentPage()
+            if(this.MeetingRate == null || this.MeetingRate != undefined){
+              panel.hide();
+              this.reloadCurrentPage()
+            }
           }
           else
           {
@@ -353,6 +369,49 @@ export class MeetingDetailComponent implements OnInit {
         }
     }); 
     }
+      if(this.MeetingRate != null && this.MeetingRate != undefined){
+        this.MeetingRate.sentPayrollDate = this.datepipe.transform(this._meetingDate, 'dd-MM-yyyy')||"";
+        this.MeetingRate.billingUnits = Number(this.MeetingRate.billingUnits);
+        this.MeetingRate.billingRate = Number(this.MeetingRate.billingRate);
+        this.MeetingRate.billingTotal = Number(this.MeetingRate.billingTotal);
+        this.MeetingRate.billingStatus = Number(this.MeetingRate.billingStatus);
+        this.MeetingRate.billingTravelTime = Number(this.MeetingRate.billingTravelTime);
+
+        this.MeetingRate.payrollUnitsPaid = Number(this.MeetingRate.payrollUnitsPaid);
+        this.MeetingRate.payrollPayRate = Number(this.MeetingRate.payrollPayRate);
+        this.MeetingRate.payrollPayTotal = Number(this.MeetingRate.payrollPayTotal);
+        this.MeetingRate.payrollPayStatus = Number(this.MeetingRate.payrollPayStatus);
+        this.MeetingRate.payrollMileage = Number(this.MeetingRate.payrollMileage);
+        this.MeetingRate.payrollPublicTrans = Number(this.MeetingRate.payrollPublicTrans);
+        this.MeetingRate.payrollMisc = Number(this.MeetingRate.payrollMisc);
+        this.MeetingRate.payrollDoNotPay = this.MeetingRate.payrollDoNotPay;
+
+        this.momApi.addupdateMeetingRate(this.MeetingRate).subscribe({   
+          next: (response: any) => { 
+            if (response.result) 
+            {
+              this.IsLoad = false;
+              panel.hide();
+              this.reloadCurrentPage()
+            }
+            else
+            {
+              this.IsLoad=false;
+              this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+            } 
+           },
+           error: (err) => { 
+            this.IsLoad=false;
+            this.toastr.infoToastr("Some technical issue exist, Please contact to admin !", 'Info!');
+           console.log(err);
+        
+          },   
+          complete: () => { 
+            this.IsLoad=false;
+          }
+        });
+
+      }
    }
 
    bindClient(){
@@ -379,7 +438,50 @@ export class MeetingDetailComponent implements OnInit {
     this.IsEdit=false;
    }
 
+   GetBillingStatus(){
+    this.InvService.GetBillingStatus().subscribe((response) => {
+      if(response.result)
+      {
+        this.BillingStatus = response.data;
+      }
+    });
+  }
 
+  GetPayrollStatus(){
+    this.InvService.GetPayrollStatus().subscribe((response) => {
+      if(response.result)
+      {
+        this.PayrollStatus = response.data;
+      }
+    });
+  }
 
+  GetMeetingRateByMeetingId(meetingId:number){
+    this.momApi.GetMeetingRateByMeetingId(meetingId).subscribe((response) => {
+      if(response.result)
+      {
+        this.MeetingRate = response.data;
+        this.MeetingRate.sentPayrollDate = this.datepipe.transform(this.MeetingRate.sentPayrollDate, 'MM/dd/yyyy')||"";
+      }
+    });
+  }
+
+  showBillingFields(){
+    if(this.IsBillingOption){
+      this.IsBillingOption = false;
+    }
+    else{
+      this.IsBillingOption = true;
+    }
+  }
+
+  showPayrollFields(){
+    if(this.IsPayrollOption){
+      this.IsPayrollOption = false;
+    }
+    else{
+      this.IsPayrollOption = true;
+    }
+  }
 
 }

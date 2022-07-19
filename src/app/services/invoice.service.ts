@@ -8,6 +8,8 @@ import { Invoice } from '../models/invoice';
 import { RateModel } from '../billing/component/manage_payer_and_rate/model/rate.model';
 import { ClientBilling, ServiceCode,RateViewModel } from '../models/client/client-billling-model';
 import { billingInfo } from '../models/billing/billingInfo-model';
+import { billingStatus } from '../models/billing/billing-status';
+import { payrollStatus } from '../models/billing/Payroll-status';
 
 @Injectable({
   providedIn: 'root'
@@ -139,4 +141,26 @@ export class InvoiceService {
     };
     return this._http.get<APIResponse<billingInfo>>(environment.domain +  `/api/Billing/GetBillingSummaryInfo/${userId}`, {});
   }
+
+  GetBillingStatus(){
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.get<APIResponse<billingStatus[]>>(environment.domain +  `/api/Billing/GetBillingStatusList`, {});
+  }
+
+
+  GetPayrollStatus(){
+    var headers_object = new HttpHeaders();
+    headers_object.append('Content-Type', 'application/json');
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this._http.get<APIResponse<payrollStatus[]>>(environment.domain +  `/api/Billing/GetPayrollStatusList`, {});
+  }
+
 }
