@@ -12,13 +12,13 @@ export class BillingService {
   constructor(private _http: HttpClient) { }
 
 
-  GetAllScheduleBilling() {
+  getAllScheduleBilling() {
     debugger;
-    return this._http.get<APIResponse<ScheduleBillingModel[]>>(environment.domain + "/api/Billing/ScheduleBillingModel");
+    return this._http.get<APIResponse<ScheduleBillingModel[]>>(environment.domain + "/api/Billing/getAllScheduleBilling");
   }
 
 
-  getAllScheduleBilling(search:SearchSchedule) {
+  getScheduleBilling(search:SearchSchedule) {
     debugger;
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');

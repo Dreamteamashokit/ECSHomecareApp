@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
+import { BillingService } from 'src/app/services/billing.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { ItemsList, UserType } from 'src/app/models/common';
 import { ScheduleBillingModel, SearchSchedule } from 'src/app/models/billing/schedule-billing-model';
@@ -23,6 +24,8 @@ export class CreateInvoiceComponent implements OnInit {
   empList: ItemsList[];
   payerList: ItemsList[];
 
+  scheduleList: ScheduleBillingModel[];
+
   currentDate: Date;
 
   searchModel = new SearchSchedule();
@@ -30,7 +33,8 @@ export class CreateInvoiceComponent implements OnInit {
   constructor(
     private router: Router,
     private accountSrv: AccountService,
-    private comSrv: CommonService
+    private comSrv: CommonService,
+    private billSrv: BillingService
   ) {
     this.currentDate = new Date();
 
@@ -66,7 +70,48 @@ export class CreateInvoiceComponent implements OnInit {
 
 
   getFilterData(item: SearchSchedule) {
+
+
+    alert("Test");
     this.IsLoad = true;
+
+
+
+
+
+
+
+this.billSrv.getAllScheduleBilling().subscribe({ 
+      next: (response) => {
+        if(response.result)
+        {       
+          this.scheduleList= response.data;
+             
+        }
+        else
+        {
+          this.scheduleList=[];
+         
+        }  
+        
+        console.log(this.scheduleList);   
+
+      }, 
+      error: (err) => { 
+        console.log(err);   
+        this.scheduleList=[]; 
+      }, 
+      complete: () => { this.IsLoad = false;
+      }
+    });    
+
+
+
+
+
+
+
+
     // console.log(this.statusData);
     // model.status=Number(model.status);
     // model.coordinator=Number(model.coordinator);

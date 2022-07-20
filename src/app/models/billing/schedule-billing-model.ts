@@ -11,7 +11,7 @@ export class ScheduleBillingModel {
     payerId: number;
     empId: number;
     clientId: number;
-    meetingDate: string;
+    meetingDate: Date;
     payerName: string;
     empName: string;
     clientName: string;
