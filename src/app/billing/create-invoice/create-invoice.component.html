@@ -16,36 +16,57 @@
 <div class="row">
                  <div class="col-sm-2 col-xs-6">
                                     <div class="form-group"><label>Payer</label>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            </select>
+                                        <select class="form-control" id="ddlpayer" name="payer" [(ngModel)]="searchModel.payerId"
+                                        (change)="getFilterData(searchModel)">
+                                        <option value="0">All</option>
+                                        <option *ngFor="let obj of payerList" [value]="obj.itemId">
+                                          {{ obj.itemName }}
+                                        </option>
+                                      </select>
                                     </div>
                                 </div>
                      <div class="col-sm-2 col-xs-6">
                                     <div class="form-group"><label>From</label>
-                                        <div class="input-icon right"><i class="fa fa-calendar"></i><input id="inputFinishDate" type="text" placeholder="Expected finish date" class="form-control">
+                                    
+
+                                        <div class="input-group">                                    
+                                            <input required type="text"  id="txtfromDate" name="fromDate"
+                                            placeholder="From" #fromDate="ngModel" [(ngModel)]="searchModel.fromDate" class="form-control" #fromDateTime="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                            <div class="input-group-addon" (click)="fromDateTime.toggle()" [attr.aria-expanded]="fromDateTime.isOpen" ><i class="fa fa-calendar"></i></div>
                                         </div>
+
                                     </div>
                                 </div>
                      <div class="col-sm-2 col-xs-6">
                                     <div class="form-group"><label>To</label>
-                                        <div class="input-icon right"><i class="fa fa-calendar"></i><input type="text" placeholder="" class="form-control">
+                                        <div class="input-group">                                    
+                                            <input required type="text"  id="txttoDate" name="toDate"
+                                            placeholder="To" #toDate="ngModel" [(ngModel)]="searchModel.toDate" class="form-control" #toDateTime="bsDatepicker"   bsDatepicker [bsConfig]="{  dateInputFormat: 'DD MMM YYYY', containerClass: 'theme-red' }">                       
+                                            <div class="input-group-addon" (click)="toDateTime.toggle()" [attr.aria-expanded]="toDateTime.isOpen" ><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
                                 </div>
                     
                      <div class="col-sm-2 col-xs-6">
                                     <div class="form-group"><label>Client</label>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            </select>
+                                        <select class="form-control" id="ddlpayer" name="payer" [(ngModel)]="searchModel.clientId"
+                                        (change)="getFilterData(searchModel)">
+                                        <option value="0">All</option>
+                                        <option *ngFor="let obj of clientList" [value]="obj.itemId">
+                                          {{ obj.itemName }}
+                                        </option>
+                                      </select>
                                     </div>
                                 </div>
                      <div class="col-sm-2 col-xs-12">
                                     <div class="form-group"><label> Employee</label>
-                                        <input type="text" class="form-control" />
+                                        <select class="form-control" id="ddlpayer" name="payer" [(ngModel)]="searchModel.empId"
+                                        (change)="getFilterData(searchModel)">
+                                        <option value="0">All</option>
+                                        <option *ngFor="let obj of empList" [value]="obj.itemId">
+                                          {{ obj.itemName }}
+                                        </option>
+                                      </select>
                                     </div>
                                 </div>
                      <div class="col-sm-1 col-xs-6 text-center">
@@ -55,7 +76,7 @@
                                 </div>
                              <div class="col-sm-1 col-xs-6 text-center">
                                     <div class="form-group ">
-                                        <button type="button" class="btn btn-md btn-default mtl mt-0-mobile"><i class="fa fa-print"></i></button>
+                                        <!-- <button type="button" class="btn btn-md btn-default mtl mt-0-mobile"><i class="fa fa-print"></i></button> -->
                                     </div>
                                 </div>
                 </div>
