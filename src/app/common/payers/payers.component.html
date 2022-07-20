@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         <div class="col-sm-5 col-xs-5 form-check"><label class="switch">
-                        <input type="checkbox" class="form-check-input" id="txtactive" name="active" #active="ngModel" [(ngModel)]="model.IsActive">
+                        <input type="checkbox" class="form-check-input" id="txtactive" name="active" #active="ngModel" [(ngModel)]="model.isActive">
                         <span class="slider round"></span>
                         </label>
                         </div>
@@ -36,27 +36,27 @@
                             
                                         <div class="col-sm-12"> </div>
                                         <div class="form-group">
-
+                                            <input class="form-control" type="hidden" placeholder="payerid" id="txtpayerid" name="payerid" #payerid="ngModel" [(ngModel)]="model.payerId">
                                             <label class="control-label">Name</label>
-                                            <input required class="form-control" type="text" placeholder="Name" id="txtname" name="payername" #payername="ngModel" [(ngModel)]="model.PayerName">
+                                            <input required class="form-control" type="text" placeholder="Name" id="txtname" name="payername" #payername="ngModel" [(ngModel)]="model.payerName">
                                         </div>
                                         <div class="form-group">
 
                                             <label class="control-label">BillTo Name</label>
     
-                                            <input required class="form-control" type="text" placeholder="BillTo Name" id="txtbilltoname" name="billtoname" #billtoname="ngModel" [(ngModel)]="model.BillToName">
+                                            <input required class="form-control" type="text" placeholder="BillTo Name" id="txtbilltoname" name="billtoname" #billtoname="ngModel" [(ngModel)]="model.billToName">
                                         </div>
                                         <div class="form-group">
 
                                             <label class="control-label">NPI</label>
                 
-                                            <input required class="form-control" type="text" placeholder="NPI" id="txtnpi" name="npi" #npi="ngModel" [(ngModel)]="model.NPI">
+                                            <input required class="form-control" type="text" placeholder="NPI" id="txtnpi" name="npi" #npi="ngModel" [(ngModel)]="model.npi">
                                         </div>
                                         <div class="form-group">
                 
                                             <label class="control-label">Fed ID</label>
                 
-                                            <input required class="form-control" type="text" placeholder="Fed ID" id="txtfedid" name="fedid" #fedid="ngModel" [(ngModel)]="model.FedId">
+                                            <input required class="form-control" type="text" placeholder="Fed ID" id="txtfedid" name="fedid" #fedid="ngModel" [(ngModel)]="model.fedId">
                                         </div>
                                         <!-- <div class="form-group">
 
@@ -85,19 +85,19 @@
 
                                 <label class="control-label">Email</label>
         
-                                <input required class="form-control" type="text" placeholder="Email" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.Email">
+                                <input required class="form-control" type="text" placeholder="Email" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
                             </div>
                             <div class="form-group">
 
                                 <label class="control-label">Taxonomy</label>
     
-                                <input required class="form-control" type="text" placeholder="Taxonomy" id="txttaxonomy" name="taxonomy" #taxonomy="ngModel" [(ngModel)]="model.Taxonomy">
+                                <input required class="form-control" type="text" placeholder="Taxonomy" id="txttaxonomy" name="taxonomy" #taxonomy="ngModel" [(ngModel)]="model.taxonomy">
                             </div>
                             <div class="form-group">
     
                                 <label class="control-label">MedicaidID</label>
     
-                                <input  required class="form-control" type="text" placeholder="Medicaid ID" id="txtmedicaidid" name="medicaidid" #medicaidid="ngModel" [(ngModel)]="model.MedicaidId">
+                                <input  required class="form-control" type="text" placeholder="Medicaid ID" id="txtmedicaidid" name="medicaidid" #medicaidid="ngModel" [(ngModel)]="model.medicaidId">
                             </div>
                                         
                                         <!-- <div class="form-group">
@@ -142,19 +142,19 @@
 
                                             <label class="control-label">Phone</label>
 
-                                            <input required class="form-control" type="text" placeholder="Phone" id="txtphone" name="phone" #phone="ngModel" [(ngModel)]="model.Phone">
+                                            <input required class="form-control" type="text" placeholder="Phone" id="txtphone" name="phone" #phone="ngModel" [(ngModel)]="model.phone">
                                         </div>
                                         <div class="form-group">
 
                                             <label class="control-label">Fax</label>
 
-                                            <input required class="form-control" type="text" placeholder="Fax" id="txtfax" name="fax" #fax="ngModel" [(ngModel)]="model.Fax">
+                                            <input required class="form-control" type="text" placeholder="Fax" id="txtfax" name="fax" #fax="ngModel" [(ngModel)]="model.fax">
                                         </div>
                                         <div class="form-group">
 
                                             <label class="control-label">ETIN</label>
                 
-                                            <input required class="form-control" type="text" placeholder="ETIN" id="txtetin" name="etin" #etin="ngModel" [(ngModel)]="model.ETIN">
+                                            <input required class="form-control" type="text" placeholder="ETIN" id="txtetin" name="etin" #etin="ngModel" [(ngModel)]="model.etin">
                                         </div>
                                         
                 
@@ -341,7 +341,7 @@
          <div class="panel">
             <div class="panel-body"> 
 
-        <div class="row mtm">
+        <div class="row mtm ">
             <div class="col-sm-12">
               <div class="table-responsive">
                 <table class="table table-striped table-bordered  table-hover"> 
@@ -362,16 +362,16 @@
                   <tbody>
                
                     <tr *ngFor="let item of payerList;">
-                      <td>{{item.PayerId}}</td>
-                      <td>{{item.PayerName}}</td>
-                      <td>{{item.BillToName}</td>
-                      <td>{{item.Email}}</td>
-                      <td>{{item.Phone}}</td>  
-                      <td>{{item.Fax}}</td>
-                      <td>{{item.NPI}}</td>
-                      <td><a  (click)="editItem(item)" title="Edit" href="javascript:;"><i
+                      <td>{{item.payerId}}</td>
+                      <td>{{item.payerName}}</td>
+                      <td>{{item.billToName}}</td>
+                      <td>{{item.email}}</td>
+                      <td>{{item.phone}}</td>  
+                      <td>{{item.fax}}</td>
+                      <td>{{item.npi}}</td>
+                      <td><a  (click)="EditPayer(item)" title="Edit" href="javascript:;"><i
                         class="fa fa-edit medium-txt pts mrm"></i></a>
-                    <a (click)="deletepayer(item.PayerId)" title="Delete" href="javascript:;"><i
+                    <a (click)="deletepayer(item.payerId)" title="Delete" href="javascript:;"><i
                         class="fa fa-trash-o text-red medium-txt pts mrm"></i></a></td>                
                     </tr>
                   </tbody>

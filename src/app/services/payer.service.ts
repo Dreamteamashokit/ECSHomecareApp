@@ -13,15 +13,14 @@ const httpOptionsObj = {
 @Injectable()
 
   export class PayerService {
+ 
     selectedPayer: PayerModel;
     payers:PayerModel[];
 
 
 constructor(private _http: HttpClient){}
 
-postPayer(data: PayerModel){ 
-  debugger;
-  console.log(data);
+AddPayer(data: PayerModel){ 
   var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -31,22 +30,35 @@ postPayer(data: PayerModel){
     return this._http.post(environment.domain + "/api/Billing/addPayer", data,httpOptions);      
 }
 
-putPayer(data: PayerModel){ 
+UpdatePayer(data: PayerModel){ 
   var headers_object = new HttpHeaders();
         headers_object.append('Content-Type', 'application/json');
         var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
         const httpOptions = {
           headers: headers_object
         };
-  return this._http.put(environment.domain + "/api/Billing/addPayer"+`${data.PayerId}`, data,httpOptions);      
+  return this._http.post(environment.domain + "/api/Billing/updatePayer",data,httpOptions);      
 }
+
   
-getPayers(){
-    return this._http.get(environment.domain + "/api");
+GetPayerList(){
+  var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        };
+    return this._http.get(environment.domain + "/api/Billing/getPayerList",httpOptions);
 
   }
 
-deletepayer(PayerId: number) {
-    return this._http.delete(environment.domain + "/api"+`${PayerId}`);
+DelPayer(PayerId: number) {
+  var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type', 'application/json');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
+        const httpOptions = {
+          headers: headers_object
+        };
+    return this._http.delete(environment.domain + "/api/Billing/delPayer"+`${PayerId}`,httpOptions);
 }
   }
