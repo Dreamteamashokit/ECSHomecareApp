@@ -371,7 +371,7 @@ export class MeetingDetailComponent implements OnInit {
     }
       if(this.MeetingRate != null && this.MeetingRate != undefined && this.meetingId != null && this.meetingId != undefined){
         this.MeetingRate.meetingId =  this.meetingId;
-        this.MeetingRate.sentPayrollDate = this.datepipe.transform(this._meetingDate, 'dd-MM-yyyy')||"";
+        this.MeetingRate.sentPayrollDate = this.datepipe.transform(this.MeetingRate.sentPayrollDate, 'MM/dd/yyyy')||"";
         this.MeetingRate.billingUnits = Number(this.MeetingRate.billingUnits);
         this.MeetingRate.billingRate = Number(this.MeetingRate.billingRate);
         this.MeetingRate.billingTotal = Number(this.MeetingRate.billingTotal);
