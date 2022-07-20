@@ -79,7 +79,7 @@ export class MeetingDetailComponent implements OnInit {
     this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
     this.GetBillingStatus();
     this.GetPayrollStatus();
-    this.GetMeetingRateByMeetingId(2);
+    this.GetMeetingRateByMeetingId(this.meetingId);
     this.IsBillingOption = false;
     this.IsPayrollOption = false;
   }
@@ -369,7 +369,8 @@ export class MeetingDetailComponent implements OnInit {
         }
     }); 
     }
-      if(this.MeetingRate != null && this.MeetingRate != undefined){
+      if(this.MeetingRate != null && this.MeetingRate != undefined && this.meetingId != null && this.meetingId != undefined){
+        this.MeetingRate.meetingId =  this.meetingId;
         this.MeetingRate.sentPayrollDate = this.datepipe.transform(this._meetingDate, 'dd-MM-yyyy')||"";
         this.MeetingRate.billingUnits = Number(this.MeetingRate.billingUnits);
         this.MeetingRate.billingRate = Number(this.MeetingRate.billingRate);
@@ -385,14 +386,15 @@ export class MeetingDetailComponent implements OnInit {
         this.MeetingRate.payrollPublicTrans = Number(this.MeetingRate.payrollPublicTrans);
         this.MeetingRate.payrollMisc = Number(this.MeetingRate.payrollMisc);
         this.MeetingRate.payrollDoNotPay = this.MeetingRate.payrollDoNotPay;
-
+        
         this.momApi.addupdateMeetingRate(this.MeetingRate).subscribe({   
           next: (response: any) => { 
+            
             if (response.result) 
             {
               this.IsLoad = false;
               panel.hide();
-              this.reloadCurrentPage()
+              //this.reloadCurrentPage()
             }
             else
             {
@@ -482,6 +484,15 @@ export class MeetingDetailComponent implements OnInit {
     else{
       this.IsPayrollOption = true;
     }
+  }
+
+  numberOnly(event:any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 
 }

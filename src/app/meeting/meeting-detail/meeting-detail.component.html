@@ -123,7 +123,8 @@
                             <label class="control-label">Travel Time</label>
                             <div class="input-group">
                                 <input type="text" id="txtTravelTime" name="TravelTime" placeholder="Billing Travel Time" 
-                                class="form-control" #MeetingRate.billingTravelTime="ngModel" [(ngModel)]="MeetingRate.billingTravelTime">
+                                class="form-control" #MeetingRate.billingTravelTime="ngModel" [(ngModel)]="MeetingRate.billingTravelTime" 
+                                (keypress)="numberOnly($event)">
                             </div>
                         </div>
                     </div>
@@ -135,7 +136,7 @@
                         <div class="input-group">
                             <input type="text" id="txtBillingUnits" name="BillingUnits"
                                 placeholder="Billing Units" class="form-control width115" #MeetingRate.billingUnits="ngModel"
-                                [(ngModel)]="MeetingRate.billingUnits">
+                                [(ngModel)]="MeetingRate.billingUnits" (keypress)="numberOnly($event)">
                         </div>
                     </div>
                 </div>
@@ -146,7 +147,7 @@
                         <div class="input-group">
                             <input type="text" id="txtPayrollUnitPaid" name="PayrollUnitPaid"
                                 placeholder="Payroll Unit Paid" class="form-control width115" #MeetingRate.payrollUnitsPaid="ngModel"
-                                [(ngModel)]="MeetingRate.payrollUnitsPaid">
+                                [(ngModel)]="MeetingRate.payrollUnitsPaid" (keypress)="numberOnly($event)">
                         </div>
                     </div>
                 </div>
