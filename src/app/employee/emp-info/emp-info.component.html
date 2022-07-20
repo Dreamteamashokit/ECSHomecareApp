@@ -269,7 +269,7 @@
                                     <div class="row">
                                         <div class="col-sm-12"> </div>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-striped mbn">
+                                               <table class="table table-bordered table-striped mbn">
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -284,7 +284,12 @@
                                                             SSN
                                                         </td>
                                                         <td>
-                                                           {{empInfo.ssn}}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.ssn}} 
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="ssn" [(ngModel)]="empInfo.ssn"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -292,7 +297,12 @@
                                                             First, Middle
                                                         </td>
                                                         <td>
-                                                            {{empInfo.firstName}},    {{empInfo.middleName }}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.firstName}}, {{empInfo.middleName}} 
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="firstname" [(ngModel)]="empInfo.firstName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>                
                                                     <tr>
@@ -300,7 +310,12 @@
                                                             Last Name
                                                         </td>
                                                         <td>
-                                                            {{empInfo.lastName}}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.lastName}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="lastname" [(ngModel)]="empInfo.lastName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>                
                                                     <tr>
@@ -308,7 +323,12 @@
                                                             Gender
                                                         </td>
                                                         <td>
-                                                            {{empInfo.genderName}}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.genderName}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="gendername" [(ngModel)]="empInfo.genderName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -316,15 +336,25 @@
                                                             HR Supervisor
                                                         </td>
                                                         <td>
-                                                            {{empInfo.supervisor}}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.supervisor}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="supervisor" [(ngModel)]="empInfo.supervisor"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>                
                                                             DOB
                                                         </td>
-                                                        <td>                
-                                                            {{empInfo.dob}}           
+                                                        <td>
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.dob}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="dob" [(ngModel)]="empInfo.dob"/>
+                                                           </div>                          
                                                         </td>
                                                     </tr>                
                                                     <tr>
@@ -332,8 +362,12 @@
                                                             Ethnicity                
                                                         </td>
                                                         <td>
-                                                            {{empInfo.enthnicityName}}     
-                                                            
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.enthnicityName}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="enthnicityname" [(ngModel)]="empInfo.enthnicityName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -341,7 +375,12 @@
                                                             Cell Phone
                                                         </td>
                                                         <td>
-                                                            {{empInfo.cellPhone}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.cellPhone}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="cellphone" [(ngModel)]="empInfo.cellPhone"/>
+                                                           </div>
                                                         </td>
                                                     </tr>                
                                                     <tr>
@@ -349,7 +388,12 @@
                                                             Home Phone
                                                         </td>
                                                         <td>
-                                                            {{empInfo.homePhone}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.homePhone}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="homephone" [(ngModel)]="empInfo.homePhone"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -357,7 +401,12 @@
                                                             Email
                                                         </td>
                                                         <td>
-                                                            {{empInfo.email}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.email}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="email" [(ngModel)]="empInfo.email"/>
+                                                           </div>
                                                         </td>
                                                     </tr>                
                                                 </tbody>
@@ -380,7 +429,12 @@
                                                             Employee ID
                                                         </td>
                                                         <td>
-                                                           {{empInfo.userKey}}
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.userKey}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="userkey" [(ngModel)]="empInfo.userKey"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -388,8 +442,12 @@
                                                             Type
                                                         </td>
                                                         <td>
-                                                   {{empInfo.empTypeName}}  
-                
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.empTypeName}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="emptypename" [(ngModel)]="empInfo.empTypeName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -397,7 +455,12 @@
                                                             Start Date
                                                         </td>
                                                         <td>
-                                                            {{empInfo.dateOfHire}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.dateOfHire}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="dateofhire" [(ngModel)]="empInfo.dateOfHire"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                 
@@ -406,7 +469,12 @@
                                                             Adj. Start Date
                                                         </td>
                                                         <td>
-                                                            {{empInfo.dateOfFirstCase}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.dateOfFirstCase}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="dateoffirstcase" [(ngModel)]="empInfo.dateOfFirstCase"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                 
@@ -415,7 +483,12 @@
                                                             Contact
                                                         </td>
                                                         <td>
-                                                            {{empInfo.emgContact}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.emgContact}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="emgcontact" [(ngModel)]="empInfo.emgContact"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -423,7 +496,12 @@
                                                             Contact Phone
                                                         </td>
                                                         <td>
-                                                            {{empInfo.emgPhone}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.emgPhone}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="emgphone" [(ngModel)]="empInfo.emgPhone"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -432,8 +510,12 @@
                                                             Marital Status
                                                         </td>
                                                         <td>
-                
-                                                            {{empInfo.maritalStatusName}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.maritalStatusName}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="maritalstatusname" [(ngModel)]="empInfo.maritalStatusName"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                 
@@ -442,8 +524,12 @@
                                                             Dependents
                                                         </td>
                                                         <td>
-                                                            {{empInfo.dependents}}  
-                                                            
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.dependents}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="dependents" [(ngModel)]="empInfo.dependents"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -451,7 +537,12 @@
                                                             Tax State
                                                         </td>
                                                         <td>
-                                                            {{empInfo.taxState}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.taxState}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="taxstate" [(ngModel)]="empInfo.taxState"/>
+                                                           </div>
                                                         </td>
                                                     </tr>
                 
@@ -459,9 +550,12 @@
                                                         <td>
                                                             Municipality
                                                         </td>
-                                                        <td>
-                                                            {{empInfo.municipality}}  
-                                                
+                                                        <td><div *ngIf="!empInfo.isEdit">
+                                                            {{empInfo.municipality}}
+                                                        </div>
+                                                       <div *ngIf="empInfo.isEdit">
+                                                        <input class="form-control" type="text" name="municipality" [(ngModel)]="empInfo.municipality"/>
+                                                       </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -469,7 +563,13 @@
                                                             Notes
                                                         </td>
                                                         <td>
-                                                            {{empInfo.notes}}  
+                                                            <div *ngIf="!empInfo.isEdit">
+                                                                {{empInfo.notes}}
+                                                            </div>
+                                                           <div *ngIf="empInfo.isEdit">
+                                                            <input class="form-control" type="text" name="notes" [(ngModel)]="empInfo.notes"/>
+                                                           </div>
+
                                                         </td>
                                                     </tr>
                 
@@ -484,6 +584,12 @@
                 
                         </div>
                     </div> 
+                    <div *ngIf="!empInfo.isEdit">
+                        <button class="btn btn-sm btn-dark" (click)="modifyProfile(empInfo)">Modify Profile</button>
+                    </div>
+                    <div *ngIf="empInfo.isEdit">
+                        <button class="btn btn-sm btn-dark" (click)="saveProfile(empInfo)">Save Profile</button>
+                    </div>
                 
                 </tab>
                 

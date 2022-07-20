@@ -72,12 +72,15 @@ export class EmpInfoComponent implements OnInit {
   {
     this.empapi.getEmployeeInfo(empId).subscribe(response => {
           this.empInfo = response.data;
+          this.empInfo.isEdit=false;
           this.empInfo.isActive=Number(this.empInfo.isActive);
           this.empInfo.dob = this.datepipe.transform(this.empInfo.dob, 'dd-MM-yyyy')||"";   
           this.empInfo.dateOfHire = this.datepipe.transform(this.empInfo.dateOfHire, 'dd-MM-yyyy')||"";   
           this.empInfo.dateOfFirstCase = this.datepipe.transform(this.empInfo.dateOfFirstCase, 'dd-MM-yyyy')||"";   
         }); 
   }
+
+  
 
   getName(empInfo : EmployeeJson) : string
   {
@@ -99,11 +102,17 @@ export class EmpInfoComponent implements OnInit {
      });
   }
 
+  modifyProfile(data: { isEdit: boolean; }){
+    data.isEdit=true;
 
+  }
 
-
-
-
+  saveProfile(comp: { isEdit: boolean; }){
+    comp.isEdit=false;
+    this.empapi.updateEmployee(this.empInfo).subscribe((response) => {
+      this.GetEmployeeInfo(this.empInfo.empId); 
+    }); 
+ }
 
 
 }

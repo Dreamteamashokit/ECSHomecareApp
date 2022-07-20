@@ -61,6 +61,8 @@ const routes: Routes = [
     path: 'client/create', component: LayoutComponent,
     children: [{ path: '', component: NewClientComponent }]
   },
+  
+
   {
     path: 'client/list', component: LayoutComponent,
     children: [{ path: '', component: ClientListComponent }]
