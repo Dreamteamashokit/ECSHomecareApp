@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
-import { ScheduleBillingModel, SearchSchedule } from 'src/app/models/billing/schedule-billing-model';
+import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/models/billing/schedule-billing-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +14,9 @@ export class BillingService {
 
   getAllScheduleBilling() {
     debugger;
-    return this._http.get<APIResponse<ScheduleBillingModel[]>>(environment.domain + "/api/Billing/getAllScheduleBilling");
+    return this._http.get<APIResponse<ClientSchedule[]>>(environment.domain + "/api/Billing/getAllScheduleBilling");
   }
-
+  
 
   getScheduleBilling(search:SearchSchedule) {
     debugger;

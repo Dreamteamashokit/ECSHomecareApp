@@ -5,8 +5,13 @@ import { AccountService } from 'src/app/services/account.service';
 import { BillingService } from 'src/app/services/billing.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { ItemsList, UserType } from 'src/app/models/common';
-import { ScheduleBillingModel, SearchSchedule } from 'src/app/models/billing/schedule-billing-model';
+import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/models/billing/schedule-billing-model';
 
+// const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+// arr.reduce((groups, item) => {
+//   (groups[key(item)] ||= []).push(item);
+//   return groups;
+// }, {} as Record<K, T[]>);
 
 
 @Component({
@@ -17,15 +22,21 @@ import { ScheduleBillingModel, SearchSchedule } from 'src/app/models/billing/sch
 
   ]
 })
+
+
+
+
+
+
+
 export class CreateInvoiceComponent implements OnInit {
   IsLoad: boolean = false;
   currentUser: UserModel;
   clientList: ItemsList[];
   empList: ItemsList[];
   payerList: ItemsList[];
-
-  scheduleList: ScheduleBillingModel[];
-
+  scheduleList: ClientSchedule[];
+  
   currentDate: Date;
 
   searchModel = new SearchSchedule();
@@ -93,9 +104,14 @@ this.billSrv.getAllScheduleBilling().subscribe({
           this.scheduleList=[];
          
         }  
-        
-        console.log(this.scheduleList);   
+     
+       
 
+        //  const results = groupBy(this.scheduleList, i => i.clientId);
+
+        
+        // console.log(results);   
+ 
       }, 
       error: (err) => { 
         console.log(err);   
