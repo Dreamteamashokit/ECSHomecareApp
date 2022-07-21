@@ -25,3 +25,16 @@ export class ScheduleBillingModel {
     billingStatus: number;
     payrollStatus: number;
 }
+
+export class ClientSchedule {
+    clientId: number;
+    clientName: string;
+    payerId: number;
+    payerName: string;
+    appointments: number;
+    units: number;
+    amounts: number;
+    schedules: ScheduleBillingModel[];
+}
+
+
