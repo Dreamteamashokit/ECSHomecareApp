@@ -9,6 +9,7 @@ import { ClientMeeting,ClientFilter } from 'src/app/models/meeting/client-meetin
 import { MeetingView,MeetingLog } from 'src/app/models/meeting/meeting-view';
 import { MeetingStatus ,NotesModel} from 'src/app/models/meeting/meeting-status';
 import { MeetingRate } from '../models/meeting/MeetingRate';
+import { ClientEmployeeAttendance } from '../models/client/clientEmployeeAttendance-model';
 
 const httpOptionsObj = {
   headers: new HttpHeaders({
@@ -140,6 +141,11 @@ export class MeetingService {
   GetMeetingRateByMeetingId(meetingId : number)
   {
     return this._http.get<APIResponse<MeetingRate>>(environment.domain + "/api/Meeting/GetMeetingRateByMeetingId" + '/' + meetingId);
-  } 
+  }
+  
+  GetClientANDEmployeeAttendanceDetails(meetingId : number)
+  {
+    return this._http.get<APIResponse<ClientEmployeeAttendance>>(environment.domain + "/api/Client/GetClientANDEmployeeAttendanceDetails" + '/' + meetingId);
+  }
 
 }

@@ -71,7 +71,7 @@ export class InvoiceService {
     return this._http.post<APIResponse<object>>(environment.domain +  "/api/Invoice/AddUpdateBilling", _obj, httpOptions)
   }
 
-  GetActiveBillAndExpiredBill(status:boolean) {
+  GetActiveBillAndExpiredBill(status:boolean,clientId:number) {
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -79,7 +79,7 @@ export class InvoiceService {
       headers: headers_object
     };
 
-    return this._http.post<APIResponse<ClientBilling[]>>(environment.domain + `/api/Invoice/GetActiveBillAndExpiredBill/${status}`, {}, httpOptions)
+    return this._http.post<APIResponse<ClientBilling[]>>(environment.domain + `/api/Invoice/GetActiveBillAndExpiredBill/${status}/${clientId}`, {}, httpOptions)
   }
 
   deleteBilling(billingId : number) {

@@ -303,6 +303,8 @@
                 </div>
             </div>
         </div>
+
+        
     </div>
     <div class="row mtm" *ngIf="!IsEdit">
         <div class="col-sm-12 col-xs-12">
@@ -359,6 +361,75 @@
                         {{momObj?.employee?.address?.city}},{{momObj?.employee?.address?.zipCode}},
                     </p>
                     <p><i class="fa fa-phone text-orange "></i> Phone: {{momObj?.employee?.cellPhone}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+            <div class="panel" *ngIf="IsEdit">
+                <div class="panel-header">
+                   <strong>ATTENDANCE VERIFICATION</strong> 
+                </div>
+                <div class="panel-body light-bg-grey">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6 height-50" style="height: 50px;">
+                            <div class="form-group">
+                                <div class="form-group text-center">
+                                    <div class="signature-container">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6" style="height: 50px;">
+                            <div class="form-group">
+                                <div class="form-group text-center">
+                                    <div class="signature-container">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <b>Signed by {{clientEmpAttendance.clientName}} {{clientEmpAttendance.clientClockInOutTime | date:'MM:dd:yyyy hh:mm a'}}</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <b>Signed by {{clientEmpAttendance.employeeName}} {{clientEmpAttendance.employeeClockInOutTime | date:'MM:dd:yyyy hh:mm a'}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-5">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <p><strong>GPS-Based Capture</strong></p>
+                                    <p>Longitude: {{clientEmpAttendance.clientLongitude}}</p>
+                                    <p>Latitude: {{clientEmpAttendance.clientLatitude}}</p>
+                                    <p>Distance: 0.03 mi</p>
+                                    <p>Date/Time: {{clientEmpAttendance.clientClockInOutTime | date:'MM:dd:yyyy hh:mm a'}}</p>
+                                    <p>IP Address: 172.58.206.243</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <p><strong>GPS-Based Capture</strong></p>
+                                    <p>Longitude: {{clientEmpAttendance.employeeLongitude}}</p>
+                                    <p>Latitude: {{clientEmpAttendance.employeeLatitude}}</p>
+                                    <p>Distance: 0.03 mi</p>
+                                    <p>Date/Time: {{clientEmpAttendance.employeeClockInOutTime | date:'MM:dd:yyyy hh:mm a'}}</p>
+                                    <p>IP Address: 172.58.206.243</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-xs-7">
+                            <div class="form-group">
+                                GOOGLE MAPING
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -442,6 +513,7 @@
         </div>
     </div>
 
+    
 </div>
 
 <ng-template #template>

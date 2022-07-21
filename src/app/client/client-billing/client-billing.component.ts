@@ -1,13 +1,15 @@
 import { ClientBilling, ServiceCode,RateViewModel } from './../../models/client/client-billling-model';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AccountService } from 'src/app/services/account.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ItemsList } from 'src/app/models/common';
-import { CommonService } from 'src/app/services/common.service';
-import { NgForm } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice.service';
+import { CommonService } from 'src/app/services/common.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import { DatePipe } from '@angular/common';
+import { ItemsList } from 'src/app/models/common';
 import { parseDate } from 'ngx-bootstrap/chronos';
+import { DatePipe } from '@angular/common';
+import { ActivatedRoute,Params } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-client-billing',
@@ -28,7 +30,8 @@ export class ClientBillingComponent implements OnInit {
   rateList:any;
   serviceCode = Array<ServiceCode>();
   selectedPayerId : number;
-
+  currentUser:any;
+  ClientId:number;
 
 
   @ViewChild('frmclientbill') public addBillFrm: NgForm;
@@ -36,15 +39,22 @@ export class ClientBillingComponent implements OnInit {
     private modalService: BsModalService,
     private commonService: CommonService,
     private invoiceService:InvoiceService,
+    private accountSrv: AccountService,
     public toastr: ToastrManager,
     private datepipe: DatePipe,
-    
+    private route: ActivatedRoute
     ) { 
-
+      this.currentUser = this.accountSrv.getCurrentUser();
     }
 
  
   ngOnInit(): void {
+    this.route.params.subscribe(
+      (params: Params) => {
+        if (params["clientId"] != null) {
+          this.ClientId = Number(params["clientId"]);
+        }});
+
     this.initClientBill()
     this.getPayerList();
     this.getActiveBill();
@@ -61,7 +71,6 @@ export class ClientBillingComponent implements OnInit {
     if(el != null && el != undefined){
       el.className += ' modal-dialog-lg';
     }
-    
   }
 
   decline(): void {
@@ -90,10 +99,8 @@ export class ClientBillingComponent implements OnInit {
 
   getActiveBill(){
     this.activeClinetBills = Array<ClientBilling>();
-
-    this.invoiceService.GetActiveBillAndExpiredBill(true).subscribe(res => {
-      
-      if(res != null && res != undefined && res?.result){
+    this.invoiceService.GetActiveBillAndExpiredBill(true,this.ClientId).subscribe(res => {
+      if(res != null && res != undefined && res?.result && res.data != null && res.data != undefined){
         res?.data.forEach(item => {
             this.activeClinetBills.push(item);
         })
@@ -105,7 +112,7 @@ export class ClientBillingComponent implements OnInit {
   getExpiredBill(){
     this.expiredClientBills = Array<ClientBilling>();
 
-    this.invoiceService.GetActiveBillAndExpiredBill(false).subscribe(res => {
+    this.invoiceService.GetActiveBillAndExpiredBill(false,this.ClientId).subscribe(res => {
       if(res != null && res != undefined && res?.result){
         res?.data.forEach(item => {
           this.expiredClientBills.push(item);
@@ -266,8 +273,8 @@ export class ClientBillingComponent implements OnInit {
           this.model.daysOfWeekNotes = "";
         }
         
-        this.model.createdBy = 0;
-    
+        this.model.createdBy = this.ClientId;
+        this.model.ClientId = this.ClientId;
         this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
     
           if(res?.result){
@@ -413,6 +420,7 @@ export class ClientBillingComponent implements OnInit {
         this.toastr.errorToastr("All units authorized have zero value", 'Failed!');
     }
     else{
+      this.model.ClientId = this.ClientId;
        this.invoiceService.AddUpdateBilling(this.model).subscribe(res => {
         
         if(res?.result)

@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit } from '@angular/core';
+import { Component, TemplateRef, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { StatusEnum,ItemsList } from 'src/app/models/common';
@@ -16,6 +16,7 @@ import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status
 import { billingStatus } from '../../models/billing/billing-status';
 import { payrollStatus } from '../../models/billing/Payroll-status';
 import { MeetingRate } from '../../models/meeting/MeetingRate';
+import { ClientEmployeeAttendance } from '../../models/client/clientEmployeeAttendance-model';
 
 @Component({
   selector: 'app-meeting-detail',
@@ -52,8 +53,11 @@ export class MeetingDetailComponent implements OnInit {
   PayrollStatus = Array<payrollStatus>();
   MeetingRate = new MeetingRate();
   LatestThreeCompliance:any;
+  clientEmpAttendance = new ClientEmployeeAttendance();
 
-
+  ClientsignatureImg: string = "";
+  EmpUserSignatureImg: string = "";
+  
   constructor(
     private router: Router,
     public datepipe: DatePipe,
@@ -82,7 +86,9 @@ export class MeetingDetailComponent implements OnInit {
     this.GetMeetingRateByMeetingId(this.meetingId);
     this.IsBillingOption = false;
     this.IsPayrollOption = false;
+    this.GetClientANDEmployeeAttendanceDetails(this.meetingId);
   }
+
 
   BindMeeting() {
 
@@ -91,7 +97,7 @@ export class MeetingDetailComponent implements OnInit {
         
         this.momObj = response.data;
         this.mNoteList = response.data.notes;
-
+        
         if (this.momObj.isStatus == StatusEnum.Cancelled || this.momObj.isStatus == StatusEnum.CancelledByClient) {
           this.IsCancel = false;
         }
@@ -468,6 +474,15 @@ export class MeetingDetailComponent implements OnInit {
     });
   }
 
+  GetClientANDEmployeeAttendanceDetails(meetingId:number){
+    this.momApi.GetClientANDEmployeeAttendanceDetails(meetingId).subscribe((response) => {
+      if(response.result)
+      {
+        this.clientEmpAttendance = response.data;
+      }
+    });
+  }
+
   showBillingFields(){
     if(this.IsBillingOption){
       this.IsBillingOption = false;
@@ -492,7 +507,5 @@ export class MeetingDetailComponent implements OnInit {
       return false;
     }
     return true;
-
   }
-
 }
