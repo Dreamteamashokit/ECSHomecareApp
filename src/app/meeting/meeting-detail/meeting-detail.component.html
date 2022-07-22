@@ -151,8 +151,8 @@
         </div>
     </div>
     
-    <div class="panel panel-default" *ngIf="IsEdit">
-        <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+    <div *ngIf="IsEdit">
+        <a data-toggle="collapse" class="padleft15" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
             <span><i class="fa fa-plus-square"></i></span> BILLING/PAYROLL</a>
         <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="card card-body">
@@ -375,10 +375,13 @@
         <div class="col-sm-12 col-xs-12">
             <div class="panel" *ngIf="IsEdit">
                 <div class="panel-header">
-                   <strong>ATTENDANCE VERIFICATION</strong> 
+                    <a data-toggle="collapse" class="padleft15" href="#multiCollapse2" role="button" aria-expanded="false" aria-controls="multiCollapse2">
+                        <span><i class="fa fa-plus-square"></i></span> ATTENDANCE VERIFICATION</a>
                 </div>
-                <div class="panel-body light-bg-grey">
-                    <div class="row">
+                <div class="collapse multi-collapse" id="multiCollapse2">
+                    <div class="card card-body">
+                        <div class="panel-body light-bg-grey">
+                            <div class="row">
                         <div class="col-sm-6 col-xs-6 height-50" style="height: 50px;">
                             <div class="form-group">
                                 <div class="form-group text-center">
@@ -408,8 +411,8 @@
                                 <b>Signed by {{clientEmpAttendance.employeeName}} {{clientEmpAttendance.employeeClockInOutTime | date:'MM:dd:yyyy hh:mm a'}}</b>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                            </div>
+                            <div class="row">
                         <div class="col-sm-5 col-xs-5">
                             <div class="col-sm-12 col-xs-12">
                                 <div class="form-group">
@@ -437,18 +440,13 @@
                                 GOOGLE MAPING
                             </div>
                         </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <hr class="mtn mbn"> -->
-    <!-- <div class="row">
-        <div class="col-sm-12 col-xs-12">
-            <p class="mbn"><i class="fa fa-envelope text-orange"></i> <strong>Send message to Employee</strong></p>
-            <p class="small-txt">Message will be sent to . Reply will be sent to coordinator's cellphone.</p>
-        </div>
-    </div> -->
 
     <div class="panel" *ngIf="!IsEdit">
         <div class="panel-body light-bg-grey">
