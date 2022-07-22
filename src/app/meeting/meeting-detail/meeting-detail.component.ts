@@ -1,5 +1,5 @@
 import { Component, TemplateRef, OnInit,ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,Params,ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { StatusEnum,ItemsList } from 'src/app/models/common';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { AccountService } from 'src/app/services/account.service';
+import { BillingService } from '../../services/billing.service';
 import { MeetingInfo } from 'src/app/models/meeting/meeting-info';
 import { InvoiceService } from '../../services/invoice.service';
 import { EmployeeapiService } from 'src/app/services/employeeapi.service';
@@ -16,6 +17,7 @@ import { MeetingStatus, NotesModel } from 'src/app/models/meeting/meeting-status
 import { billingStatus } from '../../models/billing/billing-status';
 import { payrollStatus } from '../../models/billing/Payroll-status';
 import { MeetingRate } from '../../models/meeting/MeetingRate';
+import { billingPayerRate } from '../../models/billing/billingPayerRate-model';
 import { ClientEmployeeAttendance } from '../../models/client/clientEmployeeAttendance-model';
 
 @Component({
@@ -47,19 +49,19 @@ export class MeetingDetailComponent implements OnInit {
   isClient:boolean;
   modalRef?: BsModalRef;
   userId:number;
-
   ClientList = Array<ItemsList>();
   BillingStatus = Array<billingStatus>();
   PayrollStatus = Array<payrollStatus>();
   MeetingRate = new MeetingRate();
   LatestThreeCompliance:any;
   clientEmpAttendance = new ClientEmployeeAttendance();
-
+  billingpayerDetails = new billingPayerRate();
   ClientsignatureImg: string = "";
   EmpUserSignatureImg: string = "";
   
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     public datepipe: DatePipe,
     private momApi: MeetingService,
     private toastr: ToastrManager,
@@ -68,16 +70,14 @@ export class MeetingDetailComponent implements OnInit {
     private accountSrv: AccountService,
     private empserv:EmployeeapiService,
     private modalService: BsModalService,
+    private BillingServ : BillingService,
     private InvService: InvoiceService) {
     this.currentUser = this.accountSrv.getCurrentUser();
   }
 
   ngOnInit(): void {
-
-    //alert(this.userId)
-
+    
     this.bindClient();
-
     this.BindMeeting();
     this.getMeetingLog(this.meetingId);
     this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
@@ -296,6 +296,7 @@ export class MeetingDetailComponent implements OnInit {
       var _timeOut = item.meetingDate +' ' + item.endTime; 
       this._endTime=new Date(_timeOut);
       this._clientId = Number(item?.employee?.id);
+      this.GetBillingPayerRate(0,item?.client?.id);
     }
 
    }
@@ -481,6 +482,19 @@ export class MeetingDetailComponent implements OnInit {
         this.clientEmpAttendance = response.data;
       }
     });
+  }
+
+  GetBillingPayerRate(payerId:number,clientId:number){
+    this.BillingServ.GetBillingPayerRate(payerId,clientId).subscribe(res => {
+      if(res.result){
+        this.billingpayerDetails = res.data;
+        if(this.billingpayerDetails != null && this.billingpayerDetails != undefined){
+          this.MeetingRate.billingCode = this.billingpayerDetails.billCode;
+          this.MeetingRate.billingRate = this.billingpayerDetails.taxRate;
+          this.MeetingRate.billingTotal = this.billingpayerDetails.billTotal;
+        }
+      }
+    })
   }
 
   showBillingFields(){

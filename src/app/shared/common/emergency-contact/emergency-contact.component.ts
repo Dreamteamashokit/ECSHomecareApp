@@ -34,7 +34,6 @@ export class EmergencyContactComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        debugger;
         if (params["clientId"] != null) {
           this.model.userId = Number(params["clientId"]);
           this.getContactModel(this.model.userId);
