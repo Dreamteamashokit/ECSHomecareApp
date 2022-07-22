@@ -5,7 +5,9 @@ import { AccountService } from 'src/app/services/account.service';
 import { BillingService } from 'src/app/services/billing.service';
 import { UserModel } from 'src/app/models/account/login-model';
 import { ItemsList, UserType } from 'src/app/models/common';
-import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/models/billing/schedule-billing-model';
+import { SearchSchedule, ClientSchedule } from 'src/app/models/billing/schedule-billing-model';
+
+
 
 // const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
 // arr.reduce((groups, item) => {
@@ -36,7 +38,7 @@ export class CreateInvoiceComponent implements OnInit {
   empList: ItemsList[];
   payerList: ItemsList[];
   scheduleList: ClientSchedule[];
-  
+
   currentDate: Date;
 
   searchModel = new SearchSchedule();
@@ -57,8 +59,6 @@ export class CreateInvoiceComponent implements OnInit {
 
     this.comSrv.getUsers(UserType.Client).subscribe((response) => {
       this.clientList = response.data;
-
-      console.log(response.data);
     });
 
     this.comSrv.getUsers(UserType.Employee).subscribe((response) => {
@@ -72,54 +72,59 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.IsLoad = true;
+    this.BindAllSchedule();
   }
 
+  BindAllSchedule() {
+    this.IsLoad = true;
+    this.billSrv.getAllScheduleBilling().subscribe({
+      next: (response) => {
+        if (response.result) {
+          this.scheduleList = response.data;
+        }
+        else {
+          this.scheduleList = [];
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.scheduleList = [];
+      },
+      complete: () => {
+        this.IsLoad = false;
+      }
+    });
 
+  }
 
 
 
   getFilterData(item: SearchSchedule) {
 
 
-    alert("Test");
+    item.payerId = Number(item.payerId);
+    item.empId = Number(item.empId);
+    item.clientId = Number(item.clientId);
+    let resultText = '';
     this.IsLoad = true;
-
-
-
-
-
-
-
-this.billSrv.getAllScheduleBilling().subscribe({ 
+    this.billSrv.getScheduleBilling(item).subscribe({
       next: (response) => {
-        if(response.result)
-        {       
-          this.scheduleList= response.data;
-             
+        if (response.result) {
+          this.scheduleList = response.data;
         }
-        else
-        {
-          this.scheduleList=[];
-         
-        }  
-     
-       
-
-        //  const results = groupBy(this.scheduleList, i => i.clientId);
-
-        
-        // console.log(results);   
- 
-      }, 
-      error: (err) => { 
-        console.log(err);   
-        this.scheduleList=[]; 
-      }, 
-      complete: () => { this.IsLoad = false;
+        else {
+          this.scheduleList = [];
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.scheduleList = [];
+      },
+      complete: () => {
+        this.IsLoad = false;
       }
-    });    
+    });
 
 
 

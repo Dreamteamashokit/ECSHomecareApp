@@ -10,13 +10,10 @@ import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/mod
 export class BillingService {
 
   constructor(private _http: HttpClient) { }
-
-
   getAllScheduleBilling() {
     debugger;
     return this._http.get<APIResponse<ClientSchedule[]>>(environment.domain + "/api/Billing/getAllScheduleBilling");
-  }
-  
+  }  
 
   getScheduleBilling(search:SearchSchedule) {
     debugger;
@@ -26,7 +23,7 @@ export class BillingService {
     const httpOptions = {
       headers: headers_object
     };
-    return this._http.post<APIResponse<ScheduleBillingModel[]>>(environment.domain + "/api/Billing/ScheduleBillingModel", search,httpOptions);       
+    return this._http.post<APIResponse<ClientSchedule[]>>(environment.domain + "/api/Billing/getScheduleBilling", search,httpOptions);       
     
   }
 

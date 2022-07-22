@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { LoaderComponent } from 'src/app/loader/loader.component';
 import { CommonModule,DatePipe } from '@angular/common';
 import { BillingComponent } from './billing.component';
 import { Route, Router, RouterModule, Routes } from '@angular/router';
@@ -25,12 +26,14 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
+   
         BillingComponent,
         AddRateComponent,
         PayerrateComponent,
         CreateInvoiceComponent
     ],
     imports: [
+   
         CommonModule,
         FormsModule,
         RouterModule.forChild(routes),
