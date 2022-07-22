@@ -486,6 +486,7 @@ export class MeetingDetailComponent implements OnInit {
 
   GetBillingPayerRate(payerId:number,clientId:number,meetingId:number){
     this.BillingServ.GetBillingPayerRate(payerId,clientId,meetingId).subscribe(res => {
+      
       if(res.result){
         this.billingpayerDetails = res.data;
         
@@ -495,6 +496,13 @@ export class MeetingDetailComponent implements OnInit {
           this.MeetingRate.billingRate = this.billingpayerDetails.taxRate;
           this.MeetingRate.billingTotal = this.billingpayerDetails.billTotal;
         }
+      }
+      else{
+        this.MeetingRate.billingUnits = 0;
+          this.MeetingRate.billingCode = "";
+          this.MeetingRate.billingRate = 0;
+          this.MeetingRate.billingTotal = 0;
+        //this.billingpayerDetails = null
       }
     })
   }
