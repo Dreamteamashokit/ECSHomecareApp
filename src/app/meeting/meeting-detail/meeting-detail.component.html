@@ -113,7 +113,7 @@
                         <div class="form-group">
                             <label class="control-label">Billing Code</label>&nbsp;&nbsp;
                             <div class="input-group">
-                                <label>{{MeetingRate.billingCode}}</label>
+                                <label>{{billingpayerDetails.billCode}}</label>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,8 @@
                         <div class="input-group">
                             <input type="text" id="txtBillingUnits" name="BillingUnits"
                                 placeholder="Billing Units" class="form-control width115" #MeetingRate.billingUnits="ngModel"
-                                [(ngModel)]="MeetingRate.billingUnits" (keypress)="numberOnly($event)">
+                                [(ngModel)]="MeetingRate.billingUnits" (keypress)="numberOnly($event)" 
+                                [value]="billingpayerDetails.calculateUnit">
                         </div>
                     </div>
                 </div>
@@ -169,7 +170,7 @@
                         <div class="input-group">
                             <input type="text" id="txtBillingRate" name="BillingRate"
                                 placeholder="Billing Rate" class="form-control width115" #MeetingRate.billingRate="ngModel"
-                                [(ngModel)]="MeetingRate.billingRate">
+                                [(ngModel)]="MeetingRate.billingRate" [value]="billingpayerDetails.taxRate">
                         </div>
                     </div>
                 </div>
@@ -201,7 +202,8 @@
                         <label class="control-label">Billing Total</label>
                         <div class="input-group">
                             <input type="text" id="txtBillingTotal" name="BillingTotal" placeholder="Billing Total" 
-                            class="form-control width115" #MeetingRate.billingTotal="ngModel" [(ngModel)]="MeetingRate.billingTotal">
+                            class="form-control width115" #MeetingRate.billingTotal="ngModel" [(ngModel)]="MeetingRate.billingTotal"
+                            [value]="billingpayerDetails.billTotal">
                         </div>
                     </div>
                 </div>

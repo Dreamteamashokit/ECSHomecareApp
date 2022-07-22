@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
+import { billingPayerRate } from '../models/billing/billingPayerRate-model';
 import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/models/billing/schedule-billing-model';
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,13 @@ export class BillingService {
 
 
   getAllScheduleBilling() {
-    debugger;
+    
     return this._http.get<APIResponse<ClientSchedule[]>>(environment.domain + "/api/Billing/getAllScheduleBilling");
   }
   
 
   getScheduleBilling(search:SearchSchedule) {
-    debugger;
+    
     var headers_object = new HttpHeaders();
     headers_object.append('Content-Type', 'application/json');
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + "qatest");
@@ -30,7 +31,9 @@ export class BillingService {
     
   }
 
-
+  GetBillingPayerRate(payerId:number,clientId:number) {
+    return this._http.get<APIResponse<billingPayerRate>>(environment.domain + "/api/Billing/GetBillingPayerRate" + "/" + payerId+ "/" + clientId);
+  }
 
 
 

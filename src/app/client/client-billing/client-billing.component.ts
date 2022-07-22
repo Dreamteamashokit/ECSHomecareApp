@@ -113,7 +113,7 @@ export class ClientBillingComponent implements OnInit {
     this.expiredClientBills = Array<ClientBilling>();
 
     this.invoiceService.GetActiveBillAndExpiredBill(false,this.ClientId).subscribe(res => {
-      if(res != null && res != undefined && res?.result){
+      if(res != null && res != undefined && res?.result && res.data != null && res.data != undefined){
         res?.data.forEach(item => {
           this.expiredClientBills.push(item);
         }) 
