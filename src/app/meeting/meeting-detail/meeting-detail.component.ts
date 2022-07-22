@@ -323,6 +323,7 @@ export class MeetingDetailComponent implements OnInit {
 
    reScheduling(panel: BsModalRef)
    {
+    
     if(this.momObj != null)
     {    
       let item=this.momObj;
@@ -346,7 +347,7 @@ export class MeetingDetailComponent implements OnInit {
       modelItem.empId= Number(this._clientId);//item.employee.id;
       modelItem.meetingNote=this._message;
    
-
+      
       this.momApi.updateMeeting(modelItem).subscribe({   
         next: (response: any) => {  
           if (response.result) 
@@ -379,20 +380,20 @@ export class MeetingDetailComponent implements OnInit {
       if(this.MeetingRate != null && this.MeetingRate != undefined && this.meetingId != null && this.meetingId != undefined){
         this.MeetingRate.meetingId =  this.meetingId;
         this.MeetingRate.sentPayrollDate = this.datepipe.transform(this.MeetingRate.sentPayrollDate, 'MM/dd/yyyy')||"";
-        this.MeetingRate.billingUnits = Number(this.MeetingRate.billingUnits);
-        this.MeetingRate.billingRate = Number(this.MeetingRate.billingRate);
-        this.MeetingRate.billingTotal = Number(this.MeetingRate.billingTotal);
-        this.MeetingRate.billingStatus = Number(this.MeetingRate.billingStatus);
-        this.MeetingRate.billingTravelTime = Number(this.MeetingRate.billingTravelTime);
+        this.MeetingRate.billingUnits = Number(this.MeetingRate.billingUnits == null || this.MeetingRate.billingUnits == undefined ? 0 : this.MeetingRate.billingUnits);
+        this.MeetingRate.billingRate = Number(this.MeetingRate.billingRate == null || this.MeetingRate.billingRate == undefined ? 0 : this.MeetingRate.billingRate);
+        this.MeetingRate.billingTotal = Number(this.MeetingRate.billingTotal == null || this.MeetingRate.billingTotal == undefined ? 0 : this.MeetingRate.billingTotal);
+        this.MeetingRate.billingStatus = Number(this.MeetingRate.billingStatus == null || this.MeetingRate.billingStatus == undefined ? 0 : this.MeetingRate.billingStatus);
+        this.MeetingRate.billingTravelTime = Number(this.MeetingRate.billingTravelTime == null || this.MeetingRate.billingTravelTime == undefined ? 0 : this.MeetingRate.billingTravelTime);
 
-        this.MeetingRate.payrollUnitsPaid = Number(this.MeetingRate.payrollUnitsPaid);
-        this.MeetingRate.payrollPayRate = Number(this.MeetingRate.payrollPayRate);
-        this.MeetingRate.payrollPayTotal = Number(this.MeetingRate.payrollPayTotal);
-        this.MeetingRate.payrollPayStatus = Number(this.MeetingRate.payrollPayStatus);
-        this.MeetingRate.payrollMileage = Number(this.MeetingRate.payrollMileage);
-        this.MeetingRate.payrollPublicTrans = Number(this.MeetingRate.payrollPublicTrans);
-        this.MeetingRate.payrollMisc = Number(this.MeetingRate.payrollMisc);
-        this.MeetingRate.payrollDoNotPay = this.MeetingRate.payrollDoNotPay;
+        this.MeetingRate.payrollUnitsPaid = Number(this.MeetingRate.payrollUnitsPaid == null || this.MeetingRate.payrollUnitsPaid == undefined ? 0 : this.MeetingRate.payrollUnitsPaid);
+        this.MeetingRate.payrollPayRate = Number(this.MeetingRate.payrollPayRate == null || this.MeetingRate.payrollPayRate == undefined ? 0 : this.MeetingRate.payrollPayRate);
+        this.MeetingRate.payrollPayTotal = Number(this.MeetingRate.payrollPayTotal == null || this.MeetingRate.payrollPayTotal == undefined ? 0 : this.MeetingRate.payrollPayTotal);
+        this.MeetingRate.payrollPayStatus = Number(this.MeetingRate.payrollPayStatus == null || this.MeetingRate.payrollPayStatus == undefined ? 0 : this.MeetingRate.payrollPayStatus);
+        this.MeetingRate.payrollMileage = Number(this.MeetingRate.payrollMileage == null || this.MeetingRate.payrollMileage == undefined ? 0 : this.MeetingRate.payrollMileage);
+        this.MeetingRate.payrollPublicTrans = Number(this.MeetingRate.payrollPublicTrans == null || this.MeetingRate.payrollPublicTrans == undefined ? 0 : this.MeetingRate.payrollPublicTrans);
+        this.MeetingRate.payrollMisc = Number(this.MeetingRate.payrollMisc == null || this.MeetingRate.payrollMisc == undefined ? 0 : this.MeetingRate.payrollMisc);
+        this.MeetingRate.payrollDoNotPay = this.MeetingRate.payrollDoNotPay == null || this.MeetingRate.payrollDoNotPay == undefined ? false : this.MeetingRate.payrollDoNotPay;
         
         this.momApi.addupdateMeetingRate(this.MeetingRate).subscribe({   
           next: (response: any) => { 
@@ -488,7 +489,9 @@ export class MeetingDetailComponent implements OnInit {
     this.BillingServ.GetBillingPayerRate(payerId,clientId).subscribe(res => {
       if(res.result){
         this.billingpayerDetails = res.data;
+        
         if(this.billingpayerDetails != null && this.billingpayerDetails != undefined){
+          this.MeetingRate.billingUnits = this.billingpayerDetails.calculateUnit;
           this.MeetingRate.billingCode = this.billingpayerDetails.billCode;
           this.MeetingRate.billingRate = this.billingpayerDetails.taxRate;
           this.MeetingRate.billingTotal = this.billingpayerDetails.billTotal;
