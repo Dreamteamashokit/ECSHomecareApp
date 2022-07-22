@@ -28,8 +28,8 @@ export class BillingService {
     
   }
 
-  GetBillingPayerRate(payerId:number,clientId:number) {
-    return this._http.get<APIResponse<billingPayerRate>>(environment.domain + "/api/Billing/GetBillingPayerRate" + "/" + payerId+ "/" + clientId);
+  GetBillingPayerRate(payerId:number,clientId:number,meetingId:number) {
+    return this._http.get<APIResponse<billingPayerRate>>(environment.domain + "/api/Billing/GetBillingPayerRate" + "/" + payerId+ "/" + clientId + "/" + meetingId);
   }
 
 

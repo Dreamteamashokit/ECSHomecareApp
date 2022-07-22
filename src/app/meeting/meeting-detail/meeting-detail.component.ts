@@ -296,9 +296,8 @@ export class MeetingDetailComponent implements OnInit {
       var _timeOut = item.meetingDate +' ' + item.endTime; 
       this._endTime=new Date(_timeOut);
       this._clientId = Number(item?.employee?.id);
-      this.GetBillingPayerRate(0,item?.client?.id);
+      this.GetBillingPayerRate(0,item?.client?.id,item?.meetingId);
     }
-
    }
 
    onRecurrence(e:any):void {
@@ -485,8 +484,8 @@ export class MeetingDetailComponent implements OnInit {
     });
   }
 
-  GetBillingPayerRate(payerId:number,clientId:number){
-    this.BillingServ.GetBillingPayerRate(payerId,clientId).subscribe(res => {
+  GetBillingPayerRate(payerId:number,clientId:number,meetingId:number){
+    this.BillingServ.GetBillingPayerRate(payerId,clientId,meetingId).subscribe(res => {
       if(res.result){
         this.billingpayerDetails = res.data;
         
