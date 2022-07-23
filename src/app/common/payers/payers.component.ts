@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PayerModel } from 'src/app/models/account/payer-model';
 import { PayerService } from 'src/app/services/payer.service';
 import { SelectList } from 'src/app/models/common';
 import { NgForm } from '@angular/forms';
+import { RateModel } from 'src/app/billing/component/manage_payer_and_rate/model/rate.model';
+import { UserModel } from 'src/app/models/account/login-model';
+import { InvoiceService } from 'src/app/services/invoice.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router } from '@angular/router';
 //import { Router } from '@angular/router';
 //import { CommonService } from 'src/app/services/common.service';
 //import { AccountUserModel } from 'src/app/models/account/account-model';
@@ -19,25 +24,24 @@ declare var M: any;
 export class PayersComponent implements OnInit {
 
   IsLoad: boolean = false;
+    currentUser: UserModel;
   //IsChecked: boolean;
   model = new PayerModel();
   payerList : PayerModel[]=[];
   stateList: SelectList[] = [];
   //model1 = new AccountUserModel();
-
+   
+  @ViewChild('payerForm') public addRateFrm: NgForm;
   constructor(
-    private payerSrv: PayerService
+    private payerSrv: PayerService,
+    private invoiceService:InvoiceService,
+        public toastr: ToastrManager,
+        private router: Router
     //private comSrv: CommonService,
-  ) { 
-    //this.BindMaster();
-    this.getPayerList();
-    //this. model1.homeAddress.state="";
-
-  }
+  ) { }
 
   ngOnInit(): void {
   this.resetForm();
-  //this.refreshPayerList();
   this.getPayerList();
 
 
@@ -60,7 +64,31 @@ export class PayersComponent implements OnInit {
     medicaidId: "",
     isActive: 0,
     createdOn: "",
-    createdBy: 0
+    createdBy: 0,
+    rateid: 0,
+    payerid: 0,
+    serviceCode: "",
+    type: 0,
+    billCode: "",
+    revenueCode: "",
+    taxRate: 0,
+    validFrom: "",
+    validTo: "",
+    hourly: 0,
+    livein: 0,
+    visit: 0,
+    unit: "",
+    per:"",
+    modifiers1: "",
+    modifiers2: "",
+    modifiers3: "",
+    modifiers4: "",
+    placeOfService: "",
+    mutualGroup: false,
+    notes: "",
+    taxratepercentage:0,
+    entityId:0,
+  userId: 0
     }
 
   }
@@ -71,19 +99,61 @@ export class PayersComponent implements OnInit {
       this.payerList = response.data;
    });
  }
-  // BindMaster()
-  // {
-  //   this.comSrv.getStateList('USA').subscribe((response) => {
-  //     this.stateList = response.data;
-  //   });
-  // }
+  
+ onClickSubmit(addRateForm:NgForm) {
+  debugger;
+  if(addRateForm.valid){
+      this.model.rateid = 0;
+      this.model.payerid = Number(this.model.payerid);
+      if(!isNaN(this.model.taxRate)){
+          this.model.taxRate = Number(this.model.taxRate); 
+      }
+      else{
+          this.model.taxRate = 0; 
+      } 
+      if(this.model.unit != null && this.model.unit != undefined &&  this.model.hourly !=null && this.model.hourly != undefined)
+      {
+          this.model.unit = this.model.unit + " " + this.model.hourly;
+      }
+      else if(this.model.unit != null && this.model.unit != undefined &&  (this.model.hourly == null || this.model.hourly == undefined))
+      {
+          this.model.unit = this.model.unit;
+      }
+      else if(this.model.unit == null && this.model.unit == undefined &&  (this.model.hourly != null && this.model.hourly != undefined)){
+          this.model.unit = this.model.hourly.toString();
+      }
+      
+      this.model.hourly = 0;
+      this.model.type = Number(this.model.type);
+      this.model.livein = 0;
+      this.model.visit = 0;
+      this.model.createdBy = 0;
+      const rateObj: RateModel = this.model;
+
+      this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
+          debugger;
+          if(res != null && res != undefined){
+
+              this.toastr.successToastr('Rate Added', 'Success!');
+              this.router.navigateByUrl('/billing');
+          }
+          else{
+              this.toastr.successToastr('Rate Added', 'Something wrong while add rate!');
+          }
+      })
+  }
+}
+
 
  onSubmit(form: NgForm) {
+  debugger;
   if((form.value.payerid == null) || (form.value.payerid == '')|| (form.value.payerid == undefined) ){
     this.payerSrv.AddPayer(form.value).subscribe((res)=>{
+      this.onClickSubmit(form);
       this.resetForm(form);
       //this.refreshPayerList();
       M.toast({html:'Saved Successfully',classes:'rounded'});
+      this.getPayerList();
     });
   }
   else{
@@ -91,6 +161,8 @@ export class PayersComponent implements OnInit {
       this.resetForm(form);
       //this.refreshPayerList();
       M.toast({html:'Updated Successfully',classes:'rounded'});
+      this.getPayerList();
+      
       
     });
   }
@@ -116,7 +188,6 @@ export class PayersComponent implements OnInit {
   }
 
   deletepayer(PayerId: number) {
-    debugger;
     let isOk = confirm("Are you sure to delete?");
     if (isOk) {
       this.payerSrv.DelPayer(PayerId).subscribe((response) => {

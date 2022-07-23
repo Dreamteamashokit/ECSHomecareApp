@@ -32,312 +32,342 @@
                     </div>
                     <div class="row mtm">
                         <div class="col-lg-4">
-                            
-                            
-                                        <div class="col-sm-12"> </div>
                                         <div class="form-group">
                                             <input class="form-control" type="hidden" placeholder="payerid" id="txtpayerid" name="payerid" #payerid="ngModel" [(ngModel)]="model.payerId">
-                                            <label class="control-label">Name</label>
-                                            <input required class="form-control" type="text" placeholder="Name" id="txtname" name="payername" #payername="ngModel" [(ngModel)]="model.payerName">
+                                            <label class="control-label">Payer Name</label>
+                                            <input required class="form-control" type="text" id="txtname" name="payername" #payername="ngModel" [(ngModel)]="model.payerName">
+                                            <em *ngIf="payername.invalid && (payername.touched || payerForm.submitted)"
+                                                                for="payername" class="invalid error">
+                                                                <label>Please fill Payer Name</label></em>
                                         </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">BillTo Name</label>
-    
-                                            <input required class="form-control" type="text" placeholder="BillTo Name" id="txtbilltoname" name="billtoname" #billtoname="ngModel" [(ngModel)]="model.billToName">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">NPI</label>
-                
-                                            <input required class="form-control" type="text" placeholder="NPI" id="txtnpi" name="npi" #npi="ngModel" [(ngModel)]="model.npi">
-                                        </div>
-                                        <div class="form-group">
-                
-                                            <label class="control-label">Fed ID</label>
-                
-                                            <input required class="form-control" type="text" placeholder="Fed ID" id="txtfedid" name="fedid" #fedid="ngModel" [(ngModel)]="model.fedId">
-                                        </div>
-                                        <!-- <div class="form-group">
-
-                                            <label class="control-label">BillTo ID</label>
-        
-                                            <input  class="form-control" type="text" placeholder="BillTo ID" id="txtbilltoid" name="billtoid" #billtoid="ngModel" [(ngModel)]="model.BillingId">
-                                        </div> -->
-                                        <!-- <div class="form-group">
-
-                                            <label class="control-label">Contact</label>
-            
-                                            <input class="form-control" type="text" placeholder="Contact" id="txtcontact" name="contact" #contact="ngModel" [(ngModel)]="model.Contact">
-                                        </div> -->
-                                        <!-- <div class="form-group">
-
-                                            <label class="control-label">Title</label>
-                
-                                            <input class="form-control" type="text" placeholder="Title" id="txttitle" name="title" #title="ngModel" [(ngModel)]="model.Title">
-                                        </div> -->
-                                        
                         </div>
-                                                                   
                         <div class="col-lg-4">
-
                             <div class="form-group">
 
                                 <label class="control-label">Email</label>
         
-                                <input required class="form-control" type="text" placeholder="Email" id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
+                                <input required class="form-control" type="text"  id="txtemail" name="email" #email="ngModel" [(ngModel)]="model.email">
+                                <em *ngIf="email.invalid && (email.touched || payerForm.submitted)"
+                                                                for="email" class="invalid error">
+                                                                <label>Please fill Email</label></em>
                             </div>
+
+                        </div>
+                        <div class="col-lg-2">
                             <div class="form-group">
 
-                                <label class="control-label">Taxonomy</label>
-    
-                                <input required class="form-control" type="text" placeholder="Taxonomy" id="txttaxonomy" name="taxonomy" #taxonomy="ngModel" [(ngModel)]="model.taxonomy">
+                                <label class="control-label">Phone</label>
+
+                                <input required class="form-control" type="text"  id="txtphone" name="phone" #phone="ngModel" [(ngModel)]="model.phone">
+                                <em *ngIf="phone.invalid && (phone.touched || payerForm.submitted)"
+                                                    for="phone" class="invalid error">
+                                                    <label>Please fill Phone Number</label></em>
                             </div>
+
+                        </div>
+                        <div class="col-lg-2">
                             <div class="form-group">
-    
-                                <label class="control-label">MedicaidID</label>
-    
-                                <input  required class="form-control" type="text" placeholder="Medicaid ID" id="txtmedicaidid" name="medicaidid" #medicaidid="ngModel" [(ngModel)]="model.medicaidId">
+
+                                <label class="control-label">Fax</label>
+
+                                <input required class="form-control" type="text"  id="txtfax" name="fax" #fax="ngModel" [(ngModel)]="model.fax">
+                                <em *ngIf="fax.invalid && (fax.touched || payerForm.submitted)"
+                                                    for="fax" class="invalid error">
+                                                    <label>Please fill FAX</label></em>
                             </div>
-                                        
-                                        <!-- <div class="form-group">
 
-                                            <label class="control-label">Address</label>
+                        </div>
+                        </div>
+                        <div class="row mtm">
+                            <div class="col-lg-4">
+                                <div class="form-group">
 
-                                            <input  class="form-control" type="text" placeholder="Address" id="txtaddress" name="address" #address="ngModel" [(ngModel)]="model.Address">
-                                        </div> -->
-                                        <!-- <div class="form-group">
+                                    <label class="control-label">BillTo Name</label>
 
-                                            <label class="control-label">City</label>
+                                    <input required class="form-control" type="text"  id="txtbilltoname" name="billtoname" #billtoname="ngModel" [(ngModel)]="model.billToName">
+                                    <em *ngIf="billtoname.invalid && (billtoname.touched || payerForm.submitted)"
+                                                        for="billtoname" class="invalid error">
+                                                        <label>Please fill BillTo Name</label></em>
+                                </div>
 
-                                            <input  class="form-control" type="text" placeholder="City" id="txtcity" name="city" #city="ngModel" [(ngModel)]="model.city">
-                                        </div> -->
-                                        <!-- <div class="form-group" >
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
 
-                                            <label class="control-label">State</label>
-                                            <select class="form-control" id="ddlState" name="state"  [(ngModel)]="model1.homeAddress.state" >
-                                                <option value="">Select State</option>
-                                                <option *ngFor="let obj of stateList"
-                                                        [value]="obj.itemCode">
-                                                    {{ obj.itemName }}
-                                                </option>
-                                            </select>
-                                            </div> -->
-                                            </div>
-                                            <div class="col-lg-4">
-                                            <!-- <div class="form-group">
+                                    <label class="control-label">Taxonomy</label>
+        
+                                    <input required class="form-control" type="text"  id="txttaxonomy" name="taxonomy" #taxonomy="ngModel" [(ngModel)]="model.taxonomy">
+                                    <em *ngIf="taxonomy.invalid && (taxonomy.touched || payerForm.submitted)"
+                                                                    for="taxonomy" class="invalid error">
+                                                                    <label>Please fill Taxonomy</label></em>
+                                </div>
 
-                                                <label class="control-label">Zip</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
     
-                                                <input  class="form-control" type="text" placeholder="Zip" id="txtzip" name="zip" #zip="ngModel" [(ngModel)]="model.zip">
-                                            </div> -->
+                                    <label class="control-label">MedicaidID</label>
+        
+                                    <input  required class="form-control" type="text"  id="txtmedicaidid" name="medicaidid" #medicaidid="ngModel" [(ngModel)]="model.medicaidId">
+                                    <em *ngIf="medicaidid.invalid && (medicaidid.touched || payerForm.submitted)"
+                                                                    for="medicaidid" class="invalid error">
+                                                                    <label>Please fill Medicaid Id</label></em>
+                                </div>
 
-                                        <!-- <div class="form-group">
+                            </div>
+                            </div>
+                            <div class="row mtm">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
 
-                                            <label class="control-label">URL</label>
-
-                                            <input  class="form-control" type="text" placeholder="URL" id="txturl" name="url" #url="ngModel" [(ngModel)]="model.url">
-                                        </div> -->
-                                        <div class="form-group">
-
-                                            <label class="control-label">Phone</label>
-
-                                            <input required class="form-control" type="text" placeholder="Phone" id="txtphone" name="phone" #phone="ngModel" [(ngModel)]="model.phone">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">Fax</label>
-
-                                            <input required class="form-control" type="text" placeholder="Fax" id="txtfax" name="fax" #fax="ngModel" [(ngModel)]="model.fax">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">ETIN</label>
+                                        <label class="control-label">NPI</label>
+            
+                                        <input required class="form-control" type="text"  id="txtnpi" name="npi" #npi="ngModel" [(ngModel)]="model.npi">
+                                        <em *ngIf="npi.invalid && (npi.touched || payerForm.submitted)"
+                                                            for="npi" class="invalid error">
+                                                            <label>Please fill NPI</label></em>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
                 
-                                            <input required class="form-control" type="text" placeholder="ETIN" id="txtetin" name="etin" #etin="ngModel" [(ngModel)]="model.etin">
-                                        </div>
-                                        
-                
-                
+                                        <label class="control-label">Fed ID</label>
+            
+                                        <input required class="form-control" type="text"  id="txtfedid" name="fedid" #fedid="ngModel" [(ngModel)]="model.fedId">
+                                        <em *ngIf="fedid.invalid && (fedid.touched || payerForm.submitted)"
+                                                            for="fedid" class="invalid error">
+                                                            <label>Please fill Fed Id</label></em>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+
+                                        <label class="control-label">ETIN</label>
+            
+                                        <input required class="form-control" type="text"  id="txtetin" name="etin" #etin="ngModel" [(ngModel)]="model.etin">
+                                        <em *ngIf="etin.invalid && (etin.touched || payerForm.submitted)"
+                                                            for="etin" class="invalid error">
+                                                            <label>Please fill ETIN</label></em>
+                                    </div>
+                                </div>
                         </div>
                     </div> 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group text-center">
-                                <button type="submit"  class="btn btn-md btn-dark mbm mts ">
-                                    <i class='fa fa-save'></i> Save 
-                                </button>
-                            </div>
-                        </div>
                     </div>
-
-                    </div>
-                    </div>
-                    
-            
-                
-                <!-- <div class="panel">
-                    <div class="panel-body">
-                        <h5><strong>TERMS</strong></h5>
-                        <div class="col-sm-12"> </div>
-                        <div class="row mtm">
-                            <div class="col-sm-4">
-                            <div class="form-group">
-
-                            <label class="control-label">Net Terms</label>
-
-                            <input  class="form-control" type="text" placeholder="Net Terms" id="txtnetterms" name="netterms" #netterms="ngModel" [(ngModel)]="model.NetTerms">
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label">Use Invoice</label>
-                            <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label">Invoice Creation</label>
-
-                            <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                            </select>
-                        </div>
-                        </div>
-                            <div class="col-sm-4">
-                        <div class="form-group">
-
-                            <label class="control-label">NPI</label>
-
-                            <input class="form-control" type="text" placeholder="NPI" id="txtnpi" name="npi" #npi="ngModel" [(ngModel)]="model.NPI">
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label">Fed ID</label>
-
-                            <input class="form-control" type="text" placeholder="Fed ID" id="txtfedid" name="fedid" #fedid="ngModel" [(ngModel)]="model.FedId">
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label">ETIN</label>
-
-                            <input  class="form-control" type="text" placeholder="ETIN" id="txtetin" name="etin" #etin="ngModel" [(ngModel)]="model.ETIN">
-                        </div>
-                        </div>
-                            <div class="col-sm-4">
-                        <div class="form-group">
-
-                            <label class="control-label">Taxonomy</label>
-
-                            <input  class="form-control" type="text" placeholder="Taxonomy" id="txttaxonomy" name="taxonomy" #taxonomy="ngModel" [(ngModel)]="model.Taxonomy">
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label">MedicaidID</label>
-
-                            <input  class="form-control" type="text" placeholder="Medicaid ID" id="txtmedicaidid" name="medicaidid" #medicaidid="ngModel" [(ngModel)]="model.MedicaidId">
-                        </div>
-                        </div>
-                        </div>
-                        
-                        <h5><strong>OTHER</strong></h5>
-                        <div class="col-sm-12"> </div>
-                        <div class="row mtm">
-                            <div class="col-lg-6">
-                                            <div class="col-sm-4">
-
-                                                <label class="control-label">Use E-Billing</label>
-    
-                                                </div>
-                                                <div class="col-sm-8">
-        
-                                                    <input type="checkbox" class="form-check-input" id="txtebilling" name="ebilling" #ebilling="ngModel" [(ngModel)]="model.use_ebilling">
-                                                </div>
-
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="col-sm-4">
-
-                                                <label class="control-label">Use Dual Rates</label>
-    
-                                                </div>
-                                                <div class="col-sm-8">
-        
-                                                    <input type="checkbox" class="form-check-input" id="txtdualrates" name="dualrates" #dualrates="ngModel" [(ngModel)]="model.use_dualrates">
+                                    
+                                            <!-- <form #addRateForm="ngForm" (ngSubmit)="onClickSubmit(addRateForm)" novalidate> -->
+                                                <div class="panel">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group" [class.state-error]="servicecode.invalid && (servicecode.touched || payerForm.submitted)"
+                                                                [class.state-success]="servicecode.valid">
+                                                                    <label>
+                                                                        Service Code
+                                                                        <p class="small-txt mbn mtn text-black">For your refernce</p>
+                                                                    </label>
+                                                                    <input type="text" placeholder="" class="form-control"  id="txtServiceCode" 
+                                                                    name="serviceCode" #servicecode="ngModel" [(ngModel)]="model.serviceCode" required>
+                                                                    <em *ngIf="servicecode.invalid && (servicecode.touched || payerForm.submitted)"
+                                                                    for="servicecode" class="invalid error">
+                                                                    <label> Please enter Service Code Service Code is used in Client Billing and Authorizations for your own reference</label></em>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group" [class.state-error]="type.invalid && (type.touched || payerForm.submitted)"
+                                                                [class.state-success]="type.valid" required>
+                                                                    <label>Type</label>
+                                                                    <select class="form-control mtm mt-0-mobile"
+                                                                    id="txtType" name="type" #type="ngModel" [(ngModel)]="model.type" required>
+                                                                        <option [value]="1">Hourly</option>
+                                                                        <option [value]="2">Daily</option>
+                                                                        <option [value]="3">Visit</option>
+                                                                        <option [value]="4">Travel</option>
+                                                                    </select>
+                                                                    <em *ngIf="type.invalid && (type.touched || payerForm.submitted)"
+                                                                for="type" class="invalid error">
+                                                                <label>Please select type</label></em>
+                                                                </div>
+                                                            </div>
+                                    
+                                                        </div>
+                                    
+                                    
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group" [class.state-error]="billCode.invalid && (billCode.touched || payerForm.submitted)"
+                                                                [class.state-success]="billCode.valid">
+                                                                    <label>Bill Code<p class="small-txt mbn mtn text-black">Appears on invoices</p></label>
+                                                                    <input type="text" placeholder="" class="form-control"
+                                                                    id="txtBillCode" name="billCode" #billCode="ngModel" 
+                                                                    [(ngModel)]="model.billCode" required>
+                                                                    <em *ngIf="billCode.invalid && (billCode.touched || payerForm.submitted)"
+                                                                    for="billCode" class="invalid error">
+                                                                    <label> enter Bill Code. Bill Code is used in invoices</label></em>
+                                                                </div>
+                                                            </div>
+                                    
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label>Unit</label>
+                                                                    <div class="row mtm pts mt-0-mobile">
+                                                                        <div class="col-lg-4 col-xs-4">
+                                                                            <select class="form-control" id="unit" name="unit" #unit="ngModel" 
+                                                                            [(ngModel)]="model.unit">
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-xs-3 text-center ptm"><strong>Per</strong></div>
+                                                                        <div class="col-lg-5 col-xs-5">
+                                                                            <select class="form-control" 
+                                                                            id="hourly" name="hourly" #hourly="ngModel" 
+                                                                            [(ngModel)]="model.hourly">
+                                                                                <option value="Hour">Hour</option>
+                                                                                <option value="Day">Day</option>
+                                                                                <option value="Visit">Visit</option>
+                                                                                <option value="Mile">Mile</option>
+                                                                                <option value="Each">Each</option>
+                                                                            </select>
+                                                                            <em *ngIf="hourly.invalid && (hourly.touched || payerForm.submitted)"
+                                                                                for="hourly" class="invalid error">
+                                                                                <label> Please select unit.</label></em>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label>Modifiers<p class="small-txt mbn mtn text-black">Appears on invoices</p></label>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-3 col-xs-3">
+                                                                            <input type="text" placeholder="" class="form-control"
+                                                                            id="txtModifiler1" name="modifiers1" 
+                                                                            #modifers1="ngModel"  [(ngModel)]="model.modifiers1">
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-xs-3">
+                                                                            <input type="text" placeholder="" class="form-control"
+                                                                            id="txtModifiler2" name="modifiers2" 
+                                                                            #modifers2="ngModel" [(ngModel)]="model.modifiers2">
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-xs-3">
+                                                                            <input type="text" placeholder="" class="form-control"
+                                                                            id="txtModifiler3" name="modifiers3" 
+                                                                            #modifers3="ngModel" [(ngModel)]="model.modifiers3">
+                                                                        </div>
+                                                                        <div class="col-lg-3 col-xs-3">
+                                                                            <input type="text" placeholder="" class="form-control"
+                                                                            id="txtModifiler4" name="modifiers4" #modifers4="ngModel" 
+                                                                            [(ngModel)]="model.modifiers4">
+                                                                        </div>
+                                                                    </div>
+                                    
+                                                                </div>
+                                                            </div>
+                                    
+                                    
+                                                        </div>
+                                    
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label>Effective Dates</label>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 mbm">
+                                                                            <div class="input-icon right" [class.state-error]="validFrom.invalid && (validFrom.touched || payerForm.submitted)"
+                                                                            [class.state-success]="validFrom.valid">
+                                                                                <i class="fa fa-calendar" (click)="fromDate.toggle()"></i>
+                                                                                <input type="text" placeholder=""
+                                                                                    class="form-control" #fromDate="bsDatepicker"
+                                                                                    bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"         
+                                                                                    id="txtvalidFrom" name="validFrom" 
+                                                                                    #validFrom="ngModel" [(ngModel)]="model.validFrom" required>
+                                                                                    <em *ngIf="validFrom.invalid && (validFrom.touched || payerForm.submitted)"
+                                                                                    for="validFrom" class="invalid error">
+                                                                                    <label>Please enter From date.</label></em>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 mbm">
+                                                                            <div class="input-icon right" [class.state-error]="validTo.invalid && (validTo.touched || payerForm.submitted)"
+                                                                            [class.state-success]="validTo.valid">
+                                                                                <i class="fa fa-calendar"(click)="toDate.toggle()"></i>
+                                                                                <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
+                                                                                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                                                                                id="txtvalidTo" name="validTo" 
+                                                                                #validTo="ngModel"  [(ngModel)]="model.validTo" required>
+                                                                                <em *ngIf="validTo.invalid && (validTo.touched || payerForm.submitted)"
+                                                                                    for="validTo" class="invalid error">
+                                                                                    <label>Please enter To date.</label></em>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label><strong>Revenue Code</strong></label>
+                                                                    <input type="text" placeholder="" class="form-control"
+                                                                    id="txtRevenueCode" name="revenueCode" 
+                                                                    #revenueCode="ngModel" [(ngModel)]="model.revenueCode">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label> Tax Rate <p class="small-txt mbn mtn text-black">Percentage Points </p> </label>
+                                                                    <input type="text" placeholder="" class="form-control"
+                                                                    id="taxRate" name="taxRate" #taxRate="ngModel" [(ngModel)]="model.taxRate">
+                                                                </div>
+                                                            </div>
+                                    
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group ptx" [class.state-error]="placeofService.invalid && (placeofService.touched || payerForm.submitted)"
+                                                                [class.state-success]="placeofService.valid" required>
+                                                                    <label>Place of Service</label>
+                                                                    <input type="text" placeholder="" class="form-control mtm mt-0-mobile"
+                                                                    id="placeofService" name="placeofService" 
+                                                                    #placeofService="ngModel" [(ngModel)]="model.placeOfService" required>
+                                                                    <em *ngIf="placeofService.invalid && (placeofService.touched || payerForm.submitted)"
+                                                                    for="placeofService" class="invalid error">
+                                                                    <label> enter a digit value for the "Place of Service" field.</label></em>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label>Mutual/Group</label><br>
+                                                                    <input type="checkbox" class="mtm mt-0-mobile" id="mutualGroup" name="mutualGroup" 
+                                                                    #mutualGroup="ngModel"  [(ngModel)]="model.mutualGroup">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                    
+                                    
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label>Notes</label>
+                                                                    <textarea rows="3" placeholder="Notes" class="form-control"
+                                                                    id="txtNotes" name="Notes" #Notes="ngModel" [(ngModel)]="model.notes"></textarea>
+                                                                </div>
+                                                            </div>
+                                    
+                                                        </div>
+                                    
+                                                        <div class="row">
+                                                            <div class="col-lg-12 text-center">
+                                                                <button type="submit" class="btn btn-md btn-dark">Save New Payer</button>
+                                                            </div>
+                                                        </div>
+                                    
                                                     </div>
-
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="row mtm">
-                                            <div class="col-lg-4">
-                                        <div class="form-group">
-
-                                            <label class="control-label">Sender ID(ISA06)</label>
-
-                                            <input class="form-control" type="text" placeholder="Sender ID" id="txtsenderid" name="senderid" #senderid="ngModel" [(ngModel)]="model.SenderId">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">Clearing House</label>
-
-                                            <input class="form-control" type="text" placeholder="Clearing House" id="txtclearinghouse" name="clearinghouse" #clearinghouse="ngModel" [(ngModel)]="model.ClearingHouse">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">Payer ID</label>
-
-                                            <input class="form-control" type="text" placeholder="Payer ID" id="txtpayerid" name="payerid" #payerid="ngModel" [(ngModel)]="model.PayerId">
-                                        </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                        <div class="form-group">
-
-                                            <label class="control-label">Location Code</label>
-
-                                            <input  class="form-control" type="text" placeholder="Location Code" id="txtlocationcode" name="locationcode" #locationcode="ngModel" [(ngModel)]="model.LocationCode">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">State Aggregator</label>
-
-                                            <input class="form-control" type="text" placeholder="State Aggregator" id="txtstateaggregator" name="stateaggregator" #stateaggregator="ngModel" [(ngModel)]="model.StateAggregator">
-                                        </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                        <div class="form-group">
-
-                                            <label class="control-label">Aggregator Payer ID</label>
-
-                                            <input class="form-control" type="text" placeholder="Aggregator Payer ID" id="txtaggregatorpayerid" name="aggregatorpayerid" #aggregatorpayerid="ngModel" [(ngModel)]="model.AggregatorPayerId">
-                                        </div>
-                                        <div class="form-group">
-
-                                            <label class="control-label">Linked Payer</label>
-
-                                            <input class="form-control" type="text" placeholder="Linked Payer" id="txtlinkedpayer" name="linkedpayer" #linkedpayer="ngModel" [(ngModel)]="model.LinkedPayer">
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-group text-center">
-                                                    <button (click)="saveChanges()" type="submit"  class="btn btn-md btn-dark mbm mts ">
-                                                        <i class='fa fa-save'></i> Save 
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        </div>-->
-        
-                      
+                                                 </div>
+                                            <!-- </form> -->
+                                    
+                        
+                                
          <div class="panel">
             <div class="panel-body"> 
 
@@ -381,6 +411,7 @@
             </div>
      
     </div>
+
     <!--END CONTENT-->
 </div>
 

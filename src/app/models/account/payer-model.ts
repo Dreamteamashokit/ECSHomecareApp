@@ -1,4 +1,6 @@
-export class PayerModel{
+import { RateModel } from "src/app/billing/component/manage_payer_and_rate/model/rate.model";
+
+export class PayerModel extends RateModel{
     payerId: number;
     payerName: string;
     billToName:string;
