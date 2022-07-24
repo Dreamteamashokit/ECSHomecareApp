@@ -1,0 +1,250 @@
+<!--BEGIN PAGE WRAPPER-->
+<div id="page-wrapper">
+    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">Add New Payers</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="page-content">
+        <div class="row mbm">				
+            <div class="col-lg-12 col-xs-8">
+         <button type="button" class="btn btn-md btn-dark mrm mbm" (click)="navigate('billing/add-rate')">add-rate</button>
+                         <button type="button" class="btn btn-md btn-dark mrm mbm" (click)="navigate('billing/billing-shedule')">Invoice</button> 
+
+                         <button type="button" class="btn btn-md btn-dark mbm"     (click)="navigate('billing/add-payer')">add-payer</button> 
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <form class="form" name="payerForm" #payerForm="ngForm" (ngSubmit)="onSubmit(payerForm)">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row mtm">
+
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="col-sm-2 col-xs-2" style="width: 70px">
+                                <div class="form-group"><label for="inputName"
+                                        class="text-14 mts text-black">Active</label>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-5 col-xs-5 form-check"><label class="switch">
+                                    <input type="checkbox" class="form-check-input" id="txtactive" name="active"
+                                        #active="ngModel" [(ngModel)]="model.isActive">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mtm">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" placeholder="payerid" id="txtpayerid"
+                                    name="payerid" #payerid="ngModel" [(ngModel)]="model.payerId">
+                                <label class="control-label">Payer Name</label>
+                                <input required class="form-control" type="text" id="txtname" name="payername"
+                                    #payername="ngModel" [(ngModel)]="model.payerName">
+                                <em *ngIf="payername.invalid && (payername.touched || payerForm.submitted)"
+                                    for="payername" class="invalid error">
+                                    <label>Please fill Payer Name</label></em>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Email</label>
+
+                                <input required class="form-control" type="text" id="txtemail" name="email"
+                                    #email="ngModel" [(ngModel)]="model.email">
+                                <em *ngIf="email.invalid && (email.touched || payerForm.submitted)" for="email"
+                                    class="invalid error">
+                                    <label>Please fill Email</label></em>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+
+                                <label class="control-label">Phone</label>
+
+                                <input required class="form-control" type="text" id="txtphone" name="phone"
+                                    #phone="ngModel" [(ngModel)]="model.phone">
+                                <em *ngIf="phone.invalid && (phone.touched || payerForm.submitted)" for="phone"
+                                    class="invalid error">
+                                    <label>Please fill Phone Number</label></em>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+
+                                <label class="control-label">Fax</label>
+
+                                <input required class="form-control" type="text" id="txtfax" name="fax" #fax="ngModel"
+                                    [(ngModel)]="model.fax">
+                                <em *ngIf="fax.invalid && (fax.touched || payerForm.submitted)" for="fax"
+                                    class="invalid error">
+                                    <label>Please fill FAX</label></em>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mtm">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">BillTo Name</label>
+
+                                <input required class="form-control" type="text" id="txtbilltoname" name="billtoname"
+                                    #billtoname="ngModel" [(ngModel)]="model.billToName">
+                                <em *ngIf="billtoname.invalid && (billtoname.touched || payerForm.submitted)"
+                                    for="billtoname" class="invalid error">
+                                    <label>Please fill BillTo Name</label></em>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Taxonomy</label>
+
+                                <input required class="form-control" type="text" id="txttaxonomy" name="taxonomy"
+                                    #taxonomy="ngModel" [(ngModel)]="model.taxonomy">
+                                <em *ngIf="taxonomy.invalid && (taxonomy.touched || payerForm.submitted)" for="taxonomy"
+                                    class="invalid error">
+                                    <label>Please fill Taxonomy</label></em>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">MedicaidID</label>
+
+                                <input required class="form-control" type="text" id="txtmedicaidid" name="medicaidid"
+                                    #medicaidid="ngModel" [(ngModel)]="model.medicaidId">
+                                <em *ngIf="medicaidid.invalid && (medicaidid.touched || payerForm.submitted)"
+                                    for="medicaidid" class="invalid error">
+                                    <label>Please fill Medicaid Id</label></em>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mtm">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">NPI</label>
+
+                                <input required class="form-control" type="text" id="txtnpi" name="npi" #npi="ngModel"
+                                    [(ngModel)]="model.npi">
+                                <em *ngIf="npi.invalid && (npi.touched || payerForm.submitted)" for="npi"
+                                    class="invalid error">
+                                    <label>Please fill NPI</label></em>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Fed ID</label>
+
+                                <input required class="form-control" type="text" id="txtfedid" name="fedid"
+                                    #fedid="ngModel" [(ngModel)]="model.fedId">
+                                <em *ngIf="fedid.invalid && (fedid.touched || payerForm.submitted)" for="fedid"
+                                    class="invalid error">
+                                    <label>Please fill Fed Id</label></em>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+
+                                <label class="control-label">ETIN</label>
+
+                                <input required class="form-control" type="text" id="txtetin" name="etin"
+                                    #etin="ngModel" [(ngModel)]="model.etin">
+                                <em *ngIf="etin.invalid && (etin.touched || payerForm.submitted)" for="etin"
+                                    class="invalid error">
+                                    <label>Please fill ETIN</label></em>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-md btn-dark"><i class="fa fa-save mrm"></i>Save
+                                Payer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            <div class="panel">
+                <div class="panel-body">
+
+                    <div class="row mtm ">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered  table-hover">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>Payer Name</th>
+                                            <th>Bill To Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Fax</th>
+                                            <th>NPI</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of payerList;">
+                                           
+                                            <td>{{item.payerName}}</td>
+                                            <td>{{item.billToName}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{item.phone}}</td>
+                                            <td>{{item.fax}}</td>
+                                            <td>{{item.npi}}</td>
+                                            <td><a (click)="editPayer(item)" title="Edit" href="javascript:;"><i
+                                                        class="fa fa-edit medium-txt pts mrm"></i></a>
+                                                <a (click)="deletePayer(item.payerId)" title="Delete"
+                                                    href="javascript:;"><i
+                                                        class="fa fa-trash-o text-red medium-txt pts mrm"></i></a>
+
+                                                <button type="button" (click)="addRate(item.payerId)"
+                                                    class="btn btn-sm btn-primary mbm mts"><i class="fa fa-plus"></i>
+                                                    Add Rates</button>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END CONTENT-->
+            </div>
+       
+    </div>
+</div>

@@ -10,15 +10,18 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PayerrateComponent } from './payerrate/payerrate.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { AddPayerComponent } from './component/manage_payer_and_rate/add-payer/add-payer.component';
 
 
 const routes: Routes = [
 
     {
         path: '', component: LayoutComponent, children: [
-            { path: '', component: PayerrateComponent },
+            { path: '', component: AddPayerComponent },
             { path: 'pos', component: GetinvoicesComponent },
             { path: 'add-rate', component: AddRateComponent },
+            { path: 'add-payer', component: AddPayerComponent },
+            {path: 'add-payer/:payerId', component: AddRateComponent},
             { path: 'billing-shedule', component: CreateInvoiceComponent }
         ]
     }
@@ -30,7 +33,8 @@ const routes: Routes = [
         BillingComponent,
         AddRateComponent,
         PayerrateComponent,
-        CreateInvoiceComponent
+        CreateInvoiceComponent,
+        AddPayerComponent
     ],
     imports: [
    

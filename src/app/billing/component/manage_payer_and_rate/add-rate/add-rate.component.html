@@ -232,6 +232,577 @@
                 </div>
             </div>
         </form>
+
+
+        <div class="panel">
+            <div class="panel-body">
+             
+                <div class="row mtm">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered  table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Provider</th>
+                                        <th width="20%">Service Code</th>          
+                                        <th width="10%">BillCode</th>  
+                                        <th width="10%">From Date</th>  
+                                        <th width="10%">To Date</th>  
+                                        <th width="5%">Units</th>  
+                                        <th width="10%">Rate</th>  
+                                        <th width="5%">HDV</th>  
+                                        <th width="5%">Mutual</th>  
+                                        <th width="5%">NTS</th>  
+                                        <th width="5%">Details</th>  
+                                        <th width="5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="rateList != null && rateList != undefined">
+                                    <tr *ngFor="let rate of rateList">
+                                        <td> 
+                                              {{rate.payerName}}
+                                        </td>
+                                        <td> 
+                                            {{rate.serviceCode}}
+                                        </td>
+                                        <td> 
+                                            {{rate.billCode}}
+                                        </td>
+                                        <td> 
+                                            {{ rate.validFrom }} 
+                                        </td>
+                                        <td> 
+                                            {{ rate.validTo }} 
+                                        </td>
+                                        <td> 
+                                            {{ rate.unit }} 
+                                        </td>
+                                        <td> 
+                                            $ {{ rate.taxRate }} 
+                                        </td>
+                                        <td> 
+                                            {{ rate.hourly }} 
+                                        </td>
+                                        <td> 
+                                            {{ rate.mutualGroup }} 
+                                        </td>
+                                        <td> 
+                                        </td>
+                                        <td> 
+                                            <a (click)="openModal(rate.rateId,template)" href="javascript:void(0)">
+                                                <i class="glyphicon glyphicon-list-alt"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <!-- <a onClick="return confirm('Are you absolutely sure you want to delete Rate?')" ng-click='DeleteRate(rate.rateId)'>
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a> -->
+                                            <a (click)="DeleteRate(rate.rateId)" href="javascript:void(0)">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+
+
+
     </div>
     <!--END CONTENT-->
 </div>
+
+
+
+<ng-template #template>  
+    <div class="modal-header">  
+      <h4 class="modal-title pull-left text-orange">Rate Details</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">  
+        <span aria-hidden="true">×</span>  
+      </button>  
+    </div> 
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Payer</label>
+                </div>
+
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <label class="control-label text-orange" *ngIf="rateDetails?.payerName != null && rateDetails?.payerName != undefined">{{rateDetails?.payerName}}</label>          
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Service Code</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="rateDetails.serviceCode != null && rateDetails.serviceCode != undefined">
+                    <b>{{rateDetails.serviceCode}}</b>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Type</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                        <label class="control-label">{{rateDetails.type}}</label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Bill Code</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="rateDetails.billCode != null && rateDetails.billCode != undefined">
+                    <b>{{rateDetails.billCode}}</b>
+                </div>
+            </div>
+            
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Units</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <label class="control-label" *ngIf="rateDetails.unit != null && rateDetails.unit != undefined">
+                        <b>{{rateDetails.unit}}</b>
+                    </label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Modifiers</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <b *ngIf="rateDetails.Modifiers1 != null && rateDetails.Modifiers1 != undefined">{{rateDetails.Modifiers1}}</b>
+                    <b *ngIf="rateDetails.Modifiers2 != null && rateDetails.Modifiers2 != undefined">{{rateDetails.Modifiers2}}</b>
+                    <b *ngIf="rateDetails.Modifiers3 != null && rateDetails.Modifiers3 != undefined">{{rateDetails.Modifiers3}}</b>
+                    <b *ngIf="rateDetails.Modifiers4 != null && rateDetails.Modifiers4 != undefined">{{rateDetails.Modifiers4}}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Rate</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <b *ngIf="rateDetails.taxRate != null && rateDetails.taxRate != undefined">$ {{rateDetails.taxRate}}</b>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Effective Dates </label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" >
+                    <b >{{rateDetails.validFrom |  date:'dd-MM-yyyy'}} - {{rateDetails.validTo |  date:'dd-MM-yyyy' }}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Revenue Code </label>
+                </div>
+                <div class="col-md-10 col-lg-10 col-sm-10">
+                    <b>{{rateDetails.revenueCode}}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Mutual Group</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf='rateDetails.mutualGroup == "Un-Mutual"'>
+                        <input type="checkbox" name="mutual-group">
+                    </div>
+                    <div class="form-group" *ngIf='rateDetails.mutualGroup == "Mutual"'>
+                        <input type="checkbox" class="checkbox" name="mutual-group" checked="checked">
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Notes </label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="rateDetails.notes != null && rateDetails.notes != undefined">
+                    <b>{{rateDetails.notes}}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Place Of Service </label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateDetails.placeOfService != null && rateDetails.placeOfService != undefined">    
+                        {{rateDetails.placeOfService}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+    <div class="modal-footer">
+        <a (click)="rateChangeConfirmation(rateDetails,editTemplate)" href="javascript:void(0)">Retire,Replace & Update Client Billing</a>
+    </div>
+</ng-template>
+
+<ng-template #editTemplate>
+    <div class="modal-header">  
+        <h4 class="modal-title pull-left text-orange">Old Retring Code</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">  
+          <span aria-hidden="true">×</span>  
+        </button>  
+    </div> 
+    <form #editRateForm="ngForm" (ngSubmit)="editSubmit(editRateForm)" novalidate>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Payer</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateReadDetails.payerName != null && rateReadDetails.payerName != undefined">
+                        <label class="control-label text-orange">{{rateReadDetails.payerName}}</label>          
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Service Code </label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    &nbsp;&nbsp;<b *ngIf="rateReadDetails.serviceCode != null && rateReadDetails.serviceCode != undefined">{{rateReadDetails.serviceCode}}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Type</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <b *ngIf="typestr != null && typestr != undefined">{{typestr}}</b>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Bill Code</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateReadDetails.billCode != null && rateReadDetails.billCode != undefined">
+                        <b>{{rateReadDetails.billCode}}</b>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Units</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="unitstr != null && unitstr != undefined">
+                        <b>{{unitstr}}</b>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Modifiers</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <b *ngIf="rateReadDetails.Modifiers1 != null && rateReadDetails.Modifiers1 != undefined">{{rateReadDetails.Modifiers1}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers2 != null && rateReadDetails.Modifiers2 != undefined">{{rateReadDetails.Modifiers2}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers3 != null && rateReadDetails.Modifiers3 != undefined">{{rateReadDetails.Modifiers3}}</b>
+                    <b *ngIf="rateReadDetails.Modifiers4 != null && rateReadDetails.Modifiers4 != undefined">{{rateReadDetails.Modifiers4}}</b>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Rate</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateReadDetails.taxRate != null && rateReadDetails.taxRate != undefined">
+                        <b >$ {{rateReadDetails.taxRate}}</b>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Effective Dates </label>
+                    &nbsp;&nbsp;<b>{{rateReadDetails.validFrom |  date:'dd-MM-yyyy'}} -</b>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" id="txtvalidTo" name="validToDate" 
+                        #validToDate="ngModel"  [(ngModel)]="rateReadDetails.validTo" disabled="disabled">
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Revenue Code</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateReadDetails.revenueCode != null && rateReadDetails.revenueCode != undefined">
+                        <b>{{rateReadDetails.revenueCode}}</b>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Tax Rate </label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <b>0%</b>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <label class="control-label">Mutual Group</label>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group">
+                        
+                        <div *ngIf='rateReadDetails.mutualGroup == false'>
+                            <input type="checkbox" name="mutual-groupread">
+                        </div>
+                        <div *ngIf='rateReadDetails.mutualGroup == true'>
+                            <input type="checkbox" class="checkbox" name="mutual-groupread" checked="checked">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Notes</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" *ngIf="rateReadDetails.notes != null && rateReadDetails.notes != undefined">
+                        <textarea class="form-control" value="{{rateReadDetails.notes}}" disabled="disabled"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-2 col-lg-2 col-sm-2">
+                    <div class="form-group">
+                        <label class="control-label">Place Of Service </label>
+                    </div>
+                </div>
+                <div class="col-md-10 col-lg-10 col-sm-10">
+                    <div class="form-group" *ngIf="rateReadDetails.placeOfService != null && rateReadDetails.placeOfService != undefined">
+                        {{rateReadDetails.placeOfService}}
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-12 col-lg-12 col-sm-12">  
+                <h4 class="pull-left text-orange">New Replacing Code</h4>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <b>Will replace the above code in all client billing and schedule items from  effective date</b>
+            </div>
+            
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Payer</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4" *ngIf="rateDetails.payerName != null && rateDetails.payerName != undefined">
+                            <label class="control-label text-orange">{{rateDetails.payerName}} </label>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Service Code  </label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group" [class.state-error]="servicecode.invalid && (servicecode.touched || editRateForm.submitted)"
+                            [class.state-success]="servicecode.valid">
+                            <input type="text" placeholder="" class="form-control"  id="txtServiceCode" 
+                            name="serviceCode" #servicecode="ngModel" [(ngModel)]="rateDetails.serviceCode" required>
+                            <em *ngIf="servicecode.invalid && (servicecode.touched || editRateForm.submitted)"
+                            for="servicecode" class="invalid error">
+                            <label> Please enter Service Code Service Code is used in Client Billing and Authorizations for your own reference</label></em>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Type</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group" [class.state-error]="type.invalid && (type.touched || editRateForm.submitted)"
+                            [class.state-success]="type.valid" required>
+                            <select class="form-control mtm mt-0-mobile"
+                                id="txtType" name="type" #type="ngModel" [(ngModel)]="rateDetails.type" required>
+                                <option [value]="1">Hourly</option>
+                                <option [value]="2">Daily</option>
+                                <option [value]="3">Visit</option>
+                                <option [value]="4">Travel</option>
+                            </select>
+                                <em *ngIf="type.invalid && (type.touched || editRateForm.submitted)" for="type" class="invalid error">
+                                <label>Please select type</label></em>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Bill Code</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                    <div class="form-group" [class.state-error]="billCode.invalid && (billCode.touched || editRateForm.submitted)"
+                        [class.state-success]="billCode.valid">
+                        <input type="text" placeholder="" class="form-control"
+                                id="txtBillCode" name="billCode" #billCode="ngModel" 
+                                [(ngModel)]="rateDetails.billCode" required>
+                                <em *ngIf="billCode.invalid && (billCode.touched || editRateForm.submitted)"
+                                for="billCode" class="invalid error">
+                                <label> enter Bill Code. Bill Code is used in invoices</label></em>
+                    </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Units</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="col-md-5 col-lg-5 col-sm-5">
+                            <div class="form-group">
+                                <select class="form-control" id="unit" name="unit" #unit="ngModel" [(ngModel)]="rateDetails.unit">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-sm-2">
+                            <label class="control-label">Per</label>
+                        </div>
+                        <div class="col-md-5 col-lg-5 col-sm-5">
+                            <div class="form-group">
+                                <select class="form-control" id="per" name="per" #per="ngModel" 
+                                [(ngModel)]="model.per" required>
+                                    <option value="Hour">Hour</option>
+                                    <option value="Day">Day</option>
+                                    <option value="Visit">Visit</option>
+                                    <option value="Mile">Mile</option>
+                                    <option value="Each">Each</option>
+                                </select>
+                                <em *ngIf="per.invalid && (per.touched || editRateForm.submitted)" for="hourly" class="invalid error">
+                                <label> Please select unit.</label></em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Modifiers</label>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="col-md-3 col-lg-3 col-sm-3">
+                            <input type="text" placeholder="" class="form-control" id="txtModifiler1" name="modifiers1" 
+                                #modifers1="ngModel"  [(ngModel)]="rateDetails.modifiers1">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3">
+                            <input type="text" placeholder="" class="form-control" id="txtModifiler2" name="modifiers2" 
+                                #modifers2="ngModel" [(ngModel)]="rateDetails.modifiers2">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3">
+                            <input type="text" placeholder="" class="form-control" id="txtModifiler3" name="modifiers3" 
+                                #modifers3="ngModel" [(ngModel)]="rateDetails.modifiers3">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-3">
+                            <input type="text" placeholder="" class="form-control" id="txtModifiler4" name="modifiers4" 
+                                #modifers4="ngModel" [(ngModel)]="rateDetails.modifiers4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Rate</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <input type="text" class="form-control" value="{{rateDetails.taxRate}}" 
+                        id="taxRate" name="taxRate" #taxRate="ngModel" [(ngModel)]="rateDetails.taxRate">
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Effective Dates </label> 
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group">
+                            <input type="text" placeholder="" class="form-control" #fromDate="bsDatepicker"
+                            bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"         
+                            id="txtvalidFrom" name="validFrom" 
+                            #validFrom="ngModel" [(ngModel)]="rateDetails.validFrom" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="" class="form-control" bsDatepicker  #toDate="bsDatepicker"
+                            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+                            id="txtvalidTo" name="validTo" 
+                            #validTo="ngModel"  [(ngModel)]="rateDetails.validTo" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <!-- <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Tax Rate Percentage Points </label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <input type="text" class="form-control" value="0%" id="taxratepercentage" name="taxratepercentage" 
+                        #taxratepercentage="ngModel"  [(ngModel)]="model.taxratepercentage">
+                    </div> -->
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Mutual Group</label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <input type="checkbox" class="mtm mt-0-mobile" id="mutualGroup" name="mutualGroup" 
+                                #mutualGroup="ngModel"  [(ngModel)]="model.mutualGroup">
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Revenue Code </label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="revenueCode" name="revenueCode" 
+                            #revenueCode="ngModel"  [(ngModel)]="rateDetails.revenueCode">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Place Of Service </label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <div class="form-group" [class.state-error]="placeofService.invalid && (placeofService.touched || editRateForm.submitted)"
+                            [class.state-success]="placeofService.valid">
+                            <input type="text" placeholder="" class="form-control mtm mt-0-mobile"
+                                id="placeofService" name="placeofService" 
+                                #placeofService="ngModel" [(ngModel)]="model.placeOfService" required>
+                                <em *ngIf="placeofService.invalid && (placeofService.touched || editRateForm.submitted)"
+                                    for="placeofService" class="invalid error">
+                                    <label> enter a digit value for the "Place of Service" field.</label></em>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+                        <label class="control-label">Notes </label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <textarea rows="3" placeholder="Notes" class="form-control"
+                                id="txtNotes" name="Notes" #Notes="ngModel" [(ngModel)]="model.notes"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="form-group">
+                        <input type="checkbox" class="checkbox" name="mutual-group" checked="checked">
+                        <label class="control-label">Replace the rate in authorizations and appointments that have billing code '<b>{{rateDetails.billCode}}</b>'</label>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-md btn-dark">Retire Old,Replace With New & Update Client Billing</button>
+        <button type="button" class="btn btn-secondary btn-sm pull-right" (click)="modalRef?.hide()">Cancel</button>
+    </div>
+</form>
+</ng-template>
