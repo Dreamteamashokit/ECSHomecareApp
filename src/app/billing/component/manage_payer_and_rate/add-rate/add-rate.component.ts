@@ -177,7 +177,7 @@ export class AddRateComponent implements OnInit {
   
     
       DeleteRate(rateId:number){
-        debugger;
+        
         this.invoiceService.DeleteRate(rateId).subscribe(res => {
           if(res != null && res != undefined && res.result){
             this.GetPayerRateList();
@@ -187,7 +187,7 @@ export class AddRateComponent implements OnInit {
 
 
     onClickSubmit(addRateForm:NgForm) {
-        debugger;
+        
         if(addRateForm.valid){
             this.model.rateid = 0;
             this.model.payerid = Number(this.model.payerid);
@@ -238,6 +238,7 @@ export class AddRateComponent implements OnInit {
     }
 
     editSubmit(editRateForm:NgForm) {
+      
         if(editRateForm.valid)
         {
             this.model.rateid = Number(this.rateDetails.rateId);
@@ -258,24 +259,28 @@ export class AddRateComponent implements OnInit {
               this.model.revenueCode = editRateForm.value.revenueCode;
               this.model.taxRate = editRateForm.value.taxRate;
               
-              // if(this.model.mutualGroup != null && this.model.mutualGroup != undefined){
-              //   this.model.mutualGroup = false;
-              // }
+              
+              let fromDate = this.datepipe.transform(editRateForm.value.validFrom, 'MM/dd/yyyy');
+              let toDate = this.datepipe.transform(editRateForm.value.validTo, 'MM/dd/yyyy');
               if(editRateForm.value.validFrom != null && editRateForm.value.validFrom != undefined)
               {
-                this.model.validFrom = editRateForm.value.validFrom;
+                
+                this.model.validFrom = fromDate != null && fromDate != undefined ? fromDate : "";
               }
               else
               {
-                this.model.validFrom = this.rateDetails.validFrom;
+                this.model.validFrom = fromDate != null && fromDate != undefined ? fromDate : "";
               }
+
               if(editRateForm.value.validTo != null && editRateForm.value.validTo != undefined)
               {
-                this.model.validTo = editRateForm.value.validTo;
+                //this.model.validTo = editRateForm.value.validTo;
+                this.model.validTo = toDate != null && toDate != undefined ? toDate : "";
               }
               else
               {
-                this.model.validTo = this.rateDetails.validTo;
+                //this.model.validTo = this.rateDetails.validTo;
+                this.model.validTo = toDate != null && toDate != undefined ? toDate : "";
               }
             }
             if(!isNaN(editRateForm.value.taxRate)){
@@ -301,7 +306,7 @@ export class AddRateComponent implements OnInit {
             this.model.visit = 0;
             this.model.createdBy = 0;
             const rateObj: RateModel = this.model;
-    
+            
             this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
     
                 if(res != null && res != undefined){

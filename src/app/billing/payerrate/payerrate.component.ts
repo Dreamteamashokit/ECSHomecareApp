@@ -137,6 +137,7 @@ export class PayerrateComponent implements OnInit {
 
 
   onClickSubmit(editRateForm:NgForm) {
+    
     if(editRateForm.valid)
     {
         this.model.rateid = Number(this.rateDetails.rateId);
@@ -157,9 +158,7 @@ export class PayerrateComponent implements OnInit {
           this.model.revenueCode = editRateForm.value.revenueCode;
           this.model.taxRate = editRateForm.value.taxRate;
           
-          // if(this.model.mutualGroup != null && this.model.mutualGroup != undefined){
-          //   this.model.mutualGroup = false;
-          // }
+          
           if(editRateForm.value.validFrom != null && editRateForm.value.validFrom != undefined)
           {
             this.model.validFrom = editRateForm.value.validFrom;
@@ -200,7 +199,7 @@ export class PayerrateComponent implements OnInit {
         this.model.visit = 0;
         this.model.createdBy = 0;
         const rateObj: RateModel = this.model;
-
+        
         this.invoiceService.addUpdatePayerRate(this.model).subscribe(res => {
 
             if(res != null && res != undefined){
@@ -220,7 +219,6 @@ export class PayerrateComponent implements OnInit {
 
 
   DeleteRate(rateId:number){
-    debugger;
     this.invoiceService.DeleteRate(rateId).subscribe(res => {
       if(res != null && res != undefined && res.result){
         this.GetPayerRateList();

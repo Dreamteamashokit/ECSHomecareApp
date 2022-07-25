@@ -111,6 +111,7 @@ export class NewClientComponent implements OnInit {
       console.log('Stock change Response: ', response);
       this.clear();
       this.model.clientId=response.data
+      
       this.router.navigate(['/client/info/'+this.model.clientId+'/5']);
     });
   }

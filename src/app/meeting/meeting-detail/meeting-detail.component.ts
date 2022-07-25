@@ -46,6 +46,7 @@ export class MeetingDetailComponent implements OnInit {
   message?: string;
   currentUser: UserModel;
 
+  clientid:number;
   isClient:boolean;
   modalRef?: BsModalRef;
   userId:number;
@@ -343,6 +344,7 @@ export class MeetingDetailComponent implements OnInit {
       modelItem.endTime=this.datepipe.transform(this._endTime, 'h:mm a')||"";
       modelItem.userId = this.currentUser.userId;
       modelItem.clientId=item.client.id;
+      this.clientid = modelItem.clientId;
       modelItem.empId= Number(this._clientId);//item.employee.id;
       modelItem.meetingNote=this._message;
    
@@ -354,7 +356,9 @@ export class MeetingDetailComponent implements OnInit {
             this.IsLoad = false;
             if(this.MeetingRate == null || this.MeetingRate != undefined){
               panel.hide();
-              this.reloadCurrentPage()
+              //this.reloadCurrentPage()
+              this.router.navigate(['/client/info/'+ this.clientid +'/' + '1']);
+              
             }
           }
           else
@@ -402,6 +406,7 @@ export class MeetingDetailComponent implements OnInit {
               this.IsLoad = false;
               panel.hide();
               //this.reloadCurrentPage()
+              this.router.navigate(['/client/info/'+ this.clientid +'/' + '1']);
             }
             else
             {

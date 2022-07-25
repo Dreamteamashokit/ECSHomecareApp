@@ -284,11 +284,13 @@ export class EmpAddressComponent implements OnInit {
           // );
           let currentUrl = '';
           if (isClient) {
+            
              //window.location.replace('#/client/info/' + current.userId + '/5');
              var fullUrl = window.location.href.toLowerCase();     // Returns full URL (https://example.com/path/example.html)
              var domainUrl = window.location.origin;   // Returns base URL (https://example.com)
              var pageFor = window.location.pathname; // Returns path only (/path/example.html)
-             var obj = { Page: pageFor, Url: (domainUrl + "/" + '#/client/info/' + current.userId + '/5') };
+            //  var obj = { Page: pageFor, Url: (domainUrl + "/" + '#/client/info/' + current.userId + '/5') };
+            var obj = { Page: pageFor, Url: fullUrl };
              history.pushState(obj, obj.Page, obj.Url);
              currentUrl = "/" + '#/client/info/' + current.userId + '/0';
           }

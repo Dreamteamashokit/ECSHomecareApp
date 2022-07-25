@@ -54,7 +54,6 @@ export class ClientInfoComponent implements OnInit {
 
 
   selectTab(tabId: number) {
-    
     if (this.staticTabs?.tabs[tabId]) {
       this.staticTabs.tabs[tabId].active = true;
     }
