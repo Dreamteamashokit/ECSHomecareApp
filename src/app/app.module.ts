@@ -19,7 +19,7 @@ import { AppBootstrapModule } from "../app/app-bootstrap/app-bootstrap.module";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
-import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
+
 import { LayoutComponent } from './layout/layout.component';
 import { LoaderComponent } from './loader/loader.component';
 
@@ -88,8 +88,9 @@ import { UpcommingComponent } from './meeting/shared/upcomming/upcomming.compone
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ComplianceCategoryComponent } from './common/compliance-category/compliance-category.component';
 import { DocumentComponent } from './common/document/document.component';
-
+import { EquateDatePipe, ChunkPipe } from './pipe/equate-date-pipe.pipe';
 import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
+
 
 
 
@@ -166,7 +167,10 @@ import { EnumToArrayPipe } from './pipe/enum-to-array.pipe';
     EmergencyProviderComponent, 
     CreateUserComponent, 
     UserDetailComponent, 
-    UpcommingComponent, ComplianceCategoryComponent, DocumentComponent, EnumToArrayPipe,  
+    UpcommingComponent,
+     ComplianceCategoryComponent,
+     DocumentComponent,
+     EnumToArrayPipe,  
   ],
   imports: [
     BrowserModule,

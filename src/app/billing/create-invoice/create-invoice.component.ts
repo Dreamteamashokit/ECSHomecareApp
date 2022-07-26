@@ -7,7 +7,7 @@ import { UserModel } from 'src/app/models/account/login-model';
 import { ItemsList, UserType } from 'src/app/models/common';
 import { SearchSchedule, ClientSchedule } from 'src/app/models/billing/schedule-billing-model';
 
-
+import { CustomFilterPipe } from 'src/app//pipe/custom-filter.pipe';
 
 // const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
 // arr.reduce((groups, item) => {
@@ -48,6 +48,7 @@ export class CreateInvoiceComponent implements OnInit {
     private accountSrv: AccountService,
     private comSrv: CommonService,
     private billSrv: BillingService
+
   ) {
     this.currentDate = new Date();
 
@@ -97,6 +98,9 @@ export class CreateInvoiceComponent implements OnInit {
     });
 
   }
+
+
+
 
 
 

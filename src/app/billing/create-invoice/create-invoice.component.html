@@ -145,7 +145,14 @@
                                             <div class="col-lg-3 col-xs-6 text-14 mbs">
                                                 <strong> {{obj.clientName}}</strong>
                                             </div>
-                                            <div class="col-lg-3 col-xs-6 text-14 mbs">Confirmed items</div>
+                                            <div class="col-lg-3 col-xs-6 text-14 mbs"><div class="green-small-box mrs"> 6</div>
+                                       
+                                            <div class="yellow-small-box mrs">4</div>
+
+                                            <div  class="grey-small-box mrs">5</div>
+                                        
+                                        
+                                        </div>
                                             <div class="col-lg-2 col-xs-6 text-14 mbs">{{obj.payerName}}</div>
                                             <div class="col-lg-2 col-xs-6 text-14 mbs">{{obj.appointments}}</div>
                                             <div class="col-lg-1 col-xs-6 text-14 mbs">{{obj.units}}</div>
@@ -160,12 +167,12 @@
                                         <div class="table-responsive mbn">
                                             <table class="table table-hover table-striped table-bordered">
                                                 <thead class="bg-default">
-                                                    <tr>
-                                                        <th><input type="checkbox" /></th>
+                                                    <tr style="background-color: #95F0A5;color:#000;" >
+                                                        <th ><input type="checkbox" /></th>
                                                         <th>B</th>
                                                         <th>P</th>
                                                         <!-- <th>Client</th> -->
-                                                        <th>Date</th>
+                                                        <th style="background-color: #95F0A5;color:#000;">Date</th>
                                                         <!-- <th>Payer</th> -->
                                                         <th>Billing Code</th>
                                                         <th>Employee</th>
@@ -174,13 +181,22 @@
                                                         <th>SubTotal</th>
                                                         <th>Paid</th>
                                                         <th>Balance</th>
-                                                        <th>Edit</th>
-                                                        <th>Info</th>
+                                                        <th><select class="table-group-action-input form-control input-inline input-small input-sm mlm">
+                                                            <option value="">Select...</option>
+                                                            <option value="Cancel">Cancel</option>
+                                                            <option value="Cancel">Hold</option>
+                                                            <option value="Cancel">On Hold</option>
+                                                            <option value="Close">Close</option>
+                                                        </select> &nbsp;
+                                                        <button class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;
+                                                            Update
+                                                        </button></th>
+                                                    
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let item of obj.schedules">
-                                                        <th><input type="checkbox" /></th>
+                                                        <th><input type="checkbox" />{{item.billingStatus}}</th>
                                                         <td>
                                                             <div class="green-small-box"></div>
                                                         </td>
@@ -197,9 +213,93 @@
                                                         <td>{{item.billingTotal}}</td>
                                                         <td>{{item.paidAmount}}</td>
                                                         <td>{{item.balanceAmount}}</td>
-                                                        <td> <a title="Edit" href="javascript:;"><i
-                                                                    class="fa fa-edit medium-txt pts mrm"></i></a></td>
-                                                        <td>Info</td>
+                                                        <td> 
+                                                            
+                                                            
+                                                            <a title="Edit" href="javascript:;"><i
+                                                                    class="fa fa-edit medium-txt pts mrm"></i></a>
+                                                                
+                                                                    <a class="text-blue"  title="Info" href="javascript:;"><i
+                                                                        class="fa fa-eye medium-txt pts mrm"></i></a>
+                                                                
+                                                                 
+                                                                
+                                                                
+                                                                </td>
+                                                   
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        
+
+
+                                        <div class="table-responsive mbn">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead class="bg-default">
+                                                    <tr style="background-color: #F0F788;color:#000;" >
+                                                        <th><input type="checkbox" /></th>
+                                               
+                                                        <th>P</th>
+                                                        <!-- <th>Client</th> -->
+                                                        <th>Date</th>
+                                                        <!-- <th>Payer</th> -->
+                                                        <th>Billing Code</th>
+                                                        <th>Employee</th>
+                                                        <th>Rate</th>
+                                                        <th>Units</th>
+                                                        <th>SubTotal</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th><select class="table-group-action-input form-control input-inline input-small input-sm mlm">
+                                                            <option value="">Select...</option>
+                                                            <option value="Cancel">Cancel</option>
+                                                            <option value="Cancel">Hold</option>
+                                                            <option value="Cancel">On Hold</option>
+                                                            <option value="Close">Close</option>
+                                                        </select> &nbsp;
+                                                        <button class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;
+                                                            Update
+                                                        </button></th>
+                                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                 
+                                                    <tr *ngFor="let item of obj.schedules | customFilter : 'billingStatus' : 1">
+                                                        <th><input type="checkbox" />{{item.billingStatus}}</th>
+                                                        <!-- <td>
+                                                            <div class="green-small-box"></div>
+                                                        </td> -->
+                                                        <td>
+                                                            <div class="greenverified-small-box"></div>
+                                                        </td>
+                                                        <!-- <td>{{item.clientName}}</td> -->
+                                                        <td> {{item.meetingDate | date: 'dd MMM YYYY'}}</td>
+                                                        <!-- <td>{{item.payerName}}</td> -->
+                                                        <td>{{item.billingCode}}</td>
+                                                        <td>{{item.empName}}</td>
+                                                        <td>{{item.billingRate}}</td>
+                                                        <td>{{item.billingUnits}}</td>
+                                                        <td>{{item.billingTotal}}</td>
+                                                        <td>{{item.paidAmount}}</td>
+                                                        <td>{{item.balanceAmount}}</td>
+                                                        <td> 
+                                                            
+                                                            
+                                                            <a title="Edit" href="javascript:;"><i
+                                                                    class="fa fa-edit medium-txt pts mrm"></i></a>
+                                                                
+                                                                    <a class="text-blue"  title="Info" href="javascript:;"><i
+                                                                        class="fa fa-eye medium-txt pts mrm"></i></a>
+                                                                
+                                                                 
+                                                                
+                                                                
+                                                                </td>
+                                                   
                                                     </tr>
                                                 </tbody>
                                             </table>
