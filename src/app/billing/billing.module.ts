@@ -12,6 +12,7 @@ import { PayerrateComponent } from './payerrate/payerrate.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { AddPayerComponent } from './component/manage_payer_and_rate/add-payer/add-payer.component';
 import { CustomFilterPipe } from 'src/app//pipe/custom-filter.pipe';
+import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 
 const routes: Routes = [
 
@@ -35,7 +36,8 @@ const routes: Routes = [
         PayerrateComponent,
         CreateInvoiceComponent,
         AddPayerComponent,
-        CustomFilterPipe
+        CustomFilterPipe,
+        InvoiceListComponent
     ],
     imports: [
    
