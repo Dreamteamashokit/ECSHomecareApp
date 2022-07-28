@@ -300,7 +300,7 @@ export class MeetingDetailComponent implements OnInit {
       this._endTime=new Date(_timeOut);
       this._clientId = Number(item?.client?.id);
       this.GetPayerListByclientIdAndmeetingId(item?.client?.id,item?.meetingId);
-      this.GetBillingPayerRate(0,item?.client?.id,item?.meetingId);
+      this.GetBillingPayerRate(this._payerId,item?.client?.id,item?.meetingId);
     }
    }
 
@@ -550,43 +550,43 @@ export class MeetingDetailComponent implements OnInit {
               this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
 
               if(this.billingpayerDetails.unit.toLowerCase().includes("1")){
-                this.billingpayerDetails.billTotal = (1 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("2")){
-                this.billingpayerDetails.billTotal = (1 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("3")){
-                this.billingpayerDetails.billTotal = (1 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("4")){
-                this.billingpayerDetails.billTotal = (1 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
               }
           }
           else if(this.billingpayerDetails.type == 4)
           {
               if(this.billingpayerDetails.unit.toLowerCase().includes("1")){
-                this.billingpayerDetails.billTotal = (1 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 1;
                 this.MeetingRate.payrollUnitsPaid = 1;
                 this.billingpayerDetails.payrollUnitsPaid = 1;
                 this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("2")){
-                this.billingpayerDetails.billTotal = (2 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 2 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 2;
                 this.MeetingRate.payrollUnitsPaid = 2;
                 this.billingpayerDetails.payrollUnitsPaid = 2;
                 this.billingpayerDetails.payRollTotal = 2 * this.billingpayerDetails.payRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("3")){
-                this.billingpayerDetails.billTotal = (3 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
+                this.billingpayerDetails.billTotal = 3 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 3;
                 this.MeetingRate.payrollUnitsPaid = 3;
                 this.billingpayerDetails.payrollUnitsPaid = 3;
                 this.billingpayerDetails.payRollTotal = 3 * this.billingpayerDetails.payRate;
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("4")){
-                this.billingpayerDetails.billTotal = (4 * Number(this.billingpayerDetails.unit.split(" ")[0]) * this.billingpayerDetails.taxRate);
+                this.billingpayerDetails.billTotal = 4 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 4;
                 this.MeetingRate.payrollUnitsPaid = 4;
                 this.billingpayerDetails.payrollUnitsPaid = 4;
@@ -609,7 +609,12 @@ export class MeetingDetailComponent implements OnInit {
     this.BillingServ.GetPayerListByclientIdAndmeetingId(clientId,meetingId).subscribe((response) => {
       if(response.result)
       {
+        
         this.Payerlist = response.data;
+        if(this.Payerlist != null && this.Payerlist != undefined){
+          this._payerId = this.Payerlist[0].payerId;
+          this.GetBillingPayerRate(this._payerId,this._clientId,this.meetingId);
+        }
       }
     });
   }
