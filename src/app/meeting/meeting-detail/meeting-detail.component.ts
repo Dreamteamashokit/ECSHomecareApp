@@ -52,7 +52,9 @@ export class MeetingDetailComponent implements OnInit {
   modalRef?: BsModalRef;
   userId:number;
   _payerId:number;
+  _EmpId:number;
   ClientList = Array<ItemsList>();
+  EmpList = Array<ItemsList>();
   BillingStatus = Array<billingStatus>();
   PayrollStatus = Array<payrollStatus>();
   MeetingRate = new MeetingRate();
@@ -83,7 +85,7 @@ export class MeetingDetailComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.bindClient();
+    this.bindEmployees();
     this.BindMeeting();
     this.getMeetingLog(this.meetingId);
     this.GetLatestThreeOverdueComplianceList(this.currentUser?.userId);
@@ -302,7 +304,9 @@ export class MeetingDetailComponent implements OnInit {
       var _timeOut = item.meetingDate +' ' + item.endTime; 
       this._endTime=new Date(_timeOut);
       this._clientId = Number(item?.client?.id);
-
+      this._EmpId = Number(item?.employee?.id);
+      this._EmpId = Number(item?.employee?.id);
+      
 
       this.GetPayerListByclientIdAndmeetingId(item?.client?.id,item?.meetingId);
       setTimeout(() => {
@@ -356,7 +360,7 @@ export class MeetingDetailComponent implements OnInit {
       modelItem.userId = this.currentUser.userId;
       modelItem.clientId=item.client.id;
       this.clientid = modelItem.clientId;
-      modelItem.empId= Number(this._clientId);//item.employee.id;
+      modelItem.empId= Number(this._EmpId);//item.employee.id;
       modelItem.meetingNote=this._message;
    
       
@@ -418,6 +422,7 @@ export class MeetingDetailComponent implements OnInit {
               this.IsLoad = false;
               panel.hide();
               //this.reloadCurrentPage()
+              this.toastr.successToastr("Meeting details save successfully!", 'Success!');
               this.router.navigate(['/client/info/'+ this.clientid +'/' + '1']);
             }
             else
@@ -440,13 +445,10 @@ export class MeetingDetailComponent implements OnInit {
       }
    }
 
-   bindClient(){
-    this.comApi.getClientList().subscribe((response) => {
-      if(response.result)
-      {
-        this.ClientList = response.data;
-      }
-    });
+   bindEmployees(){
+    this.comApi.getEmpList().subscribe((response)=>{
+        this.EmpList = response.data;
+    })
    }
 
    GetLatestThreeOverdueComplianceList(userId:number){
@@ -509,7 +511,6 @@ export class MeetingDetailComponent implements OnInit {
         
         if(this.billingpayerDetails != null && this.billingpayerDetails != undefined)
         {
-          //this.MeetingRate.billingUnits = this.billingpayerDetails.calculateUnit;
           this.MeetingRate.billingCode = this.billingpayerDetails.billCode;
           this.MeetingRate.billingRate = this.billingpayerDetails.taxRate;
           this.MeetingRate.billingId = this.billingpayerDetails.billingId;
@@ -519,7 +520,6 @@ export class MeetingDetailComponent implements OnInit {
           if(this.billingpayerDetails.type == 1)
           {
               if(this.billingpayerDetails.unit.toLowerCase().includes("1")){
-                // this.billingpayerDetails.billTotal = (0.25 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.25 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.25;
                 if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
@@ -530,7 +530,6 @@ export class MeetingDetailComponent implements OnInit {
                 
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("2")){
-                //this.billingpayerDetails.billTotal = (0.50 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.50 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.50;
                 if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
@@ -540,7 +539,6 @@ export class MeetingDetailComponent implements OnInit {
                 }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("3")){
-                // this.billingpayerDetails.billTotal = (0.75 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.75 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.75;
                 if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
