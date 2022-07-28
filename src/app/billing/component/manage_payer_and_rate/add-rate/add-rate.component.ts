@@ -75,6 +75,7 @@ export class AddRateComponent implements OnInit {
         this.invoiceService.GetPayerRateList().subscribe(res => {
           if(res != null && res != undefined && res.result){
             this.rateList = res.data;
+            debugger;
           }
         })
       }

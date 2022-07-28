@@ -44,7 +44,7 @@ payerList : Payer[]=[];
  }
 
  onSubmit(form: NgForm) {
-  debugger;
+  
   if((form.value.payerid == null) || (form.value.payerid == '')|| (form.value.payerid == undefined) ){
     this.payerSrv.addPayer(form.value).subscribe((res)=>{
 

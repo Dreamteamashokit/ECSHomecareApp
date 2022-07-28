@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { APIResponse } from '../models/api-response';
 import { billingPayerRate } from '../models/billing/billingPayerRate-model';
 import { ScheduleBillingModel, SearchSchedule ,ClientSchedule} from 'src/app/models/billing/schedule-billing-model';
+import { payerlist } from '../models/billing/payer-model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,11 +34,8 @@ export class BillingService {
     return this._http.get<APIResponse<billingPayerRate>>(environment.domain + "/api/Billing/GetBillingPayerRate" + "/" + payerId+ "/" + clientId + "/" + meetingId);
   }
 
-
-
-
-
-
-
+  GetPayerListByclientIdAndmeetingId(clientId:number,meetingId:number) {
+    return this._http.get<APIResponse<payerlist[]>>(environment.domain + "/api/Billing/GetPayerListByclientIdAndmeetingId" + "/" + clientId + "/" + meetingId);
+  }
 
 }

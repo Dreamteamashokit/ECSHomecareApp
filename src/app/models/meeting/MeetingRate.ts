@@ -3,6 +3,8 @@ export class MeetingRate {
   
     public meetingRateId : number;
     public meetingId : number;
+    public billingId:number;
+    public payRollRateId:number;
     public billingCode : string;
     public billingUnits : number;
     public billingRate : number;    
