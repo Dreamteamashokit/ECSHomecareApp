@@ -23,7 +23,8 @@ const routes: Routes = [
             { path: 'add-rate', component: AddRateComponent },
             { path: 'add-payer', component: AddPayerComponent },
             {path: 'add-payer/:payerId', component: AddRateComponent},
-            { path: 'billing-shedule', component: CreateInvoiceComponent }
+            { path: 'billing-shedule', component: CreateInvoiceComponent },
+            { path: 'InvoiceList', component: InvoiceListComponent }
         ]
     }
 ]
