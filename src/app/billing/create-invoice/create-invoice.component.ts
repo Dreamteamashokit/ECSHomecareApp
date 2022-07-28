@@ -71,7 +71,7 @@ export class CreateInvoiceComponent implements OnInit {
       this.payerList = response.data;
     });
 
-    this.billingStatusList = [{ id: 1, name: 'Confirmed' }, { id: 2, name: 'Hold' }, { id: 5, name: 'Nonbillable' }];
+    this.billingStatusList = [{ id: 1, name: 'Confirmed' }, { id: 2, name: 'Hold' }, { id: 5, name: 'Unconfirmed' }];
     this.currentUser = this.accountSrv.getCurrentUser();  
   }
 
@@ -140,6 +140,12 @@ export class CreateInvoiceComponent implements OnInit {
         next: (response) => {
           if (response.result) {
             event.target.value = '';
+
+
+     
+
+            let path= 'billing/billing-shedule';
+            this.router.navigate([path])
           }         
         },
         error: (err) => {
@@ -190,7 +196,10 @@ export class CreateInvoiceComponent implements OnInit {
      this.billSrv.createInvoice(req).subscribe({
        next: (response) => {
          if (response.result) {
-          alert("Invoice generated");
+    
+
+          let path= 'billing/InvoiceList';
+          this.router.navigate([path])
          }         
        },
        error: (err) => {
