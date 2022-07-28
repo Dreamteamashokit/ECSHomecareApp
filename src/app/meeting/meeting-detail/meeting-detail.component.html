@@ -360,17 +360,6 @@
                                 </div>
                             </div>
                         </div>
-        
-                        <!-- <div class="row mtm">
-                            <div class="col-lg-12 text-center">
-                                <div class="form-group">
-                                    <button class="btn btn-lg btn-dark mrm mbm" (click)="reScheduling(bsModalRef)">
-                                        <i class="fa fa-save mrm"></i>RESCHEDULE</button>
-                                    <button type="button" class="btn btn-lg btn-primary mrm mbm" (click)="cxlScheduling()">
-                                        <i class="fa fa-times mrm"></i>CANCEL</button>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -385,9 +374,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="IsEdit">
         <div class="col-sm-12 col-xs-12">
-            <div class="panel" *ngIf="IsEdit">
+            <div class="panel">
                 <div class="panel-header">
                     <a data-toggle="collapse" class="padleft15" href="#multiCollapse2" role="button" aria-expanded="false" aria-controls="multiCollapse2">
                         <span><i class="fa fa-plus-square"></i></span> ATTENDANCE VERIFICATION</a>
@@ -460,7 +449,47 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-12 col-xs-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th scope="col">Details</th>
+                      <th scope="col">Matched</th>
+                      <th scope="col">Date/Time</th>
+                      <th scope="col">Tasks Performed</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="clockinDetails != null && clockinDetails != undefined">
+                    <tr>
+                        <td>IN</td>
+                        <td *ngIf="clockinDetails.clockInTime != null && clockinDetails.clockInTime != undefined">
+                            <input type="checkbox" checked>
+                        </td>
+                        <td *ngIf="clockinDetails.clockInTime == null || clockinDetails.clockInTime == undefined">
+                            <input type="checkbox">
+                        </td>
+                        <td>{{clockinDetails.clockInTime  | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                        <td>Clean/Light Housekeeping, Assist with Exercise/ROM, Meal preparation / serve, Laundry as needed, Make Bed/Change Linen,</td>
+                    </tr>
+                    <tr>
+                        <td>OUT</td>
+                        <td *ngIf="clockinDetails.clockOutTime != null && clockinDetails.clockOutTime != undefined">
+                            <input type="checkbox" checked>
+                        </td>
+                        <td *ngIf="clockinDetails.clockOutTime == null || clockinDetails.clockOutTime == undefined">
+                            <input type="checkbox">
+                        </td>
+                        <td>{{clockinDetails.clockOutTime  | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                        <td></td>
+                    </tr>
+                  </tbody>
+                  <tfoot *ngIf="clockinDetails == null && clockinDetails == undefined">
+                    clock in/out Records not found
+                  </tfoot>
+            </table>
+        </div>
     </div>
+
 
     <div class="row mtm" *ngIf="IsEdit">
         <div class="col-lg-12 text-center">

@@ -20,6 +20,7 @@ import { MeetingRate } from '../../models/meeting/MeetingRate';
 import { billingPayerRate } from '../../models/billing/billingPayerRate-model';
 import { ClientEmployeeAttendance } from '../../models/client/clientEmployeeAttendance-model';
 import { payerlist } from '../../models/billing/payer-model';
+import { ClientApiService } from '../../services/client-api.service';
 
 @Component({
   selector: 'app-meeting-detail',
@@ -61,6 +62,7 @@ export class MeetingDetailComponent implements OnInit {
   ClientsignatureImg: string = "";
   EmpUserSignatureImg: string = "";
   Payerlist = Array<payerlist>();
+  clockinDetails:any;
 
   constructor(
     private router: Router,
@@ -74,7 +76,8 @@ export class MeetingDetailComponent implements OnInit {
     private empserv:EmployeeapiService,
     private modalService: BsModalService,
     private BillingServ : BillingService,
-    private InvService: InvoiceService) {
+    private InvService: InvoiceService,
+    private ClientService:ClientApiService) {
     this.currentUser = this.accountSrv.getCurrentUser();
   }
 
@@ -299,8 +302,13 @@ export class MeetingDetailComponent implements OnInit {
       var _timeOut = item.meetingDate +' ' + item.endTime; 
       this._endTime=new Date(_timeOut);
       this._clientId = Number(item?.client?.id);
+
+
       this.GetPayerListByclientIdAndmeetingId(item?.client?.id,item?.meetingId);
-      this.GetBillingPayerRate(this._payerId,item?.client?.id,item?.meetingId);
+      setTimeout(() => {
+        this.GetBillingPayerRate(this._payerId,item?.client?.id,item?.meetingId);
+        this.GetClockinOutDetailsByClientAndMeetingid(item?.client?.id,item?.meetingId);  
+      }, 1000);
     }
    }
 
@@ -494,12 +502,13 @@ export class MeetingDetailComponent implements OnInit {
   }
 
   GetBillingPayerRate(payerId:number,clientId:number,meetingId:number){
+    
     this.BillingServ.GetBillingPayerRate(payerId,clientId,meetingId).subscribe(res => {
-      
       if(res.result){
         this.billingpayerDetails = res.data;
         
-        if(this.billingpayerDetails != null && this.billingpayerDetails != undefined){
+        if(this.billingpayerDetails != null && this.billingpayerDetails != undefined)
+        {
           //this.MeetingRate.billingUnits = this.billingpayerDetails.calculateUnit;
           this.MeetingRate.billingCode = this.billingpayerDetails.billCode;
           this.MeetingRate.billingRate = this.billingpayerDetails.taxRate;
@@ -513,41 +522,52 @@ export class MeetingDetailComponent implements OnInit {
                 // this.billingpayerDetails.billTotal = (0.25 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.25 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.25;
-                this.MeetingRate.payrollUnitsPaid = 0.25;
-                this.billingpayerDetails.payrollUnitsPaid = 0.25;
-                this.billingpayerDetails.payRollTotal = 0.25 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 0.25;
+                  this.billingpayerDetails.payrollUnitsPaid = 0.25;
+                  this.billingpayerDetails.payRollTotal = 0.25 * this.billingpayerDetails.payRate;
+                }
+                
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("2")){
                 //this.billingpayerDetails.billTotal = (0.50 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.50 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.50;
-                this.MeetingRate.payrollUnitsPaid = 0.50;
-                this.billingpayerDetails.payrollUnitsPaid = 0.50;
-                this.billingpayerDetails.payRollTotal = 0.50 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 0.50;
+                  this.billingpayerDetails.payrollUnitsPaid = 0.50;
+                  this.billingpayerDetails.payRollTotal = 0.50 * this.billingpayerDetails.payRate;
+                }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("3")){
                 // this.billingpayerDetails.billTotal = (0.75 * Number(this.billingpayerDetails.unit.split(" ")[0])) * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.billTotal = 0.75 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 0.75;
-                this.MeetingRate.payrollUnitsPaid = 0.75;
-                this.billingpayerDetails.payrollUnitsPaid = 0.75;
-                this.billingpayerDetails.payRollTotal = 0.75 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 0.75;
+                  this.billingpayerDetails.payrollUnitsPaid = 0.75;
+                  this.billingpayerDetails.payRollTotal = 0.75 * this.billingpayerDetails.payRate;
+                }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("4")){
                 this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 1;
-                this.MeetingRate.payrollUnitsPaid = 1;
-                this.billingpayerDetails.payrollUnitsPaid = 1;
-                this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 1;
+                  this.billingpayerDetails.payrollUnitsPaid = 1;
+                  this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+                }
               }
           }
           else if(this.billingpayerDetails.type == 2 || this.billingpayerDetails.type == 3)
           {
               this.billingpayerDetails.units = 1;
-              this.MeetingRate.payrollUnitsPaid = 1;
               this.MeetingRate.billingUnits = this.billingpayerDetails.units;
-              this.billingpayerDetails.payrollUnitsPaid = 1;
-              this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+              if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                this.MeetingRate.payrollUnitsPaid = 1;
+                this.billingpayerDetails.payrollUnitsPaid = 1;
+                this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+              }
 
               if(this.billingpayerDetails.unit.toLowerCase().includes("1")){
                 this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
@@ -567,30 +587,38 @@ export class MeetingDetailComponent implements OnInit {
               if(this.billingpayerDetails.unit.toLowerCase().includes("1")){
                 this.billingpayerDetails.billTotal = 1 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 1;
-                this.MeetingRate.payrollUnitsPaid = 1;
-                this.billingpayerDetails.payrollUnitsPaid = 1;
-                this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 1;
+                  this.billingpayerDetails.payrollUnitsPaid = 1;
+                  this.billingpayerDetails.payRollTotal = 1 * this.billingpayerDetails.payRate;
+                }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("2")){
                 this.billingpayerDetails.billTotal = 2 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 2;
-                this.MeetingRate.payrollUnitsPaid = 2;
-                this.billingpayerDetails.payrollUnitsPaid = 2;
-                this.billingpayerDetails.payRollTotal = 2 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 2;
+                  this.billingpayerDetails.payrollUnitsPaid = 2;
+                  this.billingpayerDetails.payRollTotal = 2 * this.billingpayerDetails.payRate;
+                }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("3")){
                 this.billingpayerDetails.billTotal = 3 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 3;
-                this.MeetingRate.payrollUnitsPaid = 3;
-                this.billingpayerDetails.payrollUnitsPaid = 3;
-                this.billingpayerDetails.payRollTotal = 3 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 3;
+                  this.billingpayerDetails.payrollUnitsPaid = 3;
+                  this.billingpayerDetails.payRollTotal = 3 * this.billingpayerDetails.payRate;
+                }
               }
               else if(this.billingpayerDetails.unit.toLowerCase().includes("4")){
                 this.billingpayerDetails.billTotal = 4 * this.billingpayerDetails.taxRate;
                 this.billingpayerDetails.units = 4;
-                this.MeetingRate.payrollUnitsPaid = 4;
-                this.billingpayerDetails.payrollUnitsPaid = 4;
-                this.billingpayerDetails.payRollTotal = 4 * this.billingpayerDetails.payRate;
+                if(this.billingpayerDetails.payRate != null && this.billingpayerDetails.payRate != undefined){
+                  this.MeetingRate.payrollUnitsPaid = 4;
+                  this.billingpayerDetails.payrollUnitsPaid = 4;
+                  this.billingpayerDetails.payRollTotal = 4 * this.billingpayerDetails.payRate;
+                }
               }
           }
         }
@@ -600,7 +628,14 @@ export class MeetingDetailComponent implements OnInit {
           this.MeetingRate.billingCode = "";
           this.MeetingRate.billingRate = 0;
           this.MeetingRate.billingTotal = 0;
-        //this.billingpayerDetails = null
+          this.MeetingRate.billingStatus = 0;
+          this.MeetingRate.payrollUnitsPaid = 0;
+          this.MeetingRate.payrollPayRate = 0;
+          this.MeetingRate.payrollPayTotal = 0;
+          this.MeetingRate.payrollPayStatus = 0;
+          this.MeetingRate.payrollMileage = 0;
+          this.MeetingRate.billingTravelTime = 0;
+          this.MeetingRate.sentPayrollDate = "";
       }
     })
   }
@@ -611,8 +646,12 @@ export class MeetingDetailComponent implements OnInit {
       {
         
         this.Payerlist = response.data;
-        if(this.Payerlist != null && this.Payerlist != undefined){
+        if(this.Payerlist != null && this.Payerlist != undefined && this.Payerlist.length > 0){
           this._payerId = this.Payerlist[0].payerId;
+          this.GetBillingPayerRate(this._payerId,this._clientId,this.meetingId);
+        }
+        else{
+          this._payerId = 0;
           this.GetBillingPayerRate(this._payerId,this._clientId,this.meetingId);
         }
       }
@@ -624,6 +663,14 @@ export class MeetingDetailComponent implements OnInit {
       this._payerId = e.target.value;
     }
     this.GetBillingPayerRate(this._payerId,this._clientId,this.meetingId);
+  }
+
+  GetClockinOutDetailsByClientAndMeetingid(clientId:number,meetingId:number){
+     this.ClientService.GetClockinOutDetailsByClientAndMeetingid(clientId,meetingId).subscribe((response) =>{
+        if(response != null && response != undefined && response.result){
+            this.clockinDetails = response.data;
+        }
+     });
   }
 
   showBillingFields(){

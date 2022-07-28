@@ -17,6 +17,8 @@ import { ClientCommunityMaster } from '../models/client/client-community-model';
 import { ClientCompliance } from '../models/client/client-compliance-model';
 import { ClientResult } from '../models/meeting/client-meeting';
 import { ContactModel,  ProviderModel } from 'src/app/models/client/contact-model';
+import { clockinoutclientDetails } from '../models/client/clockinoutclientDetails-model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -484,6 +486,9 @@ export class ClientApiService {
     return this._http.get<APIResponse<ProviderModel[]>>(environment.domain + "/api/Client/getEmergProvider" + "/" + clientId);
   }
 
+  GetClockinOutDetailsByClientAndMeetingid(clientId: number,meetingId:number) {
+    return this._http.get<APIResponse<clockinoutclientDetails[]>>(environment.domain + "/api/Client/GetClockinOutDetailsByClientAndMeetingid" + "/" + clientId + "/" + meetingId);
+  }
 
 
 
