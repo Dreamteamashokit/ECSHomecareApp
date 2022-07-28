@@ -4,9 +4,10 @@ import { CommonService } from 'src/app/services/common.service';
 import { AccountService } from 'src/app/services/account.service';
 import { BillingService } from 'src/app/services/billing.service';
 import { UserModel } from 'src/app/models/account/login-model';
-import { ItemsList, UserType } from 'src/app/models/common';
-import { SearchSchedule, ClientSchedule } from 'src/app/models/billing/schedule-billing-model';
+import { ItemsList, UserType, BillingStatus } from 'src/app/models/common';
+import { SearchSchedule, ClientSchedule, ScheduleBillingModel ,UpdateBillingSchedule,InvoiceModel} from 'src/app/models/billing/schedule-billing-model';
 
+import { CustomFilterPipe } from 'src/app//pipe/custom-filter.pipe';
 
 
 // const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
@@ -38,7 +39,7 @@ export class CreateInvoiceComponent implements OnInit {
   empList: ItemsList[];
   payerList: ItemsList[];
   scheduleList: ClientSchedule[];
-
+  billingStatusList: any;
   currentDate: Date;
 
   searchModel = new SearchSchedule();
@@ -48,6 +49,7 @@ export class CreateInvoiceComponent implements OnInit {
     private accountSrv: AccountService,
     private comSrv: CommonService,
     private billSrv: BillingService
+
   ) {
     this.currentDate = new Date();
 
@@ -69,6 +71,8 @@ export class CreateInvoiceComponent implements OnInit {
       this.payerList = response.data;
     });
 
+    this.billingStatusList = [{ id: 1, name: 'Confirmed' }, { id: 2, name: 'Hold' }, { id: 5, name: 'Nonbillable' }];
+    this.currentUser = this.accountSrv.getCurrentUser();  
   }
 
   ngOnInit(): void {
@@ -99,10 +103,7 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
 
-
   getFilterData(item: SearchSchedule) {
-
-
     item.payerId = Number(item.payerId);
     item.empId = Number(item.empId);
     item.clientId = Number(item.clientId);
@@ -125,77 +126,85 @@ export class CreateInvoiceComponent implements OnInit {
         this.IsLoad = false;
       }
     });
+  }
 
-
-
-
-
-
-
-
-    // console.log(this.statusData);
-    // model.status=Number(model.status);
-    // model.coordinator=Number(model.coordinator);
-    // model.payer=Number(model.payer); 
-    // model.empType=Number(model.empType);
-    // let resultText= '';
-    // if(model.status!=0)
-    // {    
-    //   const result = this.statusData.find(x => x.itemId === model.status);
-    //  resultText+= 'Status :'+ result ?.itemName + ", ";    
-    // }
-    // if(model.coordinator!=0)
-    // {  
-    //   const result = this.managerList.find(x => x.itemId === model.coordinator);
-    //   resultText+= 'Coordinator :'+ result ?.itemName + ", ";
-    // }
-    // if(model.payer!=0)
-    // {     
-    //   const result = this.payerList.find(x => x.itemId === model.payer);
-    //   resultText+= 'Payer :'+ result ?.itemName + ", ";
-    // }
-    // if(model.state!="")
-    // {
-    //   const result = this.stateList.find(x => x.itemCode === model.state);
-    //   resultText+= 'State :'+ result ?.itemName + ", ";  
-    // }    
-    // this.resultText=resultText; 
-    // this.momApi.getClientMeetingListByFilter(this.objModel).subscribe({ 
-    //   next: (response) => {
-    //     if(response.result)
-    //     {       
-    //       this.clientMOMList= response.data;
-    //       this.totalItemsCount=response.data.length;         
-    //     }
-    //     else
-    //     {
-    //       this.clientMOMList=[];
-    //       this.totalItemsCount=0;       
-    //     }        
-    //   }, 
-    //   error: (err) => { 
-    //     console.log(err);   
-    //     this.clientMOMList=[];
-    //     this.totalItemsCount=0;  
-    //   }, 
-    //   complete: () => { this.IsLoad = false;
-    //   }
-    // });    
-
+  updateAll(event: any, billingStatus: number, schedules: ScheduleBillingModel[]) {
+    if (event.target.value != '') {
+     if(schedules.filter(x => (x.isChecked == true)).length>0)
+     {
+      let req  = new UpdateBillingSchedule();
+      req.billingStatus=Number(event.target.value);
+      req.scheduleList=schedules.filter(x => (x.isChecked == true)).map(y=>y.scheduleRateId);
+      this.IsLoad = true;
+      this.billSrv.updateSchedule(req).subscribe({
+        next: (response) => {
+          if (response.result) {
+            event.target.value = '';
+          }         
+        },
+        error: (err) => {
+          console.log(err);       
+        },
+        complete: () => {
+          this.IsLoad = false;
+        }
+      });
+     }
+     else
+     {
+      event.target.value = '';
+      alert("plz select row");
+     }
+    }
   }
 
 
 
+  selectAll(event: any, billingStatus: number, schedules: ScheduleBillingModel[]) {
+    if (event.target.checked) {
+      schedules.filter(x => x.billingStatus = billingStatus).forEach(x => x.isChecked = true);
+    }
+    else {
+      schedules.filter(x => x.billingStatus = billingStatus).forEach(x => x.isChecked = false);
+    }
+  }
 
 
+  getEnumToList(eumType: any) {
+    return Object.entries(eumType).filter(e => !isNaN(e[0] as any)).map(e => ({ name: e[1], id: e[0] }));
+  }
 
-
-
-
-
-
-
-
-
+  createInvoice(schedules: ScheduleBillingModel[])
+  {
+    if(schedules.filter(x => (x.isChecked == true)).length>0)
+    {
+     let req  = new InvoiceModel();
+     req.invoiceNo='Test';
+     req.createdBy = this.currentUser.userId;
+    //  invoiceNo: string;
+    //  payerId: number;
+    //  payerName: string;
+    //  amounts: number;
+     req.scheduleList=schedules.filter(x => (x.isChecked == true));
+     this.IsLoad = true;
+     this.billSrv.createInvoice(req).subscribe({
+       next: (response) => {
+         if (response.result) {
+          alert("Invoice generated");
+         }         
+       },
+       error: (err) => {
+         console.log(err);       
+       },
+       complete: () => {
+         this.IsLoad = false;
+       }
+     });
+    }
+    else
+    {
+     alert("plz select row");
+    }
+  }
 
 }

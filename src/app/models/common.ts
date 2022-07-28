@@ -120,7 +120,14 @@ export enum InitialTypeEnum
 
 
 
-
+export enum BillingStatus {
+  Confirmed = 1,
+  Hold = 2,
+  Invoiced = 3,
+  Posted = 4,
+  Nonbillable = 5,
+  Paid = 6
+}
 
 
  

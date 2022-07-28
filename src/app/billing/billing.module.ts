@@ -11,7 +11,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PayerrateComponent } from './payerrate/payerrate.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { AddPayerComponent } from './component/manage_payer_and_rate/add-payer/add-payer.component';
-
+import { CustomFilterPipe } from 'src/app//pipe/custom-filter.pipe';
+import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 
 const routes: Routes = [
 
@@ -22,7 +23,8 @@ const routes: Routes = [
             { path: 'add-rate', component: AddRateComponent },
             { path: 'add-payer', component: AddPayerComponent },
             {path: 'add-payer/:payerId', component: AddRateComponent},
-            { path: 'billing-shedule', component: CreateInvoiceComponent }
+            { path: 'billing-shedule', component: CreateInvoiceComponent },
+            { path: 'InvoiceList', component: InvoiceListComponent }
         ]
     }
 ]
@@ -34,7 +36,9 @@ const routes: Routes = [
         AddRateComponent,
         PayerrateComponent,
         CreateInvoiceComponent,
-        AddPayerComponent
+        AddPayerComponent,
+        CustomFilterPipe,
+        InvoiceListComponent
     ],
     imports: [
    

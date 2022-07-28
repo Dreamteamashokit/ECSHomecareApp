@@ -1,3 +1,6 @@
+
+import { BaseModel } from 'src/app/models/common';
+
 export class SearchSchedule {
     fromDate: Date;
     toDate: Date;
@@ -8,6 +11,7 @@ export class SearchSchedule {
 
 export class ScheduleBillingModel {
     scheduleRateId: number;
+    isChecked: boolean;
     payerId: number;
     empId: number;
     clientId: number;
@@ -34,7 +38,29 @@ export class ClientSchedule {
     appointments: number;
     units: number;
     amounts: number;
-    schedules: ScheduleBillingModel[];
+    confirmList: ScheduleBillingModel[];
+    holdList: ScheduleBillingModel[];
+    unconfirmList: ScheduleBillingModel[];
 }
 
 
+
+
+export class UpdateBillingSchedule {
+    billingStatus: number;
+    scheduleList: number[];
+}
+
+
+
+
+
+export class InvoiceModel extends BaseModel {
+    invoiceId: number;
+    invoiceNo: string;
+    payerId: number;
+    payerName: string;
+    amounts: number;
+    invoiceStatus: number;
+    scheduleList: ScheduleBillingModel[];
+}

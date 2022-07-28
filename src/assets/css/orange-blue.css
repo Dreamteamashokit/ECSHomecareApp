@@ -10074,3 +10074,35 @@ float: left;
 	float: left
 }
 
+.green-big-box{
+  width: 29px;
+  height: 20px;
+  background-color: #95F0A5;
+  border: solid 1px #057E07;
+  float: left;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+
+.yellow-big-box{
+  width: 29px;
+  height: 20px;
+	background-color: #F0F788;
+  border: solid 1px #ABB04C;
+	float: left;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+.grey-big-box{
+  width: 29px;
+  height: 20px;
+	background-color: #eee;
+	border: solid 1px #ccc;
+	float: left;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}

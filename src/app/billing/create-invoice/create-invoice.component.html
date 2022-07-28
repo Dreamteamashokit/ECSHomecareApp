@@ -1,4 +1,3 @@
-
 <div id="page-wrapper">
     <!--BEGIN TITLE & BREADCRUMB PAGE-->
     <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
@@ -145,7 +144,15 @@
                                             <div class="col-lg-3 col-xs-6 text-14 mbs">
                                                 <strong> {{obj.clientName}}</strong>
                                             </div>
-                                            <div class="col-lg-3 col-xs-6 text-14 mbs">Confirmed items</div>
+                                            <div class="col-lg-3 col-xs-6 text-14 mbs">
+                                                <div class="green-big-box mrs"> {{obj.confirmList.length}}</div>
+
+                                                <div class="yellow-big-box mrs">{{obj.holdList.length}}</div>
+
+                                                <div class="grey-big-box mrs">{{obj.unconfirmList.length}}</div>
+
+
+                                            </div>
                                             <div class="col-lg-2 col-xs-6 text-14 mbs">{{obj.payerName}}</div>
                                             <div class="col-lg-2 col-xs-6 text-14 mbs">{{obj.appointments}}</div>
                                             <div class="col-lg-1 col-xs-6 text-14 mbs">{{obj.units}}</div>
@@ -158,51 +165,273 @@
                                 <div id="collapse_{{i}}" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <div class="table-responsive mbn">
-                                            <table class="table table-hover table-striped table-bordered">
-                                                <thead class="bg-default">
-                                                    <tr>
-                                                        <th><input type="checkbox" /></th>
-                                                        <th>B</th>
-                                                        <th>P</th>
-                                                        <!-- <th>Client</th> -->
-                                                        <th>Date</th>
-                                                        <!-- <th>Payer</th> -->
-                                                        <th>Billing Code</th>
-                                                        <th>Employee</th>
-                                                        <th>Rate</th>
-                                                        <th>Units</th>
-                                                        <th>SubTotal</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>Edit</th>
-                                                        <th>Info</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let item of obj.schedules">
-                                                        <th><input type="checkbox" /></th>
-                                                        <td>
+                                            <div class="table-responsive mbn" *ngIf="obj.confirmList.length>0">
+                                                <table class="table table-hover table-striped table-bordered">
+                                                    <thead class="bg-default">
+                                                        <tr style="background-color: #95F0A5;color:#000;">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        (change)="selectAll($event,1,obj.confirmList)" />
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </th>
+
+                                                            <th>P</th>
+                                                            <!-- <th>Client</th> -->
+                                                            <th style="background-color: #95F0A5;color:#000;">Date</th>
+                                                            <!-- <th>Payer</th> -->
+                                                            <th>Billing Code</th>
+                                                            <th>Employee</th>
+                                                            <th>Rate</th>
+                                                            <th>Units</th>
+                                                            <th>SubTotal</th>
+                                                            <th>Paid</th>
+                                                            <th>Balance</th>
+                                                            <th>
+                                                                <div class="row mtm">
+                                                                    <div class="col-lg-6">
+                                                                        <select class="form-control"
+                                                                            (change)="updateAll($event,1,obj.confirmList)">
+                                                                            <option value="">Select...</option>
+                                                                            <option value="2">Hold</option>
+                                                                            <option value="5">Non billable</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <a style="background-color: #000;color:rgb(231, 218, 218);" title="Generate Invoice" href="javascript:;"
+                                                                            (click)="createInvoice(obj.confirmList)">
+                                                                            <i class="fa fa-money fa-fw mrm "></i>Add Invoice
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of obj.confirmList">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        name="item[{{ i }}].IsChecked"
+                                                                        [(ngModel)]="item.isChecked">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{item.billingStatus}}
+                                                            </th>
+                                                            <td>
+                                                                <div class="greenverified-small-box"></div>
+                                                            </td>
+                                                            <!-- <td>{{item.clientName}}</td> -->
+                                                            <td> {{item.meetingDate | date: 'dd MMM YYYY'}}</td>
+                                                            <!-- <td>{{item.payerName}}</td> -->
+                                                            <td>{{item.billingCode}}</td>
+                                                            <td>{{item.empName}}</td>
+                                                            <td>{{item.billingRate}}</td>
+                                                            <td>{{item.billingUnits}}</td>
+                                                            <td>{{item.billingTotal}}</td>
+                                                            <td>{{item.paidAmount}}</td>
+                                                            <td>{{item.balanceAmount}}</td>
+                                                            <td>
+
+
+                                                                <a title="Edit" href="javascript:;"><i
+                                                                        class="fa fa-edit medium-txt pts mrm"></i></a>
+
+                                                                <a class="text-blue" title="Info" href="javascript:;"><i
+                                                                        class="fa fa-eye medium-txt pts mrm"></i></a>
+
+
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+
+                                            <div class="table-responsive mbn" *ngIf="obj.holdList.length>0">
+                                                <table class="table table-hover table-striped table-bordered">
+                                                    <thead class="bg-default">
+                                                        <tr style="background-color: #F0F788;color:#000;">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        (change)="selectAll($event,1,obj.holdList)" />
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </th>
+
+                                                            <th>P</th>
+                                                            <!-- <th>Client</th> -->
+                                                            <th>Date</th>
+                                                            <!-- <th>Payer</th> -->
+                                                            <th>Billing Code</th>
+                                                            <th>Employee</th>
+                                                            <th>Rate</th>
+                                                            <th>Units</th>
+                                                            <th>SubTotal</th>
+                                                            <th>Paid</th>
+                                                            <th>Balance</th>
+                                                            <th>
+                                                                <select class="form-control input-small input-sm mlm"
+                                                                    (click)="updateAll($event,1,obj.holdList)">
+                                                                    <option value="">Select...</option>
+                                                                    <option value="1">Confirmed</option>
+                                                                    <option value="5">Non billable</option>
+                                                                </select>
+
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        <tr *ngFor="let item of obj.holdList">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        name="item[{{ i }}].IsChecked"
+                                                                        [(ngModel)]="item.isChecked">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                                {{item.billingStatus}}
+                                                            </th>
+                                                            <!-- <td>
                                                             <div class="green-small-box"></div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="greenverified-small-box"></div>
-                                                        </td>
-                                                        <!-- <td>{{item.clientName}}</td> -->
-                                                        <td> {{item.meetingDate | date: 'dd MMM YYYY'}}</td>
-                                                        <!-- <td>{{item.payerName}}</td> -->
-                                                        <td>{{item.billingCode}}</td>
-                                                        <td>{{item.empName}}</td>
-                                                        <td>{{item.billingRate}}</td>
-                                                        <td>{{item.billingUnits}}</td>
-                                                        <td>{{item.billingTotal}}</td>
-                                                        <td>{{item.paidAmount}}</td>
-                                                        <td>{{item.balanceAmount}}</td>
-                                                        <td> <a title="Edit" href="javascript:;"><i
-                                                                    class="fa fa-edit medium-txt pts mrm"></i></a></td>
-                                                        <td>Info</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                        </td> -->
+                                                            <td>
+                                                                <div class="greenverified-small-box"></div>
+                                                            </td>
+                                                            <!-- <td>{{item.clientName}}</td> -->
+                                                            <td> {{item.meetingDate | date: 'dd MMM YYYY'}}</td>
+                                                            <!-- <td>{{item.payerName}}</td> -->
+                                                            <td>{{item.billingCode}}</td>
+                                                            <td>{{item.empName}}</td>
+                                                            <td>{{item.billingRate}}</td>
+                                                            <td>{{item.billingUnits}}</td>
+                                                            <td>{{item.billingTotal}}</td>
+                                                            <td>{{item.paidAmount}}</td>
+                                                            <td>{{item.balanceAmount}}</td>
+                                                            <td>
+
+
+                                                                <a title="Edit" href="javascript:;"><i
+                                                                        class="fa fa-edit medium-txt pts mrm"></i></a>
+
+                                                                <a class="text-blue" title="Info" href="javascript:;"><i
+                                                                        class="fa fa-eye medium-txt pts mrm"></i></a>
+
+
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+                                            <div class="table-responsive mbn" *ngIf="obj.unconfirmList.length>0">
+                                                <table class="table table-hover table-striped table-bordered">
+                                                    <thead class="bg-default">
+                                                        <tr style="background-color: #eee;color:#000;">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        (change)="selectAll($event,1,obj.unconfirmList)" />
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </th>
+
+                                                            <th>P</th>
+                                                            <!-- <th>Client</th> -->
+                                                            <th>Date</th>
+                                                            <!-- <th>Payer</th> -->
+                                                            <th>Billing Code</th>
+                                                            <th>Employee</th>
+                                                            <th>Rate</th>
+                                                            <th>Units</th>
+                                                            <th>SubTotal</th>
+                                                            <th>Paid</th>
+                                                            <th>Balance</th>
+                                                            <th>
+
+
+
+
+                                                                <select class="form-control input-small input-sm mlm"
+                                                                    (click)="updateAll($event,1,obj.unconfirmList)">
+                                                                    <option value="">Select...</option>
+                                                                    <option value="1">Confirmed</option>
+                                                                    <option value="4">Hold</option>
+                                                                </select>
+
+
+
+
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        <tr *ngFor="let item of obj.unconfirmList">
+                                                            <th>
+                                                                <label class="checkbox-container mrl">
+                                                                    <input type="checkbox"
+                                                                        name="item[{{ i }}].IsChecked"
+                                                                        [(ngModel)]="item.isChecked">
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+
+
+
+
+                                                                {{item.billingStatus}}
+                                                            </th>
+                                                            <!-- <td>
+                                                            <div class="green-small-box"></div>
+                                                        </td> -->
+                                                            <td>
+                                                                <div class="greenverified-small-box"></div>
+                                                            </td>
+                                                            <!-- <td>{{item.clientName}}</td> -->
+                                                            <td> {{item.meetingDate | date: 'dd MMM YYYY'}}</td>
+                                                            <!-- <td>{{item.payerName}}</td> -->
+                                                            <td>{{item.billingCode}}</td>
+                                                            <td>{{item.empName}}</td>
+                                                            <td>{{item.billingRate}}</td>
+                                                            <td>{{item.billingUnits}}</td>
+                                                            <td>{{item.billingTotal}}</td>
+                                                            <td>{{item.paidAmount}}</td>
+                                                            <td>{{item.balanceAmount}}</td>
+                                                            <td>
+
+
+                                                                <a title="Edit" href="javascript:;"><i
+                                                                        class="fa fa-edit medium-txt pts mrm"></i></a>
+
+                                                                <a class="text-blue" title="Info" href="javascript:;"><i
+                                                                        class="fa fa-eye medium-txt pts mrm"></i></a>
+
+
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,13 +439,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="row mtm">
+                    <div class="col-sm-12 col-xs-12 text-center">
+                        <button type="button" class="btn btn-md btn-dark" >
+                        <i class="fa fa-money fa-fw mrm"></i>Generate Invoice</button></div>
+                </div> -->
             </div>
-
 
 
         </div>
 
-
     </div>
-
-</div>
